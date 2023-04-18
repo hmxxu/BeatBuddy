@@ -9,6 +9,6 @@ BeatBuddy is an app that tailors recommendations much more closely to your prefe
 
 ## In this repository
 `/beatbuddy` is where all back-end and other server-side code is stored.
-`/site` is for the front-facing website, and contains all code for visuals and website display.
+`/public` and `/src` is for the front-facing website, and contains all code for visuals and website display.
 
 *-this section subject to change-*
