@@ -1,8 +1,9 @@
+// * App.tsx is a starter file from Reac - we can remove this later
+
 import React from 'react';
-// ! (4/18/23) Looks like React wont accept SVG files - Pu
-import logo from './logo.svg';
-import minami from './minami.jpg';
-import './App.css';
+import logo from './images/logo.svg';
+import minami from './images/minami.jpg';
+import './styles/App.css';
 
 function App(props: any) {
   // props is an Object

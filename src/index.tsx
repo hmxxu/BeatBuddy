@@ -1,9 +1,12 @@
+// * index.tsx takes all of the components (Filter, Navbar, etc.) and renders
+// * them in 'root', which will appear in '/public/index.html (see line 31)'
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './styles/index.css';
 import App from './App';
-import Navbar from './Navbar';
-import Filter from './Filter';
+import Navbar from './components/Navbar';
+import Filter from './components/Filter';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
