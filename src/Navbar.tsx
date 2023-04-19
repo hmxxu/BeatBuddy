@@ -1,9 +1,5 @@
-// Nav bar template
+import React from 'react';
 
-/**
- * TODO
- * @returns 
- */
 function Navbar() {
   return(
     <h1>Navbar Navbar Navbar</h1>
