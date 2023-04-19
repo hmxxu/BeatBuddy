@@ -10,6 +10,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h4 {
+  font-size: 20px;
+}
+
+.text-body {
+  font-size: 16px;
+}
+
+/* ? For bold typography */
+.text-body, h4 {
+  font-weight: 700;
+}
+
 code {
   /* font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace; */
