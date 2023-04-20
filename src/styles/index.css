@@ -10,7 +10,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h4 {
+h4, .h4 {
   font-size: 20px;
 }
 
@@ -19,7 +19,7 @@ h4 {
 }
 
 /* ? For bold typography */
-.text-body, h4 {
+.text-body, h4, .h4 {
   font-weight: 700;
 }
 
