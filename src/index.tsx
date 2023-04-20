@@ -9,9 +9,9 @@ import Navbar from './components/Navbar';
 import Filter from './components/Filter';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
+// prop example: <App subject="Candiceeeeeee"/>
 root.render(
   <React.StrictMode>
-    <App subject="Candiceeeeeee"/>
     <Navbar/>
     <Filter/>
   </React.StrictMode>
