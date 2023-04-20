@@ -13,5 +13,3 @@ class SongRec {
         this.title = title;
     }
 }
-
-console.log(getReccomendations())
