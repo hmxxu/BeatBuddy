@@ -24,7 +24,7 @@ function Filter() {
     let sh = qs('.search-header');
     let sWidth: number = sh.offsetWidth | 0;
     let sMargin: number = parseInt(getComputedStyle(sh).marginRight!);
-    let offset = sWidth + sMargin;
+    let offset: number = sWidth + sMargin;
 
     let myInputWidth: number = (id('myInput').offsetWidth | 0) - 2;
     console.log(offset);
@@ -168,30 +168,31 @@ function Filter() {
           </div>
         </div>
 
-        <div className='clear-all'>
-          <span className='clear-all-text'>Clear all</span>
-        </div>
+        {/* <div className='clear-all'>
+
+        </div> */}
+        <span className='clear-all-text'>Clear all</span>
         {/* flex - row */}
         <div className='tags-container'>
           <div className='tag'>
-            <span className='tag-content'>J-rock</span>
-            <img src={closeIcon} alt='An icon of an x'></img>
+            <p className='tag-content'>J-rock</p>
+            <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
           </div>
           <div className='tag'>
             <span className='tag-content'>Vocaloid</span>
-            <img src={closeIcon} alt='An icon of an x'></img>
+            <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
           </div>
           <div className='tag'>
             <span className='tag-content'>Indie</span>
-            <img src={closeIcon} alt='An icon of an x'></img>
+            <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
           </div>
           <div className='tag'>
             <span className='tag-content'>Classical</span>
-            <img src={closeIcon} alt='An icon of an x'></img>
+            <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
           </div>
           <div className='tag'>
             <span className='tag-content'>Jazz</span>
-            <img src={closeIcon} alt='An icon of an x'></img>
+            <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
           </div>
         </div>
       </div>

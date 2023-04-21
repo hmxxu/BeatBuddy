@@ -3,12 +3,47 @@
 .filter-container {
   display: flex;
   flex-direction: column;
-  background-color: red;
+  /* background-color: red; */
 }
 
 .tags-container {
   display: flex;
-  background-color: rgb(107, 107, 255);
+  /* background-color: rgb(107, 107, 255); */
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dropdown, .tags-container {
+  /* TODO: change this max-width later */
+  max-width: 400px;
+}
+
+.tag {
+  display: flex;
+  column-gap: 15px;
+  align-items: center;
+  justify-content: center;
+  background-color: #D5D1FF;
+  border-radius: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.tag:hover {
+  background-color: #BFBCE5;
+  transition: 0.5s;
+}
+
+.tag-content {
+  margin: 0 auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.x-icon {
+  cursor: pointer;
+  width: 12px;
+  height: 12px;
 }
 
 .search-header {
@@ -38,6 +73,7 @@
 .dropdown {
   position: relative;
   display: inline-block;
+  white-space: nowrap;
   padding: 10px;
 }
 
@@ -45,7 +81,7 @@
 .dropdown-content {
   position: absolute;
   background-color: #ffffff;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   border-radius: 20px;
   z-index: 1;
   margin-top: 5px;
@@ -75,7 +111,7 @@
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-  background-color: #72c6f4;
+  background-color: #D5D1FF;
   transition: 0.2s;
 }
 
