@@ -17,11 +17,7 @@ function Filter() {
     updateDropdownMargin();
     borderForFirstLast();
     getTagsClicked();
-    getISOLanguage();
-  }
-
-  function getISOLanguage() {
-    console.log(ISOLanguage);
+    console.log(ISOLanguage[1]);
   }
 
   function getTagsClicked() {
