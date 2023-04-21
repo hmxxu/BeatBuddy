@@ -1,6 +1,8 @@
 // * Filter.tsx is a component for the language/genre filter feature *
 
 import '../styles/filter.css';
+//* ISOLanguage stores a JSON of all languages and its
+import ISOLanguage from '../ISOLanguage.json';
 
 import React from 'react';
 import closeIcon from '../images/close-icon.png';
@@ -14,6 +16,27 @@ function Filter() {
     openDropdown();
     updateDropdownMargin();
     borderForFirstLast();
+    getTagsClicked();
+    getISOLanguage();
+  }
+
+  function getISOLanguage() {
+    console.log(ISOLanguage);
+  }
+
+  function getTagsClicked() {
+    let myDropdown = id('myDropdown');
+    myDropdown.addEventListener('click', (e) => {
+      let clickedElement = e.target! as Element;
+      // Confirm check if it's an 'a' tag
+      if (clickedElement.tagName!.toLowerCase() === 'a') {
+        e.preventDefault();
+        console.log('got in');
+        // console.log(clickedElement);
+        console.log(clickedElement.getAttribute('id'));
+      }
+    })
+
   }
 
   /**
@@ -153,18 +176,18 @@ function Filter() {
           <span className='h4 search-header'>Language</span>
           <input type='text' placeholder='Search..' id='myInput' onKeyUp={filterFunction} />
           <div id='myDropdown' className='dropdown-content hidden'>
-            <a href='#en'>English</a>
-            <a href='#th'>Thai</a>
-            <a href='#jp'>Japanese</a>
-            <a href='#kr'>Korean</a>
-            <a href='#cn'>Chinese</a>
-            <a href='#de'>German</a>
-            <a href='#it'>Italian</a>
-            <a href='#fr'>French</a>
-            <a href='#es'>Spanish</a>
-            <a href='#ru'>Russian</a>
-            <a href='#id'>Indonesian</a>
-            <a href='#pl'>Polish</a>
+            <a href='#en' id='en'>English</a>
+            <a href='#th' id='th'>Thai</a>
+            <a href='#jp' id='jp'>Japanese</a>
+            <a href='#kr' id='kr'>Korean</a>
+            <a href='#cn' id='cn'>Chinese</a>
+            <a href='#de' id='de'>German</a>
+            <a href='#it' id='it'>Italian</a>
+            <a href='#fr' id='fr'>French</a>
+            <a href='#es' id='es'>Spanish</a>
+            <a href='#ru' id='ru'>Russian</a>
+            <a href='#id' id='id'>Indonesian</a>
+            <a href='#pl' id='pl'>Polish</a>
           </div>
         </div>
 
