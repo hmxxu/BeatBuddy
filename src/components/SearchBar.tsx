@@ -7,22 +7,34 @@ function SearchBar() {
   window.addEventListener("load", init);
 
   function init() {
+    // search button
     qs("input + button").addEventListener("click", searchSongs);
+
+    //selected-song button inside input
+    let selectedSongBtn = id("selected-song");
+
+    // remove a selected song
+    selectedSongBtn.addEventListener("click", function() {
+      this.classList.add("display-hidden");
+    })
   }
 
   function searchSongs() {
     // for now, temporary implementation that just appends songs to the results container
     let songsContainer = id("song-results-container");
     
+    // remove old songs in container
     let currSongs = qsa(".song-result");
     currSongs.forEach(song => {
       song.remove();
     });
 
+    // temporary. Fetch songs from backend later
     let songs = [["minami", "Eternal Blue", "J-pop"], 
                 ["deco*27", "vampire", "Vocaloid"],
                 ["Ryo", "melt", "Vocaloid"]];
 
+    // add each song fetched to results
     songs.forEach(song => {
       let newResult : Element = document.createElement("div");
       newResult.classList.add ("song-result");
@@ -32,11 +44,17 @@ function SearchBar() {
         metadata.textContent = song[i];
         newResult.appendChild(metadata);
       }
+
+      newResult.addEventListener("click", function() {
+        let selectedSongBtn = id("selected-song");
+        selectedSongBtn.children[0].textContent = song[0] + " - " + song[1];
+        selectedSongBtn.classList.remove("display-hidden");
+      })
       songsContainer.appendChild(newResult);
     });  
 
-    songsContainer.classList.remove("hidden");
-
+    // show container 
+    songsContainer.classList.remove("visiblity-hidden");
   }
 
   /**
@@ -76,30 +94,20 @@ function SearchBar() {
             search
           </span>
         </button>
-        <button id="selected-song">Minami - Eternal Blue</button>
+        <button id="selected-song" className="display-hidden">
+          <p>Minami - Eternal Blue</p>
+          <span className="material-symbols-rounded">
+            close
+          </span>
+        </button>
       </section>
-      <section id="song-results-container">
+      <section id="song-results-container" className="visiblity-hidden">
         <div>
           <p>Artist</p>
           <p>Title</p>
           <p>Genre</p>
         </div>
         <hr></hr>
-        <div className="song-result">
-          <p>Minami</p>
-          <p>Eternal Blue</p>
-          <p>J-pop</p>
-        </div>
-        <div className="song-result">
-          <p>deco*27</p>
-          <p>Vampire</p>
-          <p>Vocaloid</p>
-        </div>
-        <div className="song-result">
-          <p>Ryo</p>
-          <p>Melt</p>
-          <p>J-pop</p>
-        </div>
       </section>
     </div>
   )

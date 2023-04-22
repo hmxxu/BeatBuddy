@@ -78,3 +78,14 @@
     'GRAD' 0,
     'opsz' 48
   }
+
+  #selected-song > .material-symbols-rounded {
+    margin: 0px;
+    float: right;
+  }
+
+  #selected-song p {
+    margin: 0px;
+    display: inline;
+    vertical-align: sub;
+  }
