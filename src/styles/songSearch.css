@@ -1,0 +1,45 @@
+/**
+  * Css styles for the song search portion
+  */
+
+  #song-search {
+    width: calc(100% - 115px);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  #song-search-wrapper {
+    margin: 0px 40px 500px 40px;
+    position: relative;
+  }
+
+  #song-search + button {
+    position: absolute;
+    background-color: #1C2330;
+    height: 100%;
+    width: 50px;
+    text-align: center;
+    border-radius: 0px 20px 20px 0;
+    border: none;
+    transition: 300ms;
+  }
+
+  #song-search:focus + button {
+    outline: 2px solid #D5D1FF;
+  }
+
+  #song-search + button:hover {
+    background-color: #2a3447;
+    cursor: pointer;
+  }
+
+  .material-symbols-rounded {
+    filter: invert(1);
+    font-size: 2em;
+    margin: 8px;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
