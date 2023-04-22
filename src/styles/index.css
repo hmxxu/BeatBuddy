@@ -11,7 +11,7 @@ body {
   background: linear-gradient(#6380E8, #A9A2FF);
   width: 75%;
   color: aliceblue;
-  text-shadow: #1C2330 1px 1px 5px;
+  /* text-shadow: #1C2330 1px 1px 5px; */
 }
 
 h4, .h4 {
@@ -28,7 +28,7 @@ input {
 
 input:focus {
   outline: 2px solid #D5D1FF;
-}
+
 
 button {
   background-color: #1C2330;
