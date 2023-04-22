@@ -2,8 +2,7 @@
 
 import '../styles/filter.css';
 
-import React from 'react';
-import { useState } from "react";
+import React, { useState } from 'react';
 import closeIcon from '../images/close-icon.png';
 import ISOLanguage from '../ISOLanguage.json';
 
@@ -15,6 +14,7 @@ function Filter() {
   //* Initialize state at the top of the function component.
   // https://react.dev/reference/react/useState
   const [tagComponent, setTagComponent] = useState<React.ReactNode[]>([]);
+  const [myTags, setTags] = useState<string[]>([]);
 
   function init() {
     openDropdown();
@@ -23,14 +23,65 @@ function Filter() {
     getTagsClicked();
   }
 
-  function updateLang(language: any) {
-    console.log('Clicked ons: ', language);
-    setTagComponent([...tagComponent, <Tags langName={language} removeTag={removeTag}/>]);
+  // TODO: Right now duplicate tags can still be added <-- fix this
+  function addTags (e: any) {
+    console.log('got in addTags');
+    //& spread operator (...) allows us to quickly copy all or part of an existing array or object
+    //& into another array or object.
+    const lang = e.target.id;
+    const tagKey = lang.toLowerCase();
+
+    //? old implement
+    // const newTag = (
+    //   <div className='tag' key={tagKey}>
+    //     <p className='tag-content'>{language}</p>
+    //     <img src={closeIcon} alt='An icon of an x' className="x-icon" onClick={() => removeTags(tagKey)}></img>
+    //   </div>
+    // );
+    // setTags([...myTags, newTag]);
+    // myTags.filter((language) => {
+    //   console.log("language = " + language);
+    //   console.log("tagKey = " + tagKey);
+
+    //   if(language.toLowerCase() !== tagKey) {
+    //     return true;
+    //   }
+    //   return false;
+    // });
+
+    if (myTags.length < 1) {
+      setTags([...myTags, lang]);
+    } else {
+      myTags.forEach((tag) => {
+        if (tag.toLowerCase() !== tagKey) {
+          setTags([...myTags, lang]);
+          console.log('adding non-duplicate tags, all good');
+        } else {
+          console.log('attempting to add duplicate tags!')
+        }
+      })
+    }
+    //? new implement
+
   }
 
-  function removeTag(index: number) {
-    setTagComponent(tagComponent.filter((_, i) => i !== index));
+  //* Remove tags working now, need to work on preventing dupes
+  function removeTags(tagToRemove: any) {
+    console.log('got in removeTags');
+    console.log(tagToRemove);
+    const updatedTags = myTags.filter((language) => language !== tagToRemove);
+    setTags(updatedTags);
   }
+
+  // function updateLang(e: any) {
+  //   console.log('Clicked ons: ', e.target.id);
+  //   let language = e.target.id;
+  //   setTagComponent([...tagComponent, <Tags langName={language} key={language} />]);
+  // }
+
+  // function removeTag(index: number) {
+  //   setTagComponent(tagComponent.filter((_, i) => i !== index));
+  // }
 
   function getTagsClicked() {
     let myDropdown = id('myDropdown');
@@ -196,7 +247,15 @@ function Filter() {
             <a href='#id' id='id'>Indonesian</a>
             <a href='#pl' id='pl'>Polish</a>
           </div> */}
-          <LanguageList onClick={updateLang}/>
+          {/* <LanguageList onClick={updateLang}/> */}
+          <div id='myDropdown' className='dropdown-content hidden'>
+            {ISOLanguage.map((language) => (
+              <a href={'#' + language.code} id={language.name} key={language.name} onClick={addTags}>
+                {language.name}
+              </a>
+            ))}
+          </div>
+
           <div id='myDropdown' className='dropdown-content hidden'>
 
           </div>
@@ -208,7 +267,16 @@ function Filter() {
         <span className='clear-all-text'>Clear all</span>
         {/* flex - row */}
         <div className='tags-container'>
-          {tagComponent}
+
+          {myTags.map(item => (
+            <div className='tag' key={item}>
+              <p className='tag-content'>{item}</p>
+              <img src={closeIcon} alt='An icon of an x' className="x-icon" onClick={() => removeTags(item)}></img>
+            </div>
+          ))}
+
+          {/* {myTags} */}
+          {/* {tagComponent} */}
           {/* {showTags && <Tags langName="jp"/>} */}
 
           {/* <div className='tag'>
@@ -249,14 +317,25 @@ function Filter() {
 
 }
 
-function LanguageList(props: any) {
-  function updateLang(e: any) {
-    let language = e.target.id;
-    props.onClick(language);
-  }
+// function LanguageList(props: any) {
+//   function updateLang(e: any) {
+//     let language = e.target.id;
+//     props.onClick(language);
+//   }
 
+//   const langList = ISOLanguage.map((language) => (
+//     <a href={'#' + language.code} id={language.name} key={language.name} onClick={updateLang}>
+//       {language.name}
+//     </a>
+//   ));
+
+//   return (
+//     <div id='myDropdown' className='dropdown-content hidden'>{langList}</div>
+//   )
+// }
+function LanguageList() {
   const langList = ISOLanguage.map((language) => (
-    <a href={'#' + language.code} id={language.name} key={language.name} onClick={updateLang}>
+    <a href={'#' + language.code} id={language.name} key={language.name}>
       {language.name}
     </a>
   ));
@@ -266,16 +345,16 @@ function LanguageList(props: any) {
   )
 }
 
-function Tags(props: any) {
-  let langName = props.langName;
-  // let langName = "untitled";
+// function Tags(props: any) {
+//   let langName = props.langName;
+//   // let langName = "untitled";
 
-  return (
-    <div className='tag'>
-      <p className='tag-content'>{langName}</p>
-      <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
-    </div>
-  )
-};
+//   return (
+//     <div className='tag'>
+//       <p className='tag-content'>{langName}</p>
+//       <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
+//     </div>
+//   )
+// };
 
 export default Filter;
