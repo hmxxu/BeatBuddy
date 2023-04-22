@@ -1,23 +1,35 @@
 // * Filter.tsx is a component for the language/genre filter feature *
 
 import '../styles/filter.css';
-//* ISOLanguage stores a JSON of all languages and its
-import ISOLanguage from '../ISOLanguage.json';
 
 import React from 'react';
+import { useState } from "react";
 import closeIcon from '../images/close-icon.png';
+import ISOLanguage from '../ISOLanguage.json';
 
 function Filter() {
 
   window.addEventListener('load', init);
   window.addEventListener('resize', updateDropdownMargin);
 
+  //* Initialize state at the top of the function component.
+  // https://react.dev/reference/react/useState
+  const [tagComponent, setTagComponent] = useState<React.ReactNode[]>([]);
+
   function init() {
     openDropdown();
     updateDropdownMargin();
     borderForFirstLast();
     getTagsClicked();
-    console.log(ISOLanguage[1]);
+  }
+
+  function updateLang(language: any) {
+    console.log('Clicked ons: ', language);
+    setTagComponent([...tagComponent, <Tags langName={language} removeTag={removeTag}/>]);
+  }
+
+  function removeTag(index: number) {
+    setTagComponent(tagComponent.filter((_, i) => i !== index));
   }
 
   function getTagsClicked() {
@@ -27,12 +39,11 @@ function Filter() {
       // Confirm check if it's an 'a' tag
       if (clickedElement.tagName!.toLowerCase() === 'a') {
         e.preventDefault();
-        console.log('got in');
-        // console.log(clickedElement);
-        console.log(clickedElement.getAttribute('id'));
+        let langName = clickedElement.getAttribute('id');
+        let tagsContainer = document.querySelector('.tags-container') !;
+        // tagsContainer.appendChild(<Tags langName={langName}/>)
       }
     })
-
   }
 
   /**
@@ -49,7 +60,7 @@ function Filter() {
     console.log(offset);
 
     qs('.dropdown-content').style.marginLeft = `${offset}px`;
-    qs('.dropdown-content').style.minWidth = `${myInputWidth}px`;
+    qs('.dropdown-content').style.width = `${myInputWidth}px`;
   }
 
   /**
@@ -71,11 +82,11 @@ function Filter() {
     document.addEventListener('click', (e) => {
       const withinBoundaries: boolean = e.composedPath().includes(myInput);
       if (withinBoundaries) {
-        console.log('inside');
+        // console.log('inside');
         id('myDropdown').classList.add('show');
         id('myDropdown').classList.remove('hidden');
       } else {
-        console.log('outside');
+        // console.log('outside');
         id('myDropdown').classList.add('hidden');
         id('myDropdown').classList.remove('show');
       }
@@ -171,10 +182,10 @@ function Filter() {
         <div className='dropdown'>
           <span className='h4 search-header'>Language</span>
           <input type='text' placeholder='Search..' id='myInput' onKeyUp={filterFunction} />
-          <div id='myDropdown' className='dropdown-content hidden'>
+          {/* <div id='myDropdown' className='dropdown-content hidden'>
             <a href='#en' id='en'>English</a>
             <a href='#th' id='th'>Thai</a>
-            <a href='#jp' id='jp'>Japanese</a>
+            <a href='#ja' id='ja'>Japanese</a>
             <a href='#kr' id='kr'>Korean</a>
             <a href='#cn' id='cn'>Chinese</a>
             <a href='#de' id='de'>German</a>
@@ -184,6 +195,10 @@ function Filter() {
             <a href='#ru' id='ru'>Russian</a>
             <a href='#id' id='id'>Indonesian</a>
             <a href='#pl' id='pl'>Polish</a>
+          </div> */}
+          <LanguageList onClick={updateLang}/>
+          <div id='myDropdown' className='dropdown-content hidden'>
+
           </div>
         </div>
 
@@ -193,7 +208,10 @@ function Filter() {
         <span className='clear-all-text'>Clear all</span>
         {/* flex - row */}
         <div className='tags-container'>
-          <div className='tag'>
+          {tagComponent}
+          {/* {showTags && <Tags langName="jp"/>} */}
+
+          {/* <div className='tag'>
             <p className='tag-content'>J-rock</p>
             <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
           </div>
@@ -212,7 +230,7 @@ function Filter() {
           <div className='tag'>
             <span className='tag-content'>Jazz</span>
             <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
-          </div>
+          </div> */}
         </div>
       </div>
       <h1>h1</h1>
@@ -230,5 +248,34 @@ function Filter() {
   )
 
 }
+
+function LanguageList(props: any) {
+  function updateLang(e: any) {
+    let language = e.target.id;
+    props.onClick(language);
+  }
+
+  const langList = ISOLanguage.map((language) => (
+    <a href={'#' + language.code} id={language.name} key={language.name} onClick={updateLang}>
+      {language.name}
+    </a>
+  ));
+
+  return (
+    <div id='myDropdown' className='dropdown-content hidden'>{langList}</div>
+  )
+}
+
+function Tags(props: any) {
+  let langName = props.langName;
+  // let langName = "untitled";
+
+  return (
+    <div className='tag'>
+      <p className='tag-content'>{langName}</p>
+      <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
+    </div>
+  )
+};
 
 export default Filter;
