@@ -8,6 +8,7 @@ import App from './App';
 import Navbar from './components/Navbar';
 import Filter from './components/Filter';
 import SearchBar from './components/SearchBar';
+import PlaylistReady from './components/PlaylistReady';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 // prop example: <App subject="Candiceeeeeee"/>
@@ -16,5 +17,6 @@ root.render(
     <Navbar/>
     <SearchBar/>
     <Filter/>
+    <PlaylistReady/>
   </React.StrictMode>
 );
