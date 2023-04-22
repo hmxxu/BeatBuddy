@@ -129,21 +129,22 @@ function Filter() {
    */
   function openDropdown() {
     console.log('got in openDropdown');
-    let myInput = qs('.myInput')!;
-    document.addEventListener('click', (e) => {
-      const withinBoundaries: boolean = e.composedPath().includes(myInput);
-      if (withinBoundaries) {
-        // console.log('inside');
-        id('myDropdown').classList.add('show');
-        // !
-        id('myDropdown').classList.remove('hidden');
-      } else {
-        // console.log('outside');
-        // !
-        id('myDropdown').classList.add('hidden');
-        id('myDropdown').classList.remove('show');
-      }
-    });
+    // let myInput = qs('.myInput')!;
+    // document.addEventListener('click', (e) => {
+    //   const withinBoundaries: boolean = e.composedPath().includes(myInput);
+    //   if (withinBoundaries) {
+    //     // console.log('inside');
+    //     id('myDropdown').classList.add('show');
+    //     // !
+    //     id('myDropdown').classList.remove('hidden');
+    //   } else {
+    //     // console.log('outside');
+    //     // !
+    //     id('myDropdown').classList.add('hidden');
+    //     id('myDropdown').classList.remove('show');
+    //   }
+    // });
+    id('myDropdown').classList.toggle('hidden');
   }
 
   /**
@@ -225,8 +226,8 @@ function Filter() {
         <div className='filter-container'>
           <div className='dropdown'>
             <span className='h4 search-header'>Language</span>
-            <input type='text' placeholder='Search..' className='myInput' onKeyUp={filterFunction} />
-            <div id='myDropdown' className='dropdown-content hidden' onClick={openDropdown}>
+            <input type='text' placeholder='Search..' className='myInput' onKeyUp={filterFunction} onClick={openDropdown} />
+            <div id='myDropdown' className='dropdown-content hidden'>
               {ISOLanguage.map((language) => (
                 <a href={'#' + language.code} id={language.name} key={language.name} onClick={addTags}>
                   {language.name}
