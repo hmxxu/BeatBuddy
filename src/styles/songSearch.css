@@ -3,29 +3,74 @@
   */
 
   #song-search {
-    width: calc(100% - 115px);
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    width: calc(100% - 65px);
   }
 
   #song-search-wrapper {
-    margin: 0px 40px 500px 40px;
     position: relative;
   }
 
   #song-search + button {
     position: absolute;
+    right: 0px;
     height: 100%;
     width: 50px;
     border-radius: 0px 20px 20px 0;
   }
 
-  #song-search:focus + button {
-    outline: 2px solid #D5D1FF;
+  #song-results-container {
+    background-color: rgb(255, 255, 255, 0.2);
+    padding: 20px;
+    margin: 20px 0px 20px 0px;
+  }
+
+  #song-results-container > div:first-child {
+    font-weight: bold;
+  }
+
+  #song-results-container > div:first-child > p {
+    margin: 0;
+  }
+
+  #selected-song {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: calc(100% - 70px);
+    border-radius: 10px;
+    font-size: 14px;
+    height: calc(100% - 20px);
+    text-align: left;
+    padding-left: 20px;
+    background-color: #6481E8;
+    font-weight: bold;
+  }
+
+  #selected-song:hover {
+    background-color: #819dff;
+  }
+
+  .song-result, #song-results-container > div:first-child {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .song-result, #song-results-container {
+    border-radius: 20px;
+  }
+
+  .song-result {
+    background-color: #D5D1FF;
+    color: black;
+    margin-bottom: 20px;
+    padding: 20px 0 20px 0;
+  }
+
+  .song-result:hover {
+    cursor: pointer;
   }
 
   .material-symbols-rounded {
-    font-size: 2em;
     margin: 8px;
     font-variation-settings:
     'FILL' 0,

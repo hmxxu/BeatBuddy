@@ -13,14 +13,13 @@ function Filter() {
 
   //* Initialize state at the top of the function component.
   // https://react.dev/reference/react/useState
-  const [tagComponent, setTagComponent] = useState<React.ReactNode[]>([]);
   const [myTags, setTags] = useState<string[]>([]);
 
   function init() {
     openDropdown();
     updateDropdownMargin();
     borderForFirstLast();
-    getTagsClicked();
+    // getTagsClicked();
   }
 
   // TODO: Right now duplicate tags can still be added <-- fix this
@@ -83,19 +82,19 @@ function Filter() {
   //   setTagComponent(tagComponent.filter((_, i) => i !== index));
   // }
 
-  function getTagsClicked() {
-    let myDropdown = id('myDropdown');
-    myDropdown.addEventListener('click', (e) => {
-      let clickedElement = e.target! as Element;
-      // Confirm check if it's an 'a' tag
-      if (clickedElement.tagName!.toLowerCase() === 'a') {
-        e.preventDefault();
-        let langName = clickedElement.getAttribute('id');
-        let tagsContainer = document.querySelector('.tags-container') !;
-        // tagsContainer.appendChild(<Tags langName={langName}/>)
-      }
-    })
-  }
+  // function getTagsClicked() {
+  //   let myDropdown = id('myDropdown');
+  //   myDropdown.addEventListener('click', (e) => {
+  //     let clickedElement = e.target! as Element;
+  //     // Confirm check if it's an 'a' tag
+  //     if (clickedElement.tagName!.toLowerCase() === 'a') {
+  //       e.preventDefault();
+  //       let langName = clickedElement.getAttribute('id');
+  //       let tagsContainer = document.querySelector('.tags-container') !;
+  //       // tagsContainer.appendChild(<Tags langName={langName}/>)
+  //     }
+  //   })
+  // }
 
   /**
    * Positions the search dropdown correct so that it's always horizontally
@@ -107,7 +106,7 @@ function Filter() {
     let sMargin: number = parseInt(getComputedStyle(sh).marginRight!);
     let offset: number = sWidth + sMargin;
 
-    let myInputWidth: number = (id('myInput').offsetWidth | 0) - 2;
+    let myInputWidth: number = (qs('.myInput').offsetWidth | 0) - 2;
     console.log(offset);
 
     qs('.dropdown-content').style.marginLeft = `${offset}px`;
@@ -118,7 +117,7 @@ function Filter() {
    * Gives a curved border radius to the first and last item on search dropdown
    */
   function borderForFirstLast() {
-    let myDropDown = id('myDropdown')!
+    let myDropDown = id('myDropdown');
     let a = myDropDown.getElementsByTagName('a');
     a[0].classList.add('firstItem');
     a[a.length - 1].classList.add('lastItem');
@@ -129,15 +128,18 @@ function Filter() {
    * search bar, otherwise the dropdown will be closed.
    */
   function openDropdown() {
-    let myInput = id('myInput')!;
+    console.log('got in openDropdown');
+    let myInput = qs('.myInput')!;
     document.addEventListener('click', (e) => {
       const withinBoundaries: boolean = e.composedPath().includes(myInput);
       if (withinBoundaries) {
         // console.log('inside');
         id('myDropdown').classList.add('show');
+        // !
         id('myDropdown').classList.remove('hidden');
       } else {
         // console.log('outside');
+        // !
         id('myDropdown').classList.add('hidden');
         id('myDropdown').classList.remove('show');
       }
@@ -148,7 +150,7 @@ function Filter() {
    * Handles searching for items inside the search bar
    */
   function filterFunction() {
-    let input = id('myInput') as HTMLInputElement;
+    let input = qs('.myInput') as HTMLInputElement;
     let filter = input.value.toUpperCase();
     let div = id('myDropdown')!;
     let a = div.getElementsByTagName('a');
@@ -203,15 +205,6 @@ function Filter() {
   }
 
   /**
- * Returns the array of elements that match the given CSS selector.
- * @param {string} query - CSS query selector
- * @returns {object[]} array of DOM objects matching the query.
- */
-  function qsa(query: any) {
-    return document.querySelectorAll(query);
-  }
-
-  /**
    * Returns the first element that matches the given CSS selector.
    * @param {string} query - CSS query selector.
    * @return {object[]} array of DOM objects matching the query.
@@ -221,140 +214,47 @@ function Filter() {
   }
 
   return(
-    <div className='filter-root-container'>
-      <div className='language'>
-        <div>
-          <input type='checkbox' id='any-language' name='any-language' />
-          <label htmlFor='any-language' className='text-body'>Any language</label>
-        </div>
-        <h4>ds This is h4 font</h4>
+    <section id='filter-section'>
+      <div>
+        <input type='checkbox' id='any-language' name='any-language' />
+        <label htmlFor='any-language' className='text-body'>Any language</label>
       </div>
-      <div className='filter-container'>
-        <div className='dropdown'>
-          <span className='h4 search-header'>Language</span>
-          <input type='text' placeholder='Search..' id='myInput' onKeyUp={filterFunction} />
-          {/* <div id='myDropdown' className='dropdown-content hidden'>
-            <a href='#en' id='en'>English</a>
-            <a href='#th' id='th'>Thai</a>
-            <a href='#ja' id='ja'>Japanese</a>
-            <a href='#kr' id='kr'>Korean</a>
-            <a href='#cn' id='cn'>Chinese</a>
-            <a href='#de' id='de'>German</a>
-            <a href='#it' id='it'>Italian</a>
-            <a href='#fr' id='fr'>French</a>
-            <a href='#es' id='es'>Spanish</a>
-            <a href='#ru' id='ru'>Russian</a>
-            <a href='#id' id='id'>Indonesian</a>
-            <a href='#pl' id='pl'>Polish</a>
-          </div> */}
-          {/* <LanguageList onClick={updateLang}/> */}
-          <div id='myDropdown' className='dropdown-content hidden'>
-            {ISOLanguage.map((language) => (
-              <a href={'#' + language.code} id={language.name} key={language.name} onClick={addTags}>
-                {language.name}
-              </a>
-            ))}
-          </div>
-
-          <div id='myDropdown' className='dropdown-content hidden'>
-
-          </div>
+      <div className='filter-root-container'>
+        <div className='language'>
         </div>
+        <div className='filter-container'>
+          <div className='dropdown'>
+            <span className='h4 search-header'>Language</span>
+            <input type='text' placeholder='Search..' className='myInput' onKeyUp={filterFunction} />
+            <div id='myDropdown' className='dropdown-content hidden' onClick={openDropdown}>
+              {ISOLanguage.map((language) => (
+                <a href={'#' + language.code} id={language.name} key={language.name} onClick={addTags}>
+                  {language.name}
+                </a>
+              ))}
+            </div>
+          </div>
 
-        {/* <div className='clear-all'>
+          {/* <div className='clear-all'>
 
         </div> */}
-        <span className='clear-all-text'>Clear all</span>
-        {/* flex - row */}
-        <div className='tags-container'>
+          <span className='clear-all-text'>Clear all</span>
+          {/* flex - row */}
+          <div className='tags-container'>
 
-          {myTags.map(item => (
-            <div className='tag' key={item}>
-              <p className='tag-content'>{item}</p>
-              <img src={closeIcon} alt='An icon of an x' className="x-icon" onClick={() => removeTags(item)}></img>
-            </div>
-          ))}
-
-          {/* {myTags} */}
-          {/* {tagComponent} */}
-          {/* {showTags && <Tags langName="jp"/>} */}
-
-          {/* <div className='tag'>
-            <p className='tag-content'>J-rock</p>
-            <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
+            {myTags.map(item => (
+              <div className='tag' key={item}>
+                <p className='tag-content'>{item}</p>
+                <img src={closeIcon} alt='An icon of an x' className="x-icon" onClick={() => removeTags(item)}></img>
+              </div>
+            ))}
           </div>
-          <div className='tag'>
-            <span className='tag-content'>Vocaloid</span>
-            <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
-          </div>
-          <div className='tag'>
-            <span className='tag-content'>Indie</span>
-            <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
-          </div>
-          <div className='tag'>
-            <span className='tag-content'>Classical</span>
-            <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
-          </div>
-          <div className='tag'>
-            <span className='tag-content'>Jazz</span>
-            <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
-          </div> */}
         </div>
       </div>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
+    </section>
 
-    </div>
   )
 
 }
-
-// function LanguageList(props: any) {
-//   function updateLang(e: any) {
-//     let language = e.target.id;
-//     props.onClick(language);
-//   }
-
-//   const langList = ISOLanguage.map((language) => (
-//     <a href={'#' + language.code} id={language.name} key={language.name} onClick={updateLang}>
-//       {language.name}
-//     </a>
-//   ));
-
-//   return (
-//     <div id='myDropdown' className='dropdown-content hidden'>{langList}</div>
-//   )
-// }
-function LanguageList() {
-  const langList = ISOLanguage.map((language) => (
-    <a href={'#' + language.code} id={language.name} key={language.name}>
-      {language.name}
-    </a>
-  ));
-
-  return (
-    <div id='myDropdown' className='dropdown-content hidden'>{langList}</div>
-  )
-}
-
-// function Tags(props: any) {
-//   let langName = props.langName;
-//   // let langName = "untitled";
-
-//   return (
-//     <div className='tag'>
-//       <p className='tag-content'>{langName}</p>
-//       <img src={closeIcon} alt='An icon of an x' className="x-icon"></img>
-//     </div>
-//   )
-// };
 
 export default Filter;
