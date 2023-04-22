@@ -1,0 +1,35 @@
+/**
+  * Css styles for the song search portion
+  */
+
+  #song-search {
+    width: calc(100% - 115px);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  #song-search-wrapper {
+    margin: 0px 40px 500px 40px;
+    position: relative;
+  }
+
+  #song-search + button {
+    position: absolute;
+    height: 100%;
+    width: 50px;
+    border-radius: 0px 20px 20px 0;
+  }
+
+  #song-search:focus + button {
+    outline: 2px solid #D5D1FF;
+  }
+
+  .material-symbols-rounded {
+    font-size: 2em;
+    margin: 8px;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
