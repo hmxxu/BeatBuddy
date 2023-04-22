@@ -11,7 +11,18 @@ body {
   background: linear-gradient(#6380E8, #A9A2FF);
   width: 75%;
   color: aliceblue;
+}
+
+hr {
+  color: aliceblue;
+}
+
+body {
   text-shadow: #1C2330 1px 1px 5px;
+}
+
+#myDropdown, #song-results-container > div:first-child, .song-result {
+  text-shadow: none;
 }
 
 h4, .h4 {

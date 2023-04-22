@@ -1,6 +1,6 @@
 import React from 'react';
 
-function playlistReady() {
+function PlaylistReady() {
   return(
     <div>
         <h2>That's it! Your playlist is now ready.</h2>
@@ -9,4 +9,4 @@ function playlistReady() {
   )
 };
 
-export default playlistReady;
+export default PlaylistReady;
