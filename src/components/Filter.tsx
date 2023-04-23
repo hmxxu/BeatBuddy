@@ -19,7 +19,7 @@ function Filter() {
 
   function init() {
     openDropdown();
-    updateDropdownMargin();
+    //updateDropdownMargin();
     borderForFirstLast();
     // getTagsClicked();
   }
@@ -101,7 +101,7 @@ function Filter() {
 
     let myInputWidth: number = (qs('.myInput').offsetWidth | 0) - 2;
     console.log(offset);
-    qs('.dropdown-content').style.width = `${myInputWidth}px`;
+    //qs('.dropdown-content').style.width = `${myInputWidth}px`;
   }
 
   /**
@@ -226,16 +226,18 @@ function Filter() {
         <div className='language'>
         </div>
         <div className='filter-container'>
-          <div className='dropdown'>
+          <div>
             <span className='h4 search-header'>Language</span>
-            <input type='text' placeholder="Search..." value={inputValue} className='myInput'
-                onClick={handleClick} onChange={handleChange} />
-            <div id='myDropdown' className='dropdown-content hidden'>
-              {ISOLanguage.map((language) => (
-                <a href={'#' + language.code} id={language.name} key={language.name} onClick={addTags}>
-                  {language.name}
-                </a>
-              ))}
+            <div className='dropdown'>
+              <input type='text' placeholder="Search..." value={inputValue} className='myInput'
+                  onClick={handleClick} onChange={handleChange} />
+              <div id='myDropdown' className='dropdown-content hidden'>
+                {ISOLanguage.map((language) => (
+                  <a href={'#' + language.code} id={language.name} key={language.name} onClick={addTags}>
+                    {language.name}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 

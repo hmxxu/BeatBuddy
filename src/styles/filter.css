@@ -98,6 +98,7 @@
 #myDropdown {
   max-height: 300px;
   overflow-y: scroll;
+  width: 100%;
 }
 
 /* * Scroll bar styling */
