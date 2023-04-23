@@ -270,7 +270,7 @@ function Filter() {
           </div>
         </div>
       </div>
-      <div className={`overlay ${isOverlayActive ? 'show-overlay' : ''}`}>
+      <div className={`${isOverlayActive ? 'overlay' : ''}`}>
       </div>
     </section>
 
