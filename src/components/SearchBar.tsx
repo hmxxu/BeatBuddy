@@ -26,7 +26,6 @@ function SearchBar() {
 
     // remove a selected song
     selectedSongBtn.addEventListener("click", function() {
-      // this.classList.add("hidden");
       setSelectedState("hidden");
 
       // reenable searchbar
@@ -83,10 +82,9 @@ function SearchBar() {
 
   /**
    * Updates the selected song when song result is clicked
-   * @param e - Song array arranged like [artist, song, genre]
+   * @param song - Song array arranged like [artist, song, genre]
    */
   const handleSongClick = (song : any) => {
-    console.log("song result clicked");
     setSelectedDisplay(song[0] + " - " + song[1])
     setSelectedState("");
     // disable search bar
