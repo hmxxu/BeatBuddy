@@ -5,11 +5,17 @@
 }
 
 .overlay {
-  box-sizing: border-box;
   width: 100%;
+  height: calc(100% - 20px);
+  position: absolute;
+  /* ! WARNING: this hardcoded value is based on the height of .any-language */
+  top: 20px;
+  left: 0;
   border-radius: 20px;
-  background-color: aqua;
-  /* position: absolute; */
+}
+
+.show-overlay {
+  background-color: rgba(0, 0, 0, 0.55);
 }
 
 .filter-root-container {

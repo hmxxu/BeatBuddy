@@ -15,6 +15,7 @@ function Filter() {
   // https://react.dev/reference/react/useState
   const [myTags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const [isOverlayActive, setActive] = useState(false);
 
   function init() {
     openDropdown();
@@ -23,7 +24,10 @@ function Filter() {
     // getTagsClicked();
   }
 
-  // TODO: Right now duplicate tags can still be added <-- fix this
+  function showOverlay() {
+    setActive(!isOverlayActive);
+  }
+
   function addTags (e: any) {
     // console.log('got in addTags');
     //& spread operator (...) allows us to quickly copy all or part of an existing array or object
@@ -229,8 +233,8 @@ function Filter() {
 
   return(
     <section id='filter-section'>
-      <div>
-        <input type='checkbox' id='any-language' name='any-language' />
+      <div className='any-language'>
+        <input type='checkbox' id='any-language' name='any-language' onClick={showOverlay} />
         <label htmlFor='any-language' className='text-body'>Any language</label>
       </div>
       <div className='filter-root-container'>
@@ -265,6 +269,8 @@ function Filter() {
             ))}
           </div>
         </div>
+      </div>
+      <div className={`overlay ${isOverlayActive ? 'show-overlay' : ''}`}>
       </div>
     </section>
 
