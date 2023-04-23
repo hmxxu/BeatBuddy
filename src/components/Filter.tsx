@@ -101,6 +101,7 @@ function Filter() {
     let myInputWidth: number = (qs('.myInput').offsetWidth | 0) - 2;
     console.log(offset);
     qs('.dropdown-content').style.width = `${myInputWidth}px`;
+    qs('.dropdown-content').style.marginLeft = `${offset}px`;
   }
 
   /**
