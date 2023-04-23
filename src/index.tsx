@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Filter from './components/Filter';
 import SearchBar from './components/SearchBar';
 import PlaylistReady from './components/PlaylistReady';
+import GeneratedPlaylist from './components/GeneratedPlaylist';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 // prop example: <App subject="Candiceeeeeee"/>
@@ -20,5 +21,6 @@ root.render(
       <Filter key="genre-filter"/>
     </div>
     <PlaylistReady/>
+    <GeneratedPlaylist/>
   </React.StrictMode>
 );

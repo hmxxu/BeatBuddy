@@ -1,0 +1,47 @@
+/* styles for the generated playlsit page */
+
+section {
+  border-radius: 10px;
+}
+
+#playlist-wrapper > button {
+  padding: 20px;
+}
+
+#playlist-wrapper > .song-results-container {
+  background-color: transparent;
+}
+
+#spotify-btn {
+  background-color: #1DB954;
+  color: rgb(28, 35, 48);
+  float: right;
+  border-bottom-left-radius: 10px;
+}
+
+#back-btn {
+  border-bottom-right-radius: 10px;
+}
+
+#playlist-wrapper, #song-player, #back-btn {
+  background-color: rgb(28, 35, 48, 0.6);
+}
+
+#playlist-wrapper {
+  overflow: hidden;
+}
+
+#song-player {
+  margin: 20px;
+  padding: 20px;
+}
+
+#song-player img {
+  height: 180px;
+  border-radius: 10px;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}

@@ -19,17 +19,17 @@
     border-radius: 0px 20px 20px 0;
   }
 
-  #song-results-container {
+  .song-results-container {
     background-color: rgb(255, 255, 255, 0.2);
     padding: 20px;
     margin: 20px 0px 20px 0px;
   }
 
-  #song-results-container > div:first-child {
+  .song-results-container > div:first-child {
     font-weight: bold;
   }
 
-  #song-results-container > div:first-child > p {
+  .song-results-container > div:first-child > p {
     margin: 0;
   }
 
@@ -51,12 +51,12 @@
     background-color: #819dff;
   }
 
-  .song-result, #song-results-container > div:first-child {
-    display: flex;
-    justify-content: space-around;
+  .song-result, .song-results-container > div:first-child {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
   }
 
-  .song-result, #song-results-container {
+  .song-result, .song-results-container {
     border-radius: 20px;
   }
 
@@ -65,10 +65,13 @@
     color: black;
     margin-bottom: 20px;
     align-items: center;
+    overflow: hidden;
   }
 
   .song-result > img {
-    height: 100px;
+    height: 90px;
+    margin: 10px;
+    border-radius: 10px;
   }
 
   .song-result:hover {

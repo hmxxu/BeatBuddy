@@ -38,7 +38,7 @@ function SearchBar() {
    */
   function searchSongs() {
     // for now, temporary implementation that just appends songs to the results container
-    let songsContainer = id("song-results-container");
+    let songsContainer = id("search-results");
     
     // temporary. Fetch songs from backend later
     let songs = [
@@ -108,8 +108,9 @@ function SearchBar() {
           </span>
         </button>
       </section>
-      <section id="song-results-container" className="visibility-hidden">
+      <section id="search-results" className="visibility-hidden song-results-container">
         <div>
+          <p></p>
           <p>Artist</p>
           <p>Title</p>
           <p>Genre</p>
