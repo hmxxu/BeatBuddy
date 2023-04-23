@@ -15,7 +15,10 @@ function SearchBar() {
 
     // remove a selected song
     selectedSongBtn.addEventListener("click", function() {
-      this.classList.add("display-hidden");
+      this.classList.add("hidden");
+
+      // reenable searchbar
+      (id("song-search") as HTMLInputElement).disabled = false;
     })
   }
 
@@ -45,10 +48,15 @@ function SearchBar() {
         newResult.appendChild(metadata);
       }
 
+      // when song result is clicked
       newResult.addEventListener("click", function() {
+        // change the selected song displayed in searchbar
         let selectedSongBtn = id("selected-song");
         selectedSongBtn.children[0].textContent = song[0] + " - " + song[1];
-        selectedSongBtn.classList.remove("display-hidden");
+        selectedSongBtn.classList.remove("hidden");
+
+        // disable search bar
+        (id("song-search") as HTMLInputElement).disabled = true;
       })
       songsContainer.appendChild(newResult);
     });  
@@ -94,7 +102,7 @@ function SearchBar() {
             search
           </span>
         </button>
-        <button id="selected-song" className="display-hidden">
+        <button id="selected-song" className="hidden">
           <p>Minami - Eternal Blue</p>
           <span className="material-symbols-rounded">
             close
