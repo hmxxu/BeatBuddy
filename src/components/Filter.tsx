@@ -14,6 +14,7 @@ function Filter() {
   //* Initialize state at the top of the function component.
   // https://react.dev/reference/react/useState
   const [myTags, setTags] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState('');
 
   function init() {
     openDropdown();
@@ -24,7 +25,7 @@ function Filter() {
 
   // TODO: Right now duplicate tags can still be added <-- fix this
   function addTags (e: any) {
-    console.log('got in addTags');
+    // console.log('got in addTags');
     //& spread operator (...) allows us to quickly copy all or part of an existing array or object
     //& into another array or object.
     const lang = e.target.id;
@@ -47,26 +48,27 @@ function Filter() {
     //   }
     //   return false;
     // });
+    let isTagDuplicate: boolean = false;
 
     if (myTags.length < 1) {
       setTags([...myTags, lang]);
     } else {
       myTags.forEach((tag) => {
-        if (tag.toLowerCase() !== tagKey) {
-          setTags([...myTags, lang]);
-          console.log('adding non-duplicate tags, all good');
-        } else {
+        if (tag.toLowerCase() === tagKey) {
+          isTagDuplicate = true;
           console.log('attempting to add duplicate tags!')
         }
       })
+      if (!isTagDuplicate) {
+        setTags([...myTags, lang]);
+      }
     }
-    //? new implement
-
+    setInputValue("");
   }
 
   //* Remove tags working now, need to work on preventing dupes
   function removeTags(tagToRemove: any) {
-    console.log('got in removeTags');
+    // console.log('got in removeTags');
     console.log(tagToRemove);
     const updatedTags = myTags.filter((language) => language !== tagToRemove);
     setTags(updatedTags);
@@ -128,23 +130,33 @@ function Filter() {
    * search bar, otherwise the dropdown will be closed.
    */
   function openDropdown() {
-    console.log('got in openDropdown');
-    // let myInput = qs('.myInput')!;
-    // document.addEventListener('click', (e) => {
-    //   const withinBoundaries: boolean = e.composedPath().includes(myInput);
-    //   if (withinBoundaries) {
-    //     // console.log('inside');
-    //     id('myDropdown').classList.add('show');
-    //     // !
-    //     id('myDropdown').classList.remove('hidden');
-    //   } else {
-    //     // console.log('outside');
-    //     // !
-    //     id('myDropdown').classList.add('hidden');
-    //     id('myDropdown').classList.remove('show');
-    //   }
-    // });
-    id('myDropdown').classList.toggle('hidden');
+    // console.log('got in openDropdown');
+    let myInput = qs('.myInput')!;
+    document.addEventListener('click', (e) => {
+      const withinBoundaries: boolean = e.composedPath().includes(myInput);
+      if (withinBoundaries) {
+        // console.log('inside');
+        id('myDropdown').classList.add('show');
+        id('myDropdown').classList.remove('hidden');
+      } else {
+        // console.log('outside');
+        id('myDropdown').classList.add('hidden');
+        id('myDropdown').classList.remove('show');
+      }
+    });
+
+    //& This line below is for debugging purposes
+    // id('myDropdown').classList.toggle('hidden');
+  }
+
+  function handleChange(e: any) {
+    setInputValue(e.target.value);
+    filterFunction();
+  }
+
+  function handleClick(e: any) {
+    openDropdown();
+    filterFunction();
   }
 
   /**
@@ -153,6 +165,7 @@ function Filter() {
   function filterFunction() {
     let input = qs('.myInput') as HTMLInputElement;
     let filter = input.value.toUpperCase();
+
     let div = id('myDropdown')!;
     let a = div.getElementsByTagName('a');
 
@@ -192,8 +205,8 @@ function Filter() {
       a[firstItemIndex].classList.add('firstItem');
       a[lastItemIndex].classList.add('lastItem');
     }
-    console.log('firstItemIndex = ' + firstItemIndex);
-    console.log('lastItemIndex = ' + lastItemIndex);
+    // console.log('firstItemIndex = ' + firstItemIndex);
+    // console.log('lastItemIndex = ' + lastItemIndex);
   }
 
   /**
@@ -226,7 +239,8 @@ function Filter() {
         <div className='filter-container'>
           <div className='dropdown'>
             <span className='h4 search-header'>Language</span>
-            <input type='text' placeholder='Search..' className='myInput' onKeyUp={filterFunction} onClick={openDropdown} />
+            <input type='text' placeholder="Search..." value={inputValue} className='myInput'
+                onClick={handleClick} onChange={handleChange} />
             <div id='myDropdown' className='dropdown-content hidden'>
               {ISOLanguage.map((language) => (
                 <a href={'#' + language.code} id={language.name} key={language.name} onClick={addTags}>
@@ -238,7 +252,7 @@ function Filter() {
 
           {/* <div className='clear-all'>
 
-        </div> */}
+          </div> */}
           <span className='clear-all-text'>Clear all</span>
           {/* flex - row */}
           <div className='tags-container'>
