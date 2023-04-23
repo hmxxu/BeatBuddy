@@ -10,6 +10,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(#6380E8, #A9A2FF);
   width: 75%;
+  color: aliceblue;
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+
+header {
+  background-color: rgb(28, 35, 48, 0.6);
+  /* position: fixed;*/
+  top: 0px;
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  padding-left: 50px;
 }
 
 hr {
@@ -77,4 +90,9 @@ code {
 #two-filter {
   display: flex;
   column-gap: 20px;
+  visibility: hidden;
+}
+
+.display-hidden {
+  display: none;
 }
