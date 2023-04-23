@@ -1,7 +1,34 @@
 
-
 #filter-section {
   text-shadow: none;
+  position: relative;
+}
+
+.overlay {
+  width: 100%;
+  /* height: calc(100% - 20px); */
+  position: absolute;
+  /* ! WARNING: this hardcoded value is based on the height of .any-language */
+  left: 0;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.55);
+}
+
+.any-language {
+  margin-bottom: 15px;
+}
+
+.checkbox {
+  accent-color: #9d3039;
+  height: 20px;
+  /* not needed */
+  width: 20px;
+  /* not needed */
+}
+
+.clear-all-text {
+  text-align: end;
+  cursor: pointer;
 }
 
 .filter-root-container {
@@ -49,8 +76,8 @@
 
 .tag-content {
   margin: 0 auto;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .x-icon {
