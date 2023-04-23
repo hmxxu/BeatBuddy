@@ -9,7 +9,7 @@ import ISOLanguage from '../ISOLanguage.json';
 function Filter() {
 
   window.addEventListener('load', init);
-  window.addEventListener('resize', updateDropdownMargin);
+  //window.addEventListener('resize', updateDropdownMargin);
 
   //* Initialize state at the top of the function component.
   // https://react.dev/reference/react/useState
@@ -93,16 +93,16 @@ function Filter() {
    * Positions the search dropdown correct so that it's always horizontally
    * aligned with the search bar.
    */
-  function updateDropdownMargin() {
-    let sh = qs('.search-header');
-    let sWidth: number = sh.offsetWidth | 0;
-    let sMargin: number = parseFloat(getComputedStyle(sh).marginRight!);
-    let offset: number = sWidth + sMargin;
+  // function updateDropdownMargin() {
+  //   let sh = qs('.search-header');
+  //   let sWidth: number = sh.offsetWidth | 0;
+  //   let sMargin: number = parseFloat(getComputedStyle(sh).marginRight!);
+  //   let offset: number = sWidth + sMargin;
 
-    let myInputWidth: number = (qs('.myInput').offsetWidth | 0) - 2;
-    console.log(offset);
-    //qs('.dropdown-content').style.width = `${myInputWidth}px`;
-  }
+  //   let myInputWidth: number = (qs('.myInput').offsetWidth | 0) - 2;
+  //   console.log(offset);
+  //   //qs('.dropdown-content').style.width = `${myInputWidth}px`;
+  // }
 
   /**
    * Gives a curved border radius to the first and last item on search dropdown
