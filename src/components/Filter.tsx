@@ -45,13 +45,13 @@ function Filter() {
       const totalHeight = sh.offsetHeight + marginTop + marginBottom + paddingTop + paddingBottom;
       console.log('totalHeight = ' + totalHeight);
       let overlayHeight = qs('.overlay').parentElement.offsetHeight - totalHeight;
-      qs('.overlay').style.height = `${overlayHeight}px`
-      qs('.overlay').style.top = `${totalHeight}px`;
+      // qs('.overlay').style.height = `${overlayHeight}px`
+      // qs('.overlay').style.top = `${totalHeight}px`;
       console.log('overlayHeight = ' + overlayHeight);
       console.log('top = ' + totalHeight);
     } else {
-      qs('.ol').style.height = `0px`
-      qs('.ol').style.top = `0px`;
+      // qs('.ol').style.height = `0px`
+      // qs('.ol').style.top = `0px`;
     }
   }, [isOverlayActive])
 
@@ -253,8 +253,7 @@ function Filter() {
             ))}
           </div>
         </div>
-      </div>
-      <div className={`ol ${isOverlayActive ? 'overlay' : ''}`}>
+        <div className={`ol ${isOverlayActive ? 'overlay' : 'hidden'}`}></div>
       </div>
     </section>
 
