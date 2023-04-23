@@ -93,6 +93,7 @@ function Filter() {
    * Positions the search dropdown correct so that it's always horizontally
    * aligned with the search bar.
    */
+<<<<<<< HEAD
   // function updateDropdownMargin() {
   //   let sh = qs('.search-header');
   //   let sWidth: number = sh.offsetWidth | 0;
@@ -103,6 +104,19 @@ function Filter() {
   //   console.log(offset);
   //   //qs('.dropdown-content').style.width = `${myInputWidth}px`;
   // }
+=======
+  function updateDropdownMargin() {
+    let sh = qs('.search-header');
+    let sWidth: number = sh.offsetWidth | 0;
+    let sMargin: number = parseFloat(getComputedStyle(sh).marginRight!);
+    let offset: number = sWidth + sMargin;
+
+    let myInputWidth: number = (qs('.myInput').offsetWidth | 0) - 2;
+    console.log(offset);
+    qs('.dropdown-content').style.width = `${myInputWidth}px`;
+    qs('.dropdown-content').style.marginLeft = `${offset}px`;
+  }
+>>>>>>> c16213f371f53102489268809fe9f72c5d1d1fcb
 
   /**
    * Gives a curved border radius to the first and last item on search dropdown
