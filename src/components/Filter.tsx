@@ -2,7 +2,7 @@
 
 import '../styles/filter.css';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import closeIcon from '../images/close-icon.png';
 import ISOLanguage from '../ISOLanguage.json';
 
@@ -24,9 +24,36 @@ function Filter() {
     // getTagsClicked();
   }
 
+  function clearAllTags() {
+    setTags([]);
+  }
+
   function showOverlay() {
     setActive(!isOverlayActive);
+    clearAllTags();
+    setInputValue("");
   }
+
+  useEffect(() => {
+    if (isOverlayActive) {
+      let sh = qs('.any-language');
+      let styles = getComputedStyle(sh)!;
+      const marginTop = parseFloat(styles.marginTop);
+      const marginBottom = parseFloat(styles.marginBottom);
+      const paddingTop = parseFloat(styles.paddingTop);
+      const paddingBottom = parseFloat(styles.paddingBottom);
+      const totalHeight = sh.offsetHeight + marginTop + marginBottom + paddingTop + paddingBottom;
+      console.log('totalHeight = ' + totalHeight);
+      let overlayHeight = qs('.overlay').parentElement.offsetHeight - totalHeight;
+      qs('.overlay').style.height = `${overlayHeight}px`
+      qs('.overlay').style.top = `${totalHeight}px`;
+      console.log('overlayHeight = ' + overlayHeight);
+      console.log('top = ' + totalHeight);
+    } else {
+      qs('.ol').style.height = `0px`
+      qs('.ol').style.top = `0px`;
+    }
+  }, [isOverlayActive])
 
   function addTags (e: any) {
     // console.log('got in addTags');
@@ -35,23 +62,6 @@ function Filter() {
     const lang = e.target.id;
     const tagKey = lang.toLowerCase();
 
-    //? old implement
-    // const newTag = (
-    //   <div className='tag' key={tagKey}>
-    //     <p className='tag-content'>{language}</p>
-    //     <img src={closeIcon} alt='An icon of an x' className="x-icon" onClick={() => removeTags(tagKey)}></img>
-    //   </div>
-    // );
-    // setTags([...myTags, newTag]);
-    // myTags.filter((language) => {
-    //   console.log("language = " + language);
-    //   console.log("tagKey = " + tagKey);
-
-    //   if(language.toLowerCase() !== tagKey) {
-    //     return true;
-    //   }
-    //   return false;
-    // });
     let isTagDuplicate: boolean = false;
 
     if (myTags.length < 1) {
@@ -78,30 +88,6 @@ function Filter() {
     setTags(updatedTags);
   }
 
-  // function updateLang(e: any) {
-  //   console.log('Clicked ons: ', e.target.id);
-  //   let language = e.target.id;
-  //   setTagComponent([...tagComponent, <Tags langName={language} key={language} />]);
-  // }
-
-  // function removeTag(index: number) {
-  //   setTagComponent(tagComponent.filter((_, i) => i !== index));
-  // }
-
-  // function getTagsClicked() {
-  //   let myDropdown = id('myDropdown');
-  //   myDropdown.addEventListener('click', (e) => {
-  //     let clickedElement = e.target! as Element;
-  //     // Confirm check if it's an 'a' tag
-  //     if (clickedElement.tagName!.toLowerCase() === 'a') {
-  //       e.preventDefault();
-  //       let langName = clickedElement.getAttribute('id');
-  //       let tagsContainer = document.querySelector('.tags-container') !;
-  //       // tagsContainer.appendChild(<Tags langName={langName}/>)
-  //     }
-  //   })
-  // }
-
   /**
    * Positions the search dropdown correct so that it's always horizontally
    * aligned with the search bar.
@@ -109,13 +95,11 @@ function Filter() {
   function updateDropdownMargin() {
     let sh = qs('.search-header');
     let sWidth: number = sh.offsetWidth | 0;
-    let sMargin: number = parseInt(getComputedStyle(sh).marginRight!);
+    let sMargin: number = parseFloat(getComputedStyle(sh).marginRight!);
     let offset: number = sWidth + sMargin;
 
     let myInputWidth: number = (qs('.myInput').offsetWidth | 0) - 2;
     console.log(offset);
-
-    qs('.dropdown-content').style.marginLeft = `${offset}px`;
     qs('.dropdown-content').style.width = `${myInputWidth}px`;
   }
 
@@ -234,7 +218,7 @@ function Filter() {
   return(
     <section id='filter-section'>
       <div className='any-language'>
-        <input type='checkbox' id='any-language' name='any-language' onClick={showOverlay} />
+        <input type='checkbox' id='any-language' className='checkbox' onClick={showOverlay} />
         <label htmlFor='any-language' className='text-body'>Any language</label>
       </div>
       <div className='filter-root-container'>
@@ -257,7 +241,7 @@ function Filter() {
           {/* <div className='clear-all'>
 
           </div> */}
-          <span className='clear-all-text'>Clear all</span>
+          <span className='clear-all-text' onClick={clearAllTags}><u>Clear all</u></span>
           {/* flex - row */}
           <div className='tags-container'>
 
@@ -270,7 +254,7 @@ function Filter() {
           </div>
         </div>
       </div>
-      <div className={`${isOverlayActive ? 'overlay' : ''}`}>
+      <div className={`ol ${isOverlayActive ? 'overlay' : ''}`}>
       </div>
     </section>
 
