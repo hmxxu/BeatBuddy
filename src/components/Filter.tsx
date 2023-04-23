@@ -36,6 +36,7 @@ function Filter() {
 
   useEffect(() => {
     if (isOverlayActive) {
+      // not needed anymore since it automatically gits to size now
       let sh = qs('.any-language');
       let styles = getComputedStyle(sh)!;
       const marginTop = parseFloat(styles.marginTop);
