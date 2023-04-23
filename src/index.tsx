@@ -4,7 +4,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
-import App from './App';
 import Navbar from './components/Navbar';
 import Filter from './components/Filter';
 import SearchBar from './components/SearchBar';
@@ -16,7 +15,10 @@ root.render(
   <React.StrictMode>
     <Navbar/>
     <SearchBar/>
-    <Filter/>
+    <div id="two-filter">
+      <Filter key="language-filter"/>
+      <Filter key="genre-filter"/>
+    </div>
     <PlaylistReady/>
   </React.StrictMode>
 );

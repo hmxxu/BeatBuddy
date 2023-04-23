@@ -1,5 +1,16 @@
 
 
+#filter-section {
+  text-shadow: none;
+}
+
+.filter-root-container {
+  background-color: #1C2330;
+  color: white;
+  padding: 30px;
+  border-radius: 20px;
+}
+
 .filter-container {
   display: flex;
   flex-direction: column;
@@ -11,6 +22,8 @@
   /* background-color: rgb(107, 107, 255); */
   gap: 10px;
   flex-wrap: wrap;
+  color: black;
+  padding-top: 10px;
 }
 
 .dropdown, .tags-container {
@@ -31,7 +44,7 @@
 
 .tag:hover {
   background-color: #BFBCE5;
-  transition: 0.5s;
+  transition: 0.2s;
 }
 
 .tag-content {
@@ -76,7 +89,7 @@
 }
 
 /* The search field */
-#myInput {
+.myInput {
   box-sizing: border-box;
   background-position: 14px 12px;
   background-repeat: no-repeat;
@@ -88,7 +101,7 @@
 }
 
 /* The search field when it gets focus/clicked on */
-#myInput:focus {
+.myInput:focus {
   outline: 2px solid #D5D1FF;
 }
 
@@ -97,7 +110,7 @@
   position: relative;
   display: inline-block;
   white-space: nowrap;
-  padding: 10px;
+  padding-bottom: 10px;
 }
 
 /* Dropdown Content (Hidden by Default) */

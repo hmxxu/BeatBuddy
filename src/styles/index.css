@@ -33,7 +33,7 @@ body {
   text-shadow: #1C2330 1px 1px 5px;
 }
 
-#myDropdown, #song-results-container > div:first-child, .song-result {
+.myDropdown, #song-results-container > div:first-child, .song-result {
   text-shadow: none;
 }
 
@@ -87,6 +87,8 @@ code {
   font-weight: bold;
 }
 
-.visiblity-hidden {
+#two-filter {
+  display: flex;
+  column-gap: 20px;
   visibility: hidden;
 }
