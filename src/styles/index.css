@@ -81,6 +81,10 @@ code {
     monospace; */
 }
 
+.visibility-hidden {
+  visibility: hidden;
+}
+
 #generate-playlist-btn {
   padding: 20px 40px 20px 40px;
   border-radius: 20px;
@@ -90,5 +94,5 @@ code {
 #two-filter {
   display: flex;
   column-gap: 20px;
-  visibility: hidden;
+  /* visibility: hidden; */
 }

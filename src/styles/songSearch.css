@@ -4,6 +4,7 @@
 
   #song-search {
     width: calc(100% - 65px);
+    font-size: 20px;
   }
 
   #song-search-wrapper {
@@ -63,7 +64,11 @@
     background-color: #D5D1FF;
     color: black;
     margin-bottom: 20px;
-    padding: 20px 0 20px 0;
+    align-items: center;
+  }
+
+  .song-result > img {
+    height: 100px;
   }
 
   .song-result:hover {

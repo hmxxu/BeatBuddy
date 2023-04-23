@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import '../styles/songSearch.css';
+import SongResult from './SongResult';
 
 function SearchBar() {
 
   window.addEventListener("load", init);
+
+  const [selectedState, setSelectedState] = useState("hidden");
+  const [selectedDisplay, setSelectedDisplay] = useState("Miku - Miku")
+
+  // temp
+  const [currSongsState, setSongsState] = useState([
+    ["minami", "Eternal Blue", "J-pop"], 
+    ["deco*27", "vampire", "Vocaloid"],
+    ["Ryo", "melt", "Vocaloid"]
+  ]);
 
   function init() {
     // search button
@@ -15,54 +26,32 @@ function SearchBar() {
 
     // remove a selected song
     selectedSongBtn.addEventListener("click", function() {
-      this.classList.add("hidden");
+      // this.classList.add("hidden");
+      setSelectedState("hidden");
 
       // reenable searchbar
       (id("song-search") as HTMLInputElement).disabled = false;
     })
   }
 
+  /**
+   * When the user searches a song, this function will update the song results
+   */
   function searchSongs() {
     // for now, temporary implementation that just appends songs to the results container
     let songsContainer = id("song-results-container");
     
-    // remove old songs in container
-    let currSongs = qsa(".song-result");
-    currSongs.forEach(song => {
-      song.remove();
-    });
-
     // temporary. Fetch songs from backend later
-    let songs = [["minami", "Eternal Blue", "J-pop"], 
-                ["deco*27", "vampire", "Vocaloid"],
-                ["Ryo", "melt", "Vocaloid"]];
+    let songs = [
+      ["minami", "Eternal Blue", "J-pop"], 
+      ["deco*27", "vampire", "Vocaloid"],
+      ["PowaPowaP", "Equation++", "Vocaloid"]
+    ];
 
-    // add each song fetched to results
-    songs.forEach(song => {
-      let newResult : Element = document.createElement("div");
-      newResult.classList.add ("song-result");
-
-      for (let i : number = 0; i < song.length; i++) {
-        let metadata = document.createElement("p");
-        metadata.textContent = song[i];
-        newResult.appendChild(metadata);
-      }
-
-      // when song result is clicked
-      newResult.addEventListener("click", function() {
-        // change the selected song displayed in searchbar
-        let selectedSongBtn = id("selected-song");
-        selectedSongBtn.children[0].textContent = song[0] + " - " + song[1];
-        selectedSongBtn.classList.remove("hidden");
-
-        // disable search bar
-        (id("song-search") as HTMLInputElement).disabled = true;
-      })
-      songsContainer.appendChild(newResult);
-    });  
+    setSongsState(songs);
 
     // show container 
-    songsContainer.classList.remove("visiblity-hidden");
+    songsContainer.classList.remove("visibility-hidden");
   }
 
   /**
@@ -92,6 +81,18 @@ function SearchBar() {
     return document.querySelector(query);
   }
 
+  /**
+   * Updates the selected song when song result is clicked
+   * @param e - Song array arranged like [artist, song, genre]
+   */
+  const handleSongClick = (song : any) => {
+    console.log("song result clicked");
+    setSelectedDisplay(song[0] + " - " + song[1])
+    setSelectedState("");
+    // disable search bar
+    (id("song-search") as HTMLInputElement).disabled = true;
+  }
+
   return(
     <div>
       <label htmlFor="song-search"><h2>Pick a Song!</h2></label>
@@ -102,20 +103,27 @@ function SearchBar() {
             search
           </span>
         </button>
-        <button id="selected-song" className="hidden">
-          <p>Minami - Eternal Blue</p>
+        <button id="selected-song" className={selectedState}>
+          <p>{selectedDisplay}</p>
           <span className="material-symbols-rounded">
             close
           </span>
         </button>
       </section>
-      <section id="song-results-container" className="visiblity-hidden">
+      <section id="song-results-container" className="visibility-hidden">
         <div>
           <p>Artist</p>
           <p>Title</p>
           <p>Genre</p>
         </div>
         <hr></hr>
+        {
+          currSongsState.map((song : any) => (
+            <SongResult onClick={() => {handleSongClick(song)}}
+            key={song[0] + song[1]}
+            artist={song[0]} title={song[1]} genre={song[2]}/>
+          ))
+        }
       </section>
     </div>
   )
