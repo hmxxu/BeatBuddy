@@ -55,7 +55,7 @@ section {
   padding: 10px;
   transition: transform 0.1s ease-in-out;
   background-color: #6481E8;
-  border-radius: 100px;
+  border-radius: 50%;
   display: flex;
 }
 
@@ -72,18 +72,6 @@ section {
   width: 64px;
   height: 64px;
   z-index: 2;
-}
-
-.circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  z-index: -1;
-  background-color: #1500ff;
 }
 
 .current-song {
