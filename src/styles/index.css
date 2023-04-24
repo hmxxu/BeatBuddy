@@ -37,6 +37,18 @@ body {
   text-shadow: none;
 }
 
+h1, .h1 {
+  font-size: 36px;
+}
+
+h2, .h2 {
+  font-size: 28px;
+}
+
+h3, .h3 {
+font-size: 24px;
+}
+
 h4, .h4 {
   font-size: 20px;
 }
@@ -93,6 +105,7 @@ code {
 
 #two-filter {
   display: flex;
+  flex-wrap: wrap;
   column-gap: 20px;
   /* visibility: hidden; */
 }

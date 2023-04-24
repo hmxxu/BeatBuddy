@@ -2,20 +2,22 @@ import React, { useState } from 'react';
 
 // temp
 import minami from './../images/minami.jpg';
+import play_btn from '../images/play-btn.png';
 
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
+import { id, qs } from '../utils';
 
 
 function GeneratedPlaylist() {
 
   // temp
   const [currSongsState, setSongsState] = useState([
-    ["minami", "Eternal Blue", "J-pop"], 
+    ["minami", "Eternal Blue", "J-pop"],
     ["deco*27", "vampire", "Vocaloid"],
     ["Ryo", "melt", "Vocaloid"]
-  ]);  
+  ]);
 
   const [currTitle, setCurrTitle] = useState(currSongsState[0][1]);
   const [currArtist, setCurrArtist] = useState(currSongsState[0][0]);
@@ -42,16 +44,34 @@ function GeneratedPlaylist() {
         <button id="spotify-btn">Import playlist to Spotify</button>
         <section id="song-player">
           <div className="flex">
-            <img src={ minami }></img>
-            <div>
-              <h3>{ currTitle }</h3>
+            <img src={ minami } className="song-img"></img>
+            <div className="current-song">
+              <h1>{ currTitle }</h1>
               <h2>{ currArtist }</h2>
             </div>
-            <button>
-              <span className="material-symbols-rounded">
+            <div className="play-btn-container">
+                <img src={play_btn} className="play-btn" alt="an icon of a play button"></img>
+                <div className="circle"></div>
+                {/* <span className="material-symbols-rounded">
                   play_circle
-              </span>
-            </button>
+              </span> */}
+            </div>
+          </div>
+          <div className="song-stats flex">
+            <div id="liveliness" className="attrs">
+              <h3>Liveliness</h3>
+              <h1>90%</h1>
+            </div>
+            <div className="vl"></div>
+            <div id="accoustic" className="attrs">
+              <h3>Accousticness</h3>
+              <h1>10%</h1>
+            </div>
+            <div className="vl"></div>
+            <div id="danceable" className="attrs">
+              <h3>Danceability</h3>
+              <h1>13%</h1>
+            </div>
           </div>
         </section>
         <section className="song-results-container">

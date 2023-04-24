@@ -36,7 +36,7 @@ section {
   padding: 20px;
 }
 
-#song-player img {
+.song-img {
   height: 180px;
   border-radius: 10px;
 }
@@ -44,4 +44,56 @@ section {
 .flex {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.play-btn-container {
+  position: relative;
+  cursor: pointer;
+  padding: 10px;
+  transition: transform 0.1s ease-in-out;
+}
+
+.play-btn-container:hover {
+  transform: scale(1.03);
+}
+
+.play-btn-container:hover > .circle {
+  /* background-color: #3b2af8; */
+  /* transition: 0.5s; */
+}
+
+.play-btn {
+  width: 64px;
+  height: 64px;
+  z-index: 2;
+}
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: #1500ff;
+}
+
+.current-song {
+  align-self: flex-start;
+  /* flex-shrink: 2; */
+  flex-grow: 2;
+}
+
+.vl {
+  border-left: 2px solid white;
+  height: 130px;
+}
+
+.attrs{
+  text-align: center;
 }

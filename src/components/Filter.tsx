@@ -5,6 +5,7 @@ import '../styles/filter.css';
 import React, { useState, useEffect } from 'react';
 import closeIcon from '../images/close-icon.png';
 import ISOLanguage from '../ISOLanguage.json';
+import {id, qs} from '../utils';
 
 function Filter() {
 
@@ -199,23 +200,23 @@ function Filter() {
     // console.log('lastItemIndex = ' + lastItemIndex);
   }
 
-  /**
- * Returns the element that has the ID attribute with the specified value.
- * @param {string} id - element ID
- * @return {object} DOM object associated with id.
- */
-  function id(id: any) {
-    return document.getElementById(id)!;
-  }
+//   /**
+//  * Returns the element that has the ID attribute with the specified value.
+//  * @param {string} id - element ID
+//  * @return {object} DOM object associated with id.
+//  */
+//   function id(id: any) {
+//     return document.getElementById(id)!;
+//   }
 
-  /**
-   * Returns the first element that matches the given CSS selector.
-   * @param {string} query - CSS query selector.
-   * @return {object[]} array of DOM objects matching the query.
-   */
-  function qs(query: any) {
-    return document.querySelector(query);
-  }
+//   /**
+//    * Returns the first element that matches the given CSS selector.
+//    * @param {string} query - CSS query selector.
+//    * @return {object[]} array of DOM objects matching the query.
+//    */
+//   function qs(query: any) {
+//     return document.querySelector(query);
+//   }
 
   return(
     <section id='filter-section'>
