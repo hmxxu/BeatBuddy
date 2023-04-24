@@ -54,6 +54,9 @@ section {
   cursor: pointer;
   padding: 10px;
   transition: transform 0.1s ease-in-out;
+  background-color: #6481E8;
+  border-radius: 100px;
+  display: flex;
 }
 
 .play-btn-container:hover {

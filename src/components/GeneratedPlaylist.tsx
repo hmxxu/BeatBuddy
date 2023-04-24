@@ -51,7 +51,7 @@ function GeneratedPlaylist() {
             </div>
             <div className="play-btn-container">
                 <img src={play_btn} className="play-btn" alt="an icon of a play button"></img>
-                <div className="circle"></div>
+                {/* {<div className="circle"></div>} */}
                 {/* <span className="material-symbols-rounded">
                   play_circle
               </span> */}
