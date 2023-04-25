@@ -60,6 +60,10 @@
   /* TODO: change this max-width later */
   max-width: 400px;
 }
+.tags-container {
+  max-width: 350px;
+}
+
 
 .tag {
   display: flex;

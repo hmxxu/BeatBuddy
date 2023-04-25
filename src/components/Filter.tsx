@@ -31,31 +31,9 @@ function Filter() {
 
   function showOverlay() {
     setActive(!isOverlayActive);
-    clearAllTags();
+    // clearAllTags();
     setInputValue("");
   }
-
-  useEffect(() => {
-    if (isOverlayActive) {
-      // not needed anymore since it automatically gits to size now
-      let sh = qs('.any-language');
-      let styles = getComputedStyle(sh)!;
-      const marginTop = parseFloat(styles.marginTop);
-      const marginBottom = parseFloat(styles.marginBottom);
-      const paddingTop = parseFloat(styles.paddingTop);
-      const paddingBottom = parseFloat(styles.paddingBottom);
-      const totalHeight = sh.offsetHeight + marginTop + marginBottom + paddingTop + paddingBottom;
-      console.log('totalHeight = ' + totalHeight);
-      let overlayHeight = qs('.overlay').parentElement.offsetHeight - totalHeight;
-      // qs('.overlay').style.height = `${overlayHeight}px`
-      // qs('.overlay').style.top = `${totalHeight}px`;
-      console.log('overlayHeight = ' + overlayHeight);
-      console.log('top = ' + totalHeight);
-    } else {
-      // qs('.ol').style.height = `0px`
-      // qs('.ol').style.top = `0px`;
-    }
-  }, [isOverlayActive])
 
   function addTags (e: any) {
     // console.log('got in addTags');
@@ -246,7 +224,7 @@ function Filter() {
           {/* <div className='clear-all'>
 
           </div> */}
-          <span className='clear-all-text' onClick={clearAllTags}><u>Clear all</u></span>
+          <span className='clear-all-text'><u onClick={clearAllTags}>Clear all</u></span>
           {/* flex - row */}
           <div className='tags-container'>
 
