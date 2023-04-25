@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({path: __dirname + '/.env'})
 
 function getReccomendations(): SongRec[] {
     // TODO: actually get song recommendations
@@ -18,8 +18,7 @@ export async function getAccessToken(): Promise<AccessTokenResponse> {
         })
     });
 
-    const responseObject = await response.json();
-    return responseObject
+    return await response.json()
 }
 
 export class SongRec {
