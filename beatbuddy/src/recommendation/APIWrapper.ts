@@ -1,13 +1,11 @@
 require('dotenv').config({path: __dirname + '/.env'})
 
-function getReccomendations(): SongRec[] {
-    // TODO: actually get song recommendations
-    let recs: SongRec[] = [];
-    recs.push(new SongRec("cool song title"));
-    return recs;
-}
-
-export async function getAccessToken(): Promise<AccessTokenResponse> {
+/**
+ * Get an access token instance from SpotifyAPI. Requires .env in
+ * same dir with `SPOTIFY_CLIENT_ID` and `SPOTIFY_SECRET_ID` set.
+ * @returns the access token, its type, and expiry time
+ */
+async function getAccessToken(): Promise<AccessTokenResponse> {
     const response = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -21,19 +19,13 @@ export async function getAccessToken(): Promise<AccessTokenResponse> {
     return await response.json()
 }
 
-export class SongRec {
-    // TODO: add more necessary info
-    title: string;
-
-    constructor(title: string) {
-        this.title = title;
-    }
-}
-
-export interface AccessTokenResponse {
+/**
+ * Stores the data acquired from an access token request.
+ */
+interface AccessTokenResponse {
     access_token: string;
     token_type: string;
     expires_in: number;
 }
 
-export {}
+export { getAccessToken, AccessTokenResponse }
