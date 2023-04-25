@@ -15,6 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
+    "declaration": true,
     "paths": {
       "*": [
           "./node_modules/*"
