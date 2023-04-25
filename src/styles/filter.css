@@ -119,6 +119,11 @@
   /* creates padding around scroll thumb */
 }
 
+/* displays the dropdown when hovered to give time for tag adding*/
+.myDropdown:hover {
+  display: block;
+}
+
 /* The search field */
 .myInput {
   box-sizing: border-box;

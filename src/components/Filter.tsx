@@ -65,6 +65,8 @@ function Filter(props : any) {
     const lang = e.target.id;
     const tagKey = lang.toLowerCase();
 
+    console.log(lang);
+
     let isTagDuplicate: boolean = false;
 
     if (myTags.length < 1) {
@@ -121,29 +123,29 @@ function Filter(props : any) {
    * Opens the dropdown for the search bar if the user clicks the
    * search bar, otherwise the dropdown will be closed.
    */
-  function openDropdown(event : any) {
+  // function openDropdown(event : any) {
 
-    let myInput = event.target as HTMLInputElement;
+  //   let myInput = event.target as HTMLInputElement;
     
-    // get dropdown
-    let currDropdown = event.target.parentElement.querySelector(".myDropdown");
-    document.addEventListener('click', (e) => {
-      console.log(e.composedPath());
-      const withinBoundaries: boolean = e.composedPath().includes(myInput);
-      if (withinBoundaries) {
-        // console.log('inside');
-        currDropdown.classList.add('show');
-        currDropdown.classList.remove('hidden');
-      } else {
-        // console.log('outside');
-        currDropdown.classList.add('hidden');
-        currDropdown.classList.remove('show');
-      }
-    });
+  //   // get dropdown
+  //   // let currDropdown = event.target.parentElement.querySelector(".myDropdown");
+  //   // document.addEventListener('click', (e) => {
+  //   //   console.log(e.composedPath());
+  //   //   const withinBoundaries: boolean = e.composedPath().includes(myInput);
+  //   //   if (withinBoundaries) {
+  //   //     // console.log('inside');
+  //   //     currDropdown.classList.add('show');
+  //   //     currDropdown.classList.remove('hidden');
+  //   //   } else {
+  //   //     // console.log('outside');
+  //   //     currDropdown.classList.add('hidden');
+  //   //     currDropdown.classList.remove('show');
+  //   //   }
+  //   // });
 
-    //& This line below is for debugging purposes
-    // id('myDropdown').classList.toggle('hidden');
-  }
+  //   //& This line below is for debugging purposes
+  //   // id('myDropdown').classList.toggle('hidden');
+  // }
 
   function handleChange(e: any) {
     setInputValue(e.target.value);
@@ -151,7 +153,7 @@ function Filter(props : any) {
   }
 
   function handleClick(e: any) {
-    openDropdown(e);
+    //openDropdown(e);
     filterFunction(e);
   }
 
