@@ -1,7 +1,6 @@
-import dotenv from 'dotenv';
-dotenv.config()
+require('dotenv').config()
 
-export function getReccomendations(): SongRec[] {
+function getReccomendations(): SongRec[] {
     // TODO: actually get song recommendations
     let recs: SongRec[] = [];
     recs.push(new SongRec("cool song title"));
