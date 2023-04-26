@@ -1,5 +1,5 @@
 import { returnSongStats } from "./ReturnSongStats";
-import { ReturnDummyRec } from "./ReturnSongStats";
+import { returnDummyRec } from "./ReturnSongStats";
 
 test('testing returnSongStats', async () => {
     let response = await returnSongStats('5TTXEcfsYLh6fTarLaevTi');
@@ -7,7 +7,7 @@ test('testing returnSongStats', async () => {
 })
 
 test('testing returnSongStats', async () => {
-    let response = await ReturnDummyRec('2kxP07DLgs4xlWz8YHlvfh');
+    let response = await returnDummyRec('2kxP07DLgs4xlWz8YHlvfh');
     expect(response.tracks.length == 10)
 })
 

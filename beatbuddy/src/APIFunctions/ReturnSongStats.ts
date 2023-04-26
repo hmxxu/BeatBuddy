@@ -15,13 +15,13 @@ async function returnSongStats(id: string) {
     return await response.json();
 }
 
-export { returnSongStats}
+export { returnSongStats }
 
 /**
  * @param id the ID of the spotify artist that we want recs from
  * @returns a json of the 10 songs that Spotify recs
  */
-async function ReturnDummyRec(id: string) {
+async function returnDummyRec(id: string): Promise<SpotifyApi.RecommendationsFromSeedsResponse> {
     const { access_token } = await getAccessToken();
     const response = await fetch('https://api.spotify.com/v1/recommendations/?seed_artists=' + id + '&limit=10', {
         method: 'GET',
@@ -31,4 +31,4 @@ async function ReturnDummyRec(id: string) {
     return await response.json();
 }
 
-export { ReturnDummyRec}
+export { returnDummyRec }
