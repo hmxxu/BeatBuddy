@@ -21,7 +21,7 @@
 }
 
 .checkbox {
-  accent-color: #9d3039;
+  accent-color: #1C2330;
   height: 20px;
   /* not needed */
   width: 20px;
@@ -99,28 +99,33 @@
 
 /* ???????????????????? DropDown Part ?????????? */
 
-#myDropdown {
+.myDropdown {
   max-height: 300px;
   overflow-y: scroll;
   width: 100%;
 }
 
 /* * Scroll bar styling */
-#myDropdown::-webkit-scrollbar {
+.myDropdown::-webkit-scrollbar {
   width: 5px;
   /* TODO: Leaving out the scrollbar for now */
   display: none;
 }
-#myDropdown::-webkit-scrollbar-track {
+.myDropdown::-webkit-scrollbar-track {
   background: rgb(239, 239, 239);
 }
-#myDropdown::-webkit-scrollbar-thumb {
+.myDropdown::-webkit-scrollbar-thumb {
   background-color: #D5D1FF;
   /* color of the scroll thumb */
   border-radius: 40px;
   /* roundness of the scroll thumb */
   /* border: 1px solid orange; */
   /* creates padding around scroll thumb */
+}
+
+/* displays the dropdown when hovered to give time for tag adding*/
+.showOnHover:hover {
+  display: block;
 }
 
 /* The search field */
@@ -138,6 +143,11 @@
 /* The search field when it gets focus/clicked on */
 .myInput:focus {
   outline: 2px solid #D5D1FF;
+}
+
+/* Display the dropdown when the input is focused on */
+.myInput:focus + .myDropdown {
+  display: block;
 }
 
 /* The container <div> - needed to position the dropdown content */

@@ -17,8 +17,8 @@ root.render(
     <Navbar/>
     <SearchBar/>
     <div id="two-filter">
-      <Filter key="language-filter"/>
-      <Filter key="genre-filter"/>
+      <Filter key="language-filter" type="language-filter"/>
+      <Filter key="genre-filter" type="genre-filter"/>
     </div>
     <PlaylistReady/>
     <GeneratedPlaylist/>

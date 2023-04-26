@@ -7,7 +7,7 @@ import closeIcon from '../images/close-icon.png';
 import ISOLanguage from '../ISOLanguage.json';
 import {id, qs} from '../utils';
 
-function Filter() {
+function Filter(props : any) {
 
   window.addEventListener('load', init);
   //window.addEventListener('resize', updateDropdownMargin);
@@ -19,10 +19,11 @@ function Filter() {
   const [isOverlayActive, setActive] = useState(false);
 
   function init() {
-    openDropdown();
+    //openDropdown();
     //updateDropdownMargin();
     borderForFirstLast();
     // getTagsClicked();
+    
   }
 
   function clearAllTags() {
@@ -36,11 +37,16 @@ function Filter() {
   }
 
   function addTags (e: any) {
+    // on adding a tag, hide the dropdown
+    e.target.parentElement.classList.remove("showOnHover");
+
     // console.log('got in addTags');
     //& spread operator (...) allows us to quickly copy all or part of an existing array or object
     //& into another array or object.
     const lang = e.target.id;
     const tagKey = lang.toLowerCase();
+
+    console.log(lang);
 
     let isTagDuplicate: boolean = false;
 
@@ -88,7 +94,7 @@ function Filter() {
    * Gives a curved border radius to the first and last item on search dropdown
    */
   function borderForFirstLast() {
-    let myDropDown = id('myDropdown');
+    let myDropDown = id('myDropdown-' + props.type);
     let a = myDropDown.getElementsByTagName('a');
     a[0].classList.add('firstItem');
     a[a.length - 1].classList.add('lastItem');
@@ -98,44 +104,63 @@ function Filter() {
    * Opens the dropdown for the search bar if the user clicks the
    * search bar, otherwise the dropdown will be closed.
    */
-  function openDropdown() {
-    // console.log('got in openDropdown');
-    let myInput = qs('.myInput')!;
-    document.addEventListener('click', (e) => {
-      const withinBoundaries: boolean = e.composedPath().includes(myInput);
-      if (withinBoundaries) {
-        // console.log('inside');
-        id('myDropdown').classList.add('show');
-        id('myDropdown').classList.remove('hidden');
-      } else {
-        // console.log('outside');
-        id('myDropdown').classList.add('hidden');
-        id('myDropdown').classList.remove('show');
-      }
-    });
+  // function openDropdown(event : any) {
 
-    //& This line below is for debugging purposes
-    // id('myDropdown').classList.toggle('hidden');
+  //   let myInput = event.target as HTMLInputElement;
+    
+  //   // get dropdown
+  //   // let currDropdown = event.target.parentElement.querySelector(".myDropdown");
+  //   // document.addEventListener('click', (e) => {
+  //   //   console.log(e.composedPath());
+  //   //   const withinBoundaries: boolean = e.composedPath().includes(myInput);
+  //   //   if (withinBoundaries) {
+  //   //     // console.log('inside');
+  //   //     currDropdown.classList.add('show');
+  //   //     currDropdown.classList.remove('hidden');
+  //   //   } else {
+  //   //     // console.log('outside');
+  //   //     currDropdown.classList.add('hidden');
+  //   //     currDropdown.classList.remove('show');
+  //   //   }
+  //   // });
+
+  //   //& This line below is for debugging purposes
+  //   // id('myDropdown').classList.toggle('hidden');
+  // }
+
+  /**
+   * Fired when filter search bar is clicked.
+   * Allows for dropdown to persist after focus is off the searchbar
+   * @param event - event associated with clicking filter search bar
+   */
+  function toggleDropdown(event : any) {
+    // add class back to dropdown to have it persist after filter search is
+    // out of focus
+    let currDropdown = event.target.parentElement.querySelector(".myDropdown");
+    currDropdown.classList.add("showOnHover");
   }
 
   function handleChange(e: any) {
     setInputValue(e.target.value);
-    filterFunction();
+    filterFunction(e);
   }
 
+  // handle click in search bar of filter
   function handleClick(e: any) {
-    openDropdown();
-    filterFunction();
+    //openDropdown(e);
+    toggleDropdown(e);
+    filterFunction(e);
   }
 
   /**
    * Handles searching for items inside the search bar
    */
-  function filterFunction() {
-    let input = qs('.myInput') as HTMLInputElement;
+  function filterFunction(e : any) {
+    let input = e.target as HTMLInputElement;
     let filter = input.value.toUpperCase();
 
-    let div = id('myDropdown')!;
+    // get dropdown from corresponding filter
+    let div = e.target.parentElement.querySelector(".myDropdown");
     let a = div.getElementsByTagName('a');
 
     let amountFound: number = 0;
@@ -174,8 +199,6 @@ function Filter() {
       a[firstItemIndex].classList.add('firstItem');
       a[lastItemIndex].classList.add('lastItem');
     }
-    // console.log('firstItemIndex = ' + firstItemIndex);
-    // console.log('lastItemIndex = ' + lastItemIndex);
   }
 
 //   /**
@@ -199,8 +222,8 @@ function Filter() {
   return(
     <section id='filter-section'>
       <div className='any-language'>
-        <input type='checkbox' id='any-language' className='checkbox' onClick={showOverlay} />
-        <label htmlFor='any-language' className='text-body'>Any language</label>
+        <input type='checkbox' id={'any-language-' + props.type} className='checkbox' onClick={showOverlay} />
+        <label htmlFor={'any-language-' + props.type} className='text-body'>Any language</label>
       </div>
       <div className='filter-root-container'>
         <div className='language'>
@@ -211,7 +234,7 @@ function Filter() {
             <div className='dropdown'>
               <input type='text' placeholder="Search..." value={inputValue} className='myInput'
                   onClick={handleClick} onChange={handleChange} />
-              <div id='myDropdown' className='dropdown-content hidden'>
+              <div id={'myDropdown-' + props.type } className='myDropdown showOnHover dropdown-content hidden'>
                 {ISOLanguage.map((language) => (
                   <a href={'#' + language.code} id={language.name} key={language.name} onClick={addTags}>
                     {language.name}
