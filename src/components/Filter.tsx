@@ -59,6 +59,9 @@ function Filter(props : any) {
   // }, [isOverlayActive])
 
   function addTags (e: any) {
+    // on adding a tag, hide the dropdown
+    e.target.parentElement.classList.remove("showOnHover");
+
     // console.log('got in addTags');
     //& spread operator (...) allows us to quickly copy all or part of an existing array or object
     //& into another array or object.
@@ -147,13 +150,22 @@ function Filter(props : any) {
   //   // id('myDropdown').classList.toggle('hidden');
   // }
 
+  function toggleDropdown(event : any) {
+    // add class back to dropdown to have it persist after filter search is
+    // out of focus
+    let currDropdown = event.target.parentElement.querySelector(".myDropdown");
+    currDropdown.classList.add("showOnHover");
+  }
+
   function handleChange(e: any) {
     setInputValue(e.target.value);
     filterFunction(e);
   }
 
+  // handle click in search bar of filter
   function handleClick(e: any) {
     //openDropdown(e);
+    toggleDropdown(e);
     filterFunction(e);
   }
 
@@ -239,7 +251,7 @@ function Filter(props : any) {
             <div className='dropdown'>
               <input type='text' placeholder="Search..." value={inputValue} className='myInput'
                   onClick={handleClick} onChange={handleChange} />
-              <div id={'myDropdown-' + props.type } className='myDropdown dropdown-content hidden'>
+              <div id={'myDropdown-' + props.type } className='myDropdown showOnHover dropdown-content hidden'>
                 {ISOLanguage.map((language) => (
                   <a href={'#' + language.code} id={language.name} key={language.name} onClick={addTags}>
                     {language.name}

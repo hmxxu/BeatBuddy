@@ -21,7 +21,7 @@
 }
 
 .checkbox {
-  accent-color: #9d3039;
+  accent-color: #1C2330;
   height: 20px;
   /* not needed */
   width: 20px;
@@ -120,7 +120,7 @@
 }
 
 /* displays the dropdown when hovered to give time for tag adding*/
-.myDropdown:hover {
+.showOnHover:hover {
   display: block;
 }
 
