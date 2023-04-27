@@ -24,9 +24,19 @@ Pahn
  * Helped fix some frontend bugs
  * Got stuck trying to integrate frontend and backend
 
+ Jonathan
+ * Set up initial access token acquisition from Spotify API
+ * Installed types for Spotify API and specified interface for token
+ * Set up basic testing for the recommendation interface
+ * Working on trying to figure out why API functions do not work when placed into `src` folder
+
 
 ### outline your plans and goals for the following week (per person)
 
 Pahn
  * Will try to get Github to display our static webpage
  * Figure out how to integrate frontend and backend
+
+ Jonathan
+ * Fix API functions not working when placed in `src` folder
+ * Extend recommendation module to wrangle track data into nicer format
