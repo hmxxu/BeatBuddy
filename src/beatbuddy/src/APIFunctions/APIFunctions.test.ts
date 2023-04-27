@@ -1,5 +1,6 @@
 import { returnSongStats } from "./ReturnSongStats";
 import { returnDummyRec } from "./ReturnSongStats";
+import fetch from "node-fetch"
 
 test('testing returnSongStats', async () => {
     let response = await returnSongStats('5TTXEcfsYLh6fTarLaevTi');

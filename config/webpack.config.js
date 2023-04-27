@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const resolve = require('resolve');
+const dotenv = require('dotenv')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
@@ -43,6 +44,8 @@ const babelRuntimeEntryHelpers = require.resolve(
 const babelRuntimeRegenerator = require.resolve('@babel/runtime/regenerator', {
   paths: [babelRuntimeEntry],
 });
+
+dotenv.config()
 
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
 // makes for a smoother build process.
@@ -132,35 +135,35 @@ module.exports = function (webpackEnv) {
             ident: 'postcss',
             config: false,
             plugins: !useTailwind
-              ? [
-                  'postcss-flexbugs-fixes',
-                  [
-                    'postcss-preset-env',
-                    {
-                      autoprefixer: {
-                        flexbox: 'no-2009',
-                      },
-                      stage: 3,
+            ? [
+                'postcss-flexbugs-fixes',
+                [
+                  'postcss-preset-env',
+                  {
+                    autoprefixer: {
+                      flexbox: 'no-2009',
                     },
-                  ],
-                  // Adds PostCSS Normalize as the reset css with default options,
-                  // so that it honors browserslist config in package.json
-                  // which in turn let's users customize the target behavior as per their needs.
-                  'postcss-normalize',
-                ]
-              : [
-                  'tailwindcss',
-                  'postcss-flexbugs-fixes',
-                  [
-                    'postcss-preset-env',
-                    {
-                      autoprefixer: {
-                        flexbox: 'no-2009',
-                      },
-                      stage: 3,
-                    },
-                  ],
+                    stage: 3,
+                  },
                 ],
+                // Adds PostCSS Normalize as the reset css with default options,
+                // so that it honors browserslist config in package.json
+                // which in turn let's users customize the target behavior as per their needs.
+                'postcss-normalize',
+              ]
+            : [
+                'tailwindcss',
+                'postcss-flexbugs-fixes',
+                [
+                  'postcss-preset-env',
+                  {
+                    autoprefixer: {
+                      flexbox: 'no-2009',
+                    },
+                    stage: 3,
+                  },
+                ],
+              ],
           },
           sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
         },
@@ -294,7 +297,6 @@ module.exports = function (webpackEnv) {
     },
     resolve: {
       fallback: {
-        // 👇️👇️👇️ add this 👇️👇️👇️
         "fs": false,
         "os": false,
         "path": false,
@@ -569,6 +571,13 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean),
     },
     plugins: [
+      new webpack.ProvidePlugin({
+        process: 'process/browser.js',
+      }),
+      new webpack.DefinePlugin({
+        'process.env.REACT_APP_SPOTIFY_CLIENT_ID': JSON.stringify(process.env.REACT_APP_SPOTIFY_CLIENT_ID),
+        'process.env.REACT_APP_SPOTIFY_CLIENT_SECRET': JSON.stringify(process.env.REACT_APP_SPOTIFY_CLIENT_SECRET),
+      }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(

@@ -1,5 +1,3 @@
-require('dotenv').config({path: __dirname + '/.env'})
-
 /**
  * Get an access token instance from SpotifyAPI. Requires .env in
  * same dir with `SPOTIFY_CLIENT_ID` and `SPOTIFY_SECRET_ID` set.
@@ -11,12 +9,13 @@ async function getAccessToken(): Promise<AccessTokenResponse> {
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: new URLSearchParams({
             'grant_type': 'client_credentials',
-            'client_id': process.env.SPOTIFY_CLIENT_ID || "",
-            'client_secret': process.env.SPOTIFY_CLIENT_SECRET || ""
+            'client_id': process.env.REACT_APP_SPOTIFY_CLIENT_ID || "",
+            'client_secret': process.env.REACT_APP_SPOTIFY_CLIENT_SECRET || ""
         })
     });
 
-    return await response.json()
+    const res = await response.json() as AccessTokenResponse;
+    return res;
 }
 
 /**

@@ -1,5 +1,4 @@
 import { getAccessToken } from "../recommendation/APIWrapper";
-require('dotenv').config({path: __dirname + '/.env'})
 
 /**
  * @param id the ID of the song that we are returning the stats of
