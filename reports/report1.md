@@ -23,6 +23,7 @@ Pu
  * Created filter tag adding and removal system
  * Started on mobile version of mock-ups
  * Styled filters
+ * Got stuck on fixing some filter bugs introduced when two filters on page
 
 Pahn
  * Created the frontend main search bar, part of song player, header, playlist generation button
