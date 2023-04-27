@@ -44,6 +44,14 @@ HaoMing
  * Learned how to make and return Spotify API calls with fetch
  * Had a little trouble making the end points for the API calls
 
+Adrian
+ * Create Spotify app for get client id and client secret
+ * Help with the design and architecture documentation
+
+Tapan
+ * Started on Spotify login authentication
+ * Read Spotify web API documentation
+
 ### outline your plans and goals for the following week (per person)
 
 Pu 
@@ -60,5 +68,12 @@ Jonathan
 
 HaoMing
  * Add on to already made unit test
- * Make a function for user to login into Spotify account
  * Make a function that saves a list of tracks as a playlist in the user's account
+
+Adrian
+ * Help front end make website intuitive
+ * Help research algirthom
+
+Tapan
+ * Make a function for user to login into Spotify account
+ * Start with search bar
