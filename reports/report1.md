@@ -4,15 +4,23 @@
 
 ### report on progress and issues: what you did, what worked, what you learned, where you had trouble, and where you are stuck.
 
-Progress: Static frontend is finished, basic backend Spotify API calls are implemented
+Progress: 
+ * Static frontend is finished
+ * basic backend Spotify API calls are implemented
 
-Trouble: Github page is not displaying the React framework page
+Trouble: 
+ * Github page is not displaying the React framework page
+ * File organization according to React's needs
 
-Stuck: File organization to integrate frontend and backend
+Stuck: 
+ * File organization to integrate frontend and backend
 
 ### outline your plans and goals for the following week (higher level)
 
-Next week: Make Github pages display the frontend, integrate frontend and backend
+Next week: 
+ * Make Github pages display the frontend, integrate frontend and backend
+ * Add more testing for backend
+ * Continue creating and refining functions that interact with Spotify API
 
 ## Contributions of individual team members.
 
