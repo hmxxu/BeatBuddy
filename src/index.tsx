@@ -16,10 +16,16 @@ root.render(
   <React.StrictMode>
     <Navbar/>
     <SearchBar/>
-    <div id="two-filter">
-      <Filter key="language-filter" type="language-filter"/>
-      <Filter key="genre-filter" type="genre-filter"/>
+    <div className="accordion">
+      <label htmlFor="customize">Customize your playlist</label>
+      <input type="checkbox" name="accordion" id="first"/>
+      {/* <h4>Use our filters to customize your recommended playlist.</h4> */}
+      <div id="two-filter">
+        <Filter key="language-filter" type="language-filter" />
+        <Filter key="genre-filter" type="genre-filter" />
+      </div>
     </div>
+
     <PlaylistReady/>
     <GeneratedPlaylist/>
   </React.StrictMode>

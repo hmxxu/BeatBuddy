@@ -41,7 +41,7 @@ h1, .h1 {
   font-size: 36px;
 }
 
-h2, .h2 {
+h2, .h2, label {
   font-size: 28px;
 }
 
@@ -84,7 +84,7 @@ button:hover {
 }
 
 /* ? For bold typography */
-.text-body, h4, .h4 {
+.text-body, h4, .h4, label {
   font-weight: 700;
 }
 
@@ -108,4 +108,41 @@ code {
   flex-wrap: wrap;
   column-gap: 20px;
   /* visibility: hidden; */
+}
+
+.accordion label[for="customize"]::after {
+  /* content: url('../images/accordion-close.png'); */
+  content: "+";
+  margin-right: 10px;
+}
+
+.accordion input[type="checkbox"] {
+  /* display: none; */
+}
+
+.accordion #two-filter {
+  /* max-height: 0;
+  overflow: hidden;
+  transform: max-height 0.5s; */
+
+  /* display: none; */
+  /* opacity: 0; */
+  overflow: hidden;
+  max-height: 0;
+  /* transition: opacity 0.5s ease-out; */
+  transition: max-height 0.5s ease-in-out;
+
+}
+.accordion input[type="checkbox"]:checked + #two-filter {
+  /* max-height: 700px;
+  overflow-y: scroll; */
+
+  /* display: block; */
+  max-height: 700px;
+  /* opacity: 1; */
+  overflow: visible;
+}
+
+.accordion input[type="checkbox"]:checked + label::after {
+  content: "-";
 }

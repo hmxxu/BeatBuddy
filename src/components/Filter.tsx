@@ -23,7 +23,7 @@ function Filter(props : any) {
     //updateDropdownMargin();
     borderForFirstLast();
     // getTagsClicked();
-    
+
   }
 
   function clearAllTags() {
@@ -129,7 +129,7 @@ function Filter(props : any) {
   // function openDropdown(event : any) {
 
   //   let myInput = event.target as HTMLInputElement;
-    
+
   //   // get dropdown
   //   // let currDropdown = event.target.parentElement.querySelector(".myDropdown");
   //   // document.addEventListener('click', (e) => {
