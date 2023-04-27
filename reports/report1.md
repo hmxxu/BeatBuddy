@@ -30,12 +30,18 @@ Pahn
  * Helped fix some frontend bugs
  * Got stuck trying to integrate frontend and backend
 
- Jonathan
+Jonathan
  * Set up initial access token acquisition from Spotify API
  * Installed types for Spotify API and specified interface for token
  * Set up basic testing for the recommendation interface
  * Working on trying to figure out why API functions do not work when placed into `src` folder
 
+HaoMing
+ * Used getAccessToken function made by Jonathan to make a function that return a song's stats given the songs ID
+ * Made a dummy recommendation function for the frontend to use
+ * Made unit tests for functions just created
+ * Learned how to make and return Spotify API calls with fetch
+ * Had a little trouble making the end points for the API calls
 
 ### outline your plans and goals for the following week (per person)
 
@@ -47,6 +53,11 @@ Pahn
  * Will try to get Github to display our static webpage
  * Figure out how to integrate frontend and backend
 
- Jonathan
+Jonathan
  * Fix API functions not working when placed in `src` folder
  * Extend recommendation module to wrangle track data into nicer format
+
+HaoMing
+ * Add on to already made unit test
+ * Make a function for user to login into Spotify account
+ * Make a function that saves a list of tracks as a playlist in the user's account
