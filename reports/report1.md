@@ -18,6 +18,12 @@ Next week: Make Github pages display the frontend, integrate frontend and backen
 
 ### report on progress and issues: what you did, what worked, what you learned, where you had trouble, and where you are stuck.
 
+Pu
+ * Created frontend filters and filter search bars
+ * Created filter tag adding and removal system
+ * Started on mobile version of mock-ups
+ * Styled filters
+
 Pahn
  * Created the frontend main search bar, part of song player, header, playlist generation button
  * Did overall frontend styling
@@ -32,6 +38,10 @@ Pahn
 
 
 ### outline your plans and goals for the following week (per person)
+
+Pu 
+ * Figure out how to intergrate frontend and backend
+ * Finish mobile version of mock-ups 
 
 Pahn
  * Will try to get Github to display our static webpage
