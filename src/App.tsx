@@ -1,4 +1,4 @@
-// * App.tsx is a starter file from Reac - we can remove this later
+// * App.tsx is a starter file from React - we can remove this later
 
 import React from 'react';
 import logo from './images/logo.svg';

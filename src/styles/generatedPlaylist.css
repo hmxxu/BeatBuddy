@@ -1,0 +1,93 @@
+/* styles for the generated playlsit page */
+
+section {
+  border-radius: 10px;
+}
+
+#playlist-wrapper > button {
+  padding: 20px;
+}
+
+#playlist-wrapper > .song-results-container {
+  background-color: transparent;
+}
+
+#spotify-btn {
+  background-color: #1DB954;
+  color: rgb(28, 35, 48);
+  float: right;
+  border-bottom-left-radius: 10px;
+}
+
+#back-btn {
+  border-bottom-right-radius: 10px;
+}
+
+#playlist-wrapper, #back-btn {
+  background-color: rgb(28, 35, 48, 0.6);
+}
+#song-player {
+  background-color: rgb(28, 35, 48, 0.2);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+}
+
+#playlist-wrapper {
+  overflow: hidden;
+}
+
+#song-player {
+  margin: 20px;
+  padding: 20px;
+}
+
+.song-img {
+  height: 180px;
+  border-radius: 10px;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.play-btn-container {
+  /* position: relative; */
+  cursor: pointer;
+  padding: 15px;
+  transition: transform 0.1s ease-in-out;
+  background-color: #6481E8;
+  border-radius: 50%;
+  display: flex;
+}
+
+.play-btn-container:hover {
+  transform: scale(1.02);
+}
+
+.play-btn-container:hover > .circle {
+  /* background-color: #3b2af8; */
+  /* transition: 0.5s; */
+}
+
+.play-btn {
+  width: 64px;
+  height: 64px;
+  z-index: 2;
+}
+
+.current-song {
+  /* flex-shrink: 2; */
+  flex-grow: 2;
+}
+
+.vl {
+  border-left: 2px solid white;
+  height: 130px;
+}
+
+.attrs{
+  text-align: center;
+}

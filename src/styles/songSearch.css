@@ -1,0 +1,99 @@
+/**
+  * Css styles for the song search portion
+  */
+
+  #song-search {
+    width: calc(100% - 65px);
+    font-size: 20px;
+  }
+
+  #song-search-wrapper {
+    position: relative;
+  }
+
+  #song-search + button {
+    position: absolute;
+    right: 0px;
+    height: 100%;
+    width: 50px;
+    border-radius: 0px 20px 20px 0;
+  }
+
+  .song-results-container {
+    background-color: rgb(255, 255, 255, 0.2);
+    padding: 20px;
+    margin: 20px 0px 20px 0px;
+  }
+
+  .song-results-container > div:first-child {
+    font-weight: bold;
+  }
+
+  .song-results-container > div:first-child > p {
+    margin: 0;
+  }
+
+  #selected-song {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: calc(100% - 70px);
+    border-radius: 10px;
+    font-size: 14px;
+    height: calc(100% - 20px);
+    text-align: left;
+    padding-left: 20px;
+    background-color: #6481E8;
+    font-weight: bold;
+  }
+
+  #selected-song:hover {
+    background-color: #819dff;
+  }
+
+  .song-result, .song-results-container > div:first-child {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+  }
+
+  .song-result, .song-results-container {
+    border-radius: 20px;
+  }
+
+  .song-result {
+    background-color: #D5D1FF;
+    color: black;
+    margin-bottom: 20px;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .song-result > img {
+    height: 90px;
+    margin: 10px;
+    border-radius: 10px;
+  }
+
+  .song-result:hover {
+    cursor: pointer;
+  }
+
+  .material-symbols-rounded {
+    margin: 8px;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+
+  #selected-song > .material-symbols-rounded {
+    margin: 0px;
+    float: right;
+  }
+
+  #selected-song p {
+    margin: 0px;
+    display: inline;
+    vertical-align: sub;
+  }

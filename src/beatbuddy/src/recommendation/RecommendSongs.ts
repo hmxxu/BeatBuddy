@@ -13,3 +13,5 @@ class SongRec {
         this.title = title;
     }
 }
+
+export { getReccomendations, SongRec }

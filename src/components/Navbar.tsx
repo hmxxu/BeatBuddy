@@ -2,7 +2,9 @@ import React from 'react';
 
 function Navbar() {
   return(
-    <h1>Navbar Navbar Navbar</h1>
+    <header>
+      <h1>BeatBuddy</h1>
+    </header>
   )
 };
 

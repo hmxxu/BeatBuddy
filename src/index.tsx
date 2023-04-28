@@ -4,15 +4,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
-import App from './App';
 import Navbar from './components/Navbar';
 import Filter from './components/Filter';
+import SearchBar from './components/SearchBar';
+import PlaylistReady from './components/PlaylistReady';
+import GeneratedPlaylist from './components/GeneratedPlaylist';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
+// prop example: <App subject="Candiceeeeeee"/>
 root.render(
   <React.StrictMode>
-    <App subject="Candiceeeeeee"/>
     <Navbar/>
-    <Filter/>
+    <SearchBar/>
+    <div id="two-filter">
+      <Filter key="language-filter" type="language-filter"/>
+      <Filter key="genre-filter" type="genre-filter"/>
+    </div>
+    <PlaylistReady/>
+    <GeneratedPlaylist/>
   </React.StrictMode>
 );
