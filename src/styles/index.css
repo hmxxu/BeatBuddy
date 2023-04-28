@@ -121,7 +121,7 @@ code {
 }
 
 .accordion #customize-box:checked ~ #two-filter {
-  max-height: 500px;
+  max-height: 800px;
   /* opacity: 1; */
   /* ! this is the problem */
   /* overflow: visible; */
@@ -145,10 +145,22 @@ code {
 }
 
 .accordion-icon {
+  cursor: pointer;
   width: 36px;
   height: 36px;
   vertical-align: middle;
-  margin-left: 10px;
+  margin-left: 20px;
+  margin-right: auto;
+}
+
+.customize-label {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  /* white-space: nowrap; */
+}
+
+.customize-text {
+/* vertical-align: auto; */
 }
 
 .accordion-icon:hover {

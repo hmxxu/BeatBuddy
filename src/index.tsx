@@ -34,12 +34,13 @@ root.render(
     <Navbar/>
     <SearchBar/>
     <div className="accordion">
-      <span className="customize-text h2 bold">Customize your playlist</span>
-      <input type="checkbox" name="accordion" id="customize-box" onClick={delayOverflow} />
-      <label htmlFor="customize-box" className="h2 bold">
+      {/* <span className="customize-text h2 bold">Customize your playlist</span> */}
+      <input type="checkbox" name="accordion" id="customize-box" defaultChecked={true} onClick={delayOverflow} />
+      <label htmlFor="customize-box" className="customize-label h2 bold">
+        <span className="customize-text h2 bold">Customize your playlist</span>
         <img src={accordion_icon} alt="accordion-close" className="accordion-icon"></img>
       </label>
-      {/* <h4>Use our filters to customize your recommended playlist.</h4> */}
+      <h4>Use our filters to customize your recommended playlist.</h4>
       <div id="two-filter">
         <Filter key="language-filter" type="language-filter" />
         <Filter key="genre-filter" type="genre-filter" />
