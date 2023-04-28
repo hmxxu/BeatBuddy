@@ -35,7 +35,7 @@ root.render(
     <SearchBar/>
     <div className="accordion">
       {/* <span className="customize-text h2 bold">Customize your playlist</span> */}
-      <input type="checkbox" name="accordion" id="customize-box" defaultChecked={true} onClick={delayOverflow} />
+      <input type="checkbox" name="accordion" id="customize-box" onClick={delayOverflow} />
       <label htmlFor="customize-box" className="customize-label h2 bold">
         <span className="customize-text h2 bold">Customize your playlist</span>
         <img src={accordion_icon} alt="accordion-close" className="accordion-icon"></img>
