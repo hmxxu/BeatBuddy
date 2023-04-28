@@ -84,7 +84,7 @@ button:hover {
 }
 
 /* ? For bold typography */
-.text-body, h4, .h4 {
+.text-body, .bold {
   font-weight: 700;
 }
 
@@ -106,6 +106,63 @@ code {
 #two-filter {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 20px;
-  /* visibility: hidden; */
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.accordion {
+  display: inline;
+}
+
+.accordion #two-filter {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.accordion #customize-box:checked ~ #two-filter {
+  max-height: 800px;
+  /* opacity: 1; */
+  /* ! this is the problem */
+  /* overflow: visible; */
+}
+
+.accordion #customize-box:checked + label > .accordion-icon {
+  transform: rotate(90deg);
+  transition: 0.3s;
+}
+.accordion #customize-box:not(:checked) + label > .accordion-icon {
+  transform: rotate(0deg);
+  transition: 0.1s;
+}
+
+.overflow-visible {
+  overflow: visible;
+}
+
+.accordion #customize-box {
+  display: none !important;
+}
+
+.accordion-icon {
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
+  margin-left: 20px;
+  margin-right: auto;
+}
+
+.customize-label {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  /* white-space: nowrap; */
+}
+
+.customize-text {
+/* vertical-align: auto; */
+}
+
+.accordion-icon:hover {
+  filter: brightness(150%);
 }
