@@ -41,7 +41,7 @@ h1, .h1 {
   font-size: 36px;
 }
 
-h2, .h2, label {
+h2, .h2 {
   font-size: 28px;
 }
 
@@ -84,7 +84,7 @@ button:hover {
 }
 
 /* ? For bold typography */
-.text-body, h4, .h4, label {
+.text-body, .bold {
   font-weight: 700;
 }
 
@@ -106,41 +106,51 @@ code {
 #two-filter {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 20px;
-  /* visibility: hidden; */
+  gap: 20px;
+  margin-top: 10px;
 }
 
-.accordion label[for="customize"]::after {
-  /* content: url('../images/accordion-close.png'); */
-  content: "+";
-  margin-right: 10px;
-}
-
-.accordion input[type="checkbox"] {
-  /* display: none; */
+.accordion {
+  display: inline;
 }
 
 .accordion #two-filter {
   overflow: hidden;
-  /* visibility: hidden; */
   max-height: 0;
-  /* transition: opacity 0.5s ease-out; */
   transition: max-height 0.3s ease-in-out;
-  /* transition: opacity 0.5s ease-in; */
-
 }
-.accordion input[type="checkbox"]:checked + #two-filter {
+
+.accordion #customize-box:checked ~ #two-filter {
   max-height: 500px;
   /* opacity: 1; */
   /* ! this is the problem */
   /* overflow: visible; */
-  /* visibility: visible; */
+}
+
+.accordion #customize-box:checked + label > .accordion-icon {
+  transform: rotate(90deg);
+  transition: 0.3s;
+}
+.accordion #customize-box:not(:checked) + label > .accordion-icon {
+  transform: rotate(0deg);
+  transition: 0.1s;
 }
 
 .overflow-visible {
   overflow: visible;
 }
 
-.accordion input[type="checkbox"]:checked + label::after {
-  content: "-";
+.accordion #customize-box {
+  display: none !important;
+}
+
+.accordion-icon {
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.accordion-icon:hover {
+  filter: brightness(150%);
 }
