@@ -101,34 +101,6 @@ function Filter(props : any) {
   }
 
   /**
-   * Opens the dropdown for the search bar if the user clicks the
-   * search bar, otherwise the dropdown will be closed.
-   */
-  // function openDropdown(event : any) {
-
-  //   let myInput = event.target as HTMLInputElement;
-
-  //   // get dropdown
-  //   // let currDropdown = event.target.parentElement.querySelector(".myDropdown");
-  //   // document.addEventListener('click', (e) => {
-  //   //   console.log(e.composedPath());
-  //   //   const withinBoundaries: boolean = e.composedPath().includes(myInput);
-  //   //   if (withinBoundaries) {
-  //   //     // console.log('inside');
-  //   //     currDropdown.classList.add('show');
-  //   //     currDropdown.classList.remove('hidden');
-  //   //   } else {
-  //   //     // console.log('outside');
-  //   //     currDropdown.classList.add('hidden');
-  //   //     currDropdown.classList.remove('show');
-  //   //   }
-  //   // });
-
-  //   //& This line below is for debugging purposes
-  //   // id('myDropdown').classList.toggle('hidden');
-  // }
-
-  /**
    * Fired when filter search bar is clicked.
    * Allows for dropdown to persist after focus is off the searchbar
    * @param event - event associated with clicking filter search bar
@@ -201,24 +173,6 @@ function Filter(props : any) {
     }
   }
 
-//   /**
-//  * Returns the element that has the ID attribute with the specified value.
-//  * @param {string} id - element ID
-//  * @return {object} DOM object associated with id.
-//  */
-//   function id(id: any) {
-//     return document.getElementById(id)!;
-//   }
-
-//   /**
-//    * Returns the first element that matches the given CSS selector.
-//    * @param {string} query - CSS query selector.
-//    * @return {object[]} array of DOM objects matching the query.
-//    */
-//   function qs(query: any) {
-//     return document.querySelector(query);
-//   }
-
   return(
     <section id='filter-section'>
       <div className='any-language'>
@@ -226,10 +180,8 @@ function Filter(props : any) {
         <label htmlFor={'any-language-' + props.type} className='text-body'>Any language</label>
       </div>
       <div className='filter-root-container'>
-        <div className='language'>
-        </div>
         <div className='filter-container'>
-          <div>
+          <div className="language-wrapper">
             <span className='h4 search-header'>Language</span>
             <div className='dropdown'>
               <input type='text' placeholder="Search..." value={inputValue} className='myInput'
