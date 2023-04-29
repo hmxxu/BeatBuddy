@@ -1,7 +1,7 @@
 /* styles for the generated playlsit page */
 
 section {
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
 #playlist-wrapper > button {
@@ -21,6 +21,10 @@ section {
 
 #back-btn {
   border-bottom-right-radius: 10px;
+}
+
+#back-btn img, #spotify-btn img {
+  vertical-align: middle;
 }
 
 #playlist-wrapper, #back-btn {
@@ -53,6 +57,10 @@ section {
   column-gap: 20px;
 }
 
+.song-stats {
+  margin-top: 20px;
+}
+
 .play-btn-container {
   /* position: relative; */
   cursor: pointer;
@@ -61,16 +69,13 @@ section {
   background-color: #6481E8;
   border-radius: 50%;
   display: flex;
+  margin-right: 20px;
 }
 
 .play-btn-container:hover {
   transform: scale(1.02);
 }
 
-.play-btn-container:hover > .circle {
-  /* background-color: #3b2af8; */
-  /* transition: 0.5s; */
-}
 
 .play-btn {
   width: 64px;
@@ -79,8 +84,14 @@ section {
 }
 
 .current-song {
-  /* flex-shrink: 2; */
   flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.current-song > p {
+  /* flex-shrink: 2; */
 }
 
 .vl {
@@ -90,4 +101,16 @@ section {
 
 .attrs{
   text-align: center;
+  flex-grow: 2;
+}
+
+.arrow-back, .spotify-icon {
+  width: 36px;
+  height: 36px;
+}
+.arrow-back {
+  margin-right: 10px;
+}
+.spotify-icon {
+  margin-left: 10px;
 }

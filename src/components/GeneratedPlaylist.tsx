@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
 // temp
-import minami from './../images/minami.jpg';
+import minami from '../images/minami.jpg';
 import play_btn from '../images/play-btn.png';
+import arrow_back from '../images/arrow-back.png';
+import spotify_icon from '../images/spotify-icon.png';
 
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
@@ -37,17 +39,24 @@ function GeneratedPlaylist() {
       <h2>Your Recommended Playlist</h2>
       <section id="playlist-wrapper">
         <button id="back-btn">
-          <span className="material-symbols-rounded">
+          {/* <span className="material-symbols-rounded">
             arrow_back
-          </span>
-          Try another song</button>
-        <button id="spotify-btn">Import playlist to Spotify</button>
+          </span> */}
+          <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
+          <span className="bold">Try another song</span>
+        </button>
+        <button id="spotify-btn">
+          <span className="bold">Save to Spotify</span>
+          <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
+          </button>
         <section id="song-player">
           <div className="flex">
-            <img src={ minami } className="song-img"></img>
+            <img src={ minami } alt="The song cover" className="song-img"></img>
             <div className="current-song">
-              <h1>{ currTitle }</h1>
-              <h2>{ currArtist }</h2>
+              {/* <h1>{ currTitle }</h1>
+              <h2>{ currArtist }</h2> */}
+              <p className="h1 bold">{currTitle}</p>
+              <p className="h2 bold">By {currArtist}</p>
             </div>
             <div className="play-btn-container">
                 <img src={play_btn} className="play-btn" alt="an icon of a play button"></img>

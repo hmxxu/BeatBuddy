@@ -177,7 +177,8 @@ function Filter(props : any) {
     <section id='filter-section'>
       <div className='any-language'>
         <input type='checkbox' id={'any-language-' + props.type} className='checkbox' onClick={showOverlay} />
-        <label htmlFor={'any-language-' + props.type} className='text-body'>Any language</label>
+        <label htmlFor={'any-language-' + props.type} className='text-body'></label>
+        <span className='text-body'>Any language</span>
       </div>
       <div className='filter-root-container'>
         <div className='filter-container'>

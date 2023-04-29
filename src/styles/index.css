@@ -15,6 +15,20 @@ body {
   margin-bottom: 150px;
 }
 
+/* ? Breakpoint for large screen */
+@media screen and (min-width: 1920px) {
+  body {
+    width: 60%;
+  }
+}
+
+/* ? Breakpoint for mobile */
+@media screen and (max-width: 800px) {
+  body {
+    width: 90%;
+  }
+}
+
 header {
   background-color: rgb(28, 35, 48, 0.6);
   /* position: fixed;*/
@@ -61,7 +75,7 @@ input {
   box-shadow: rgb(28, 35, 48, 0.5) 1px 2px 2px;
 }
 
-input:focus {
+#song-search:focus {
   outline: 2px solid #D5D1FF;
 }
 
@@ -121,7 +135,7 @@ code {
 }
 
 .accordion #customize-box:checked ~ #two-filter {
-  max-height: 800px;
+  max-height: 2000px;
   /* opacity: 1; */
   /* ! this is the problem */
   /* overflow: visible; */
@@ -133,7 +147,7 @@ code {
 }
 .accordion #customize-box:not(:checked) + label > .accordion-icon {
   transform: rotate(0deg);
-  transition: 0.1s;
+  transition: 0.3s;
 }
 
 .overflow-visible {
@@ -165,4 +179,8 @@ code {
 
 .accordion-icon:hover {
   filter: brightness(150%);
+}
+
+.filter-root-container {
+  background-color: rgb(28, 35, 48, 0.8);
 }
