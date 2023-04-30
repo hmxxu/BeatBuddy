@@ -16,9 +16,10 @@ function GeneratedPlaylist() {
 
   // temp
   const [currSongsState, setSongsState] = useState([
-    ["minami", "Eternal Blue", "J-pop"],
+    ["Minami", "Eternal Blue", "J-pop"],
     ["deco*27", "vampire", "Vocaloid"],
-    ["Ryo", "melt", "Vocaloid"]
+    ["Ryo", "melt", "Vocaloid"],
+    ["Minami", "[Test for very long song name] Prologue", "J-pop"]
   ]);
 
   const [currTitle, setCurrTitle] = useState(currSongsState[0][1]);
