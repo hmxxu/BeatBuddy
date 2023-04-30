@@ -15,6 +15,10 @@ body {
   margin-bottom: 150px;
 }
 
+#playlist-wrapper-mobile {
+  display: none;
+}
+
 /* ? Breakpoint for large screen */
 @media screen and (min-width: 1920px) {
   body {
@@ -23,9 +27,17 @@ body {
 }
 
 /* ? Breakpoint for mobile */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 600px) {
   body {
-    width: 90%;
+    width: 95%;
+  }
+
+  #playlist-wrapper {
+    display: none;
+  }
+
+  #playlist-wrapper-mobile {
+    display: block;
   }
 }
 
@@ -65,6 +77,10 @@ font-size: 24px;
 
 h4, .h4 {
   font-size: 20px;
+}
+
+h5, .h5 {
+  font-size: 16px;
 }
 
 input {

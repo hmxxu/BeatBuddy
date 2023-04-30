@@ -35,8 +35,14 @@ section {
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
 }
 
+
 #playlist-wrapper {
   overflow: hidden;
+}
+
+#playlist-wrapper-mobile {
+  overflow: hidden;
+  padding-top: 100px;
 }
 
 #song-player {
@@ -44,9 +50,33 @@ section {
   padding: 20px;
 }
 
+#playlist-wrapper-mobile {
+  background-color: rgb(28, 35, 48, 0.4);
+}
+
+#song-player-mobile {
+  background-color: rgb(28, 35, 48, 0.2);
+}
+
+#song-player-mobile {
+  margin: 10px;
+  padding: 10px;
+}
+
+.results-mobile {
+  padding: 10px;
+  /* border-radius: 10px; */
+}
+
 .song-img {
   height: 180px;
   border-radius: 10px;
+}
+
+.song-img-mobile {
+  width: auto;
+  height: auto;
+  border-radius: 15px;
 }
 
 .flex {
@@ -57,8 +87,25 @@ section {
   column-gap: 20px;
 }
 
+.flex-mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flex-song {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+}
+
 .song-stats {
   margin-top: 20px;
+}
+.song-stats-mobile {
+  margin-top: 0px;
 }
 
 .play-btn-container {
@@ -90,6 +137,15 @@ section {
   justify-content: center;
 }
 
+.current-song-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
 .current-song > p {
   /* flex-shrink: 2; */
 }
@@ -97,6 +153,11 @@ section {
 .vl {
   border-left: 2px solid white;
   height: 130px;
+}
+
+.vl-mobile {
+  border-left: 2px solid white;
+  height: 90px;
 }
 
 .attrs{

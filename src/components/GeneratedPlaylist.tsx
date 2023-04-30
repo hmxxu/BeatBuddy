@@ -100,6 +100,44 @@ function GeneratedPlaylist() {
           }
         </section>
       </section>
+      <section id="playlist-wrapper-mobile">
+        <section id="song-player-mobile">
+          <div className="flex-mobile">
+            <div className="current-song-mobile">
+              {/* <h1>{ currTitle }</h1>
+              <h2>{ currArtist }</h2> */}
+              <span className="h2 bold">{currTitle}</span>
+              <span className="h4 bold">{currArtist}</span>
+            </div>
+            <img src={minami} alt="The song cover" className="song-img-mobile"></img>
+          </div>
+          <div className="song-stats-mobile flex-song">
+            <div id="liveliness" className="attrs">
+              <h5>Liveliness</h5>
+              <h2>90%</h2>
+            </div>
+            <div className="vl-mobile"></div>
+            <div id="accoustic" className="attrs">
+              <h5>Accousticness</h5>
+              <h2>10%</h2>
+            </div>
+            <div className="vl-mobile"></div>
+            <div id="danceable" className="attrs">
+              <h5>Danceability</h5>
+              <h2>13%</h2>
+            </div>
+          </div>
+        </section>
+        <section className="results-mobile">
+          {
+            currSongsState.map((song: any) => (
+              <SongResult onClick={() => { handleSongClick(song) }}
+                key={song[0] + song[1]}
+                artist={song[0]} title={song[1]} genre={song[2]} />
+            ))
+          }
+        </section>
+      </section>
     </section>
   )
 };
