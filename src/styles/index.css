@@ -26,6 +26,28 @@ body {
   }
 }
 
+/* ? Breakpoint for smaller desktop */
+@media screen and (max-width: 900px) {
+  .h-title {
+    font-size: 36px !important;
+  }
+  h1, .h1 {
+    font-size: 28px !important;
+  }
+  h2, .h2 {
+    font-size: 24px !important;
+  }
+  h3, .h3 {
+    font-size: 20px !important;
+  }
+  h4, .h4 {
+    font-size: 16px !important;
+  }
+  h5,.h5 {
+    font-size: 14px !important;
+  }
+}
+
 /* ? Breakpoint for mobile */
 @media screen and (max-width: 600px) {
   body {
@@ -66,6 +88,10 @@ body {
 
 .myDropdown, #song-results-container > div:first-child, .song-result {
   text-shadow: none;
+}
+
+.h-title {
+  font-size: 48px;
 }
 
 h1, .h1 {

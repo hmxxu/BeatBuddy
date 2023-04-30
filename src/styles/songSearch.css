@@ -75,7 +75,8 @@
     margin-bottom: 20px;
     background-color: #D5D1FF;
     border-radius: 10px;
-    padding: 10px;
+    /* top | right | bottom | left */
+    padding: 10px 20px 10px 20px;
   }
   .play-btn-small {
     width: 36px;
@@ -91,7 +92,7 @@
     background-color: #6481E8;
     border-radius: 50%;
     display: flex;
-    margin-right: 20px;
+    /* margin-right: 20px; */
   }
 
   .song-container-mobile > p {
