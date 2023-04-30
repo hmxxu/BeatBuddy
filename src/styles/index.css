@@ -15,7 +15,7 @@ body {
   margin-bottom: 150px;
 }
 
-#playlist-wrapper-mobile {
+#playlist-wrapper-mobile, .song-container-mobile {
   display: none;
 }
 
@@ -39,6 +39,23 @@ body {
   #playlist-wrapper-mobile {
     display: block;
   }
+
+  .song-result {
+    grid-template-columns: 50% 50% !important;
+  }
+
+  .song-result img, #title, #artist, #genre {
+    display: none;
+  }
+
+  .song-container-mobile {
+    display: block;
+  }
+
+  .play-btn-container {
+    display: flex;
+  }
+
 }
 
 header {
