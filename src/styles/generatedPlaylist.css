@@ -42,7 +42,10 @@ section {
 
 #playlist-wrapper-mobile {
   overflow: hidden;
-  padding-top: 100px;
+}
+
+.icon-mobile {
+  padding: 10px;
 }
 
 #song-player {
@@ -60,6 +63,7 @@ section {
 
 #song-player-mobile {
   margin: 10px;
+  margin-top: 50px;
   padding: 10px;
 }
 
@@ -165,12 +169,17 @@ section {
   flex-grow: 2;
 }
 
-.arrow-back, .spotify-icon {
+.arrow-back, .arrow-back-mobile, .spotify-icon {
   width: 36px;
   height: 36px;
 }
 .arrow-back {
   margin-right: 10px;
+}
+.arrow-back-mobile {
+  margin-right: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .spotify-icon {
   margin-left: 10px;

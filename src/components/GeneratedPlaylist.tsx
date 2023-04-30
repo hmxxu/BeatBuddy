@@ -48,7 +48,7 @@ function GeneratedPlaylist() {
         <button id="spotify-btn">
           <span className="bold">Save to Spotify</span>
           <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
-          </button>
+        </button>
         <section id="song-player">
           <div className="flex">
             <img src={ minami } alt="The song cover" className="song-img"></img>
@@ -101,6 +101,14 @@ function GeneratedPlaylist() {
         </section>
       </section>
       <section id="playlist-wrapper-mobile">
+        <button id="back-btn" className="icon-mobile">
+          <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back-mobile"></img>
+          <span className="bold"></span>
+        </button>
+        <button id="spotify-btn" className="icon-mobile">
+          <span className="h5 bold icon-mobile">Save to Spotify</span>
+          <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
+        </button>
         <section id="song-player-mobile">
           <div className="flex-mobile">
             <div className="current-song-mobile">
