@@ -15,7 +15,7 @@ body {
   margin-bottom: 150px;
 }
 
-#playlist-wrapper-mobile, .song-container-mobile {
+#playlist-wrapper-mobile, .song-result-container > .song-result-mobile {
   display: none;
 }
 
@@ -32,7 +32,7 @@ body {
     width: 95%;
   }
 
-  #playlist-wrapper {
+  #playlist-wrapper, .song-result-container > .song-result {
     display: none;
   }
 
@@ -40,19 +40,7 @@ body {
     display: block;
   }
 
-  .song-result {
-    grid-template-columns: 50% 50% !important;
-  }
-
-  .song-result img, #title, #artist, #genre {
-    display: none;
-  }
-
-  .song-container-mobile {
-    display: block;
-  }
-
-  .play-btn-container {
+  .song-result-container > .song-result-mobile {
     display: flex;
   }
 
