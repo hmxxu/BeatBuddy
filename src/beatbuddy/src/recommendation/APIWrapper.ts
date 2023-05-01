@@ -1,9 +1,29 @@
+import axios from "axios"
+
 /**
  * Get an access token instance from SpotifyAPI. Requires .env in
  * same dir with `SPOTIFY_CLIENT_ID` and `SPOTIFY_SECRET_ID` set.
  * @returns the access token, its type, and expiry time
  */
 async function getAccessToken(): Promise<AccessTokenResponse> {
+    return await axios({
+        method: 'post',
+        url: 'https://accounts.spotify.com/api/token',
+        params: {
+            'client_id': process.env.REACT_APP_SPOTIFY_CLIENT_ID || "",
+            'client_secret': process.env.REACT_APP_SPOTIFY_CLIENT_SECRET || "",
+            'grant_type': 'client_credentials',
+        },
+        headers: {
+            'Content-Type':'application/x-www-form-urlencoded'
+        },
+    }).then(token => {
+        return token;
+    }).catch(e => {
+        return e.response.data;
+    });
+
+    /*
     const response = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -13,9 +33,7 @@ async function getAccessToken(): Promise<AccessTokenResponse> {
             'client_secret': process.env.REACT_APP_SPOTIFY_CLIENT_SECRET || ""
         })
     });
-
-    const res = await response.json() as AccessTokenResponse;
-    return res;
+    */
 }
 
 /**
