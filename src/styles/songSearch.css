@@ -68,6 +68,38 @@
     overflow: hidden;
   }
 
+  .song-result-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #D5D1FF;
+    border-radius: 10px;
+    /* top | right | bottom | left */
+    padding: 10px 20px 10px 20px;
+  }
+  .play-btn-small {
+    width: 36px;
+    height: 36px;
+    z-index: 2;
+  }
+
+  .play-btn-container-small {
+    /* position: relative; */
+    cursor: pointer;
+    padding: 2px;
+    transition: transform 0.1s ease-in-out;
+    background-color: #6481E8;
+    border-radius: 50%;
+    display: flex;
+    /* margin-right: 20px; */
+  }
+
+  .song-container-mobile > p {
+    text-shadow: none;
+    color: #1C2330;
+  }
+
   .song-result > img {
     height: 90px;
     margin: 10px;

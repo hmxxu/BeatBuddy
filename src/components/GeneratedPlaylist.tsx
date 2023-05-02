@@ -16,9 +16,10 @@ function GeneratedPlaylist() {
 
   // temp
   const [currSongsState, setSongsState] = useState([
-    ["minami", "Eternal Blue", "J-pop"],
+    ["Minami", "Eternal Blue", "J-pop"],
     ["deco*27", "vampire", "Vocaloid"],
-    ["Ryo", "melt", "Vocaloid"]
+    ["Ryo", "melt", "Vocaloid"],
+    ["Minami", "[Test for very long song name] Prologue", "J-pop"]
   ]);
 
   const [currTitle, setCurrTitle] = useState(currSongsState[0][1]);
@@ -55,31 +56,30 @@ function GeneratedPlaylist() {
             <div className="current-song">
               {/* <h1>{ currTitle }</h1>
               <h2>{ currArtist }</h2> */}
-              <p className="h1 bold">{currTitle}</p>
-              <p className="h2 bold">By {currArtist}</p>
+              <span className="h-title bold">{currTitle}</span>
+              <span className="h2 bold">By {currArtist}</span>
             </div>
             <div className="play-btn-container">
                 <img src={play_btn} className="play-btn" alt="an icon of a play button"></img>
-                {/* {<div className="circle"></div>} */}
-                {/* <span className="material-symbols-rounded">
-                  play_circle
-              </span> */}
             </div>
           </div>
           <div className="song-stats flex">
             <div id="liveliness" className="attrs">
               <h3>Liveliness</h3>
-              <h1>90%</h1>
+              {/* <h1>90%</h1> */}
+              <p className="h-title bold">90%</p>
             </div>
             <div className="vl"></div>
             <div id="accoustic" className="attrs">
               <h3>Accousticness</h3>
-              <h1>10%</h1>
+              {/* <h1>10%</h1> */}
+              <p className="h-title bold">10%</p>
             </div>
             <div className="vl"></div>
             <div id="danceable" className="attrs">
               <h3>Danceability</h3>
-              <h1>13%</h1>
+              {/* <h1>13%</h1> */}
+              <p className="h-title bold">13%</p>
             </div>
           </div>
         </section>
