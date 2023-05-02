@@ -15,5 +15,5 @@ export const id = (id: any) => {
  * @return {object[]} array of DOM objects matching the query.
  */
 export const qs = (query: any) => {
-  return document.querySelector(query);
+  return document.querySelector(query)!;
 }
