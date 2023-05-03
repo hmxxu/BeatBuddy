@@ -21,8 +21,14 @@ function SongResult(props: any) {
         <p id="genre">{genre}</p>
       </div>
 
+      <div className={"song-result-mobile" + ((props.design === "searchbar") ? "" : " hidden")} onClick={props.onClick}>
+        <p id="artist">{artist}</p>
+        <p id="title">{title}</p>
+        <p id="genre">{genre}</p>
+      </div>
+
       {/* The code below is for mobile */}
-      <div className="song-result-mobile" onClick={props.onClick}>
+      <div className={"song-playlist-mobile" + ((props.design === "generated_playlist") ? "" : " hidden")} onClick={props.onClick}>
         <div className="song-container-mobile">
           <p className="bold">{title}</p>
           <p>{artist}</p>

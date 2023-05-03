@@ -51,30 +51,40 @@
     background-color: #819dff;
   }
 
-  .song-result, .song-results-container > div:first-child {
+  .song-result, .results-label {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
   }
 
-  .song-result, .song-results-container {
+  .song-result, .song-results-container, .song-result-mobile {
     border-radius: 20px;
   }
 
-  .song-result {
+  .song-playlist-mobile, .song-result > img {
+    border-radius: 10px;
+  }
+
+  .song-result-mobile {
+    margin-bottom: 15px;
+  }
+
+  .song-result, .song-playlist-mobile {
+    margin-bottom: 20px;
+  }
+
+  .song-result, .song-result-mobile {
     background-color: #D5D1FF;
     color: black;
-    margin-bottom: 20px;
+    padding: 5px;
     align-items: center;
     overflow: hidden;
   }
 
-  .song-result-mobile {
+  .song-playlist-mobile {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
     background-color: #D5D1FF;
-    border-radius: 10px;
     /* top | right | bottom | left */
     padding: 10px 20px 10px 20px;
   }
