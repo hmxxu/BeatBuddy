@@ -8,11 +8,11 @@ function SearchBar() {
   window.addEventListener("load", init);
 
   const [selectedState, setSelectedState] = useState("hidden");
-  const [selectedDisplay, setSelectedDisplay] = useState("Miku - Miku")
+  const [selectedDisplay, setSelectedDisplay] = useState("Miku - Miku");
 
   // temp
   const [currSongsState, setSongsState] = useState([
-    ["minami", "Eternal Blue", "J-pop"], 
+    ["minami", "Eternal Blue", "J-pop"],
     ["deco*27", "vampire", "Vocaloid"],
     ["Ryo", "melt", "Vocaloid"]
   ]);
@@ -39,17 +39,17 @@ function SearchBar() {
   function searchSongs() {
     // for now, temporary implementation that just appends songs to the results container
     let songsContainer = id("search-results");
-    
+
     // temporary. Fetch songs from backend later
     let songs = [
-      ["minami", "Eternal Blue", "J-pop"], 
+      ["minami", "Eternal Blue", "J-pop"],
       ["deco*27", "vampire", "Vocaloid"],
       ["PowaPowaP", "Equation++", "Vocaloid"]
     ];
 
     setSongsState(songs);
 
-    // show container 
+    // show container
     songsContainer.classList.remove("visibility-hidden");
   }
 
