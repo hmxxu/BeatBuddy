@@ -68,8 +68,7 @@ Tapan
 ### outline your plans and goals for the following week (per person)
 
 Pu 
- * Allow for website to take in real data (make it dynamic instead of static)
- * 
+ * Allow for website to take in real data (make it dynamic instead of static.
 
 Pahn
  * Get interactivity fleshed out in frontend (ex. actual search)
