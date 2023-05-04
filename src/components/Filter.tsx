@@ -183,11 +183,11 @@ function Filter(props : any) {
       <div className='filter-root-container'>
         <div className='filter-container'>
           <div className="language-wrapper">
-            <span className='h4 search-header'>Language</span>
+            <span className='search-header h4 bold'>Language</span>
             <div className='dropdown'>
               <input type='text' placeholder="Search..." value={inputValue} className='myInput'
                   onClick={handleClick} onChange={handleChange} />
-              <div id={'myDropdown-' + props.type } className='myDropdown showOnHover dropdown-content hidden'>
+              <div id={'myDropdown-' + props.type } className='myDropdown showOnHover dropdown-content soft-hidden'>
                 {ISOLanguage.map((language) => (
                   <a href={'#' + language.code} id={language.name} key={language.name} onClick={addTags}>
                     {language.name}
@@ -205,7 +205,7 @@ function Filter(props : any) {
           <div className='tags-container'>
 
             {myTags.map(item => (
-              <div className='tag' key={item}>
+              <div className='tag h5' key={item}>
                 <p className='tag-content'>{item}</p>
                 <img src={closeIcon} alt='An icon of an x' className="x-icon" onClick={() => removeTags(item)}></img>
               </div>

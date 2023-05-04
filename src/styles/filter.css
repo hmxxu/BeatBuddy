@@ -154,7 +154,7 @@
 
 /* displays the dropdown when hovered to give time for tag adding*/
 .showOnHover:hover {
-  display: block;
+  display: block !important;
 }
 
 /* The search field */

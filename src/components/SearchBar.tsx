@@ -104,14 +104,14 @@ function SearchBar() {
           </span>
         </button>
         <button id="selected-song" className={selectedState}>
-          <p>{selectedDisplay}</p>
+          <p className="h4 bold">{selectedDisplay}</p>
           <span className="material-symbols-rounded">
             close
           </span>
         </button>
       </section>
       <section id="search-results" className="visibility-hidden song-results-container">
-        <div className="results-label">
+        <div className="results-label h4 bold">
           <p className="mobile-hidden"></p>
           <p>Artist</p>
           <p>Title</p>

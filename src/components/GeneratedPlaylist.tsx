@@ -84,7 +84,7 @@ function GeneratedPlaylist() {
           </div>
         </section>
         <section className="song-results-container">
-          <div className="results-label">
+          <div className="results-label h4 bold">
             <p></p>
             <p>Artist</p>
             <p>Title</p>

@@ -55,7 +55,8 @@ body {
     width: 95%;
   }
 
-  #playlist-wrapper, .song-result-container > .song-result {
+  #playlist-wrapper, .song-result-container .song-result,
+  #search-results .results-label, #search-results hr {
     display: none;
   }
 
@@ -67,11 +68,17 @@ body {
     display: flex;
   }
 
-  .song-result-container > .song-result-mobile,
   .song-results-container > .results-label {
     display: grid;
     grid-template-columns: 33% 33% 33%;
     justify-items: center;
+  }
+
+  .song-result-container >.song-result-mobile {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 
   .mobile-hidden {
@@ -98,7 +105,7 @@ body {
   text-shadow: #1C2330 1px 1px 5px;
 }
 
-.myDropdown, #song-results-container > div:first-child, .song-result, .song-result-mobile {
+.myDropdown, .song-results-container > .results-label, .song-result, .song-result-mobile {
   text-shadow: none;
 }
 
@@ -159,6 +166,10 @@ button:hover {
 /* ? For bold typography */
 .text-body, .bold {
   font-weight: 700;
+}
+
+.semi-bold {
+  font-weight: 500;
 }
 
 code {
@@ -250,4 +261,8 @@ code {
 
 .hidden {
   display: none !important;
+}
+
+.soft-hidden {
+  display: none;
 }
