@@ -1,5 +1,9 @@
 import { getAccessToken } from "../recommendation/APIWrapper";
 
+/**
+ * Searches spotify for the given query and returns the top 5 results
+ * @param query - query to search Spotify for
+ */
 async function searchSpotify(query: string) {
     const { access_token } = await getAccessToken();
     const response = await fetch('https://api.spotify.com/v1/search?q=' + query, {
