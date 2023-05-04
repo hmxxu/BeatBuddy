@@ -15,7 +15,7 @@ Progress:
  * Backend and frontend are connected and interacting
 
 Trouble: 
- * 
+ * Responsive design for mobile version of site, requires major changes
  * 
 
 Stuck: 
@@ -24,8 +24,9 @@ Stuck:
 ### outline your plans and goals for the following week (higher level)
 
 Next week: 
- * 
- * 
+ * Finish a MVP for alpha release
+ * Have frontend and backend work together in more detail, make more backend API functions
+ * Finish mobile responsive design
  * 
 
 ## Contributions of individual team members.
@@ -38,8 +39,8 @@ Pu
  * 
 
 Pahn
- * 
- * 
+ * Got Github Pages to display BeatBuddy
+ * Integrated backend and frontend
  * 
 
 Jonathan
@@ -69,8 +70,7 @@ Pu
  * 
 
 Pahn
- * 
- * 
+ * Get interactivity fleshed out in frontend (ex. actual search)
 
 Jonathan
  * 
