@@ -51,9 +51,9 @@ Jonathan
  * `axios` is quite annoying and won't properly send encoded requests
 
 HaoMing
- * 
- * 
- * 
+ * Started on the Spotify login
+ * Looked into language filter
+ * Started on the search bar
 
 Adrian
  * 
@@ -78,8 +78,8 @@ Jonathan
  * Fix Jest dependency conflict issues causing `--force` to be required on `npm` commands
 
 HaoMing
- * 
- * 
+ * Finish Spotify login
+ * Finish searchbar
 
 Adrian
  * 
