@@ -56,9 +56,9 @@ HaoMing
  * Started on the search bar
 
 Adrian
- * 
- * 
- * 
+ * Helped with axios
+ * Helped with backend API functions
+ * Did some research on recommendation algorithm
 
 Tapan
  * 
@@ -82,8 +82,8 @@ HaoMing
  * Finish searchbar
 
 Adrian
- * 
- * 
+ * Help make backend API function for searchbar
+ * Help with spotify login if needed
 
 Tapan
  * 
