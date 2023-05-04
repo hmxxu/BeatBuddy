@@ -6,8 +6,10 @@ async function searchSpotify(query: string) {
         method: 'GET',
         headers: { Authorization: `Bearer ${access_token}`,}
     });
-    
+
 }
+
+export { searchSpotify }
 
 /**
  * @param track_uri the URI of the song that we are returning the stats of
