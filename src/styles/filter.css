@@ -130,6 +130,7 @@
 .myDropdown {
   max-height: 300px;
   overflow-y: scroll;
+  overflow-x: hidden;
   width: 100%;
 }
 
@@ -153,7 +154,7 @@
 
 /* displays the dropdown when hovered to give time for tag adding*/
 .showOnHover:hover {
-  display: block;
+  display: block !important;
 }
 
 /* The search field */
@@ -217,13 +218,6 @@
 /* ?------------End of DropDown Part ------------ */
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {
-  display: block;
-}
-
-.hidden {
-  display: none;
-}
 
 .language-wrapper {
   display: flex;

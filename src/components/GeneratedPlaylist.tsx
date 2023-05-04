@@ -84,7 +84,7 @@ function GeneratedPlaylist() {
           </div>
         </section>
         <section className="song-results-container">
-          <div>
+          <div className="results-label h4 bold">
             <p></p>
             <p>Artist</p>
             <p>Title</p>
@@ -139,7 +139,8 @@ function GeneratedPlaylist() {
         <section className="results-mobile">
           {
             currSongsState.map((song: any) => (
-              <SongResult onClick={() => { handleSongClick(song) }}
+              // * for generated_playlist design, show song-playlist-mobile, hide song-result-mobile
+              <SongResult design= "generated_playlist" onClick={() => { handleSongClick(song) }}
                 key={song[0] + song[1]}
                 artist={song[0]} title={song[1]} genre={song[2]} />
             ))

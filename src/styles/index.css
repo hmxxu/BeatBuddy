@@ -15,7 +15,8 @@ body {
   margin-bottom: 150px;
 }
 
-#playlist-wrapper-mobile, .song-result-container > .song-result-mobile {
+#playlist-wrapper-mobile, .song-result-container > .song-playlist-mobile,
+.song-result-container>.song-result-mobile {
   display: none;
 }
 
@@ -54,7 +55,8 @@ body {
     width: 95%;
   }
 
-  #playlist-wrapper, .song-result-container > .song-result {
+  #playlist-wrapper, .song-result-container .song-result,
+  #search-results .results-label, #search-results hr {
     display: none;
   }
 
@@ -62,8 +64,25 @@ body {
     display: block;
   }
 
-  .song-result-container > .song-result-mobile {
+  .song-result-container > .song-playlist-mobile {
     display: flex;
+  }
+
+  .song-results-container > .results-label {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    justify-items: center;
+  }
+
+  .song-result-container >.song-result-mobile {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .mobile-hidden {
+    display: none;
   }
 
 }
@@ -86,7 +105,7 @@ body {
   text-shadow: #1C2330 1px 1px 5px;
 }
 
-.myDropdown, #song-results-container > div:first-child, .song-result {
+.myDropdown, .song-results-container > .results-label, .song-result, .song-result-mobile {
   text-shadow: none;
 }
 
@@ -147,6 +166,10 @@ button:hover {
 /* ? For bold typography */
 .text-body, .bold {
   font-weight: 700;
+}
+
+.semi-bold {
+  font-weight: 500;
 }
 
 code {
@@ -229,5 +252,17 @@ code {
 }
 
 .filter-root-container {
-  background-color: rgb(28, 35, 48, 0.8);
+  background-color: rgb(28, 35, 48);
+}
+
+.show {
+  display: block !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.soft-hidden {
+  display: none;
 }

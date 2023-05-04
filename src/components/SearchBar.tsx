@@ -11,13 +11,14 @@ function SearchBar() {
   window.addEventListener("load", init);
 
   const [selectedState, setSelectedState] = useState("hidden");
-  const [selectedDisplay, setSelectedDisplay] = useState("Miku - Miku")
+  const [selectedDisplay, setSelectedDisplay] = useState("Miku - Miku");
 
   // temp
   const [currSongsState, setSongsState] = useState([
-    ["minami", "Eternal Blue", "J-pop"], 
+    ["minami", "Eternal Blue", "J-pop"],
     ["deco*27", "vampire", "Vocaloid"],
-    ["Ryo", "melt", "Vocaloid"]
+    ["Ryo", "melt", "Vocaloid"],
+    ["Minami", "[Test for very long song name] Prologue", "J-pop"]
   ]);
 
   function init() {
@@ -56,12 +57,13 @@ function SearchBar() {
     let songs : Array<Array<string>> = [
       ["minami", "Eternal Blue", "J-pop"], 
       ["deco*27", "vampire", "Vocaloid"],
-      ["PowaPowaP", "Equation++", "Vocaloid"]
+      ["PowaPowaP", "Equation++", "Vocaloid"],
+      ["Minami", "[Test for very long song name] Prologue", "J-pop"]
     ];
 
     setSongsState(songs);
 
-    // show container 
+    // show container
     songsContainer.classList.remove("visibility-hidden");
   }
 
@@ -114,15 +116,15 @@ function SearchBar() {
           </span>
         </button>
         <button id="selected-song" className={selectedState}>
-          <p>{selectedDisplay}</p>
+          <p className="h4 bold">{selectedDisplay}</p>
           <span className="material-symbols-rounded">
             close
           </span>
         </button>
       </section>
       <section id="search-results" className="visibility-hidden song-results-container">
-        <div>
-          <p></p>
+        <div className="results-label h4 bold">
+          <p className="mobile-hidden"></p>
           <p>Artist</p>
           <p>Title</p>
           <p>Genre</p>
@@ -130,7 +132,8 @@ function SearchBar() {
         <hr></hr>
         {
           currSongsState.map((song : any) => (
-            <SongResult onClick={() => {handleSongClick(song)}}
+            // * for searchbar design, show song-result-mobile, hide song-playlist-mobile
+            <SongResult design="searchbar" onClick={() => {handleSongClick(song)}}
             key={song[0] + song[1]}
             artist={song[0]} title={song[1]} genre={song[2]}/>
           ))

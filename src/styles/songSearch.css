@@ -21,16 +21,17 @@
 
   .song-results-container {
     background-color: rgb(255, 255, 255, 0.2);
-    padding: 20px;
+    padding: 10px;
     margin: 20px 0px 20px 0px;
   }
 
-  .song-results-container > div:first-child {
-    font-weight: bold;
+  .song-results-container > .results-label > p {
+    margin: 0;
   }
 
-  .song-results-container > div:first-child > p {
-    margin: 0;
+  .results-label + hr {
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.7);
   }
 
   #selected-song {
@@ -44,39 +45,64 @@
     text-align: left;
     padding-left: 20px;
     background-color: #6481E8;
-    font-weight: bold;
   }
 
   #selected-song:hover {
     background-color: #819dff;
   }
 
-  .song-result, .song-results-container > div:first-child {
+  .song-result, .results-label {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
   }
 
-  .song-result, .song-results-container {
+  .song-result, .song-results-container, .song-result-mobile {
     border-radius: 20px;
+  }
+
+  .song-playlist-mobile, .song-result > img {
+    border-radius: 10px;
+  }
+
+  .song-result-mobile {
+    margin-bottom: 10px;
+  }
+
+  .song-result, .song-playlist-mobile, .results-label + hr {
+    margin-bottom: 20px;
   }
 
   .song-result {
     background-color: #D5D1FF;
-    color: black;
-    margin-bottom: 20px;
+    padding: 5px;
     align-items: center;
     overflow: hidden;
   }
 
+  .song-result-mobile, .song-result {
+    color: black;
+  }
+
   .song-result-mobile {
+    /* background-color: rgba(255, 255, 255, 0.6); */
+    background-color: #D5D1FF;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+    padding: 10px 20px 10px 20px;
+  }
+
+  .song-result-mobile:hover, .song-result:hover {
+    background: #B6B2FE;
+    transition: 0.2s;
+  }
+
+  .song-playlist-mobile {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
     background-color: #D5D1FF;
-    border-radius: 10px;
     /* top | right | bottom | left */
-    padding: 10px 20px 10px 20px;
+    padding: 5px 20px 5px 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
   .play-btn-small {
     width: 36px;
@@ -129,3 +155,12 @@
     display: inline;
     vertical-align: sub;
   }
+
+  #search-results {
+    text-shadow: none;
+  }
+
+  #artist, #title, #artist-title {
+    padding-right: 20px;
+  }
+
