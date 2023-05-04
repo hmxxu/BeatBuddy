@@ -1,5 +1,14 @@
 import { getAccessToken } from "../recommendation/APIWrapper";
 
+async function searchSpotify(query: string) {
+    const { access_token } = await getAccessToken();
+    const response = await fetch('https://api.spotify.com/v1/search?q=' + query, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${access_token}`,}
+    });
+    
+}
+
 /**
  * @param track_uri the URI of the song that we are returning the stats of
  * @returns a json of the songs stats
