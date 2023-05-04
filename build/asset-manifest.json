@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/BeatBuddy/static/css/main.bfd93559.css",
+    "main.js": "/BeatBuddy/static/js/main.a6e0c669.js",
+    "static/media/minami.jpg": "/BeatBuddy/static/media/minami.184d3109749519dd3ba2.jpg",
+    "index.html": "/BeatBuddy/index.html",
+    "main.bfd93559.css.map": "/BeatBuddy/static/css/main.bfd93559.css.map",
+    "main.a6e0c669.js.map": "/BeatBuddy/static/js/main.a6e0c669.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bfd93559.css",
+    "static/js/main.a6e0c669.js"
+  ]
+}

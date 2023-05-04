@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
 
+
+import { returnDummyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats'
+
 function SearchBar() {
 
   window.addEventListener("load", init);
@@ -38,12 +41,21 @@ function SearchBar() {
    * When the user searches a song, this function will update the song results
    */
   function searchSongs() {
-    // for now, temporary implementation that just appends songs to the results container
-    let songsContainer = id("search-results");
+    // get user input
+    let searchInput : HTMLInputElement = id('song-search') as HTMLInputElement;
+    let userInput : string = searchInput.value;
 
+    console.log(userInput);
+    // get songs
+    let searchJSON = returnDummyRec(userInput);
+    console.log(searchJSON);
+
+    // for now, temporary implementation that just appends songs to the results container
+    let songsContainer : Element = id("search-results");
+    
     // temporary. Fetch songs from backend later
-    let songs = [
-      ["minami", "Eternal Blue", "J-pop"],
+    let songs : Array<Array<string>> = [
+      ["minami", "Eternal Blue", "J-pop"], 
       ["deco*27", "vampire", "Vocaloid"],
       ["PowaPowaP", "Equation++", "Vocaloid"],
       ["Minami", "[Test for very long song name] Prologue", "J-pop"]
@@ -84,9 +96,9 @@ function SearchBar() {
 
   /**
    * Updates the selected song when song result is clicked
-   * @param song - Song array arranged like [artist, song, genre]
+   * @param {Array<Array<string>>} song - Song array arranged like [artist, song, genre]
    */
-  const handleSongClick = (song : any) => {
+  const handleSongClick = (song : Array<Array<string>>) => {
     setSelectedDisplay(song[0] + " - " + song[1])
     setSelectedState("");
     // disable search bar
