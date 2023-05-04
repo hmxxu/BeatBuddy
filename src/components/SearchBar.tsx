@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
+import { id, qs } from '../utils';
 
 function SearchBar() {
 
@@ -11,12 +12,14 @@ function SearchBar() {
   const [selectedDisplay, setSelectedDisplay] = useState("Miku - Miku");
 
   // temp
-  const [currSongsState, setSongsState] = useState([
-    ["minami", "Eternal Blue", "J-pop"],
-    ["deco*27", "vampire", "Vocaloid"],
-    ["Ryo", "melt", "Vocaloid"],
-    ["Minami", "[Test for very long song name] Prologue", "J-pop"]
-  ]);
+  const [currSongsState, setSongsState] = useState(
+    [
+      {"artist" : "minami", "title" : "Eternal Blue", "genre" : "J-pop", "id" : "XXX"},
+      {"artist" : "deco*27", "title" : "vampire", "genre" : "Vocaloid", "id" : "XXX"},
+      {"artist" : "ryo", "title" : "melt", "genre" : "Vocaloid", "id" : "XXX"},
+      {"artist" : "minami", "title" : "Very very very long title", "genre" : "J-pop", "id" : "XXX"},
+    ]
+  );
 
   function init() {
     // search button
@@ -42,12 +45,14 @@ function SearchBar() {
     let songsContainer = id("search-results");
 
     // temporary. Fetch songs from backend later
-    let songs = [
-      ["minami", "Eternal Blue", "J-pop"],
-      ["deco*27", "vampire", "Vocaloid"],
-      ["PowaPowaP", "Equation++", "Vocaloid"],
-      ["Minami", "[Test for very long song name] Prologue", "J-pop"]
-    ];
+    let songs =
+      [
+        {"artist" : "minami", "title" : "Eternal Blue", "genre" : "J-pop", "id" : "XXX"},
+        {"artist" : "deco*27", "title" : "vampire", "genre" : "Vocaloid", "id" : "XXX"},
+        {"artist" : "ryo", "title" : "melt", "genre" : "Vocaloid", "id" : "XXX"},
+        {"artist" : "minami", "title" : "Very very very long title Very very very long title Very very very long title Very very very long title Very very very long title ", "genre" : "J-pop", "id" : "XXX"},
+      ];
+
 
     setSongsState(songs);
 
@@ -60,9 +65,9 @@ function SearchBar() {
  * @param {string} id - element ID
  * @return {object} DOM object associated with id.
  */
-  function id(id: any) {
-    return document.getElementById(id)!;
-  }
+  // function id(id: any) {
+  //   return document.getElementById(id)!;
+  // }
 
   /**
  * Returns the array of elements that match the given CSS selector.
@@ -78,16 +83,16 @@ function SearchBar() {
    * @param {string} query - CSS query selector.
    * @return {object[]} array of DOM objects matching the query.
    */
-  function qs(query: any) {
-    return document.querySelector(query);
-  }
+  // function qs(query: any) {
+  //   return document.querySelector(query);
+  // }
 
   /**
    * Updates the selected song when song result is clicked
    * @param song - Song array arranged like [artist, song, genre]
    */
   const handleSongClick = (song : any) => {
-    setSelectedDisplay(song[0] + " - " + song[1])
+    setSelectedDisplay(song.artist + " - " + song.title)
     setSelectedState("");
     // disable search bar
     (id("song-search") as HTMLInputElement).disabled = true;
@@ -122,8 +127,8 @@ function SearchBar() {
           currSongsState.map((song : any) => (
             // * for searchbar design, show song-result-mobile, hide song-playlist-mobile
             <SongResult design="searchbar" onClick={() => {handleSongClick(song)}}
-            key={song[0] + song[1]}
-            artist={song[0]} title={song[1]} genre={song[2]}/>
+            key={song.artist + song.title}
+            artist={song.artist} title={song.title} genre={song.genre}/>
           ))
         }
       </section>
