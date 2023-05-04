@@ -9,22 +9,22 @@ Last week's goals:
  * Add more testing for backend
  * Continue creating and refining functions that interact with Spotify API
 
-Progress: 
+Progress:
  * Website now shows up on Github Pages
  * Testing pipeline using Github Actions set up
  * Backend and frontend are connected and interacting
 
-Trouble: 
+Trouble:
  * Responsive design for mobile version of site, requires major changes
  * Jest can't test backend functions because `fetch ` is not defined on the backend
- * 
+ *
 
-Stuck: 
- * 
+Stuck:
+ *
 
 ### outline your plans and goals for the following week (higher level)
 
-Next week: 
+Next week:
  * Finish a MVP for alpha release
  * Have frontend and backend work together in more detail, make more backend API functions
  * Finish mobile responsive design
@@ -38,12 +38,12 @@ Next week:
 Pu
  * Made the whole website mobile responsive
  * Fixed some frontend bugs and organized the code
- * 
+ *
 
 Pahn
  * Got Github Pages to display BeatBuddy
  * Integrated backend and frontend
- * 
+ *
 
 Jonathan
  * Wrote documentation for building backend
@@ -61,13 +61,13 @@ Adrian
  * Did some research on recommendation algorithm
 
 Tapan
- * 
- * 
- * 
+ * Finished user authoriziation
+ * Fixed bugs with modules and packages
+ *
 
 ### outline your plans and goals for the following week (per person)
 
-Pu 
+Pu
  * Allow for website to take in real data (make it dynamic instead of static.
 
 Pahn
@@ -86,5 +86,5 @@ Adrian
  * Help with spotify login if needed
 
 Tapan
- * 
- * 
+ * Implement user authorization persistence / cache so user doesn't need to keep logging in
+ *
