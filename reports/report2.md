@@ -36,8 +36,8 @@ Next week:
 ### report on progress and issues: what you did, what worked, what you learned, where you had trouble, and where you are stuck.
 
 Pu
- * 
- * 
+ * Made the whole website mobile responsive
+ * Fixed some frontend bugs and organized the code
  * 
 
 Pahn
@@ -68,7 +68,7 @@ Tapan
 ### outline your plans and goals for the following week (per person)
 
 Pu 
- * 
+ * Allow for website to take in real data (make it dynamic instead of static)
  * 
 
 Pahn
