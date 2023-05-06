@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import closeIcon from '../images/close-icon.png';
 import ISOLanguage from '../ISOLanguage.json';
 import {id, qs} from '../utils';
+import { returnGenres } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 
 function Filter(props : any) {
 
@@ -18,11 +19,14 @@ function Filter(props : any) {
   const [inputValue, setInputValue] = useState('');
   const [isOverlayActive, setActive] = useState(false);
 
-  function init() {
-    //openDropdown();
-    //updateDropdownMargin();
+  async function init() {
     borderForFirstLast();
-    // getTagsClicked();
+
+    let genreList = await returnGenres();
+    console.log(genreList);
+    genreList.genres.forEach((genre: String) => {
+      console.log(genre);
+    });
 
   }
 
