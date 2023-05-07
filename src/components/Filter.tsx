@@ -2,7 +2,7 @@
 
 import '../styles/filter.css';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import closeIcon from '../images/close-icon.png';
 import ISOLanguage from '../ISOLanguage.json';
 import {id, qs} from '../utils';
@@ -19,16 +19,73 @@ function Filter(props : any) {
   const [inputValue, setInputValue] = useState('');
   const [isOverlayActive, setActive] = useState(false);
 
+  const [data, setData] = useState<any[]>([]);
+
   async function init() {
-    borderForFirstLast();
-
-    let genreList = await returnGenres();
-    console.log(genreList);
-    genreList.genres.forEach((genre: String) => {
-      console.log(genre);
-    });
-
+    // borderForFirstLast();
   }
+
+  async function fetchGenre() {
+    let genreDropdown: any = [];
+    let genreList = await returnGenres();
+    genreList.genres.forEach((genre: string) => {
+      genreDropdown.push({
+        id: genre,
+        genre: kebabToTitleCase(genre)
+      });
+      // console.log(genreDropdown);
+      // console.log("0 = " + genreDropdown[0].id);
+      // console.log("0 = " + genreDropdown[0].genre);
+    });
+    setData(genreDropdown);
+  }
+
+  /**
+   *
+   * @param str Converts the kebab case to title case (e.g. "j-pop" --> "J Pop")
+   */
+  function kebabToTitleCase(str: string) {
+    let result = str.split('-')
+      .map(s => s[0].toUpperCase() + s.substring(1).toLowerCase())
+      .join(' ');
+    return result;
+  }
+
+  /**
+   *
+   * @param content A string passed in as a prop specifying whether the content
+   * under the dropdown is a list of genre or a list of language.
+   * @returns an HTML element for the dropdown list
+   */
+  async function renderDropdownContent(content: string) {
+    console.log('content = ' + content);
+    if (content.toLowerCase() === 'language') {
+      return ISOLanguage.map(function (language) {
+        return (
+          <a href={'#' + language.code} id={language.name} key={language.name} onClick={addTags}>
+            {language.name}
+          </a>
+        )
+      });
+    } else if (content.toLowerCase() === 'genre') {
+      if (data != null) {
+        return data.map(function (genre: any) {
+          console.log("gID = " + genre.id);
+          console.log("gGenre = " + genre.genre);
+          return (
+            <a href={'#' + genre.id} id={genre.id} key={genre.id} onClick={addTags}>
+              {genre.genre}
+            </a>
+          )
+        });
+      }
+
+    }
+  }
+
+  useEffect(() => {
+    fetchGenre();
+  }, []);
 
   function clearAllTags() {
     setTags([]);
@@ -79,25 +136,10 @@ function Filter(props : any) {
   }
 
   /**
-   * Positions the search dropdown correct so that it's always horizontally
-   * aligned with the search bar.
-   */
-  // function updateDropdownMargin() {
-  //   let sh = qs('.search-header');
-  //   let sWidth: number = sh.offsetWidth | 0;
-  //   let sMargin: number = parseFloat(getComputedStyle(sh).marginRight!);
-  //   let offset: number = sWidth + sMargin;
-
-  //   let myInputWidth: number = (qs('.myInput').offsetWidth | 0) - 2;
-  //   console.log(offset);
-  //   qs('.dropdown-content').style.width = `${myInputWidth}px`;
-  //   qs('.dropdown-content').style.marginLeft = `${offset}px`;
-  // }
-
-  /**
    * Gives a curved border radius to the first and last item on search dropdown
    */
   function borderForFirstLast() {
+    console.log('render');
     let myDropDown = id('myDropdown-' + props.type);
     let a = myDropDown.getElementsByTagName('a');
     a[0].classList.add('firstItem');
@@ -192,9 +234,15 @@ function Filter(props : any) {
               <input type='text' placeholder="Search..." value={inputValue} className='myInput'
                   onClick={handleClick} onChange={handleChange} />
               <div id={'myDropdown-' + props.type } className='myDropdown showOnHover dropdown-content soft-hidden'>
-                {ISOLanguage.map((language) => (
+                {/* {ISOLanguage.map((language) => (
                   <a href={'#' + language.code} id={language.name} key={language.name} onClick={addTags}>
                     {language.name}
+                  </a>
+                ))} */}
+                {/* { renderDropdownContent(props.content === undefined ? '' : props.content) } */}
+                {data.map((genre) => (
+                  <a href={'#' + genre.id} id={genre.id} key={genre.id} onClick={addTags}>
+                    {genre.genre}
                   </a>
                 ))}
               </div>
