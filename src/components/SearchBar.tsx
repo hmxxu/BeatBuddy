@@ -5,7 +5,6 @@ import SongResult from './SongResult';
 import { id, qs } from '../utils';
 
 import { searchSpotify } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
-import { getImageAndGenre } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 
 class SearchResult {
   artist: string;
