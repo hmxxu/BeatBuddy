@@ -1,3 +1,8 @@
+// Read .env manually if not in web build
+if (process.env.REACT_APP_STAGE !== 'production') {
+    require('dotenv').config();
+}
+
 /**
  * Get an access token instance from SpotifyAPI. Requires .env in
  * same dir with `SPOTIFY_CLIENT_ID` and `SPOTIFY_SECRET_ID` set.
