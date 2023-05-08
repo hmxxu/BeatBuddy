@@ -11,14 +11,15 @@ class SearchResult {
   artist: string;
   title: string;
   id: string;
+  imgUrl: string;
 
-  constructor(artist: string, title: string, id: string) {
+  constructor(artist: string, title: string, id: string, imgUrl: string) {
       this.artist = artist;
       this.title = title;
       this.id = id;
+      this.imgUrl = imgUrl;
   }
 }
-
 
 function SearchBar() {
 
@@ -63,27 +64,7 @@ function SearchBar() {
     // Get songs from backend
     let songs : SearchResult[] = await searchSpotify(userInput);
 
-    // create the next state
-    let newSongState : Array<Object> = [];
-    for (let i = 0; i < songs.length; i ++) {
-      try {
-        let response = await getImageAndGenre(songs[i].id);
-        let genres = response[1].toString();
-
-        let newSong = {
-          "title" : songs[i].title,
-          "artist" : songs[i].artist,
-          "id" : songs[i].id,
-          "imgSrc" : response[0],
-          "genre" : genres
-        };
-        newSongState.push(newSong);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    setSongsState(newSongState);
+    setSongsState(songs);
 
     // show container
     id("search-results").classList.remove("visibility-hidden");
@@ -130,7 +111,7 @@ function SearchBar() {
             // * for searchbar design, show song-result-mobile, hide song-playlist-mobile
             <SongResult design="searchbar" onClick={() => {handleSongClick(song)}}
             key={song.id}
-            id = {song.id} src={song.imgSrc}
+            id = {song.id} src={song.imgUrl}
             artist={song.artist} title={song.title} genre={song.genres}/>
           ))
         }
