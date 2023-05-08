@@ -42,8 +42,8 @@ root.render(
       </label>
       <h4>Use our filters to customize your recommended playlist.</h4>
       <div id="two-filter">
-        <Filter key="language-filter" type="language-filter" />
-        <Filter key="genre-filter" type="genre-filter" />
+        <Filter content="Time Period" key="language-filter" type="language-filter" />
+        <Filter content="Genre" key="genre-filter" type="genre-filter" />
       </div>
     </div>
 

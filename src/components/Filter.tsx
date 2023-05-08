@@ -5,6 +5,7 @@ import '../styles/filter.css';
 import React, { useState, useEffect } from 'react';
 import closeIcon from '../images/close-icon.png';
 import ISOLanguage from '../ISOLanguage.json';
+import decadeList from '../DecadeList.json';
 import {id, qs} from '../utils';
 import { returnGenres } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 
@@ -16,13 +17,25 @@ function Filter(props : any) {
   //* Initialize state at the top of the function component.
   // https://react.dev/reference/react/useState
   const [myTags, setTags] = useState<string[]>([]);
+
+  type Tag = {
+    name: string;
+    id: string;
+  }
+  const [mTags, setMTags] = useState<Tag[]>([]);
+
   const [inputValue, setInputValue] = useState('');
   const [isOverlayActive, setActive] = useState(false);
 
   const [data, setData] = useState<any[]>([]);
 
+  useEffect(() => {
+    fetchGenre();
+  }, []);
+
   async function init() {
     // borderForFirstLast();
+    // testTags();
   }
 
   async function fetchGenre() {
@@ -57,8 +70,7 @@ function Filter(props : any) {
    * under the dropdown is a list of genre or a list of language.
    * @returns an HTML element for the dropdown list
    */
-  async function renderDropdownContent(content: string) {
-    console.log('content = ' + content);
+  function renderDropdownContent(content: string) {
     if (content.toLowerCase() === 'language') {
       return ISOLanguage.map(function (language) {
         return (
@@ -70,8 +82,6 @@ function Filter(props : any) {
     } else if (content.toLowerCase() === 'genre') {
       if (data != null) {
         return data.map(function (genre: any) {
-          console.log("gID = " + genre.id);
-          console.log("gGenre = " + genre.genre);
           return (
             <a href={'#' + genre.id} id={genre.id} key={genre.id} onClick={addTags}>
               {genre.genre}
@@ -79,16 +89,20 @@ function Filter(props : any) {
           )
         });
       }
-
+    } else if (content.toLowerCase() === 'time period') {
+      return decadeList.map(function (decade) {
+        return (
+          <a href={'#' + decade.name} id={decade.range} key={decade.range} onClick={addTags}>
+            {decade.name}
+          </a>
+        )
+      });
     }
   }
 
-  useEffect(() => {
-    fetchGenre();
-  }, []);
-
   function clearAllTags() {
     setTags([]);
+    setMTags([]);
   }
 
   function showOverlay() {
@@ -100,39 +114,59 @@ function Filter(props : any) {
   function addTags (e: any) {
     // on adding a tag, hide the dropdown
     e.target.parentElement.classList.remove("showOnHover");
-
     // console.log('got in addTags');
     //& spread operator (...) allows us to quickly copy all or part of an existing array or object
     //& into another array or object.
-    const lang = e.target.id;
-    const tagKey = lang.toLowerCase();
+    const mData = e.target;
+    const mID = e.target.id.toLowerCase();
 
-    console.log(lang);
+    console.log('mData = ' + mData.innerHTML);
+    console.log('mID = ' + mID);
+
+    console.log(data);
 
     let isTagDuplicate: boolean = false;
 
-    if (myTags.length < 1) {
-      setTags([...myTags, lang]);
+    console.log("mTags len = " + mTags.length);
+    if (mTags.length < 1) {
+      console.log('case less than equal 1');
+      setMTags([...mTags,
+        {
+          name: mData.innerHTML,
+          id: mID
+        }
+      ]);
+
     } else {
-      myTags.forEach((tag) => {
-        if (tag.toLowerCase() === tagKey) {
+      console.log('case > 1');
+      mTags.forEach((data) => {
+        if (data.id.toLowerCase() === mID) {
           isTagDuplicate = true;
-          console.log('attempting to add duplicate tags!')
+          console.log('M: attempting to add duplicate tags!')
         }
       })
+
       if (!isTagDuplicate) {
-        setTags([...myTags, lang]);
+        setMTags([...mTags,
+          {
+            name: mData.innerHTML,
+            id: mID
+          }
+        ]);
       }
     }
     setInputValue("");
+    console.log(myTags);
   }
 
   //* Remove tags working now, need to work on preventing dupes
   function removeTags(tagToRemove: any) {
     // console.log('got in removeTags');
-    console.log(tagToRemove);
-    const updatedTags = myTags.filter((language) => language !== tagToRemove);
-    setTags(updatedTags);
+    const updatedMTags = mTags.filter((data) => data.id !== tagToRemove.id);
+    console.log('updatedMTags = ');
+    console.log(updatedMTags);
+    setMTags(updatedMTags);
+
   }
 
   /**
@@ -224,12 +258,12 @@ function Filter(props : any) {
       <div className='any-language'>
         <input type='checkbox' id={'any-language-' + props.type} className='checkbox' onClick={showOverlay} />
         <label htmlFor={'any-language-' + props.type} className='text-body'></label>
-        <span className='text-body'>Any language</span>
+        <span className='text-body'>Any {props.content}</span>
       </div>
       <div className='filter-root-container'>
         <div className='filter-container'>
           <div className="language-wrapper">
-            <span className='search-header h4 bold'>Language</span>
+            <span className='search-header h4 bold'>{props.content}</span>
             <div className='dropdown'>
               <input type='text' placeholder="Search..." value={inputValue} className='myInput'
                   onClick={handleClick} onChange={handleChange} />
@@ -239,12 +273,12 @@ function Filter(props : any) {
                     {language.name}
                   </a>
                 ))} */}
-                {/* { renderDropdownContent(props.content === undefined ? '' : props.content) } */}
-                {data.map((genre) => (
+                { renderDropdownContent(props.content === undefined ? '' : props.content) }
+                {/* {data.map((genre) => (
                   <a href={'#' + genre.id} id={genre.id} key={genre.id} onClick={addTags}>
                     {genre.genre}
                   </a>
-                ))}
+                ))} */}
               </div>
             </div>
           </div>
@@ -256,12 +290,20 @@ function Filter(props : any) {
           {/* flex - row */}
           <div className='tags-container'>
 
-            {myTags.map(item => (
+            {/* {myTags.map(item => (
               <div className='tag h5' key={item}>
                 <p className='tag-content'>{item}</p>
                 <img src={closeIcon} alt='An icon of an x' className="x-icon" onClick={() => removeTags(item)}></img>
               </div>
+            ))} */}
+
+            {mTags.map(item => (
+              <div className='tag h5' key={item.id} id={item.id} >
+                <p className='tag-content'>{item.name}</p>
+                <img src={closeIcon} alt='An icon of an x' className="x-icon" onClick={() => removeTags(item)}></img>
+              </div>
             ))}
+
           </div>
         </div>
         <div className={`ol ${isOverlayActive ? 'overlay' : 'hidden'}`}></div>
