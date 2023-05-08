@@ -10,10 +10,18 @@ on:
 
 jobs:
   Jest:
+    environment: CI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: Run Tests
+        env:
+          REACT_APP_SPOTIFY_CLIENT_ID: ${{ secrets.REACT_APP_SPOTIFY_CLIENT_ID }} 
+          REACT_APP_SPOTIFY_CLIENT_SECRET: ${{ secrets.REACT_APP_SPOTIFY_CLIENT_SECRET }} 
+          REACT_APP_STAGE: ${{ secrets.REACT_APP_STAGE }} 
         run: |
+          REACT_APP_SPOTIFY_CLIENT_ID=${REACT_APP_SPOTIFY_CLIENT_ID}
+          REACT_APP_SPOTIFY_CLIENT_SECRET=${REACT_APP_SPOTIFY_CLIENT_SECRET}
+          REACT_APP_STAGE=${REACT_APP_STAGE}
           npm install --force
           npm run jest
