@@ -1,10 +1,49 @@
 import React from 'react';
+import GeneratedPlaylist from './GeneratedPlaylist';
+import SearchBar from './SearchBar';
+import Filter from './Filter';
+import { id, qs } from '../utils';
+import accordion_icon from '../images/accordion-close.png';
+
 
 function PlaylistReady() {
+
+  function delayOverflow() {
+    let checkbox = id('customize-box') as HTMLInputElement;
+    if (checkbox.checked) {
+      console.log('checkbox is checked');
+      setTimeout(() => {
+        // id('two-filter').classList.add('overflow-visible');
+        id('two-filter').style.overflow = "visible";
+      }, 400);
+    } else {
+      id('two-filter').style.overflow = "hidden";
+    }
+  }
+
   return(
     <div>
-        <h2>That's it! Your playlist is now ready.</h2>
-        <button id="generate-playlist-btn">Generate my playlist</button>
+      <SearchBar/>
+      <div className="accordion">
+      {/* <span className="customize-text h2 bold">Customize your playlist</span> */}
+      <input type="checkbox" name="accordion" id="customize-box" onClick={delayOverflow} />
+      <label htmlFor="customize-box" className="customize-label h2 bold">
+        <span className="customize-text h2 bold">Customize your playlist</span>
+        <img src={accordion_icon} alt="accordion-close" className="accordion-icon"></img>
+      </label>
+      <h4>Use our filters to customize your recommended playlist.</h4>
+      <div id="two-filter">
+        <Filter content="Time Period" key="language-filter" type="language-filter" />
+        <Filter content="Genre" key="genre-filter" type="genre-filter" />
+      </div>
+    </div>
+
+
+      <div>
+          <h2>That's it! Your playlist is now ready.</h2>
+          <button id="generate-playlist-btn">Generate my playlist</button>
+      </div>
+      <GeneratedPlaylist/>
     </div>
   )
 };
