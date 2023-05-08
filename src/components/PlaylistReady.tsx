@@ -4,7 +4,7 @@ import SearchBar from './SearchBar';
 import Filter from './Filter';
 import { id, qs } from '../utils';
 import accordion_icon from '../images/accordion-close.png';
-
+import { returnDummyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 
 function PlaylistReady() {
 
@@ -19,6 +19,17 @@ function PlaylistReady() {
     } else {
       id('two-filter').style.overflow = "hidden";
     }
+  }
+
+  async function generateRec() {
+    let limit: number = 20;
+    let artists_seed: string[] = ['0PHf0oiic0xAnCrRuLTtHl'];
+    let genres_seed: string[] = ['j-pop'];
+    let tracks_seed: string[] = ['69aL4LJK092UFLmWtFeFFy'];
+
+    let spotify_artist_id = '0PHf0oiic0xAnCrRuLTtHl';
+    let data = await returnDummyRec(spotify_artist_id);
+    console.log(data);
   }
 
   return(
