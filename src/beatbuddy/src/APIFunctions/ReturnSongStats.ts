@@ -1,25 +1,10 @@
 import { getAccessToken } from "../recommendation/APIWrapper";
 
 /**
- * Searches spotify for the given query and returns the top 5 results
- * @param query - query to search Spotify for
- */
-async function searchSpotify(query: string) {
-    const { access_token } = await getAccessToken();
-    const response = await fetch('https://api.spotify.com/v1/search?q=' + query, {
-        method: 'GET',
-        headers: { Authorization: `Bearer ${access_token}`,}
-    });
-
-}
-
-export { searchSpotify }
-
-/**
  * @param track_uri the URI of the song that we are returning the stats of
  * @returns a json of the songs stats
  */
-async function returnSongStats(track_uri: string) {
+async function returnSongStats(track_uri: string) : Promise<SpotifyApi.SingleTrackResponse> {
     const { access_token } = await getAccessToken();
     const response = await fetch('https://api.spotify.com/v1/tracks/' + track_uri, {
         method: 'GET',
@@ -34,14 +19,14 @@ export { returnSongStats }
 /**
  * @returns a json of all genres used by Spotify
  */
-async function returnGenres() {
+async function returnGenres() : Promise<SpotifyApi.AvailableGenreSeedsResponse> {
     const { access_token } = await getAccessToken();
     const response = await fetch('https://api.spotify.com/v1/recommendations/available-genre-seeds', {
         method: 'GET',
         headers: { Authorization: `Bearer ${access_token}`,}
     });
     
-    return await response.json();
+    return await response.json() as SpotifyApi.AvailableGenreSeedsResponse;
 }
 
 export { returnGenres }
@@ -50,7 +35,7 @@ export { returnGenres }
  * @param artist_uri the URI of the artist that we are returning the stats of
  * @returns a json of the songs stats
  */
-async function returnArtistStats(artist_uri: string) {
+async function returnArtistStats(artist_uri: string): Promise<SpotifyApi.SingleArtistResponse> {
     const { access_token } = await getAccessToken();
     const response = await fetch('https://api.spotify.com/v1/artists/' + artist_uri, {
         method: 'GET',
@@ -136,3 +121,38 @@ async function returnSpotifyRec(limit: number, seed_artists: string[], seed_genr
 export { returnSpotifyRec }
 
 
+/**
+* @param query the search query from the search bar
+* @returns A array of 5 SearchResult with the top 5 tracks given the query
+**/
+async function searchSpotify(query: string): Promise<SearchResult[]> {
+    const { access_token } = await getAccessToken();
+    const response = await fetch('https://api.spotify.com/v1/search?type=track&q=' + query + '&limit=5', {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${access_token}`,}
+    });
+
+    const data = await response.json();
+    const res: SearchResult[] = [];
+    const tracks = data.tracks.items;
+    for (let i = 0; i < 5; i++) {
+        res.push(new SearchResult(tracks[i].artists[0].name,
+            tracks[i].name, tracks[i].uri));
+    }
+
+    return res;
+}
+
+class SearchResult {
+    artist: string;
+    title: string;
+    id: string;
+
+    constructor(artist: string, title: string, id: string) {
+        this.artist = artist;
+        this.title = title;
+        this.id = id;
+    }
+}
+
+export { searchSpotify }
