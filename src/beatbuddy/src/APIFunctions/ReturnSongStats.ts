@@ -137,7 +137,7 @@ async function searchSpotify(query: string): Promise<SearchResult[]> {
     const tracks = data.tracks.items;
     for (let i = 0; i < 5; i++) {
         res.push(new SearchResult(tracks[i].artists[0].name,
-            tracks[i].name, tracks[i].id));
+            tracks[i].name, tracks[i].id, tracks[i].album.images[1].url));
     }
 
     return res;
@@ -147,11 +147,13 @@ class SearchResult {
     artist: string;
     title: string;
     id: string;
+    imgUrl: string;
 
-    constructor(artist: string, title: string, id: string) {
+    constructor(artist: string, title: string, id: string, imgUrl: string) {
         this.artist = artist;
         this.title = title;
         this.id = id;
+        this.imgUrl = imgUrl;
     }
 }
 
