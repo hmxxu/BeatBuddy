@@ -11,9 +11,11 @@ import PlaylistReady from './components/PlaylistReady';
 import GeneratedPlaylist from './components/GeneratedPlaylist';
 import accordion_icon from './images/accordion-close.png';
 import { id, qs } from './utils';
+import PlaylistButton from './components/PlaylistButton';
+import { Callback } from './Callback';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
-// prop example: <App subject="Candiceeeeeee"/>
 
 
 function delayOverflow() {
@@ -46,9 +48,14 @@ root.render(
         <Filter key="genre-filter" type="genre-filter" />
       </div>
     </div>
-
     <PlaylistReady/>
     <GeneratedPlaylist/>
-  </React.StrictMode>
+    <Router>
+      <Routes>
+      <Route path="/BeatBuddy/" element={<Callback />} />
+        {/* Add other routes here */}
+      </Routes>
+    </Router>
+    </React.StrictMode>
 );
 
