@@ -5,7 +5,7 @@ import '../styles/filter.css';
 import React, { useState } from 'react';
 import closeIcon from '../images/close-icon.png';
 import ISOLanguage from '../ISOLanguage.json';
-import {id, qs} from '../utils';
+import { id } from '../utils';
 
 function Filter(props : any) {
 

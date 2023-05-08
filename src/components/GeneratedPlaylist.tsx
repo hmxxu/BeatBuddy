@@ -9,7 +9,7 @@ import spotify_icon from '../images/spotify-icon.png';
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { id, qs } from '../utils';
+// import { id, qs } from '../utils';
 
 
 function GeneratedPlaylist() {
@@ -40,9 +40,6 @@ function GeneratedPlaylist() {
       <h2>Your Recommended Playlist</h2>
       <section id="playlist-wrapper">
         <button id="back-btn">
-          {/* <span className="material-symbols-rounded">
-            arrow_back
-          </span> */}
           <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
           <span className="bold">Try another song</span>
         </button>
@@ -54,8 +51,6 @@ function GeneratedPlaylist() {
           <div className="flex">
             <img src={ minami } alt="The song cover" className="song-img"></img>
             <div className="current-song">
-              {/* <h1>{ currTitle }</h1>
-              <h2>{ currArtist }</h2> */}
               <span className="h-title bold">{currTitle}</span>
               <span className="h2 bold">By {currArtist}</span>
             </div>

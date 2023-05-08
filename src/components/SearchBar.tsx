@@ -86,9 +86,9 @@ function SearchBar() {
  * @param {string} query - CSS query selector
  * @returns {object[]} array of DOM objects matching the query.
  */
-  function qsa(query: any) {
-    return document.querySelectorAll(query);
-  }
+  // function qsa(query: any) {
+  //   return document.querySelectorAll(query);
+  // }
 
   /**
    * Returns the first element that matches the given CSS selector.
