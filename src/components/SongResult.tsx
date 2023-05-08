@@ -6,6 +6,7 @@ import play_btn from './../images/play-btn.png';
 
 function SongResult(props: any) {
   let id = props.id;
+  let src = props.src;
   let artist = props.artist;
   let title = props.title;
   let genre = props.genre;
@@ -16,7 +17,7 @@ function SongResult(props: any) {
 
       {/* The code below is for desktop */}
       <div className="song-result h4" onClick={props.onClick} id={id}>
-        <img src={minami} alt="album cover" id="album-cover"></img>
+        <img src={src} alt="album cover" id="album-cover"></img>
         <p id="artist">{artist}</p>
         <p id="title">{title}</p>
         <p id="genre">{genre}</p>

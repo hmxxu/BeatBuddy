@@ -5,6 +5,7 @@ import SongResult from './SongResult';
 import { id, qs } from '../utils';
 
 import { searchSpotify } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
+import { getImage } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 
 class SearchResult {
   artist: string;
@@ -27,7 +28,7 @@ function SearchBar() {
   const [selectedDisplay, setSelectedDisplay] = useState("Miku - Miku");
 
   // Array of songs
-  const initialSongs : SearchResult[] = [];
+  const initialSongs : Array<Object> = [];
   const [currSongsState, setSongsState] = useState(initialSongs);
 
   function init() {
@@ -62,7 +63,25 @@ function SearchBar() {
     // Get songs from backend
     let songs : SearchResult[] = await searchSpotify(userInput);
 
-    setSongsState(songs);
+    // create the next state
+    let newSongState : Array<Object> = [];
+    for (let i = 0; i < songs.length; i ++) {
+      try {
+        let imgUrl = await getImage(songs[i].id);
+
+        let newSong = {
+          "title" : songs[i].title,
+          "artist" : songs[i].artist,
+          "id" : songs[i].id,
+          "imgSrc" : imgUrl
+        };
+        newSongState.push(newSong);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    setSongsState(newSongState);
 
     // show container
     id("search-results").classList.remove("visibility-hidden");
@@ -109,7 +128,7 @@ function SearchBar() {
             // * for searchbar design, show song-result-mobile, hide song-playlist-mobile
             <SongResult design="searchbar" onClick={() => {handleSongClick(song)}}
             key={song.id}
-            id = {song.id}
+            id = {song.id} src={song.imgSrc}
             artist={song.artist} title={song.title}/>
           ))
         }
