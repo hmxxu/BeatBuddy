@@ -5,7 +5,7 @@ import SongResult from './SongResult';
 import { id, qs } from '../utils';
 
 import { searchSpotify } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
-import { getImage } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
+import { getImageAndGenre } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 
 class SearchResult {
   artist: string;
@@ -67,13 +67,15 @@ function SearchBar() {
     let newSongState : Array<Object> = [];
     for (let i = 0; i < songs.length; i ++) {
       try {
-        let imgUrl = await getImage(songs[i].id);
+        let response = await getImageAndGenre(songs[i].id);
+        let genres = response[1].toString();
 
         let newSong = {
           "title" : songs[i].title,
           "artist" : songs[i].artist,
           "id" : songs[i].id,
-          "imgSrc" : imgUrl
+          "imgSrc" : response[0],
+          "genre" : genres
         };
         newSongState.push(newSong);
       } catch (err) {
@@ -129,7 +131,7 @@ function SearchBar() {
             <SongResult design="searchbar" onClick={() => {handleSongClick(song)}}
             key={song.id}
             id = {song.id} src={song.imgSrc}
-            artist={song.artist} title={song.title}/>
+            artist={song.artist} title={song.title} genre={song.genres}/>
           ))
         }
       </section>

@@ -160,9 +160,9 @@ export { searchSpotify }
 /**
  * Given a song id, return the song's image url
  * @param id - song id
- * @returns {Promise<String>} - song url as string
+ * @returns {Object} - object with songUrl and songGenre as an array (empty if undefined)
  */
-async function getImage(id : string): Promise<String> {
+async function getImageAndGenre(id : string): Promise<any[]> {
     const { access_token } = await getAccessToken();
     const response = await fetch('https://api.spotify.com/v1/tracks/' + id, {
         method: 'GET',
@@ -170,8 +170,13 @@ async function getImage(id : string): Promise<String> {
     });
 
     const data = await response.json();
-    const res = data.album.images[0].url;
+    const imageUrl : String = data.album.images[0].url;
+    let genres : Array<String> = data.album.genres;
+    if (!genres) {
+        genres = [];
+    }
+    const res : any[] = [imageUrl, genres];
     return res;
 }
 
-export { getImage }
+export { getImageAndGenre }

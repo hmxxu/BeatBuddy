@@ -90,6 +90,7 @@ function GeneratedPlaylist() {
             currSongsState.map((song : any) => (
               <SongResult onClick={() => {handleSongClick(song)}}
               key={song.artist + song.title}
+              src={minami}
               artist={song.artist} title={song.title} genre={song.genre}/>
             ))
           }
