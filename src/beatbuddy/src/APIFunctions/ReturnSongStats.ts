@@ -1,4 +1,5 @@
 import { getAccessToken } from "../recommendation/APIWrapper";
+import { getSpotifyClient } from '../spotify/spotifyAuth';
 
 /**
  * @param track_uri the URI of the song that we are returning the stats of
@@ -180,3 +181,18 @@ async function getImageAndGenre(id : string): Promise<any[]> {
 }
 
 export { getImageAndGenre }
+
+/**
+ * Given a playlistName, description whether it is isPublic, and a array if song URIs
+ * this function will make and save a playlist
+ * @param playlistName the name of the playlist
+ * @param description the description of the playlist
+ * @param isPublic whether the playlist is public
+ * @param songs a list of song URIs in the playlist (Each URI must be formatted: "spotify:track:{URI}")
+ * */
+async function createPlaylist(playlistName: string, description: string, isPublic: boolean, songs: string[]) {
+    const playlistURI = (await getSpotifyClient().createPlaylist(playlistName, { 'description': description, 'public': isPublic })).body.uri.split(':')[2];
+    getSpotifyClient().addTracksToPlaylist(playlistURI, songs);
+}
+
+export { createPlaylist };
