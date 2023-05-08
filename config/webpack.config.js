@@ -571,13 +571,6 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean),
     },
     plugins: [
-      new webpack.ProvidePlugin({
-        process: 'process/browser.js',
-      }),
-      new webpack.DefinePlugin({
-        'process.env.REACT_APP_SPOTIFY_CLIENT_ID': JSON.stringify(process.env.REACT_APP_SPOTIFY_CLIENT_ID),
-        'process.env.REACT_APP_SPOTIFY_CLIENT_SECRET': JSON.stringify(process.env.REACT_APP_SPOTIFY_CLIENT_SECRET),
-      }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
