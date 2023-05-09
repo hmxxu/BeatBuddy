@@ -12,7 +12,8 @@ import SongResult from './SongResult';
 import { id, qs } from '../utils';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 import {getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
-import {savePlaylistToSpotify} from '../beatbuddy/src/APIFunctions/saveToSpotify'
+import {savePlaylistToSpotify} from '../beatbuddy/src/APIFunctions/saveToSpotify';
+import { returnSongFeatures } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 
 function GeneratedPlaylist(props:any) {
 
@@ -34,6 +35,10 @@ function GeneratedPlaylist(props:any) {
   const [currArtist, setCurrArtist] = useState("");
   const [currImg, setCurrImg] = useState("");
   const [playerViewState, setPlayerViewState] = useState("hidden");
+
+  const [currEnergy, setEnergy] = useState(0);
+  const [currAcoustic, setAcoustic] = useState(0);
+  const [currDance, setDance] = useState(0);
 
   /*
   * Updates the selected song when song result is clicked
