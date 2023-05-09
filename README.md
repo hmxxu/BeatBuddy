@@ -24,6 +24,7 @@ Steps to build:
   ```.env
   REACT_APP_SPOTIFY_CLIENT_ID=<client id>
   REACT_APP_SPOTIFY_CLIENT_SECRET=<client secret>
+  REACT_APP_STAGE=production
   ```
 You can use your own `id` and `secret` if you would like[^2].
 
