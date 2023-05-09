@@ -17,3 +17,19 @@ export const id = (id: any) => {
 export const qs = (query: any) => {
   return document.querySelector(query)!;
 }
+
+export class SearchResult {
+  artist: string;
+  title: string;
+  id: string;
+  genres: string[];
+  imgUrl: string;
+
+  constructor(artist: string, title: string, id: string, genres: string[], imgUrl: string) {
+      this.artist = artist;
+      this.title = title;
+      this.id = id;
+      this.genres = genres;
+      this.imgUrl = imgUrl;
+  }
+}

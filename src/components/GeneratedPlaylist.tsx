@@ -17,20 +17,6 @@ import { returnSongFeatures } from '../beatbuddy/src/APIFunctions/ReturnSongStat
 
 function GeneratedPlaylist(props:any) {
 
-  class SearchResult {
-    artist: string;
-    title: string;
-    id: string;
-    imgUrl: string;
-
-    constructor(artist: string, title: string, id: string, imgUrl: string) {
-        this.artist = artist;
-        this.title = title;
-        this.id = id;
-        this.imgUrl = imgUrl;
-    }
-  }
-
   const [currTitle, setCurrTitle] = useState("");
   const [currArtist, setCurrArtist] = useState("");
   const [currImg, setCurrImg] = useState("");

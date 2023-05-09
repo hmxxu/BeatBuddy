@@ -5,20 +5,7 @@ import SongResult from './SongResult';
 import { id, qs } from '../utils';
 
 import { searchSpotify } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
-
-class SearchResult {
-  artist: string;
-  title: string;
-  id: string;
-  imgUrl: string;
-
-  constructor(artist: string, title: string, id: string, imgUrl: string) {
-      this.artist = artist;
-      this.title = title;
-      this.id = id;
-      this.imgUrl = imgUrl;
-  }
-}
+import { SearchResult } from '../utils';
 
 function SearchBar(props:any) {
 
@@ -28,7 +15,7 @@ function SearchBar(props:any) {
   const [selectedDisplay, setSelectedDisplay] = useState("Miku - Miku");
 
   // Array of songs
-  const initialSongs : Array<Object> = [];
+  const initialSongs : Array<SearchResult> = [];
   const [currSongsState, setSongsState] = useState(initialSongs);
 
   function init() {

@@ -6,28 +6,26 @@ import { id, qs } from '../utils';
 import accordion_icon from '../images/accordion-close.png';
 import { returnDummyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { useState } from 'react';
+import { SearchResult } from '../utils';
 
 function PlaylistReady() {
-  
-  class SearchResult {
-    artist: string;
-    title: string;
-    id: string;
-    imgUrl: string;
-
-    constructor(artist: string, title: string, id: string, imgUrl: string) {
-        this.artist = artist;
-        this.title = title;
-        this.id = id;
-        this.imgUrl = imgUrl;
-    }
-  }
-
+ 
+  // data gathered from SearchBar
   const [songId, setSongId] = useState("");
+
+  // Data gathered from genre filter
   const [genreList, setGenreList] = useState([]);
+
+  // Data gathered from decades filter
   const [decadeList, setDecadeList] = useState([]);
+
+  // initial recommendations list to determine type
   const initialRecs : SearchResult[] = [];
+
+  // reccomendation data, passed to GeneratedPlaylist. Output of recommendation algorithm
   const [recData, setRecData] = useState(initialRecs);
+
+  // controls if user sees GeneratedPlaylist or not
   const [playlistViewState, setPlaylistViewState] = useState("hidden");
 
   const getSongId = (childData : any) => {
@@ -83,9 +81,11 @@ function PlaylistReady() {
     // convert recommended songs to searchResult[]
     console.log(data);
     let recArray : SearchResult[] = [];
+
+    // genre array is empty for now
     data.tracks.forEach((t) => {
       recArray.push(new SearchResult(t.artists[0].name,
-        t.name, t.id, t.album.images[1].url));
+        t.name, t.id, [], t.album.images[1].url));
     })
     setRecData(recArray);
     setPlaylistViewState("");
