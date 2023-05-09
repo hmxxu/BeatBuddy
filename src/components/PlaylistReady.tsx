@@ -5,9 +5,15 @@ import Filter from './Filter';
 import { id, qs } from '../utils';
 import accordion_icon from '../images/accordion-close.png';
 import { returnDummyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
-
+import { useState } from 'react';
 
 function PlaylistReady() {
+
+  const [songId, setSongId] = useState("");
+
+  const getSongId = (childData : any) => {
+    setSongId(childData)
+  }
 
   function delayOverflow() {
     let checkbox = id('customize-box') as HTMLInputElement;
@@ -35,7 +41,7 @@ function PlaylistReady() {
 
   return(
     <div>
-      <SearchBar/>
+      <SearchBar childToParent={ getSongId }/>
       <div className="accordion">
       {/* <span className="customize-text h2 bold">Customize your playlist</span> */}
       <input type="checkbox" name="accordion" id="customize-box" onClick={delayOverflow} />

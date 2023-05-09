@@ -20,7 +20,7 @@ class SearchResult {
   }
 }
 
-function SearchBar() {
+function SearchBar(props:any) {
 
   window.addEventListener("load", init);
 
@@ -78,6 +78,7 @@ function SearchBar() {
     setSelectedState("");
     // disable search bar
     (id("song-search") as HTMLInputElement).disabled = true;
+    props.getSongId(song.id);
   }
 
   return(

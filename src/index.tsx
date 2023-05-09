@@ -5,11 +5,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import Navbar from './components/Navbar';
-import Filter from './components/Filter';
-import SearchBar from './components/SearchBar';
 import PlaylistReady from './components/PlaylistReady';
-import GeneratedPlaylist from './components/GeneratedPlaylist';
-import accordion_icon from './images/accordion-close.png';
 import { id, qs } from './utils';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
