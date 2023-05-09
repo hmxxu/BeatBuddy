@@ -7,6 +7,8 @@ BeatBuddy is an app that tailors recommendations much more closely to your prefe
 * The given songs are chosen to be as similar as possible
 	* Traits such as tempo, rhythm, pitch, melody, etc. are considered
 
+Our website can be found at https://hmxxu.github.io/BeatBuddy/!
+
 ## In this repository
 `/public` and `/src` is for the front-facing website, and contains all code for visuals and website display.
 
@@ -24,6 +26,8 @@ Steps to build:
   ```.env
   REACT_APP_SPOTIFY_CLIENT_ID=<client id>
   REACT_APP_SPOTIFY_CLIENT_SECRET=<client secret>
+  REACT_APP_REDIRECT_URI=http://localhost:3000/BeatBuddy/
+  REACT_APP_STAGE=production
   ```
 You can use your own `id` and `secret` if you would like[^2].
 
@@ -51,7 +55,16 @@ Similarly, you can specify the workflow to run more or different commands by edi
   
 When adding more tests, simply create a file ending in `.test.ts`. BeatBuddy is tested using the `Jest` testing framework, and the preference for file structure is that tests are placed directly next to the unit they are testing.
 
+## Running tests on your local machine
+Simply make sure your `.env` file is set, and use `npm run jest` to run all unit tests.
+
 *-content subject to change-*
+
+# CURRENTLY WORKING FEATURES
+* Search bar: you are able to input a song and query the public Spotify API for certain songs
+* Song selection: after searching, you can click on a song to select it for later
+* (some) Playlist customization features: there is a section on the site allowing you to choose specific features to emphasize in your playlist, including time period and genre
+* Save to Spotify: users are able to log into Spotify, authenticate from this website, and are automatically redirected back into our site
 
 [^1]: This is a dependency issue involving `ts-jest` and `babel-jest`. We are in the process of fixing dependencies. Other installs may not work as well, so use `--force` in any instance this occurs.
 [^2]: Refer to the Spotify API [getting started](https://developer.spotify.com/documentation/web-api/tutorials/getting-started) page.

@@ -31,6 +31,11 @@ root.render(
   <React.StrictMode>
     <Navbar/>
     <PlaylistReady/>
+    <Router>
+      <Routes>
+      <Route path="/BeatBuddy/" element={<Callback />} />
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 

@@ -64,6 +64,10 @@ function PlaylistReady() {
     }
   }
 
+  /**
+   * generates Recommendates and displays it to the user by updating the state
+   * The state is then passed down to the GeneratedPlaylist component
+   */
   async function generateRec() {
     let limit: number = 20;
     let artists_seed: string[] = ['0PHf0oiic0xAnCrRuLTtHl'];

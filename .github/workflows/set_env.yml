@@ -1,20 +1,20 @@
-name: Unit Tests
+name: Set up environment for gh-pages
 
 on:
   push:
     branches:
-      - main
+      - gh-pages
   pull_request:
     branches: 
-      - main
-
+      - gh-pages
+      
 jobs:
   Jest:
-    environment: CI
+    environment: github-pages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Run Tests
+      - name: Set process.env
         env:
           REACT_APP_SPOTIFY_CLIENT_ID: ${{ secrets.REACT_APP_SPOTIFY_CLIENT_ID }} 
           REACT_APP_SPOTIFY_CLIENT_SECRET: ${{ secrets.REACT_APP_SPOTIFY_CLIENT_SECRET }} 
@@ -25,5 +25,3 @@ jobs:
           REACT_APP_SPOTIFY_CLIENT_SECRET=${REACT_APP_SPOTIFY_CLIENT_SECRET}
           REACT_APP_SPOTIFY_REDIRECT_URI=${REACT_APP_SPOTIFY_REDIRECT_URI}
           REACT_APP_STAGE=${REACT_APP_STAGE}
-          npm install --force
-          npm run jest
