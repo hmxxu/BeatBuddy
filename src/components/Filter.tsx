@@ -108,7 +108,7 @@ function Filter(props : any) {
   function showOverlay() {
     // if overlay is active, send to parent entire array of genres
     if (!isOverlayActive) {
-      props.childToParent(data);
+      props.childToParent(data, data);
     }
     setActive(!isOverlayActive);
     // clearAllTags();
@@ -164,7 +164,7 @@ function Filter(props : any) {
     console.log(myTags);
 
     // send updated list of selected tags to parent
-    props.childToParent(mTags);
+    props.childToParent(mTags, data);
   }
 
   //* Remove tags working now, need to work on preventing dupes
@@ -176,7 +176,7 @@ function Filter(props : any) {
     setMTags(updatedMTags);
 
     // send updated mTags to parent
-    props.childToParent(mTags);
+    props.childToParent(mTags, data);
   }
 
   /**

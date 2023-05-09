@@ -17,13 +17,21 @@ function PlaylistReady() {
     setSongId(childData)
   }
 
-  const getGenreArray = (selectedList : any) => {
-    setGenreList(selectedList);
+  const getGenreArray = (selectedList: any, fullList : any) => {
+    if (selectedList.length > 0) { 
+      setGenreList(selectedList);
+    } else {
+      setGenreList(fullList);
+    }
     console.log(selectedList);
   }
 
-  const getDecadeArray = (selectedList : any) => {
-    setDecadeList(selectedList);
+  const getDecadeArray = (selectedList : any, fullList: any) => {
+    if (selectedList.length > 0) { 
+      setDecadeList(selectedList);
+    } else {
+      setDecadeList(fullList);
+    }
     console.log(selectedList);
 
   }
