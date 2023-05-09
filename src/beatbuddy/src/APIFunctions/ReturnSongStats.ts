@@ -10,7 +10,7 @@ async function returnSongStats(track_uri: string) : Promise<SpotifyApi.SingleTra
         method: 'GET',
         headers: { Authorization: `Bearer ${access_token}`,}
     });
-    
+
     return await response.json();
 }
 
@@ -25,7 +25,7 @@ async function returnGenres() : Promise<SpotifyApi.AvailableGenreSeedsResponse> 
         method: 'GET',
         headers: { Authorization: `Bearer ${access_token}`,}
     });
-    
+
     return await response.json() as SpotifyApi.AvailableGenreSeedsResponse;
 }
 
@@ -41,7 +41,7 @@ async function returnArtistStats(artist_uri: string): Promise<SpotifyApi.SingleA
         method: 'GET',
         headers: { Authorization: `Bearer ${access_token}`,}
     });
-    
+
     return await response.json();
 }
 
@@ -57,7 +57,7 @@ async function returnDummyRec(id: string): Promise<SpotifyApi.RecommendationsFro
         method: 'GET',
         headers: { Authorization: `Bearer ${access_token}`,}
     });
-    
+
     return await response.json();
 }
 
@@ -82,7 +82,7 @@ export { returnDummyRec }
  * @param target_valence number in the range 0.0-0.1
  * @returns a json of tracks Spotify recs based on the parameters
  */
-async function returnSpotifyRec(limit: number, seed_artists: string[], seed_genres: string[], 
+async function returnSpotifyRec(limit: number, seed_artists: string[], seed_genres: string[],
     seed_tracks: string[], target_acousticness: number, target_danceability: number, target_energy: number,
     target_instrumentalness: number, target_key: number, target_liveness: number, target_loudness: number,
     target_mode: number, target_speechiness: number, target_tempo: number, target_time_signature: number,
@@ -133,6 +133,7 @@ async function searchSpotify(query: string): Promise<SearchResult[]> {
     });
 
     const data = await response.json();
+    console.log(data);
     const res: SearchResult[] = [];
     const tracks = data.tracks.items;
     for (let i = 0; i < 5; i++) {
@@ -178,6 +179,7 @@ async function getImageAndGenre(id : string): Promise<any[]> {
         genres = [];
     }
     const res : any[] = [imageUrl, genres];
+
     return res;
 }
 

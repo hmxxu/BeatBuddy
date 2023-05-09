@@ -59,7 +59,6 @@ function PlaylistReady() {
     let data = await returnDummyRec(spotify_artist_id);
     console.log(data);
   }
-
   return(
     <div>
       <SearchBar childToParent={ getSongId }/>
