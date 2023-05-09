@@ -170,7 +170,7 @@ class SearchResult {
 export { searchSpotify }
 
 /**
- * Given a song id, return the song's image url
+ * Given a song id, return the song's image url and album genres (if it exists)
  * @param id - song id
  * @returns {Object} - object with songUrl and songGenre as an array (empty if undefined)
  */
