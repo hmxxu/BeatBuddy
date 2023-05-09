@@ -7,6 +7,8 @@ BeatBuddy is an app that tailors recommendations much more closely to your prefe
 * The given songs are chosen to be as similar as possible
 	* Traits such as tempo, rhythm, pitch, melody, etc. are considered
 
+Our website can be found at https://hmxxu.github.io/BeatBuddy/!
+
 ## In this repository
 `/public` and `/src` is for the front-facing website, and contains all code for visuals and website display.
 
@@ -52,6 +54,9 @@ A GitHub Actions workflow is set to run `npm install --force`, and then `npm run
 Similarly, you can specify the workflow to run more or different commands by editing the `run` section of `main.yml`[^3]. 
   
 When adding more tests, simply create a file ending in `.test.ts`. BeatBuddy is tested using the `Jest` testing framework, and the preference for file structure is that tests are placed directly next to the unit they are testing.
+
+## Running tests on your local machine
+Simply make sure your `.env` file is set, and use `npm run jest` to run all unit tests.
 
 *-content subject to change-*
 

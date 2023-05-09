@@ -103,6 +103,7 @@ hr {
 
 body {
   text-shadow: #1C2330 1px 1px 5px;
+  min-height: 80vh;
 }
 
 .myDropdown, .song-results-container > .results-label, .song-result, .song-result-mobile {
