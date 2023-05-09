@@ -23,11 +23,22 @@ function PlaylistReady() {
     }
   }
 
+  // data gathered from SearchBar
   const [songId, setSongId] = useState("");
+
+  // Data gathered from genre filter
   const [genreList, setGenreList] = useState([]);
+
+  // Data gathered from decades filter
   const [decadeList, setDecadeList] = useState([]);
+
+  // initial recommendations list to determine type
   const initialRecs : SearchResult[] = [];
+
+  // reccomendation data, passed to GeneratedPlaylist. Output of recommendation algorithm
   const [recData, setRecData] = useState(initialRecs);
+
+  // controls if user sees GeneratedPlaylist or not
   const [playlistViewState, setPlaylistViewState] = useState("hidden");
 
   const getSongId = (childData : any) => {
