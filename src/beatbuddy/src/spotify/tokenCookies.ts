@@ -8,7 +8,17 @@ export function getAccessTokenFromCookie(): string | null {
   for (const cookie of cookies) {
     const [name, value] = cookie.split('=');
     if (name === 'spotify_access_token') {
-      return value;
+      const cookieData = decodeURIComponent(value).split('; ');
+      const token = cookieData[0];
+      const expirationDateString = cookieData.find((str) => str.startsWith('expires='));
+      if (expirationDateString) {
+        const expirationDate = new Date(expirationDateString.substring(8));
+        if (expirationDate < new Date()) {
+          // The cookie has expired
+          return null;
+        }
+      }
+      return token;
     }
   }
   return null;

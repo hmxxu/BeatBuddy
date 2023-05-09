@@ -13,46 +13,38 @@ import { id, qs } from '../utils';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 import {getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import {savePlaylistToSpotify} from '../beatbuddy/src/APIFunctions/saveToSpotify'
+import {SearchResult} from '../beatbuddy/src/APIFunctions/ReturnSongStats'
+import { log } from 'console';
+
+const playlistSongsToSave:SearchResult[] = [];
+
+export function playListReadyTosend(searchResults: SearchResult[]){
+  searchResults.forEach((result) => {
+    result.id = "spotify:track:" + result.id;
+    playlistSongsToSave.push(result);
+  });
+
+  console.log("ready: ");
+  console.log(JSON.stringify(searchResults));
+}
 
 function GeneratedPlaylist(props:any) {
-
-  class SearchResult {
-    artist: string;
-    title: string;
-    id: string;
-    imgUrl: string;
-
-    constructor(artist: string, title: string, id: string, imgUrl: string) {
-        this.artist = artist;
-        this.title = title;
-        this.id = id;
-        this.imgUrl = imgUrl;
-    }
-  }
 
   const [currTitle, setCurrTitle] = useState("");
   const [currArtist, setCurrArtist] = useState("");
   const [currImg, setCurrImg] = useState("");
   const [playerViewState, setPlayerViewState] = useState("hidden");
 
+
   /*
   * Updates the selected song when song result is clicked
   * (in song player)
   * @param song - Song array arranged like [artist, song, genre]
   */
-  const handleSongClick = async (song : any) => {
+  const handleSongClick = (song : any) => {
     setCurrTitle(song.title);
     setCurrArtist(song.artist);
     setCurrImg(song.imgUrl);
-
-    // get features and display:
-    const featuresJSON = await returnSongFeatures(song.id);
-    console.log(featuresJSON);
-
-    setEnergy(Math.round(featuresJSON.energy * 100));
-    setAcoustic(Math.round(featuresJSON.acousticness * 100));
-    setDance(Math.round(featuresJSON.danceability * 100));
-
     setPlayerViewState("");
   }
 
@@ -78,7 +70,7 @@ function GeneratedPlaylist(props:any) {
           <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
           <span className="bold">Try another song</span>
         </button>
-        <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist', [])}>
+        <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist3', playlistSongsToSave)}>
           <span className="bold">Save to Spotify</span>
           <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
         </button>
@@ -94,22 +86,22 @@ function GeneratedPlaylist(props:any) {
             </div>
           </div>
           <div className="song-stats flex">
-            <div id="energy" className="attrs">
-              <h3>Energy</h3>
+            <div id="liveliness" className="attrs">
+              <h3>Liveliness</h3>
               {/* <h1>90%</h1> */}
-              <p className="h-title bold">{currEnergy + "%"}</p>
+              <p className="h-title bold">90%</p>
             </div>
             <div className="vl"></div>
             <div id="accoustic" className="attrs">
               <h3>Accousticness</h3>
               {/* <h1>10%</h1> */}
-              <p className="h-title bold">{currAcoustic + "%"}</p>
+              <p className="h-title bold">10%</p>
             </div>
             <div className="vl"></div>
             <div id="danceable" className="attrs">
               <h3>Danceability</h3>
               {/* <h1>13%</h1> */}
-              <p className="h-title bold">{currDance + "%"}</p>
+              <p className="h-title bold">13%</p>
             </div>
           </div>
         </section>
@@ -152,18 +144,18 @@ function GeneratedPlaylist(props:any) {
           </div>
           <div className="song-stats-mobile flex-song">
             <div id="liveliness" className="attrs">
-              <h5>Energy</h5>
-              <h2>{currEnergy + "%"}</h2>
+              <h5>Liveliness</h5>
+              <h2>90%</h2>
             </div>
             <div className="vl-mobile"></div>
             <div id="accoustic" className="attrs">
               <h5>Accousticness</h5>
-              <h2>{currAcoustic + "%"}</h2>
+              <h2>10%</h2>
             </div>
             <div className="vl-mobile"></div>
             <div id="danceable" className="attrs">
               <h5>Danceability</h5>
-              <h2>{currDance + "%"}</h2>
+              <h2>13%</h2>
             </div>
           </div>
         </section>

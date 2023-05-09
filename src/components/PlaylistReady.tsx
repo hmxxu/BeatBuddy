@@ -6,22 +6,11 @@ import { id, qs } from '../utils';
 import accordion_icon from '../images/accordion-close.png';
 import { returnDummyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { useState } from 'react';
+import { SearchResult } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
+import { playListReadyTosend } from './GeneratedPlaylist';
+
 
 function PlaylistReady() {
-  
-  class SearchResult {
-    artist: string;
-    title: string;
-    id: string;
-    imgUrl: string;
-
-    constructor(artist: string, title: string, id: string, imgUrl: string) {
-        this.artist = artist;
-        this.title = title;
-        this.id = id;
-        this.imgUrl = imgUrl;
-    }
-  }
 
   const [songId, setSongId] = useState("");
   const [genreList, setGenreList] = useState([]);
@@ -35,7 +24,7 @@ function PlaylistReady() {
   }
 
   const getGenreArray = (selectedList: any, fullList : any) => {
-    if (selectedList.length > 0) { 
+    if (selectedList.length > 0) {
       setGenreList(selectedList);
     } else {
       setGenreList(fullList);
@@ -44,7 +33,7 @@ function PlaylistReady() {
   }
 
   const getDecadeArray = (selectedList : any, fullList: any) => {
-    if (selectedList.length > 0) { 
+    if (selectedList.length > 0) {
       setDecadeList(selectedList);
     } else {
       setDecadeList(fullList);
@@ -76,7 +65,7 @@ function PlaylistReady() {
     let genres_seed: string[] = ['j-pop'];
     let tracks_seed: string[] = ['69aL4LJK092UFLmWtFeFFy'];
 
-    // temp, will use query, genre, and time period later 
+    // temp, will use query, genre, and time period later
     let spotify_artist_id = '0PHf0oiic0xAnCrRuLTtHl';
     let data = await returnDummyRec(spotify_artist_id);
 
@@ -88,6 +77,7 @@ function PlaylistReady() {
         t.name, t.id, t.album.images[1].url));
     })
     setRecData(recArray);
+    playListReadyTosend(recArray);
     setPlaylistViewState("");
   }
 
@@ -119,3 +109,4 @@ function PlaylistReady() {
 };
 
 export default PlaylistReady;
+

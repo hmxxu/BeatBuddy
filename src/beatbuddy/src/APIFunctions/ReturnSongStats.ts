@@ -20,7 +20,7 @@ export { returnSongStats }
 /**
  * Gets song features (ex. acoustic/liveliness/energy/etc)
  * @param track_id - track id
- * @returns JSON with track features 
+ * @returns JSON with track features
  * (see https://developer.spotify.com/documentation/web-api/reference/get-audio-features)
  */
 async function returnSongFeatures(track_id: string) : Promise<SpotifyApi.AudioFeaturesResponse>{
@@ -163,7 +163,7 @@ async function searchSpotify(query: string): Promise<SearchResult[]> {
     return res;
 }
 
-class SearchResult {
+export class SearchResult {
     artist: string;
     title: string;
     id: string;
@@ -177,4 +177,4 @@ class SearchResult {
     }
 }
 
-export { searchSpotify }
+export { searchSpotify};
