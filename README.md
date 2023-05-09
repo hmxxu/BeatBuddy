@@ -7,6 +7,8 @@ BeatBuddy is an app that tailors recommendations much more closely to your prefe
 * The given songs are chosen to be as similar as possible
 	* Traits such as tempo, rhythm, pitch, melody, etc. are considered
 
+Our website can be found at https://hmxxu.github.io/BeatBuddy/!
+
 ## In this repository
 `/public` and `/src` is for the front-facing website, and contains all code for visuals and website display.
 
