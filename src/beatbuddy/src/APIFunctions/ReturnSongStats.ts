@@ -1,4 +1,5 @@
 import { getAccessToken } from "../recommendation/APIWrapper";
+import { getSpotifyClient } from '../spotify/spotifyAuth';
 
 /**
  * @param track_uri the URI of the song that we are returning the stats of
@@ -68,18 +69,18 @@ export { returnDummyRec }
  * @param seed_artists a list of artist the recs will use (0-5)
  * @param seed_genres a list of genres the recs will use (0-5)
  * @param seed_tracks a list of tracks (URI) the recs will use (0-5)
- * @param target_acousticness number in the range 0.0-0.1
- * @param target_danceability number in the range 0.0-0.1
- * @param target_energy number in the range 0.0-0.1
- * @param target_instrumentalness number in the range 0.0-0.1
- * @param target_key number in the range 0.0-0.1
- * @param target_liveness number in the range 0.0-0.1
- * @param target_loudness number in the range 0.0-0.1
- * @param target_mode numbers that are integers
- * @param target_speechiness number in the range 0.0-0.1
- * @param target_tempo number in the range 0.0-0.1
- * @param target_time_signature integers in the range 0-11
- * @param target_valence number in the range 0.0-0.1
+ * @param target_acousticness number in the range 0.0-0.1 (optional)
+ * @param target_danceability number in the range 0.0-0.1 (optional)
+ * @param target_energy number in the range 0.0-0.1 (optional)
+ * @param target_instrumentalness number in the range 0.0-0.1 (optional)
+ * @param target_key number in the range 0.0-0.1 (optional)
+ * @param target_liveness number in the range 0.0-0.1 (optional)
+ * @param target_loudness number in the range 0.0-0.1 (optional)
+ * @param target_mode numbers that are integers (optional)
+ * @param target_speechiness number in the range 0.0-0.1 (optional)
+ * @param target_tempo number in the range 0.0-0.1 (optional)
+ * @param target_time_signature integers in the range 0-11 (optional)
+ * @param target_valence number in the range 0.0-0.1 (optional)
  * @returns a json of tracks Spotify recs based on the parameters
  */
 async function returnSpotifyRec(
@@ -201,9 +202,9 @@ export { getImageAndGenre }
  * @param isPublic whether the playlist is public
  * @param songs a list of song URIs in the playlist (Each URI must be formatted: "spotify:track:{URI}")
  * */
-// async function createPlaylist(playlistName: string, description: string, isPublic: boolean, songs: string[]) {
-//     const playlistURI = (await getSpotifyClient().createPlaylist(playlistName, { 'description': description, 'public': isPublic })).body.uri.split(':')[2];
-//     getSpotifyClient().addTracksToPlaylist(playlistURI, songs);
-// }
+async function createPlaylist(playlistName: string, description: string, isPublic: boolean, songs: string[]) {
+    const playlistURI = (await getSpotifyClient().createPlaylist(playlistName, { 'description': description, 'public': isPublic })).body.uri.split(':')[2];
+    getSpotifyClient().addTracksToPlaylist(playlistURI, songs);
+}
 
-// export { createPlaylist };
+export { createPlaylist };
