@@ -2,28 +2,43 @@ import React, { useState } from 'react';
 
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
+import { id, qs } from '../utils';
 
+import { searchSpotify } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 
-import { returnDummyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats'
+class SearchResult {
+  artist: string;
+  title: string;
+  id: string;
+  imgUrl: string;
 
-function SearchBar() {
+  constructor(artist: string, title: string, id: string, imgUrl: string) {
+      this.artist = artist;
+      this.title = title;
+      this.id = id;
+      this.imgUrl = imgUrl;
+  }
+}
+
+function SearchBar(props:any) {
 
   window.addEventListener("load", init);
 
   const [selectedState, setSelectedState] = useState("hidden");
   const [selectedDisplay, setSelectedDisplay] = useState("Miku - Miku");
 
-  // temp
-  const [currSongsState, setSongsState] = useState([
-    ["minami", "Eternal Blue", "J-pop"],
-    ["deco*27", "vampire", "Vocaloid"],
-    ["Ryo", "melt", "Vocaloid"],
-    ["Minami", "[Test for very long song name] Prologue", "J-pop"]
-  ]);
+  // Array of songs
+  const initialSongs : Array<Object> = [];
+  const [currSongsState, setSongsState] = useState(initialSongs);
 
   function init() {
     // search button
     qs("input + button").addEventListener("click", searchSongs);
+    qs("input").addEventListener("keyup", (e : any) => {
+      if (e.key === 'Enter' || e.keyCode === 13) {
+        searchSongs();
+      }
+    })
 
     //selected-song button inside input
     let selectedSongBtn = id("selected-song");
@@ -40,69 +55,30 @@ function SearchBar() {
   /**
    * When the user searches a song, this function will update the song results
    */
-  function searchSongs() {
+  async function searchSongs() {
     // get user input
     let searchInput : HTMLInputElement = id('song-search') as HTMLInputElement;
     let userInput : string = searchInput.value;
-
-    console.log(userInput);
-    // get songs
-    let searchJSON = returnDummyRec(userInput);
-    console.log(searchJSON);
-
-    // for now, temporary implementation that just appends songs to the results container
-    let songsContainer : Element = id("search-results");
     
-    // temporary. Fetch songs from backend later
-    let songs : Array<Array<string>> = [
-      ["minami", "Eternal Blue", "J-pop"], 
-      ["deco*27", "vampire", "Vocaloid"],
-      ["PowaPowaP", "Equation++", "Vocaloid"],
-      ["Minami", "[Test for very long song name] Prologue", "J-pop"]
-    ];
+    // Get songs from backend
+    let songs : SearchResult[] = await searchSpotify(userInput);
 
     setSongsState(songs);
 
     // show container
-    songsContainer.classList.remove("visibility-hidden");
-  }
-
-  /**
- * Returns the element that has the ID attribute with the specified value.
- * @param {string} id - element ID
- * @return {object} DOM object associated with id.
- */
-  function id(id: any) {
-    return document.getElementById(id)!;
-  }
-
-  /**
- * Returns the array of elements that match the given CSS selector.
- * @param {string} query - CSS query selector
- * @returns {object[]} array of DOM objects matching the query.
- */
-  function qsa(query: any) {
-    return document.querySelectorAll(query);
-  }
-
-  /**
-   * Returns the first element that matches the given CSS selector.
-   * @param {string} query - CSS query selector.
-   * @return {object[]} array of DOM objects matching the query.
-   */
-  function qs(query: any) {
-    return document.querySelector(query);
+    id("search-results").classList.remove("visibility-hidden");
   }
 
   /**
    * Updates the selected song when song result is clicked
    * @param {Array<Array<string>>} song - Song array arranged like [artist, song, genre]
    */
-  const handleSongClick = (song : Array<Array<string>>) => {
-    setSelectedDisplay(song[0] + " - " + song[1])
+  const handleSongClick = (song : any) => {
+    setSelectedDisplay(song.artist + " - " + song.title)
     setSelectedState("");
     // disable search bar
     (id("song-search") as HTMLInputElement).disabled = true;
+    props.childToParent(song.id);
   }
 
   return(
@@ -134,8 +110,9 @@ function SearchBar() {
           currSongsState.map((song : any) => (
             // * for searchbar design, show song-result-mobile, hide song-playlist-mobile
             <SongResult design="searchbar" onClick={() => {handleSongClick(song)}}
-            key={song[0] + song[1]}
-            artist={song[0]} title={song[1]} genre={song[2]}/>
+            key={song.id}
+            id = {song.id} src={song.imgUrl}
+            artist={song.artist} title={song.title} genre={song.genres}/>
           ))
         }
       </section>
