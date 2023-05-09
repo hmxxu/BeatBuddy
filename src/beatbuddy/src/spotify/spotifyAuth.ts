@@ -2,9 +2,14 @@ import axios from 'axios';
 import SpotifyWebApi from 'spotify-web-api-node';
 import { saveAccessTokenToCookie, getAccessTokenFromCookie } from './tokenCookies';
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = process.env.REDIRECT_URI;
+// Read .env manually if not in web build
+if (process.env.REACT_APP_STAGE !== 'production') {
+  require('dotenv');
+}
+
+const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
+const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
 
 const AUTHORIZATION_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
