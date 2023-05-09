@@ -67,6 +67,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "jest": "jest"
   },
   "eslintConfig": {
@@ -91,6 +93,11 @@
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
+    "@types/spotify-web-api-node": "^5.0.7",
+    "axios": "^1.4.0",
+    "gh-pages": "^5.0.0",
+    "react-router-dom": "^6.11.1",
+    "spotify-web-api-node": "^5.0.2",
     "typescript": "^5.0.4"
   },
   "jest": {
@@ -146,5 +153,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "homepage": "https://hmxxu.github.io/BeatBuddy/"
 }

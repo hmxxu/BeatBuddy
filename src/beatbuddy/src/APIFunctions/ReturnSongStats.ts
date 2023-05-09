@@ -12,7 +12,7 @@ async function returnSongStats(track_uri: string) : Promise<SpotifyApi.SingleTra
         method: 'GET',
         headers: { Authorization: `Bearer ${access_token}`,}
     });
-    
+
     return await response.json();
 }
 
@@ -27,7 +27,7 @@ async function returnGenres() : Promise<SpotifyApi.AvailableGenreSeedsResponse> 
         method: 'GET',
         headers: { Authorization: `Bearer ${access_token}`,}
     });
-    
+
     return await response.json() as SpotifyApi.AvailableGenreSeedsResponse;
 }
 
@@ -43,7 +43,7 @@ async function returnArtistStats(artist_uri: string): Promise<SpotifyApi.SingleA
         method: 'GET',
         headers: { Authorization: `Bearer ${access_token}`,}
     });
-    
+
     return await response.json();
 }
 
@@ -59,7 +59,7 @@ async function returnDummyRec(id: string): Promise<SpotifyApi.RecommendationsFro
         method: 'GET',
         headers: { Authorization: `Bearer ${access_token}`,}
     });
-    
+
     return await response.json();
 }
 
@@ -84,6 +84,7 @@ export { returnDummyRec }
  * @param target_valence number in the range 0.0-0.1 (optional)
  * @returns a json of tracks Spotify recs based on the parameters
  */
+
 async function returnSpotifyRec(
     limit: number,
     seed_artists: string[],
@@ -147,12 +148,13 @@ async function searchSpotify(query: string): Promise<SearchResult[]> {
     });
 
     const data = await response.json();
+    console.log(data);
     const res: SearchResult[] = [];
     const tracks = data.tracks.items;
     for (let i = 0; i < 5; i++) {
         const genre = await returnSongGenre(tracks[i].artists[0].id);
         res.push(new SearchResult(tracks[i].artists[0].name,
-            tracks[i].name, tracks[i].id, genre));
+        tracks[i].name, tracks[i].id, genre, tracks[i].album.images[1].url));
     }
 
     return res;

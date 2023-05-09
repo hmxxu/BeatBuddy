@@ -15,7 +15,7 @@ export const id = (id: any) => {
  * @return {object[]} array of DOM objects matching the query.
  */
 export const qs = (query: any) => {
-  return document.querySelector(query);
+  return document.querySelector(query)!;
 }
 
 export class SearchResult {
@@ -23,11 +23,13 @@ export class SearchResult {
   title: string;
   id: string;
   genres: string[];
+  imgUrl: string;
 
-  constructor(artist: string, title: string, id: string, genres: string[]) {
+  constructor(artist: string, title: string, id: string, genres: string[], imgUrl: string) {
       this.artist = artist;
       this.title = title;
       this.id = id;
       this.genres = genres;
+      this.imgUrl = imgUrl;
   }
 }
