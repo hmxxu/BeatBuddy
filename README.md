@@ -55,6 +55,9 @@ Similarly, you can specify the workflow to run more or different commands by edi
   
 When adding more tests, simply create a file ending in `.test.ts`. BeatBuddy is tested using the `Jest` testing framework, and the preference for file structure is that tests are placed directly next to the unit they are testing.
 
+## Running tests on your local machine
+Simply make sure your `.env` file is set, and use `npm run jest` to run all unit tests.
+
 *-content subject to change-*
 
 # CURRENTLY WORKING FEATURES
