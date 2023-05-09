@@ -42,9 +42,9 @@ export async function authorizeWithSpotify(): Promise<void> {
 
   // Redirect the user to the Spotify login page
   const queryParams = new URLSearchParams({
-    client_id: CLIENT_ID,
+    client_id: CLIENT_ID || '',
     response_type: 'code',
-    redirect_uri: REDIRECT_URI,
+    redirect_uri: REDIRECT_URI || '',
     scope: SCOPE,
   });
 
@@ -63,9 +63,9 @@ export async function exchangeCodeForAccessToken(code: string): Promise<string> 
   const data = new URLSearchParams({
     grant_type: 'authorization_code',
     code: code,
-    redirect_uri: REDIRECT_URI,
-    client_id: CLIENT_ID,
-    client_secret: CLIENT_SECRET
+    redirect_uri: REDIRECT_URI || "",
+    client_id: CLIENT_ID || "",
+    client_secret: CLIENT_SECRET || ""
   });
   const response = await axios.post(TOKEN_ENDPOINT, data, {
     headers: {
