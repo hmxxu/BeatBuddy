@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-
-// temp
-import minami from '../images/minami.jpg';
 import play_btn from '../images/play-btn.png';
 import arrow_back from '../images/arrow-back.png';
 import spotify_icon from '../images/spotify-icon.png';
@@ -14,6 +11,7 @@ import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 import {getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import {savePlaylistToSpotify} from '../beatbuddy/src/APIFunctions/saveToSpotify';
 import { returnSongFeatures } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
+import { SearchResult } from '../utils';
 
 function GeneratedPlaylist(props:any) {
 

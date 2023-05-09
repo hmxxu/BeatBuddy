@@ -1,5 +1,5 @@
 import { getSpotifyClient } from '../spotify/spotifyAuth';
-import {SearchResult} from '../APIFunctions/ReturnSongStats'
+import { SearchResult } from '../../../utils';
 import SpotifyWebApi from 'spotify-web-api-node';
 
 export async function savePlaylistToSpotify(playlistName: string, searchResults: SearchResult[]): Promise<void> {
