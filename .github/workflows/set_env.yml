@@ -1,0 +1,27 @@
+name: Set up environment for gh-pages
+
+on:
+  push:
+    branches:
+      - gh-pages
+  pull_request:
+    branches: 
+      - gh-pages
+      
+jobs:
+  Jest:
+    environment: gh-pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set process.env
+        env:
+          REACT_APP_SPOTIFY_CLIENT_ID: ${{ secrets.REACT_APP_SPOTIFY_CLIENT_ID }} 
+          REACT_APP_SPOTIFY_CLIENT_SECRET: ${{ secrets.REACT_APP_SPOTIFY_CLIENT_SECRET }} 
+          REACT_APP_SPOTIFY_REDIRECT_URI: ${{ secrets.REACT_APP_SPOTIFY_REDIRECT_URI }}
+          REACT_APP_STAGE: ${{ secrets.REACT_APP_STAGE }} 
+        run: |
+          REACT_APP_SPOTIFY_CLIENT_ID=${REACT_APP_SPOTIFY_CLIENT_ID}
+          REACT_APP_SPOTIFY_CLIENT_SECRET=${REACT_APP_SPOTIFY_CLIENT_SECRET}
+          REACT_APP_SPOTIFY_REDIRECT_URI=${REACT_APP_SPOTIFY_REDIRECT_URI}
+          REACT_APP_STAGE=${REACT_APP_STAGE}
