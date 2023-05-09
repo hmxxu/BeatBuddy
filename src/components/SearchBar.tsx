@@ -5,7 +5,6 @@ import SongResult from './SongResult';
 import { id, qs } from '../utils';
 
 import { searchSpotify } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
-import { getImageAndGenre } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 
 class SearchResult {
   artist: string;
@@ -21,7 +20,7 @@ class SearchResult {
   }
 }
 
-function SearchBar() {
+function SearchBar(props:any) {
 
   window.addEventListener("load", init);
 
@@ -79,6 +78,7 @@ function SearchBar() {
     setSelectedState("");
     // disable search bar
     (id("song-search") as HTMLInputElement).disabled = true;
+    props.getSongId(song.id);
   }
 
   return(

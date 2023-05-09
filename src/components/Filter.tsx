@@ -25,17 +25,20 @@ function Filter(props : any) {
   const [mTags, setMTags] = useState<Tag[]>([]);
 
   const [inputValue, setInputValue] = useState('');
-  const [isOverlayActive, setActive] = useState(false);
+  const [isOverlayActive, setActive] = useState(true);
 
   const [data, setData] = useState<any[]>([]);
-
-  useEffect(() => {
-    fetchGenre();
-  }, []);
 
   async function init() {
     // borderForFirstLast();
     // testTags();
+    if (props.content.toLowerCase() === 'genre') {
+      fetchGenre();
+      console.log(data);
+    } else if (props.content.toLowerCase() === 'time period') {
+      fetchTimePeriod();
+      console.log(data);
+    }
   }
 
   async function fetchGenre() {
@@ -44,12 +47,23 @@ function Filter(props : any) {
     genreList.genres.forEach((genre: string) => {
       genreDropdown.push({
         id: genre,
-        genre: kebabToTitleCase(genre)
+        name: kebabToTitleCase(genre)
       });
       // console.log(genreDropdown);
       // console.log("0 = " + genreDropdown[0].id);
       // console.log("0 = " + genreDropdown[0].genre);
     });
+    setData(genreDropdown);
+  }
+
+  async function fetchTimePeriod() {
+    let genreDropdown: any = [];
+    decadeList.forEach((decade: any) => {
+      genreDropdown.push({
+        id: decade.range,
+        name: decade.name
+      })
+    })
     setData(genreDropdown);
   }
 
@@ -84,7 +98,7 @@ function Filter(props : any) {
         return data.map(function (genre: any) {
           return (
             <a href={'#' + genre.id} id={genre.id} key={genre.id} onClick={addTags}>
-              {genre.genre}
+              {genre.name}
             </a>
           )
         });
@@ -106,9 +120,14 @@ function Filter(props : any) {
   }
 
   function showOverlay() {
+    // if overlay is active, send to parent entire array of genres
+    if (!isOverlayActive) {
+      props.childToParent(data, data);
+    }
     setActive(!isOverlayActive);
     // clearAllTags();
     setInputValue("");
+
   }
 
   function addTags (e: any) {
@@ -122,8 +141,6 @@ function Filter(props : any) {
 
     console.log('mData = ' + mData.innerHTML);
     console.log('mID = ' + mID);
-
-    console.log(data);
 
     let isTagDuplicate: boolean = false;
 
@@ -157,6 +174,9 @@ function Filter(props : any) {
     }
     setInputValue("");
     console.log(myTags);
+
+    // send updated list of selected tags to parent
+    props.childToParent(mTags, data);
   }
 
   //* Remove tags working now, need to work on preventing dupes
@@ -167,6 +187,8 @@ function Filter(props : any) {
     console.log(updatedMTags);
     setMTags(updatedMTags);
 
+    // send updated mTags to parent
+    props.childToParent(mTags, data);
   }
 
   /**
@@ -192,6 +214,7 @@ function Filter(props : any) {
     currDropdown.classList.add("showOnHover");
   }
 
+  // Adds tag to filter
   function handleChange(e: any) {
     setInputValue(e.target.value);
     filterFunction(e);
@@ -256,7 +279,7 @@ function Filter(props : any) {
   return(
     <section id='filter-section'>
       <div className='any-language'>
-        <input type='checkbox' id={'any-language-' + props.type} className='checkbox' onClick={showOverlay} />
+        <input type='checkbox' id={'any-language-' + props.type} className='checkbox' defaultChecked={true} onClick={showOverlay} />
         <label htmlFor={'any-language-' + props.type} className='text-body'></label>
         <span className='text-body'>Any {props.content}</span>
       </div>
