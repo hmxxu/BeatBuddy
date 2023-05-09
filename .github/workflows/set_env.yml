@@ -3,10 +3,10 @@ name: Set up environment for gh-pages
 on:
   push:
     branches:
-      - gh-pages
+      - github-pages
   pull_request:
     branches: 
-      - gh-pages
+      - github-pages
       
 jobs:
   Jest:
