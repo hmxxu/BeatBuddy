@@ -1,5 +1,6 @@
 import { getAccessToken } from "../recommendation/APIWrapper";
-import { getSpotifyClient } from '../spotify/spotifyAuth';
+//import { getSpotifyClient } from '../spotify/spotifyAuth';
+import { SearchResult } from "../../../utils";
 
 /**
  * @param track_uri the URI of the song that we are returning the stats of
@@ -157,20 +158,6 @@ async function searchSpotify(query: string): Promise<SearchResult[]> {
     return res;
 }
 
-class SearchResult {
-    artist: string;
-    title: string;
-    id: string;
-    genres: string[];
-
-    constructor(artist: string, title: string, id: string, genres: string[]) {
-        this.artist = artist;
-        this.title = title;
-        this.id = id;
-        this.genres = genres;
-    }
-}
-
 export { searchSpotify }
 
 /**
@@ -181,12 +168,12 @@ export { searchSpotify }
  * @param isPublic whether the playlist is public
  * @param songs a list of song URIs in the playlist (Each URI must be formatted: "spotify:track:{URI}")
  * */
-async function createPlaylist(playlistName: string, description: string, isPublic: boolean, songs: string[]) {
-    const playlistURI = (await getSpotifyClient().createPlaylist(playlistName, { 'description': description, 'public': isPublic })).body.uri.split(':')[2];
-    getSpotifyClient().addTracksToPlaylist(playlistURI, songs);
-}
+// async function createPlaylist(playlistName: string, description: string, isPublic: boolean, songs: string[]) {
+//     const playlistURI = (await getSpotifyClient().createPlaylist(playlistName, { 'description': description, 'public': isPublic })).body.uri.split(':')[2];
+//     getSpotifyClient().addTracksToPlaylist(playlistURI, songs);
+// }
 
-export { createPlaylist };
+// export { createPlaylist };
 
 /**
  * Helper function to get genres from a artist
