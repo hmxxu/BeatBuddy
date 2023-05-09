@@ -25,7 +25,7 @@ function Filter(props : any) {
   const [mTags, setMTags] = useState<Tag[]>([]);
 
   const [inputValue, setInputValue] = useState('');
-  const [isOverlayActive, setActive] = useState(false);
+  const [isOverlayActive, setActive] = useState(true);
 
   const [data, setData] = useState<any[]>([]);
 
@@ -106,9 +106,14 @@ function Filter(props : any) {
   }
 
   function showOverlay() {
+    // if overlay is active, send to parent entire array of genres
+    if (!isOverlayActive) {
+      props.childToParent(data);
+    }
     setActive(!isOverlayActive);
     // clearAllTags();
     setInputValue("");
+    
   }
 
   function addTags (e: any) {
@@ -157,6 +162,9 @@ function Filter(props : any) {
     }
     setInputValue("");
     console.log(myTags);
+
+    // send updated list of selected tags to parent
+    props.childToParent(mTags);
   }
 
   //* Remove tags working now, need to work on preventing dupes
@@ -167,6 +175,8 @@ function Filter(props : any) {
     console.log(updatedMTags);
     setMTags(updatedMTags);
 
+    // send updated mTags to parent
+    props.childToParent(mTags);
   }
 
   /**
@@ -192,6 +202,7 @@ function Filter(props : any) {
     currDropdown.classList.add("showOnHover");
   }
 
+  // Adds tag to filter
   function handleChange(e: any) {
     setInputValue(e.target.value);
     filterFunction(e);
@@ -256,7 +267,7 @@ function Filter(props : any) {
   return(
     <section id='filter-section'>
       <div className='any-language'>
-        <input type='checkbox' id={'any-language-' + props.type} className='checkbox' onClick={showOverlay} />
+        <input type='checkbox' id={'any-language-' + props.type} className='checkbox' defaultChecked={true} onClick={showOverlay} />
         <label htmlFor={'any-language-' + props.type} className='text-body'></label>
         <span className='text-body'>Any {props.content}</span>
       </div>

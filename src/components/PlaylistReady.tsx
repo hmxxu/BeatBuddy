@@ -10,9 +10,22 @@ import { useState } from 'react';
 function PlaylistReady() {
 
   const [songId, setSongId] = useState("");
+  const [genreList, setGenreList] = useState([]);
+  const [decadeList, setDecadeList] = useState([]);
 
   const getSongId = (childData : any) => {
     setSongId(childData)
+  }
+
+  const getGenreArray = (selectedList : any) => {
+    setGenreList(selectedList);
+    console.log(selectedList);
+  }
+
+  const getDecadeArray = (selectedList : any) => {
+    setDecadeList(selectedList);
+    console.log(selectedList);
+
   }
 
   function delayOverflow() {
@@ -44,15 +57,15 @@ function PlaylistReady() {
       <SearchBar childToParent={ getSongId }/>
       <div className="accordion">
       {/* <span className="customize-text h2 bold">Customize your playlist</span> */}
-      <input type="checkbox" name="accordion" id="customize-box" onClick={delayOverflow} />
+      <input type="checkbox" name="accordion" id="customize-box" onClick={delayOverflow}/>
       <label htmlFor="customize-box" className="customize-label h2 bold">
         <span className="customize-text h2 bold">Customize your playlist</span>
         <img src={accordion_icon} alt="accordion-close" className="accordion-icon"></img>
       </label>
       <h4>Use our filters to customize your recommended playlist.</h4>
       <div id="two-filter">
-        <Filter content="Time Period" key="language-filter" type="language-filter" />
-        <Filter content="Genre" key="genre-filter" type="genre-filter" />
+        <Filter content="Time Period" key="language-filter" type="language-filter" childToParent={getDecadeArray}/>
+        <Filter content="Genre" key="genre-filter" type="genre-filter" childToParent={getGenreArray}/>
       </div>
     </div>
 
