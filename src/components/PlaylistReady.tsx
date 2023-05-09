@@ -8,10 +8,27 @@ import { returnDummyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { useState } from 'react';
 
 function PlaylistReady() {
+  
+  class SearchResult {
+    artist: string;
+    title: string;
+    id: string;
+    imgUrl: string;
+
+    constructor(artist: string, title: string, id: string, imgUrl: string) {
+        this.artist = artist;
+        this.title = title;
+        this.id = id;
+        this.imgUrl = imgUrl;
+    }
+  }
 
   const [songId, setSongId] = useState("");
   const [genreList, setGenreList] = useState([]);
   const [decadeList, setDecadeList] = useState([]);
+  const initialRecs : SearchResult[] = [];
+  const [recData, setRecData] = useState(initialRecs);
+  const [playlistViewState, setPlaylistViewState] = useState("hidden");
 
   const getSongId = (childData : any) => {
     setSongId(childData)
@@ -55,10 +72,21 @@ function PlaylistReady() {
     let genres_seed: string[] = ['j-pop'];
     let tracks_seed: string[] = ['69aL4LJK092UFLmWtFeFFy'];
 
+    // temp, will use query, genre, and time period later 
     let spotify_artist_id = '0PHf0oiic0xAnCrRuLTtHl';
     let data = await returnDummyRec(spotify_artist_id);
+
+    // convert recommended songs to searchResult[]
     console.log(data);
+    let recArray : SearchResult[] = [];
+    data.tracks.forEach((t) => {
+      recArray.push(new SearchResult(t.artists[0].name,
+        t.name, t.id, t.album.images[1].url));
+    })
+    setRecData(recArray);
+    setPlaylistViewState("");
   }
+
   return(
     <div>
       <SearchBar childToParent={ getSongId }/>
@@ -79,9 +107,9 @@ function PlaylistReady() {
 
       <div>
           <h2>That's it! Your playlist is now ready.</h2>
-          <button id="generate-playlist-btn">Generate my playlist</button>
+          <button id="generate-playlist-btn" onClick={generateRec}>Generate my playlist</button>
       </div>
-      <GeneratedPlaylist/>
+      <GeneratedPlaylist viewState={ playlistViewState } recArray={ recData } />
     </div>
   )
 };
