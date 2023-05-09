@@ -9,8 +9,8 @@ import spotify_icon from '../images/spotify-icon.png';
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-// import { id, qs } from '../utils';
-
+import { id, qs } from '../utils';
+import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 
 function GeneratedPlaylist() {
 
@@ -43,7 +43,7 @@ function GeneratedPlaylist() {
           <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
           <span className="bold">Try another song</span>
         </button>
-        <button id="spotify-btn">
+        <button id="spotify-btn" onClick={() => authorizeWithSpotify()}>
           <span className="bold">Save to Spotify</span>
           <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
         </button>
