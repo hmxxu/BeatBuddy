@@ -3,14 +3,14 @@ name: Set up environment for gh-pages
 on:
   push:
     branches:
-      - github-pages
+      - gh-pages
   pull_request:
     branches: 
-      - github-pages
+      - gh-pages
       
 jobs:
   Jest:
-    environment: gh-pages
+    environment: github-pages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
