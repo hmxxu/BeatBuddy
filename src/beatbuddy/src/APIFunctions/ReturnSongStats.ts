@@ -16,6 +16,25 @@ async function returnSongStats(track_uri: string) : Promise<SpotifyApi.SingleTra
 
 export { returnSongStats }
 
+
+/**
+ * Gets song features (ex. acoustic/liveliness/energy/etc)
+ * @param track_id - track id
+ * @returns JSON with track features 
+ * (see https://developer.spotify.com/documentation/web-api/reference/get-audio-features)
+ */
+async function returnSongFeatures(track_id: string) : Promise<SpotifyApi.AudioFeaturesResponse>{
+    const { access_token } = await getAccessToken();
+    const response = await fetch('https://api.spotify.com/v1/audio-features/' + track_id, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${access_token}`,}
+    });
+
+    return await response.json();
+}
+
+export { returnSongFeatures }
+
 /**
  * @returns a json of all genres used by Spotify
  */
@@ -159,28 +178,3 @@ class SearchResult {
 }
 
 export { searchSpotify }
-
-/**
- * Given a song id, return the song's image url
- * @param id - song id
- * @returns {Object} - object with songUrl and songGenre as an array (empty if undefined)
- */
-async function getImageAndGenre(id : string): Promise<any[]> {
-    const { access_token } = await getAccessToken();
-    const response = await fetch('https://api.spotify.com/v1/tracks/' + id, {
-        method: 'GET',
-        headers: { Authorization: `Bearer ${access_token}`,}
-    });
-
-    const data = await response.json();
-    const imageUrl : String = data.album.images[0].url;
-    let genres : Array<String> = data.album.genres;
-    if (!genres) {
-        genres = [];
-    }
-    const res : any[] = [imageUrl, genres];
-
-    return res;
-}
-
-export { getImageAndGenre }
