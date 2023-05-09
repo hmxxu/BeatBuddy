@@ -12,18 +12,26 @@ import SongResult from './SongResult';
 import { id, qs } from '../utils';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 
-function GeneratedPlaylist() {
+function GeneratedPlaylist(props:any) {
 
-  // temp
-  const [currSongsState, setSongsState] = useState([
-    {"artist" : "minami", "title" : "Eternal Blue", "genre" : "J-pop", "id" : "XXX"},
-    {"artist" : "deco*27", "title" : "vampire", "genre" : "Vocaloid", "id" : "XXX"},
-    {"artist" : "ryo", "title" : "melt", "genre" : "Vocaloid", "id" : "XXX"},
-    {"artist" : "minami", "title" : "Very very very long title", "genre" : "J-pop", "id" : "XXX"},
-]);
+  class SearchResult {
+    artist: string;
+    title: string;
+    id: string;
+    imgUrl: string;
 
-  const [currTitle, setCurrTitle] = useState(currSongsState[0].title);
-  const [currArtist, setCurrArtist] = useState(currSongsState[0].artist);
+    constructor(artist: string, title: string, id: string, imgUrl: string) {
+        this.artist = artist;
+        this.title = title;
+        this.id = id;
+        this.imgUrl = imgUrl;
+    }
+  }
+
+  const [currTitle, setCurrTitle] = useState("");
+  const [currArtist, setCurrArtist] = useState("");
+  const [currImg, setCurrImg] = useState("");
+  const [playerViewState, setPlayerViewState] = useState("hidden");
 
   /*
   * Updates the selected song when song result is clicked
@@ -33,10 +41,12 @@ function GeneratedPlaylist() {
   const handleSongClick = (song : any) => {
     setCurrTitle(song.title);
     setCurrArtist(song.artist);
+    setCurrImg(song.imgUrl);
+    setPlayerViewState("");
   }
 
   return(
-    <section>
+    <section className={ props.viewState }>
       <h2>Your Recommended Playlist</h2>
       <section id="playlist-wrapper">
         <button id="back-btn">
@@ -47,9 +57,9 @@ function GeneratedPlaylist() {
           <span className="bold">Save to Spotify</span>
           <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
         </button>
-        <section id="song-player">
+        <section id="song-player" className={playerViewState}>
           <div className="flex">
-            <img src={ minami } alt="The song cover" className="song-img"></img>
+            <img src={ currImg } alt="The song cover" className="song-img"></img>
             <div className="current-song">
               <span className="h-title bold">{currTitle}</span>
               <span className="h2 bold">By {currArtist}</span>
@@ -87,10 +97,10 @@ function GeneratedPlaylist() {
           </div>
           <hr></hr>
           {
-            currSongsState.map((song : any) => (
+            props.recArray.map((song : any) => (
               <SongResult onClick={() => {handleSongClick(song)}}
               key={song.artist + song.title}
-              src={minami}
+              src={song.imgUrl}
               artist={song.artist} title={song.title} genre={song.genre}/>
             ))
           }
@@ -113,7 +123,7 @@ function GeneratedPlaylist() {
               <span className="h2 bold">{currTitle}</span>
               <span className="h4 bold">{currArtist}</span>
             </div>
-            <img src={minami} alt="The song cover" className="song-img-mobile"></img>
+            <img src={ currImg } alt="The song cover" className="song-img-mobile"></img>
           </div>
           <div className="song-stats-mobile flex-song">
             <div id="liveliness" className="attrs">
@@ -134,7 +144,7 @@ function GeneratedPlaylist() {
         </section>
         <section className="results-mobile">
           {
-            currSongsState.map((song: any) => (
+            props.recArray.map((song: any) => (
               // * for generated_playlist design, show song-playlist-mobile, hide song-result-mobile
               <SongResult design= "generated_playlist" onClick={() => { handleSongClick(song) }}
               key={song.artist + song.title}
