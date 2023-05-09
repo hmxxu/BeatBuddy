@@ -1,5 +1,4 @@
 import { getAccessToken } from "../recommendation/APIWrapper";
-import { getSpotifyClient } from '../spotify/spotifyAuth';
 
 /**
  * @param track_uri the URI of the song that we are returning the stats of
@@ -83,33 +82,45 @@ export { returnDummyRec }
  * @param target_valence number in the range 0.0-0.1
  * @returns a json of tracks Spotify recs based on the parameters
  */
-async function returnSpotifyRec(limit: number, seed_artists: string[], seed_genres: string[], 
-    seed_tracks: string[], target_acousticness: number, target_danceability: number, target_energy: number,
-    target_instrumentalness: number, target_key: number, target_liveness: number, target_loudness: number,
-    target_mode: number, target_speechiness: number, target_tempo: number, target_time_signature: number,
-    target_valence: number): Promise<SpotifyApi.RecommendationsFromSeedsResponse> {
+async function returnSpotifyRec(
+    limit: number,
+    seed_artists: string[],
+    seed_genres: string[],
+    seed_tracks: string[],
+    target_acousticness?: number,
+    target_danceability?: number,
+    target_energy?: number,
+    target_instrumentalness?: number,
+    target_key?: number,
+    target_liveness?: number,
+    target_loudness?: number,
+    target_mode?: number,
+    target_speechiness?: number,
+    target_tempo?: number,
+    target_time_signature?: number,
+    target_valence?: number
+    ): Promise<SpotifyApi.RecommendationsFromSeedsResponse> {
     const { access_token } = await getAccessToken();
 
     const queryParams = new URLSearchParams({
         limit: limit.toString(),
-        seed_artists: seed_artists.join(','),
-        seed_genres: seed_genres.join(','),
-        seed_tracks: seed_tracks.join(','),
-        target_acousticness: target_acousticness.toString(),
-        target_danceability: target_danceability.toString(),
-        target_energy: target_energy.toString(),
-        target_instrumentalness: target_instrumentalness.toString(),
-        target_key: target_key.toString(),
-        target_liveness: target_liveness.toString(),
-        target_loudness: target_loudness.toString(),
-        target_mode: target_mode.toString(),
-        target_speechiness: target_speechiness.toString(),
-        target_tempo: target_tempo.toString(),
-        target_time_signature: target_time_signature.toString(),
-        target_valence: target_valence.toString()
+        seed_artists: seed_artists.join(","),
+        seed_genres: seed_genres.join(","),
+        seed_tracks: seed_tracks.join(","),
+        ...(target_acousticness !== undefined && { target_acousticness: target_acousticness.toString() }),
+        ...(target_danceability !== undefined && { target_danceability: target_danceability.toString() }),
+        ...(target_energy !== undefined && { target_energy: target_energy.toString() }),
+        ...(target_instrumentalness !== undefined && { target_instrumentalness: target_instrumentalness.toString() }),
+        ...(target_key !== undefined && { target_key: target_key.toString() }),
+        ...(target_liveness !== undefined && { target_liveness: target_liveness.toString() }),
+        ...(target_loudness !== undefined && { target_loudness: target_loudness.toString() }),
+        ...(target_mode !== undefined && { target_mode: target_mode.toString() }),
+        ...(target_speechiness !== undefined && { target_speechiness: target_speechiness.toString() }),
+        ...(target_tempo !== undefined && { target_tempo: target_tempo.toString() }),
+        ...(target_time_signature !== undefined && { target_time_signature: target_time_signature.toString() }),
+        ...(target_valence !== undefined && { target_valence: target_valence.toString() }),
       });
       const url = `https://api.spotify.com/v1/recommendations/?${queryParams}`;
-      console.log(url);
 
     const response = await fetch(url, {
         method: 'GET',
@@ -190,9 +201,9 @@ export { getImageAndGenre }
  * @param isPublic whether the playlist is public
  * @param songs a list of song URIs in the playlist (Each URI must be formatted: "spotify:track:{URI}")
  * */
-async function createPlaylist(playlistName: string, description: string, isPublic: boolean, songs: string[]) {
-    const playlistURI = (await getSpotifyClient().createPlaylist(playlistName, { 'description': description, 'public': isPublic })).body.uri.split(':')[2];
-    getSpotifyClient().addTracksToPlaylist(playlistURI, songs);
-}
+// async function createPlaylist(playlistName: string, description: string, isPublic: boolean, songs: string[]) {
+//     const playlistURI = (await getSpotifyClient().createPlaylist(playlistName, { 'description': description, 'public': isPublic })).body.uri.split(':')[2];
+//     getSpotifyClient().addTracksToPlaylist(playlistURI, songs);
+// }
 
-export { createPlaylist };
+// export { createPlaylist };
