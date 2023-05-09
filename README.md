@@ -19,10 +19,12 @@ Dependencies:
 - NodeJS v16+
 - `npm` v9+
 
+Please follow this [guide](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to install NodeJS and `npm` on the OS of your choice. For direct download and install of NodeJS and `npm` from the source, click [here](https://nodejs.org/en/download).
+
 Steps to build:
-1. Run `npm install` (if this throws errors, use `npm install --force` instead[^1]).
+1. Run `npm install --force`[^1].
 2. Put a `.env` file in the root directory of this project. If you have freshly cloned the project, this would be your top-level `BeatBuddy/` folder.
-3. In that `.env` file, add two environment variables, `REACT_APP_SPOTIFY_CLIENT_ID` and `REACT_APP_SPOTIFY_CLIENT_SECRET`, like so:
+3. In that `.env` file, add the following four environment variables, like so:
   ```.env
   REACT_APP_SPOTIFY_CLIENT_ID=<client id>
   REACT_APP_SPOTIFY_CLIENT_SECRET=<client secret>
