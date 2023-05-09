@@ -149,8 +149,9 @@ async function searchSpotify(query: string): Promise<SearchResult[]> {
     const res: SearchResult[] = [];
     const tracks = data.tracks.items;
     for (let i = 0; i < 5; i++) {
+        const genre = await returnSongGenre(tracks[i].artists[0].id);
         res.push(new SearchResult(tracks[i].artists[0].name,
-            tracks[i].name, tracks[i].id));
+            tracks[i].name, tracks[i].id, genre));
     }
 
     return res;
@@ -160,39 +161,17 @@ class SearchResult {
     artist: string;
     title: string;
     id: string;
+    genres: string[];
 
-    constructor(artist: string, title: string, id: string) {
+    constructor(artist: string, title: string, id: string, genres: string[]) {
         this.artist = artist;
         this.title = title;
         this.id = id;
+        this.genres = genres;
     }
 }
 
 export { searchSpotify }
-
-/**
- * Given a song id, return the song's image url and album genres (if it exists)
- * @param id - song id
- * @returns {Object} - object with songUrl and songGenre as an array (empty if undefined)
- */
-async function getImageAndGenre(id : string): Promise<any[]> {
-    const { access_token } = await getAccessToken();
-    const response = await fetch('https://api.spotify.com/v1/tracks/' + id, {
-        method: 'GET',
-        headers: { Authorization: `Bearer ${access_token}`,}
-    });
-
-    const data = await response.json();
-    const imageUrl : String = data.album.images[0].url;
-    let genres : Array<String> = data.album.genres;
-    if (!genres) {
-        genres = [];
-    }
-    const res : any[] = [imageUrl, genres];
-    return res;
-}
-
-export { getImageAndGenre }
 
 /**
  * Given a playlistName, description whether it is isPublic, and a array if song URIs
@@ -208,3 +187,20 @@ async function createPlaylist(playlistName: string, description: string, isPubli
 }
 
 export { createPlaylist };
+
+/**
+ * Helper function to get genres from a artist
+ * @param artist_uri the uri of the artist
+ * @returns a array of genres for the given artist
+ * */
+async function returnSongGenre(artist_uri: string) : Promise<string[]> {
+    const { access_token } = await getAccessToken();
+    const response = await fetch('https://api.spotify.com/v1/artists/' + artist_uri, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${access_token}`,}
+    });
+    const data = await response.json();
+    return await data.genres;
+}
+
+export { returnSongGenre }
