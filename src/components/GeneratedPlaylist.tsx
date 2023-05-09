@@ -11,6 +11,8 @@ import '../styles/songSearch.css';
 import SongResult from './SongResult';
 import { id, qs } from '../utils';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
+import {getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
+import {savePlaylistToSpotify} from '../beatbuddy/src/APIFunctions/saveToSpotify'
 
 function GeneratedPlaylist(props:any) {
 
@@ -33,6 +35,7 @@ function GeneratedPlaylist(props:any) {
   const [currImg, setCurrImg] = useState("");
   const [playerViewState, setPlayerViewState] = useState("hidden");
 
+
   /*
   * Updates the selected song when song result is clicked
   * (in song player)
@@ -45,6 +48,20 @@ function GeneratedPlaylist(props:any) {
     setPlayerViewState("");
   }
 
+  async function createSpotifyPlaylist(playlistName: string, songs: SearchResult[]) {
+    const token = getAccessTokenFromCookie();
+
+    if (token !== null) {
+      // Access token is saved, call createPlaylist()
+      await savePlaylistToSpotify(playlistName, songs);
+    } else {
+      // Access token is not saved, call authorizeWithSpotify()
+      await authorizeWithSpotify();
+      await savePlaylistToSpotify(playlistName, songs);
+    }
+  }
+
+
   return(
     <section className={ props.viewState }>
       <h2>Your Recommended Playlist</h2>
@@ -53,7 +70,7 @@ function GeneratedPlaylist(props:any) {
           <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
           <span className="bold">Try another song</span>
         </button>
-        <button id="spotify-btn" onClick={() => authorizeWithSpotify()}>
+        <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist', [])}>
           <span className="bold">Save to Spotify</span>
           <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
         </button>
