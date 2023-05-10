@@ -105,3 +105,6 @@ dist
 
 # js files in beatbuddy/src
 beatbuddy/src/recommendation/*.js
+
+# build folder should be ignored
+build
