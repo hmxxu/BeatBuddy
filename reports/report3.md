@@ -47,8 +47,8 @@ Pahn
  * Implemented frontend dynamics like song querying, player functionality, song features on click
 
 Jonathan
- *
- *
+ * Cleaned up repository structure: removed unneeded files and restored react-scripts
+ * Configured conditional environments for testing vs. on web so CI/CD can run Jest tests
 
 HaoMing
  *
@@ -74,8 +74,8 @@ Pahn
  * Incorporate feedback into frontend 
 
 Jonathan
- * 
- * 
+ * Expand test suite to cover more units
+ * Potentially explore alternatives to fully custom recommendation algorithm
 
 HaoMing
  * 
