@@ -55,8 +55,8 @@ HaoMing
  * Edited previously made function as frontend requested
 
 Adrian
- *
- *
+ * Helped create functions to service search bar
+ * Did research on recommendation algorithm
 
 Tapan
  * Completed the auth feature
@@ -82,8 +82,8 @@ HaoMing
  * Help get Spotify songs to play on browser or research recommendation algorithm based on mood
 
 Adrian
- *
- *
+ * Help get Spotify songs to play on browser
+ * More research on recommendation algorithm
 
 Tapan
  * Make it so that users don't keep adding the same playlist repeatedly
