@@ -51,8 +51,8 @@ Jonathan
  * Configured conditional environments for testing vs. on web so CI/CD can run Jest tests
 
 HaoMing
- *
- *
+ * Made functions and a class to service the search bar
+ * Edited previously made function as frontend requested
 
 Adrian
  *
@@ -78,8 +78,8 @@ Jonathan
  * Potentially explore alternatives to fully custom recommendation algorithm
 
 HaoMing
- * 
- * 
+ * Create a lot more unit test for functions created
+ * Help get Spotify songs to play on browser or research recommendation algorithm based on mood
 
 Adrian
  *
