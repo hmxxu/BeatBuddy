@@ -17,7 +17,7 @@ Progress:
 
 Trouble:
  * Spotify web player access token expires every hour, hard to share access tokens.
- * 
+ *
  *
 
 Stuck:
@@ -40,7 +40,7 @@ Next week:
 Pu
  * Allow for filter search to filter both time period and genre
  * Connected the filter search with the Spotify API
- 
+
 
 Pahn
  * Restructured frontend to allow for data passing between components
@@ -59,8 +59,8 @@ Adrian
  *
 
 Tapan
- * 
- *
+ * Completed the auth feature
+ * Completed the save songs / playlist to spotify feature
 
 ### outline your plans and goals for the following week (per person)
 
@@ -71,7 +71,7 @@ Pu
 Pahn
  * Write user testing script
  * Organize feedback and sort by priority
- * Incorporate feedback into frontend 
+ * Incorporate feedback into frontend
 
 Jonathan
  * Expand test suite to cover more units
@@ -86,5 +86,6 @@ Adrian
  *
 
 Tapan
- * 
- *
+ * Make it so that users don't keep adding the same playlist repeatedly
+ * Allow users to enter name for their playlists
+ * Start on user testing
