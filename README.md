@@ -24,8 +24,9 @@ Please follow this [guide](https://docs.npmjs.com/downloading-and-installing-nod
 ### Steps:
 1. To clone the project, use: 
   ```shell
-  git clone git@github.com:hmxxu/BeatBuddy.git
-  cd BeatBuddy
+  # Download source code and switch into directory
+  $ git clone git@github.com:hmxxu/BeatBuddy.git
+  $ cd BeatBuddy
   ```
 2. Run `npm install --force`[^1].
 3. Put a `.env` file in the root directory of this project. If you have freshly cloned the project, this would be your top-level `BeatBuddy/` folder.
