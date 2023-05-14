@@ -6,7 +6,7 @@ import spotify_icon from '../images/spotify-icon.png';
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { id, qs } from '../utils';
+import { id, processImage, qs } from '../utils';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 import {getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import {savePlaylistToSpotify} from '../beatbuddy/src/APIFunctions/saveToSpotify';
@@ -43,6 +43,9 @@ function GeneratedPlaylist(props:any) {
     setDance(Math.round(featuresJSON.danceability * 100));
 
     setPlayerViewState("");
+
+    let songImg = song.imgUrl;
+    processImage(songImg, 90, 90);
   }
 
   async function createSpotifyPlaylist(playlistName: string, songs: SearchResult[]) {
@@ -102,17 +105,19 @@ function GeneratedPlaylist(props:any) {
             </div>
           </div>
         </section>
-        <section className="song-results-container">
+        <section className="song-results-container-parent">
           <div className="results-label h4 bold">
             <p></p>
             <p>Artist</p>
-            <p>Title</p>
+            <p>Song</p>
             <p>Genre</p>
           </div>
           <hr></hr>
           {
             props.recArray.map((song : any) => (
-              <SongResult onClick={() => {handleSongClick(song)}}
+              <SongResult onClick={(e: any) => {
+                handleSongClick(song)
+              }}
               key={song.artist + song.title}
               src={song.imgUrl}
               artist={song.artist} title={song.title} genre={song.genre}/>

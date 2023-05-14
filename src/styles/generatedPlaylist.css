@@ -8,7 +8,7 @@ section {
   padding: 20px;
 }
 
-#playlist-wrapper > .song-results-container {
+#playlist-wrapper > .song-results-container, #playlist-wrapper > .song-results-container-parent {
   background-color: transparent;
 }
 
@@ -27,7 +27,7 @@ section {
   vertical-align: middle;
 }
 
-#playlist-wrapper, #back-btn {
+#back-btn {
   background-color: rgb(28, 35, 48, 0.6);
 }
 #song-player {
@@ -53,7 +53,7 @@ section {
   padding: 20px;
 }
 
-#playlist-wrapper-mobile {
+#playlist-wrapper-mobile, #playlist-wrapper {
   background-color: rgb(28, 35, 48, 0.4);
 }
 
