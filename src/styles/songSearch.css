@@ -79,6 +79,10 @@
     overflow: hidden;
   }
 
+  .song-result:active {
+    scale: 95%;
+  }
+
   .song-result-mobile, .song-result {
     color: black;
   }
