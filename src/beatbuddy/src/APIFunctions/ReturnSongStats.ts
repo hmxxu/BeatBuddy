@@ -167,7 +167,6 @@ async function searchSpotify(query: string): Promise<SearchResult[]> {
     });
 
     const data = await response.json();
-    console.log(data);
     const res: SearchResult[] = [];
     const tracks = data.tracks.items;
     for (let i = 0; i < 5; i++) {
