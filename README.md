@@ -38,7 +38,7 @@ To submit an unlisted bug, post a GitHub issue with the following information:
 ## In this repository
 `/public` and `/src` is for the front-facing website, and contains all code for visuals and website display.
 
-`/src/beatbuddy` is where all back-end code for Spotify auth and recommendations are stored.
+`/src/beatbuddy` is where all back-end code for Spotify auth and recommendations are stored. The three components currently are `/spotify` for authentication, `/APIFunctions` for interfacing with the Spotify API, and `/recommendation` for algorithm-related functions.
 
 # Steps to build
 ### Dependencies: 
@@ -76,6 +76,28 @@ Current primary interfacing functions:
 ### Running tests on your local machine
 Simply make sure your `.env` file is set, and use `npm run jest` to run all unit tests. Note that these can take a while, as they often will make calls to the Spotify API.
 
+
+### Adding tests
+When adding more tests, simply create a file ending in `.test.ts`. BeatBuddy is tested using the `Jest` testing framework, and the preference for file structure is that tests are placed directly next to the unit they are testing. For example, suppose you have the following directory structure:
+```
+dir1/
+├─ MyFunctions.ts
+├─ MyClasses.ts
+dir2/
+├─ MyFile.ts
+```
+Then your test files should be placed like so:
+```
+dir1/
+├─ MyFunctions.ts
+├─ MyClasses.ts
+├─ MyFunctions.test.ts
+├─ MyClasses.test.ts
+dir2/
+├─ MyFile.ts
+├─ MyFile.test.ts
+```
+
 ### Workflows
 A GitHub Actions workflow is set to run `npm install --force`, and then `npm run jest` every time a pull request or push is made to a certain branch. Currently, it only does this for the main branch. If you want to add CI/CD support on other branches, simply open the `main.yml` file in `/.github/workflows/` and edit the following sections:
   ```yml
@@ -88,9 +110,7 @@ A GitHub Actions workflow is set to run `npm install --force`, and then `npm run
       - main
       - <branch name>
   ```
-Similarly, you can specify the workflow to run more or different commands by editing the `run` section of `main.yml`[^4]. 
-  
-When adding more tests, simply create a file ending in `.test.ts`. BeatBuddy is tested using the `Jest` testing framework, and the preference for file structure is that tests are placed directly next to the unit they are testing.
+Similarly, you can specify the workflow to run more or different commands by editing the `run` section of `main.yml`[^4].
 
 *-content subject to change-*
 
