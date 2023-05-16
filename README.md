@@ -35,6 +35,7 @@ To submit an unlisted bug, post a GitHub issue with the following information:
  * Precise steps to reproduce the bug
  * Operating System, browser, and browser version
 
+# For Developers
 ## In this repository
 `/public` and `/src` is for the front-facing website, and contains all code for visuals and website display.
 
