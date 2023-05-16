@@ -7,7 +7,33 @@ BeatBuddy is an app that tailors recommendations much more closely to your prefe
 * The given songs are chosen to be as similar as possible
 	* Traits such as tempo, rhythm, pitch, melody, etc. are considered
 
-Our website can be found at https://hmxxu.github.io/BeatBuddy/!
+## User Manual
+
+Try out BeatBuddy at https://hmxxu.github.io/BeatBuddy/! No installation or set up needed.
+
+BeatBuddy offers a new way to discover songs on Spotify. Our unique recommendation algorithm utilizes the song's audio features (ex. energy, danceability, acousticness, etc.) to build a playlist of aurally similar songs! Furthermore, users can customize the playlist by filtering based on the decade (ex. 90's songs only) and genre (ex. Bossanova only) and add the generated playlist to their Spotify account. 
+
+Come try find new music in a new way today!
+
+### Features in Progress
+
+Currently, we are working on: 
+ * The recommendation algorithm
+ * Integration of the filters with the recommendation algorithm
+ * On-site player for Spotify music 
+
+### Known bugs
+ * Clicking on a song in the generated playlist may generate an incorrect background color (black) leading to readability issues
+ * Search bar does not work
+
+### How to report bugs
+Before reporting a bug, confirm the bug appears on a new browser profile (ex. incognito browser). If it does not, it may be due to extension or personal setting interferences. You can still report this bug but please note this in the steps to reproduce. 
+
+To submit an unlisted bug, post a GitHub issue with the following information: 
+ * Bug title
+ * Bug description outlining the expected results and the actual results
+ * Precise steps to reproduce the bug
+ * Operating System, browser, and browser version
 
 ## In this repository
 `/public` and `/src` is for the front-facing website, and contains all code for visuals and website display.
