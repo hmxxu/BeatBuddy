@@ -13,6 +13,9 @@ function PlaylistReady() {
   // data gathered from SearchBar
   const [songId, setSongId] = useState("");
 
+    // data gathered from SearchBar
+    const [artistId, setArtistId] = useState("");
+
   // Data gathered from genre filter
   const [genreList, setGenreList] = useState([]);
 
@@ -32,8 +35,9 @@ function PlaylistReady() {
    * Called when user selects a song from the searchbar
    * @param childData - the song ID that the user selected
    */
-  const getSongId = (childData : any) => {
-    setSongId(childData);
+  const getIds = (songData : any, artistData : any) => {
+    setSongId(songData);
+    setArtistId(artistData);
     
     // show filters div
     document.querySelector('.accordion')!.classList.remove("hidden");
@@ -91,22 +95,21 @@ function PlaylistReady() {
    */
   async function generateRec() {
     let limit: number = 20;
-    let artists_seed: string[] = ['0PHf0oiic0xAnCrRuLTtHl'];
+    let artists_seed: string[] = [artistId];
     let genres_seed: string[] = genreList;
     let tracks_seed: string[] = [songId];
 
-    // temp, will use query, genre, and time period later 
-    //let spotify_artist_id = '0PHf0oiic0xAnCrRuLTtHl';
-    //let data = await returnDummyRec(spotify_artist_id);
+    console.log(genreList);
 
+    // get recommendations based on selected song
     let data = await returnSpotifyRec(limit, artists_seed, genres_seed, tracks_seed);
+
     // convert recommended songs to searchResult[]
-    //console.log(data);
     let recArray : SearchResult[] = [];
 
     // genre array is empty for now
     data.tracks.forEach((t) => {
-      recArray.push(new SearchResult(t.artists[0].name,
+      recArray.push(new SearchResult(t.artists[0].name, t.artists[0].id,
         t.name, t.id, [], t.album.images[1].url));
     })
     setRecData(recArray);
@@ -122,7 +125,7 @@ function PlaylistReady() {
 
   return(
     <div>
-      <SearchBar childToParent={ getSongId }/>
+      <SearchBar setIds={ getIds } />
       <div className="accordion">
         {/* <span className="customize-text h2 bold">Customize your playlist</span> */}
         <input type="checkbox" name="accordion" id="customize-box" onClick={delayOverflow}/>

@@ -29,13 +29,15 @@ export const qsa = (query: any) => {
 
 export class SearchResult {
   artist: string;
+  artistId: string;
   title: string;
   id: string;
   genres: string[];
   imgUrl: string;
 
-  constructor(artist: string, title: string, id: string, genres: string[], imgUrl: string) {
+  constructor(artist: string, artistId: string, title: string, id: string, genres: string[], imgUrl: string) {
       this.artist = artist;
+      this.artistId = artistId;
       this.title = title;
       this.id = id;
       this.genres = genres;
