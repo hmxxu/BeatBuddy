@@ -52,7 +52,7 @@ function PlaylistReady() {
     } else {
       setGenreList(fullList);
     }
-    console.log(selectedList);
+    //console.log(selectedList);
   }
 
   /**
@@ -68,14 +68,14 @@ function PlaylistReady() {
     } else {
       setDecadeList(fullList);
     }
-    console.log(selectedList);
+    //console.log(selectedList);
 
   }
 
   function delayOverflow() {
     let checkbox = id('customize-box') as HTMLInputElement;
     if (checkbox.checked) {
-      console.log('checkbox is checked');
+      //console.log('checkbox is checked');
       setTimeout(() => {
         // id('two-filter').classList.add('overflow-visible');
         id('two-filter').style.overflow = "visible";
@@ -100,7 +100,7 @@ function PlaylistReady() {
     let data = await returnDummyRec(spotify_artist_id);
 
     // convert recommended songs to searchResult[]
-    console.log(data);
+    //console.log(data);
     let recArray : SearchResult[] = [];
 
     // genre array is empty for now
@@ -122,7 +122,7 @@ function PlaylistReady() {
   return(
     <div>
       <SearchBar childToParent={ getSongId }/>
-      <div className="accordion hidden">
+      <div className="accordion">
         {/* <span className="customize-text h2 bold">Customize your playlist</span> */}
         <input type="checkbox" name="accordion" id="customize-box" onClick={delayOverflow}/>
         <label htmlFor="customize-box" className="customize-label h2 bold">
@@ -137,7 +137,7 @@ function PlaylistReady() {
       </div>
 
 
-      <div id='generateReady' className='hidden'>
+      <div id='generateReady' >
           <h2>That's it! Your playlist is now ready.</h2>
           <button id="generate-playlist-btn" onClick={generateRec}>Generate my playlist</button>
       </div>

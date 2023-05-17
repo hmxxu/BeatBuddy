@@ -1,5 +1,4 @@
 // * Contains global methods accessible by all files
-import minami from './images/minami.jpg';
 
 /**
  * Returns the element that has the ID attribute with the specified value.
