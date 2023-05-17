@@ -65,7 +65,7 @@ function SearchBar(props:any) {
     setSelectedState("");
     // disable search bar
     (id("song-search") as HTMLInputElement).disabled = true;
-    props.childToParent(song.id);
+    props.setIds(song.id, song.artistId);
   }
 
   return(
