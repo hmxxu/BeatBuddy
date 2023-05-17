@@ -4,7 +4,7 @@ import SearchBar from './SearchBar';
 import Filter from './Filter';
 import { id, qs } from '../utils';
 import accordion_icon from '../images/accordion-close.png';
-import { returnDummyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
+import { returnDummyRec, returnSpotifyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { useState } from 'react';
 import { SearchResult } from '../utils';
 
@@ -12,6 +12,9 @@ function PlaylistReady() {
  
   // data gathered from SearchBar
   const [songId, setSongId] = useState("");
+
+    // data gathered from SearchBar
+    const [artistId, setArtistId] = useState("");
 
   // Data gathered from genre filter
   const [genreList, setGenreList] = useState([]);
@@ -32,8 +35,9 @@ function PlaylistReady() {
    * Called when user selects a song from the searchbar
    * @param childData - the song ID that the user selected
    */
-  const getSongId = (childData : any) => {
-    setSongId(childData);
+  const getIds = (songData : any, artistData : any) => {
+    setSongId(songData);
+    setArtistId(artistData);
     
     // show filters div
     document.querySelector('.accordion')!.classList.remove("hidden");
@@ -52,7 +56,7 @@ function PlaylistReady() {
     } else {
       setGenreList(fullList);
     }
-    console.log(selectedList);
+    //console.log(selectedList);
   }
 
   /**
@@ -68,14 +72,14 @@ function PlaylistReady() {
     } else {
       setDecadeList(fullList);
     }
-    console.log(selectedList);
+    //console.log(selectedList);
 
   }
 
   function delayOverflow() {
     let checkbox = id('customize-box') as HTMLInputElement;
     if (checkbox.checked) {
-      console.log('checkbox is checked');
+      //console.log('checkbox is checked');
       setTimeout(() => {
         // id('two-filter').classList.add('overflow-visible');
         id('two-filter').style.overflow = "visible";
@@ -91,21 +95,21 @@ function PlaylistReady() {
    */
   async function generateRec() {
     let limit: number = 20;
-    let artists_seed: string[] = ['0PHf0oiic0xAnCrRuLTtHl'];
-    let genres_seed: string[] = ['j-pop'];
-    let tracks_seed: string[] = ['69aL4LJK092UFLmWtFeFFy'];
+    let artists_seed: string[] = [artistId];
+    let genres_seed: string[] = genreList;
+    let tracks_seed: string[] = [songId];
 
-    // temp, will use query, genre, and time period later 
-    let spotify_artist_id = '0PHf0oiic0xAnCrRuLTtHl';
-    let data = await returnDummyRec(spotify_artist_id);
+    console.log(genreList);
+
+    // get recommendations based on selected song
+    let data = await returnSpotifyRec(limit, artists_seed, genres_seed, tracks_seed);
 
     // convert recommended songs to searchResult[]
-    console.log(data);
     let recArray : SearchResult[] = [];
 
     // genre array is empty for now
     data.tracks.forEach((t) => {
-      recArray.push(new SearchResult(t.artists[0].name,
+      recArray.push(new SearchResult(t.artists[0].name, t.artists[0].id,
         t.name, t.id, [], t.album.images[1].url));
     })
     setRecData(recArray);
@@ -121,8 +125,8 @@ function PlaylistReady() {
 
   return(
     <div>
-      <SearchBar childToParent={ getSongId }/>
-      <div className="accordion hidden">
+      <SearchBar setIds={ getIds } />
+      <div className="accordion">
         {/* <span className="customize-text h2 bold">Customize your playlist</span> */}
         <input type="checkbox" name="accordion" id="customize-box" onClick={delayOverflow}/>
         <label htmlFor="customize-box" className="customize-label h2 bold">
@@ -137,7 +141,7 @@ function PlaylistReady() {
       </div>
 
 
-      <div id='generateReady' className='hidden'>
+      <div id='generateReady' >
           <h2>That's it! Your playlist is now ready.</h2>
           <button id="generate-playlist-btn" onClick={generateRec}>Generate my playlist</button>
       </div>

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import SpotifyWebApi from 'spotify-web-api-node';
 import { saveAccessTokenToCookie, getAccessTokenFromCookie } from './tokenCookies';
 
@@ -67,13 +66,15 @@ export async function exchangeCodeForAccessToken(code: string): Promise<string> 
     client_id: CLIENT_ID || "",
     client_secret: CLIENT_SECRET || ""
   });
-  const response = await axios.post(TOKEN_ENDPOINT, data, {
+  const response = await fetch(TOKEN_ENDPOINT, {
+    method: "POST",
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
+    body: data
   });
 
-  const token = response.data.access_token;
+  const token = (await response.json()).access_token;
   saveAccessTokenToCookie(token);
   return token;
 }

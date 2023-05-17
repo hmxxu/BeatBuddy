@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import play_btn from '../images/play-btn.png';
 import arrow_back from '../images/arrow-back.png';
 import spotify_icon from '../images/spotify-icon.png';
@@ -18,11 +18,22 @@ function GeneratedPlaylist(props:any) {
   const [currTitle, setCurrTitle] = useState("");
   const [currArtist, setCurrArtist] = useState("");
   const [currImg, setCurrImg] = useState("");
-  const [playerViewState, setPlayerViewState] = useState("hidden");
 
   const [currEnergy, setEnergy] = useState(0);
   const [currAcoustic, setAcoustic] = useState(0);
   const [currDance, setDance] = useState(0);
+
+
+  /**
+   * Upon the recArray change (when new playlist is generated),
+   * update the player to display the first song.
+   */
+  useEffect(()=>{
+    if (props.recArray) {
+      handleSongClick(props.recArray[0]);
+    }
+  },[props.recArray])
+
 
   /*
   * Updates the selected song when song result is clicked
@@ -36,13 +47,11 @@ function GeneratedPlaylist(props:any) {
 
     // get features and display:
     const featuresJSON = await returnSongFeatures(song.id);
-    console.log(featuresJSON);
+    //console.log(featuresJSON);
 
     setEnergy(Math.round(featuresJSON.energy * 100));
     setAcoustic(Math.round(featuresJSON.acousticness * 100));
     setDance(Math.round(featuresJSON.danceability * 100));
-
-    setPlayerViewState("");
 
     let songImg = song.imgUrl;
     processImage(songImg, 90, 90);
@@ -65,66 +74,72 @@ function GeneratedPlaylist(props:any) {
   return(
     <section className={ props.viewState }>
       <h2>Your Recommended Playlist</h2>
-      <section id="playlist-wrapper">
-        <button id="back-btn">
-          <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
-          <span className="bold">Try another song</span>
-        </button>
-        <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist', [])}>
-          <span className="bold">Save to Spotify</span>
-          <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
-        </button>
-        <section id="song-player" className={playerViewState}>
-          <div className="flex">
-            <img src={ currImg } alt="The song cover" className="song-img"></img>
-            <div className="current-song">
-              <span className="h-title bold">{currTitle}</span>
-              <span className="h2 bold">By {currArtist}</span>
+      <section id="desktop-wrapper">
+        <section id="song-player" >
+            <div>
+              <img src={ currImg } alt="The song cover" className="song-img"></img>
+              <div className="current-song">
+                <span className="h-title bold">{currTitle}</span>
+                <span className="h2">By {currArtist}</span>
+              </div>
             </div>
-            <div className="play-btn-container">
-                <img src={play_btn} className="play-btn" alt="an icon of a play button"></img>
+            <div id="player-controls-wrapper" className='flex'>
+              <div className="play-btn-container">
+                  <img src={play_btn} className="play-btn" alt="an icon of a play button"></img>
+              </div>
             </div>
-          </div>
-          <div className="song-stats flex">
-            <div id="energy" className="attrs">
-              <h3>Energy</h3>
-              {/* <h1>90%</h1> */}
-              <p className="h-title bold">{currEnergy + "%"}</p>
+            <div className="song-stats flex">
+              <div id="energy" className="attrs">
+                <h3>Energy</h3>
+                {/* <h1>90%</h1> */}
+                <p className="h-title bold">{currEnergy + "%"}</p>
+              </div>
+              <div className="vl"></div>
+              <div id="accoustic" className="attrs">
+                <h3>Accousticness</h3>
+                {/* <h1>10%</h1> */}
+                <p className="h-title bold">{currAcoustic + "%"}</p>
+              </div>
+              <div className="vl"></div>
+              <div id="danceable" className="attrs">
+                <h3>Danceability</h3>
+                {/* <h1>13%</h1> */}
+                <p className="h-title bold">{currDance + "%"}</p>
+              </div>
             </div>
-            <div className="vl"></div>
-            <div id="accoustic" className="attrs">
-              <h3>Accousticness</h3>
-              {/* <h1>10%</h1> */}
-              <p className="h-title bold">{currAcoustic + "%"}</p>
+          </section>
+
+        <section id="playlist-wrapper">
+          <button id="back-btn">
+            <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
+            <span className="bold">Try another song</span>
+          </button>
+          <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist', [])}>
+            <span className="bold">Save to Spotify</span>
+            <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
+          </button>
+          <section className="song-results-container-parent">
+            <div className="results-label h4 bold">
+              <p></p>
+              <p>Artist</p>
+              <p>Song</p>
+              <p>Genre</p>
             </div>
-            <div className="vl"></div>
-            <div id="danceable" className="attrs">
-              <h3>Danceability</h3>
-              {/* <h1>13%</h1> */}
-              <p className="h-title bold">{currDance + "%"}</p>
-            </div>
-          </div>
-        </section>
-        <section className="song-results-container-parent">
-          <div className="results-label h4 bold">
-            <p></p>
-            <p>Artist</p>
-            <p>Song</p>
-            <p>Genre</p>
-          </div>
-          <hr></hr>
-          {
-            props.recArray.map((song : any) => (
-              <SongResult onClick={(e: any) => {
-                handleSongClick(song)
-              }}
-              key={song.artist + song.title}
-              src={song.imgUrl}
-              artist={song.artist} title={song.title} genre={song.genre}/>
-            ))
-          }
+            <hr></hr>
+            {
+              props.recArray.map((song : any) => (
+                <SongResult onClick={(e: any) => {
+                  handleSongClick(song)
+                }}
+                key={song.artist + song.title}
+                src={song.imgUrl}
+                artist={song.artist} title={song.title} genre={song.genre}/>
+              ))
+            }
+          </section>
         </section>
       </section>
+      
       <section id="playlist-wrapper-mobile">
         <button id="back-btn" className="icon-mobile">
           <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back-mobile"></img>

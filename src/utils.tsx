@@ -1,6 +1,4 @@
 // * Contains global methods accessible by all files
-import minami from './images/minami.jpg';
-import axios from 'axios';
 
 /**
  * Returns the element that has the ID attribute with the specified value.
@@ -31,13 +29,15 @@ export const qsa = (query: any) => {
 
 export class SearchResult {
   artist: string;
+  artistId: string;
   title: string;
   id: string;
   genres: string[];
   imgUrl: string;
 
-  constructor(artist: string, title: string, id: string, genres: string[], imgUrl: string) {
+  constructor(artist: string, artistId: string, title: string, id: string, genres: string[], imgUrl: string) {
       this.artist = artist;
+      this.artistId = artistId;
       this.title = title;
       this.id = id;
       this.genres = genres;
