@@ -45,7 +45,7 @@ function GeneratedPlaylist(props:any) {
     setPlayerViewState("");
 
     let songImg = song.imgUrl;
-    processImage(songImg, 90, 90);
+    processImage(songImg);
   }
 
   async function createSpotifyPlaylist(playlistName: string, songs: SearchResult[]) {

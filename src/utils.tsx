@@ -107,7 +107,11 @@ function cClass(className: any, color: any) {
   7. Assign each pixel in the image to its nearest representative color and display the quantized image.
  */
 
-export function processImage(src: any, imgWidth: number, imgHeight: number) {
+/**
+ * Takes in the song cover photo and applies color quantization + text background contrast checker on the whole page
+ * @param src The image source
+ */
+export function processImage(src: any) {
   console.log('processImage called');
   const image = new Image();
   image.src = src;
