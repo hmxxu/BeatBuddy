@@ -56,6 +56,21 @@ function rgbToHex(r: any, g: any, b: any) {
   return componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
+// Converts rgb string to array of [r,b,b] (ex. 'rgb(0,0,0)' -> [0, 0, 0])
+function extractRGBValues(rgbString: any) {
+  var regex = /rgb\((\d+), (\d+), (\d+)\)/;
+  var matches = rgbString.match(regex);
+
+  if (matches) {
+    var red = parseInt(matches[1]);
+    var green = parseInt(matches[2]);
+    var blue = parseInt(matches[3]);
+
+    return [red, green, blue];
+  }
+  return null; // Return null if the string does not match the expected format
+}
+
 // inverts hex
 function invertHex(hex: number) {
   return (Number(`0x1${hex}`) ^ 0xFFFFFF).toString(16).substring(1).toUpperCase()
@@ -96,6 +111,7 @@ export function processImage(src: any, imgWidth: number, imgHeight: number) {
   console.log('processImage called');
   const image = new Image();
   image.src = src;
+  image.crossOrigin = "Anonymous";
   let count = 1;
   image.onload = async () => {
     console.log('onload called: ' + count);
@@ -104,7 +120,6 @@ export function processImage(src: any, imgWidth: number, imgHeight: number) {
     const canvas = document.createElement('canvas');
     canvas.width = image.width;
     canvas.height = image.height;
-    image.crossOrigin = "Anonymous";
     const ctx = canvas.getContext('2d');
     ctx?.drawImage(image, 0, 0);
     const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
@@ -140,7 +155,11 @@ export function processImage(src: any, imgWidth: number, imgHeight: number) {
     //TODO: THIS PART (changing text color based on contrast) IS CURRENTLY BROKEN BECAUSE
     // TODO: SOMEHOW THE image onload IS FIRING TWICE WHEN IT SHOULD ONLY FIRE ONCE
     // ** Check for text color contrast
-    let foregroundColor = qs('.song-result').style.color;
+    // let foregroundRGBFormat = qs('.song-result').style.color.slice(0, -1);
+    // console.log(foregroundRGBFormat);
+    console.log(qs('.song-result').style.color);
+    let rgbArray = extractRGBValues(qs('.song-result').style.color)!;
+    let foregroundColor = rgbToHex(rgbArray[0], rgbArray[1], rgbArray[2]);
     console.log('foregrnd = ' + foregroundColor);
 
     let backgroundColor = rgbToHex(result[1].r, result[1].g, result[1].b);
@@ -167,10 +186,12 @@ export function processImage(src: any, imgWidth: number, imgHeight: number) {
       cClass(containerColorClass, secondaryColor);
       element.firstChild.classList.add("class", containerColorClass);
       if (contrastRatio < 4.5) {
-        if (foregroundColor === "black") {
-          element.firstChild.style.color = "white";
+        if (foregroundColor === "000000") {
+          // to white
+          element.firstChild.style.color = "rgb(255,255,255)";
         } else {
-          element.firstChild.style.color = "black";
+          // to black
+          element.firstChild.style.color = "rgb(0,0,0)";
         }
       }
     });

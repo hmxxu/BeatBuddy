@@ -16,7 +16,7 @@ function SongResult(props: any) {
     <div className="song-result-container">
 
       {/* The code below is for desktop */}
-      <div className="song-result h4" onClick={props.onClick} id={id}>
+      <div className="song-result h4" style={{ color: "rgb(0,0,0)"}} onClick={props.onClick} id={id}>
         <img src={src} alt="album cover" id="album-cover"></img>
         <p id="artist">{artist}</p>
         <p id="title">{title}</p>
