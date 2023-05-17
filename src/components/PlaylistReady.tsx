@@ -4,7 +4,7 @@ import SearchBar from './SearchBar';
 import Filter from './Filter';
 import { id, qs } from '../utils';
 import accordion_icon from '../images/accordion-close.png';
-import { returnDummyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
+import { returnDummyRec, returnSpotifyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { useState } from 'react';
 import { SearchResult } from '../utils';
 
@@ -92,13 +92,14 @@ function PlaylistReady() {
   async function generateRec() {
     let limit: number = 20;
     let artists_seed: string[] = ['0PHf0oiic0xAnCrRuLTtHl'];
-    let genres_seed: string[] = ['j-pop'];
-    let tracks_seed: string[] = ['69aL4LJK092UFLmWtFeFFy'];
+    let genres_seed: string[] = genreList;
+    let tracks_seed: string[] = [songId];
 
     // temp, will use query, genre, and time period later 
-    let spotify_artist_id = '0PHf0oiic0xAnCrRuLTtHl';
-    let data = await returnDummyRec(spotify_artist_id);
+    //let spotify_artist_id = '0PHf0oiic0xAnCrRuLTtHl';
+    //let data = await returnDummyRec(spotify_artist_id);
 
+    let data = await returnSpotifyRec(limit, artists_seed, genres_seed, tracks_seed);
     // convert recommended songs to searchResult[]
     //console.log(data);
     let recArray : SearchResult[] = [];

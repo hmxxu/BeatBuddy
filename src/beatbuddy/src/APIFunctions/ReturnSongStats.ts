@@ -38,6 +38,24 @@ async function returnSongFeatures(track_id: string) : Promise<SpotifyApi.AudioFe
 export { returnSongFeatures }
 
 /**
+ * Gets song features from multiple songs (ex. acoustic/liveliness/energy/etc)
+ * @param track_id - track ids
+ * @returns JSON with track features 
+ * (see https://developer.spotify.com/documentation/web-api/reference/get-audio-features)
+ */
+async function returnMultipleSongFeatures(track_id: string) : Promise<SpotifyApi.MultipleAudioFeaturesResponse>{
+    const { access_token } = await getAccessToken();
+    const response = await fetch('https://api.spotify.com/v1/audio-features?ids=' + track_id, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${access_token}`,}
+    });
+
+    return await response.json();
+}
+
+export { returnMultipleSongFeatures }
+
+/**
  * @returns a json of all genres used by Spotify
  */
 async function returnGenres() : Promise<SpotifyApi.AvailableGenreSeedsResponse> {
@@ -167,7 +185,6 @@ async function searchSpotify(query: string): Promise<SearchResult[]> {
     });
 
     const data = await response.json();
-    console.log(data);
     const res: SearchResult[] = [];
     const tracks = data.tracks.items;
     for (let i = 0; i < 5; i++) {
