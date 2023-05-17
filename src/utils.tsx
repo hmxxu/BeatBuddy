@@ -93,9 +93,12 @@ function cClass(className: any, color: any) {
  */
 
 export function processImage(src: any, imgWidth: number, imgHeight: number) {
+  console.log('processImage called');
   const image = new Image();
   image.src = src;
+  let count = 1;
   image.onload = async () => {
+    console.log('onload called: ' + count);
     console.log(image.src);
     // ** Setting up the image and getting the image Data
     const canvas = document.createElement('canvas');
@@ -195,6 +198,8 @@ export function processImage(src: any, imgWidth: number, imgHeight: number) {
     qs('#song-player .play-btn-container').classList.add("class", playerColorClass);
 
     image.onload = null;
+    console.log('end');
+    count++;
   }
 }
 
