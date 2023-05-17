@@ -7,8 +7,38 @@ BeatBuddy is an app that tailors recommendations much more closely to your prefe
 * The given songs are chosen to be as similar as possible
 	* Traits such as tempo, rhythm, pitch, melody, etc. are considered
 
-Our website can be found at https://hmxxu.github.io/BeatBuddy/!
+## User Manual
 
+Try out BeatBuddy at https://hmxxu.github.io/BeatBuddy/! No installation or set up needed.
+
+BeatBuddy offers a new way to discover songs on Spotify. Our unique recommendation algorithm utilizes the song's audio features (ex. energy, danceability, acousticness, etc.) to build a playlist of aurally similar songs! Furthermore, users can customize the playlist by filtering based on the decade (ex. 90's songs only) and genre (ex. Bossanova only) and add the generated playlist to their Spotify account. 
+
+After generating a playlist, you can listen to it on BeatBuddy and view stats about the currently playing song's audio features.
+
+Come try find new music in a new way today!
+
+### Features in Progress
+
+Currently, we are working on: 
+ * The recommendation algorithm
+ * Integration of the filters with the recommendation algorithm
+ * On-site player for Spotify music 
+
+### Known bugs
+ * Clicking on a song in the generated playlist may generate an incorrect background color (black) leading to readability issues
+ * Search bar does not work
+ * Clicking on a song in the generated playlist produces an "operation is insecure" error in Firefox
+
+### How to report bugs
+Before reporting a bug, confirm the bug appears on a new browser profile (ex. incognito browser). If it does not, it may be due to extension or personal setting interferences. You can still report this bug but please note this in the steps to reproduce. 
+
+To submit an unlisted bug, post a GitHub issue with the following information: 
+ * Bug title
+ * Bug description outlining the expected results and the actual results
+ * Precise steps to reproduce the bug
+ * Operating System, browser, and browser version
+
+# For Developers
 ## In this repository
 `/public` and `/src` is for the front-facing website, and contains all code for visuals and website display.
 
@@ -86,13 +116,12 @@ A GitHub Actions workflow is set to run `npm install --force`, and then `npm run
   ```
 Similarly, you can specify the workflow to run more or different commands by editing the `run` section of `main.yml`[^4].
 
-*-content subject to change-*
-
-# CURRENTLY WORKING FEATURES
-* Search bar: you are able to input a song and query the public Spotify API for certain songs
+### Features available (detailed for developers)
+* Search bar: you are able to input a song and query the public Spotify API for certain songs (bugged due to token issue)
 * Song selection: after searching, you can click on a song to select it for later
 * (some) Playlist customization features: there is a section on the site allowing you to choose specific features to emphasize in your playlist, including time period and genre
 * Save to Spotify: users are able to log into Spotify, authenticate from this website, and are automatically redirected back into our site
+
 
 [^1]: This is a dependency issue involving `ts-jest` and `babel-jest`. We are in the process of fixing dependencies. Other installs may not work as well, so use `--force` in any instance this occurs.
 [^2]: Refer to the Spotify API [getting started](https://developer.spotify.com/documentation/web-api/tutorials/getting-started) page.
