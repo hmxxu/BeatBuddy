@@ -47,13 +47,15 @@ Pahn
  * Wrote user testing script
 
 Jonathan
- * 
+ * Expand test coverage to about 2/3rds of backend functionality
+ * Added more details to developer documentation
 
-HaoMing
- * Made mood based algorithms
+Adrian + HaoMing
+ * Got stuck because existing function `returnAudioFeatures` only return audio feature for a singlar track
+ * Made a version of `returnAudioFeatures` that works for a mutiple tracks
+ * Made function to display average audio feature of a given playlist
+ * Made mood based algorithms based on average trends on moods
 
-Adrian
- * Made mood based algorithms
 
 Tapan
  * Carried out user testing
@@ -68,13 +70,14 @@ Pahn
  * Work on redesigning frontend to be more intuitive for users
 
 Jonathan
- * 
+ * Get test coverage over almost all of backend function
 
-HaoMing
- * 
-
-Adrian
- * 
+Adrian + HaoMing
+ * Do research for recommendation algorithm / improve mood-based algorithm by increase the pool of playlist for each mood
+ * Do more research on which audio features matter for each mood
+ * Make testing for newly created functions if needed
+ * Create any backend functions for frontend if needed
+ * Help with player in BeatBuddy if needed
 
 Tapan
  * Work on incorporating the spotify player into the frontend
