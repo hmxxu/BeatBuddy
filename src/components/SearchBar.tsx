@@ -65,7 +65,7 @@ function SearchBar(props:any) {
       }
 
     } catch (err : any) {
-      id("error-logging").textContent = err;
+      id("error-logging").textContent = "Something went wrong. Refresh and try again.";
     }
   }
 
