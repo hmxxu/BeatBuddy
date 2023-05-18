@@ -188,7 +188,9 @@ async function searchSpotify(query: string): Promise<SearchResult[]> {
 
     const res: SearchResult[] = [];
     const tracks = data.tracks.items;
-    for (let i = 0; i < 5; i++) {
+    let max = Math.min(5, data.tracks.items.length);
+    
+    for (let i = 0; i < max; i++) {
         const genre = await returnSongGenre(tracks[i].artists[0].id);
         res.push(new SearchResult(tracks[i].artists[0].name, tracks[i].artists[0].id,
         tracks[i].name, tracks[i].id, genre, tracks[i].album.images[1].url));

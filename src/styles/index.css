@@ -8,11 +8,23 @@ body {
     sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(#6380E8, #A9A2FF);
+  background: var(--body-color);
+  transition: 0.5s;
   width: 85%;
   color: aliceblue;
   margin-top: 150px;
   margin-bottom: 150px;
+}
+
+:root {
+  --song-result-color: #D5D1FF;
+  --play-btn-color: #6481E8;
+  --body-color: linear-gradient(#6380E8, #A9A2FF);
+  --hover-color: #B6B2FE;
+
+  --song-result-text-color: #000000;
+  /* --song-player-color: rgb(28, 35, 48, 0.2);
+  --playlist-wrapper-color: rgb(28, 35, 48, 0.4); */
 }
 
 #playlist-wrapper-mobile, .song-result-container > .song-playlist-mobile,
@@ -23,12 +35,13 @@ body {
 /* ? Breakpoint for large screen */
 @media screen and (min-width: 1920px) {
   body {
-    width: 85%;
+    width: 70%;
   }
 }
 
 /* ? Breakpoint for smaller desktop */
 @media screen and (max-width: 900px) {
+
   .h-title {
     font-size: 36px !important;
   }
@@ -51,9 +64,6 @@ body {
 
 /* ? Breakpoint for mobile */
 @media screen and (max-width: 680px) {
-  body {
-    width: 95%;
-  }
 
   #playlist-wrapper, #song-player, .song-result-container .song-result,
   #search-results .results-label, #search-results hr {

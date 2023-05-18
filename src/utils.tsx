@@ -1,4 +1,5 @@
 // * Contains global methods accessible by all files
+import axios from 'axios';
 
 /**
  * Returns the element that has the ID attribute with the specified value.
@@ -45,6 +46,92 @@ export class SearchResult {
   }
 }
 
+
+// Helper function that helps rgbToHex convert values
+function componentToHex(c: any) {
+  var hex = c.toString(16);
+  return hex.length === 1 ? "0" + hex : hex;
+}
+
+// Takes in the (r, g, b) value and converts rgb to hex, returning them in a 'rgb(r, g, b)' format
+function rgbToHex(r: any, g: any, b: any) {
+  return componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+// Takes in the (r, g, b) value and converts rgb to hsl, returning them in an array --> '[h, s, l]' format
+function rgbToHsl(r: any, g: any, b: any) {
+  // Make r, g, and b fractions of 1
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  // Find greatest and smallest channel values
+  let cmin = Math.min(r, g, b),
+    cmax = Math.max(r, g, b),
+    delta = cmax - cmin,
+    h = 0,
+    s = 0,
+    l = 0;
+  // Calculate hue
+  // No difference
+  if (delta == 0)
+    h = 0;
+  // Red is max
+  else if (cmax == r)
+    h = ((g - b) / delta) % 6;
+  // Green is max
+  else if (cmax == g)
+    h = (b - r) / delta + 2;
+  // Blue is max
+  else
+    h = (r - g) / delta + 4;
+  h = Math.round(h * 60);
+  // Make negative hues positive behind 360°
+  if (h < 0)
+    h += 360;
+  l = (cmax + cmin) / 2;
+  // Calculate saturation
+  s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+  // Multiply l and s by 100
+  s = +(s * 100).toFixed(1);
+  l = +(l * 100).toFixed(1);
+  return [h, s, l];
+}
+
+// Converts rgb string to array of [r,b,b] (ex. 'rgb(0,0,0)' -> [0, 0, 0])
+function extractRGBValues(rgbString: any) {
+  var regex = /rgb\((\d+), (\d+), (\d+)\)/;
+  var matches = rgbString.match(regex);
+  if (matches) {
+    var red = parseInt(matches[1]);
+    var green = parseInt(matches[2]);
+    var blue = parseInt(matches[3]);
+    return [red, green, blue];
+  }
+  return null; // Return null if the string does not match the expected format
+}
+
+// inverts hex
+function invertHex(hex: number) {
+  return (Number(`0x1${hex}`) ^ 0xFFFFFF).toString(16).substring(1).toUpperCase()
+}
+
+/**
+ * Generates a new class specifically to handle color changes with transition
+ * @param className The name of the class
+ * @param color The color of the background inside that class
+ */
+function cClass(className: any, color: any) {
+  var style = document.createElement('style');
+  // style.type = 'text/css';
+  style.setAttribute('type', 'text/css');
+  style.innerHTML =
+    `.${className} {
+        background: ${color};
+        transition: ease-in-out 0.5s;
+    }`;
+  document.getElementsByTagName('head')[0].appendChild(style);
+}
+
 // ************ For color quantization **********
 // ** Note: We are using the median cut algorithm to quantize color **
 /**
@@ -59,68 +146,120 @@ export class SearchResult {
   7. Assign each pixel in the image to its nearest representative color and display the quantized image.
  */
 
-export function processImage(src: any, imgWidth: number, imgHeight: number) {
+/**
+* Takes in the song cover photo and applies color quantization + text background contrast checker on the whole page
+* @param src The image source
+*/
+export function processImage(src: any) {
+  console.log('processImage called');
   const image = new Image();
   image.src = src;
-  image.onload= () => {
+  image.crossOrigin = "Anonymous";
+  let count = 1;
+  image.onload = async () => {
+
     // ** Setting up the image and getting the image Data
     const canvas = document.createElement('canvas');
     canvas.width = image.width;
     canvas.height = image.height;
-    console.log('img width = ' + image.width);
-    console.log('img height = ' + image.height);
-    image.crossOrigin = "Anonymous";
     const ctx = canvas.getContext('2d');
-    console.log('image src = ' + image.src);
     ctx?.drawImage(image, 0, 0);
     const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
-    console.log(imageData);
-
     // ** Gets rgb values for every pixel of image and applies color quantization
     let rgbValues = buildRgb(imageData);
     let result = quantizeColor(rgbValues, 3);
-    console.log(result[0]);
-    console.log(result[1]);
+    // ** Generating the rgba of primary and secondary colors.
+    let primaryColor = getRgba(result[0], 1.0);
+    let secondaryColor = getRgba(result[1], 1.0);
 
-    // ** Applying color changes to body
-    let opacity = 1.0;
-    let primaryColor = getRgba(result[0], opacity);
-    let secondaryColor = getRgba(result[1], opacity);
+    let hoverColor = generateHoverColorHSL(result[1], 10, 10);
     let bodyLinearGradient = "linear-gradient(" + primaryColor + ", " + secondaryColor + ")";
-    console.log(bodyLinearGradient);
-    document.body.style.background = bodyLinearGradient;
 
-    // ** Applying color changes to playlist-wrapper
-    opacity = 0.2;
-    let childPrimaryColor = getRgba(result[0], opacity);
-    let childSecondaryColor = getRgba(result[1], opacity);
-    let childLinearGradient = "linear-gradient(" + childPrimaryColor + ", " + childSecondaryColor + ")";
-    id('playlist-wrapper').style.background = childPrimaryColor;
+    //** Applying color change + transition to the body
+    document.documentElement.style.setProperty("--body-color", primaryColor);
 
-    qsa('#playlist-wrapper > .song-results-container-parent > .song-result-container').forEach((element) => {
-      console.log(element);
-      element.firstChild.style.background = secondaryColor;
-    });
+    // ** Gets foreground (text color) and background color and Checks for text color contrast
+    let foregroundColor = window.getComputedStyle(document.documentElement).getPropertyValue('--song-result-text-color').substring(1);
+    console.log('foregrnd = ' + foregroundColor);
+    let backgroundColor = rgbToHex(result[1].r, result[1].g, result[1].b);
+    console.log('bckgrnd = ' + backgroundColor);
+    // .song-result-mobile, .song-result
+    let contrastRatio: number = 4.5;
+    try {
+      const response = await fetchContrastRatio(foregroundColor, backgroundColor);
+      contrastRatio = response;
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('contrast ratio = ' + contrastRatio);
 
-    qsa('#playlist-wrapper-mobile > .results-mobile > .song-result-container').forEach((element) => {
-      element.childNodes[2].style.background = secondaryColor;
-      console.log(element.childNodes[2]);
-    });
+    // ** Applying color changes + transition to song-result-container and play button on desktop
+    document.documentElement.style.setProperty("--song-result-color", secondaryColor);
+    document.documentElement.style.setProperty("--play-btn-color", secondaryColor);
+    document.documentElement.style.setProperty("--hover-color", hoverColor);
 
-    qs('#song-player .play-btn-container').style.background = secondaryColor;
-
-    console.log(qs('#playlist-wrapper-mobile > .results-mobile > .song-result-container'));
+    if (contrastRatio < 4.5) {
+      if (foregroundColor === "000000") {
+        // to white
+        document.documentElement.style.setProperty("--song-result-text-color", "#ffffff");
+      } else {
+        // to black
+        document.documentElement.style.setProperty("--song-result-text-color", "#000000");
+      }
+    }
   }
+}
+
+
+async function fetchContrastRatio (foregroundColor: string, backgroundColor: string) {
+  const response = await axios.get(`https://webaim.org/resources/contrastchecker/?fcolor=${foregroundColor}&bcolor=${backgroundColor}&api`);
+  let ratio = parseFloat(response.data.ratio);
+  return ratio;
+}
+
+export function getColorClass(result: any, opacity: any) {
+  return "rgba-" + result.r + "-" + result.g + "-" + result.b + "-" + opacity;
 }
 
 /**
  *
- * @param result An rgb class (looks like this: {r: 90, b: 12, b: 19})
+ * @param rgbClass An rgb class (looks like this: {r: 90, b: 12, b: 19})
  * @param opacity The opacity, or the "a" value in rgba
- * @returns A string in rgba format (for example, "rgba(25, 15, 15, 0.7)")
+ * @returns A string in rgba format, for example -> "rgba(25, 15, 15, 0.7)"
  */
-export function getRgba(result: any, opacity: any) {
-  return "rgba(" + result.r + ", " + result.g + ", " + result.b + ", " + opacity + ")";
+export function getRgba(rgbClass: any, opacity: any) {
+  return "rgba(" + rgbClass.r + ", " + rgbClass.g + ", " + rgbClass.b + ", " + opacity + ")";
+}
+
+/**
+ *
+ * @param rgbClass An rgb class (looks like this: {r: 90, b: 12, b: 19})
+ * @param dSaturation Saturation value change (in %) (will either increase/decrease based on conditions) for hover cover
+ * @param dLightness Lightness value change (in %) (will either increase/decrease based on conditions) for hover cover
+ * @returns an hsl value for the hover color (for example, returns )
+ */
+export function generateHoverColorHSL(rgbClass: any, dSaturation: number, dLightness: number) {
+  let HSLColor =rgbToHsl(rgbClass.r, rgbClass.g, rgbClass.b);
+  console.log("old: hsl(" + HSLColor[0] + "," + HSLColor[1] + "%," + HSLColor[2] + "%)");
+
+  let max = 100;
+
+  // Change the saturation value
+  if (HSLColor[1] + dSaturation < max) {
+    HSLColor[1] = HSLColor[1] + dSaturation;
+  } else {
+    HSLColor[1] = HSLColor[1] - dSaturation;
+  }
+  // Change the lightness value
+  if (HSLColor[2] < 70 && HSLColor[2] + dLightness < max) {
+    HSLColor[2] = HSLColor[2] + dLightness;
+  } else {
+    HSLColor[2] = HSLColor[2] - dLightness;
+  }
+
+  console.log("new: hsl(" + HSLColor[0] + "," + HSLColor[1] + "%," + HSLColor[2] + "%)");
+  return "hsl(" + HSLColor[0] + "," + HSLColor[1] + "%," + HSLColor[2] + "%)";
+  // return "rgba(" + (result.r + 3) + ", " + (result.g + 3) + ", " + (result.b + 3) + ", " + opacity + ")";
 }
 
 /**
@@ -139,7 +278,6 @@ export function buildRgb(imageData: any) {
     };
     rgbValues.push(rgb);
   }
-  console.log(rgbValues);
   return rgbValues;
 }
 
