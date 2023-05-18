@@ -53,7 +53,7 @@
 
   .song-result, .results-label {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: min-content auto;
   }
 
   .song-result, .song-results-container, .song-results-container-parent, .song-result-mobile {

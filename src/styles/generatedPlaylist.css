@@ -122,7 +122,9 @@ section {
 
 .song-stats {
   margin-top: 20px;
+  flex-wrap: wrap;
 }
+
 .song-stats-mobile {
   margin-top: 0px;
 }

@@ -29,6 +29,10 @@ body {
 
 /* ? Breakpoint for smaller desktop */
 @media screen and (max-width: 900px) {
+  body {
+    width: 95%;
+  }
+
   .h-title {
     font-size: 36px !important;
   }
@@ -51,9 +55,6 @@ body {
 
 /* ? Breakpoint for mobile */
 @media screen and (max-width: 680px) {
-  body {
-    width: 95%;
-  }
 
   #playlist-wrapper, #song-player, .song-result-container .song-result,
   #search-results .results-label, #search-results hr {

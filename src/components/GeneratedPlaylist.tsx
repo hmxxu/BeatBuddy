@@ -119,12 +119,14 @@ function GeneratedPlaylist(props:any) {
             <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
           </button>
           <section className="song-results-container-parent">
-            <div className="results-label h4 bold">
-              <p></p>
-              <p>Artist</p>
-              <p>Song</p>
-              <p>Genre</p>
-            </div>
+            {
+            // <div className="results-label h4 bold">
+            //   <p></p>
+            //   <p>Artist</p>
+            //   <p>Song</p>
+            //   <p>Genre</p>
+            // </div>
+            }
             <hr></hr>
             {
               props.recArray.map((song : any) => (
