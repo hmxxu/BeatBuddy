@@ -29,7 +29,7 @@ function GeneratedPlaylist(props:any) {
    * update the player to display the first song.
    */
   useEffect(()=>{
-    if (props.recArray) {
+    if (props.recArray.length > 0) {
       handleSongClick(props.recArray[0]);
     }
   },[props.recArray])

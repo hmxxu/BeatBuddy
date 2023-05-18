@@ -43,17 +43,30 @@ function SearchBar(props:any) {
    * When the user searches a song, this function will update the song results
    */
   async function searchSongs() {
-    // get user input
-    let searchInput : HTMLInputElement = id('song-search') as HTMLInputElement;
-    let userInput : string = searchInput.value;
-    
-    // Get songs from backend
-    let songs : SearchResult[] = await searchSpotify(userInput);
 
-    setSongsState(songs);
+    try {
+      id("error-logging").textContent = "Loading... May take a few seconds!";
+      id("search-results").classList.add("hidden");
 
-    // show container
-    id("search-results").classList.remove("visibility-hidden");
+      // get user input
+      let searchInput : HTMLInputElement = id('song-search') as HTMLInputElement;
+      let userInput : string = searchInput.value;
+      
+      // Get songs from backend
+      let songs : SearchResult[] = await searchSpotify(userInput);
+      console.log(songs);
+      // check if not results
+      if (songs.length === 0) {
+        id("error-logging").textContent = "No results. Try another search";
+      } else {
+        setSongsState(songs);
+        id("error-logging").textContent = "";
+        id("search-results").classList.remove("hidden");
+      }
+
+    } catch (err : any) {
+      id("error-logging").textContent = err;
+    }
   }
 
   /**
@@ -85,7 +98,8 @@ function SearchBar(props:any) {
           </span>
         </button>
       </section>
-      <section id="search-results" className="visibility-hidden song-results-container">
+      <h2 id="error-logging"></h2>
+      <section id="search-results" className="hidden song-results-container">
         {
         // <div className="results-label h4 bold">
         //   <p className="mobile-hidden"></p>
