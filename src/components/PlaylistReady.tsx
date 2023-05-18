@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { SearchResult } from '../utils';
 
 function PlaylistReady() {
- 
+
   // data gathered from SearchBar
   const [songId, setSongId] = useState("");
 
@@ -38,7 +38,7 @@ function PlaylistReady() {
   const getIds = (songData : any, artistData : any) => {
     setSongId(songData);
     setArtistId(artistData);
-    
+
     // show filters div
     document.querySelector('.accordion')!.classList.remove("hidden");
   }
@@ -51,7 +51,7 @@ function PlaylistReady() {
    * @param fullList - list of all genres
    */
   const getGenreArray = (selectedList: any, fullList : any) => {
-    if (selectedList.length > 0) { 
+    if (selectedList.length > 0) {
       setGenreList(selectedList);
     } else {
       setGenreList(fullList);
@@ -67,7 +67,7 @@ function PlaylistReady() {
    * @param fullList - list of all available decades
    */
   const getDecadeArray = (selectedList : any, fullList: any) => {
-    if (selectedList.length > 0) { 
+    if (selectedList.length > 0) {
       setDecadeList(selectedList);
     } else {
       setDecadeList(fullList);
