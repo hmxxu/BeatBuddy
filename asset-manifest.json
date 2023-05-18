@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/BeatBuddy/static/css/main.37d6050d.css",
-    "main.js": "/BeatBuddy/static/js/main.e2586b4e.js",
+    "main.js": "/BeatBuddy/static/js/main.91e637d3.js",
     "index.html": "/BeatBuddy/index.html",
     "main.37d6050d.css.map": "/BeatBuddy/static/css/main.37d6050d.css.map",
-    "main.e2586b4e.js.map": "/BeatBuddy/static/js/main.e2586b4e.js.map"
+    "main.91e637d3.js.map": "/BeatBuddy/static/js/main.91e637d3.js.map"
   },
   "entrypoints": [
     "static/css/main.37d6050d.css",
-    "static/js/main.e2586b4e.js"
+    "static/js/main.91e637d3.js"
   ]
 }
