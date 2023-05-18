@@ -172,32 +172,11 @@ export function processImage(src: any) {
 
     let hoverColor = generateHoverColorHSL(result[1], 10, 10);
     let bodyLinearGradient = "linear-gradient(" + primaryColor + ", " + secondaryColor + ")";
-    // document.body.style.background = bodyLinearGradient;
 
     //** Applying color change + transition to the body
-    // let bodyColorClass = "body-color-change";
-    // cClass(bodyColorClass, primaryColor);
-    // document.body.classList.add("class", bodyColorClass);
     document.documentElement.style.setProperty("--body-color", primaryColor);
 
-
-    // ** Generating the rgba of child primary and child secondary colors.
-
-    // ** Applying color changes + transition to playlist-wrapper
-    // let playlistWrapperColorClass = "playlist-wrapper-color-change";
-    // cClass(playlistWrapperColorClass, childPrimaryColor);
-    // id('playlist-wrapper').classList.add("class", playlistWrapperColorClass);
-
-    //TODO: THIS PART (changing text color based on contrast) IS CURRENTLY BROKEN BECAUSE
-    // TODO: SOMEHOW THE image onload IS FIRING TWICE WHEN IT SHOULD ONLY FIRE ONCE
-    // ** Check for text color contrast
-    // let foregroundRGBFormat = qs('.song-result').style.color.slice(0, -1);
-    // console.log(foregroundRGBFormat)
-    // const songResultDiv = qs('.song-results-container-parent > .song-result-container > .song-result');
-    // let rgbArray = extractRGBValues(songResultDiv.style.color)!;
-    // console.log('songResultDiv color:')
-    // console.log(songResultDiv.style.color);
-    // let foregroundColor = rgbToHex(rgbArray[0], rgbArray[1], rgbArray[2]);
+    // ** Gets foreground (text color) and background color and Checks for text color contrast
     let foregroundColor = window.getComputedStyle(document.documentElement).getPropertyValue('--song-result-text-color').substring(1);
     console.log('foregrnd = ' + foregroundColor);
     let backgroundColor = rgbToHex(result[1].r, result[1].g, result[1].b);
@@ -212,8 +191,6 @@ export function processImage(src: any) {
     }
     console.log('contrast ratio = ' + contrastRatio);
 
-
-    // & Desktop version
     // ** Applying color changes + transition to song-result-container and play button on desktop
     document.documentElement.style.setProperty("--song-result-color", secondaryColor);
     document.documentElement.style.setProperty("--play-btn-color", secondaryColor);
