@@ -73,7 +73,8 @@
   }
 
   .song-result {
-    background-color: #D5D1FF;
+    background-color: var(--song-result-color);
+    transition: 0.5s;
     padding: 5px;
     align-items: center;
     overflow: hidden;
@@ -84,7 +85,8 @@
   }
 
   .song-result-mobile, .song-result {
-    color: black;
+    color: var(--song-result-text-color);
+    /* color: rgb(0, 0, 0); */
   }
 
   .song-result-mobile {
@@ -95,7 +97,7 @@
   }
 
   .song-result-mobile:hover, .song-result:hover {
-    background: #B6B2FE;
+    background: var(--hover-color);
     transition: 0.2s;
   }
 
@@ -107,6 +109,7 @@
     /* top | right | bottom | left */
     padding: 5px 20px 5px 20px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color: var(--song-result-text-color);
   }
   .play-btn-small {
     width: 36px;
@@ -127,7 +130,6 @@
 
   .song-container-mobile > p {
     text-shadow: none;
-    color: #1C2330;
   }
 
   .song-result > img {
