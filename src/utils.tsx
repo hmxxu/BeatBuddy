@@ -208,10 +208,10 @@ export function processImage(src: any) {
       cClass(mobileContainerColorClass, secondaryColor);
       element.childNodes[2].classList.add("class", mobileContainerColorClass);
       if (contrastRatio < 4.5) {
-        if (foregroundColor === "black") {
-          element.firstChild.style.color = "white";
+        if (foregroundColor === "000000") {
+          element.firstChild.style.color = "rgb(255,255,255)";
         } else {
-          element.firstChild.style.color = "black";
+          element.firstChild.style.color = "rgb(0,0,0)";
         }
       }
     });
