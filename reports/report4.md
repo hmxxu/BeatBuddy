@@ -74,7 +74,9 @@ HaoMing
  * 
 
 Adrian
- * 
+ * Do research for recommendation algorithm / improve mood-based algorithm
+ * Create any backend functions for frontend if needed
+ * Help with player in BeatBuddy if needed
 
 Tapan
  * Work on incorporating the spotify player into the frontend
