@@ -1,5 +1,4 @@
 // * Contains global methods accessible by all files
-import axios from 'axios';
 
 /**
  * Returns the element that has the ID attribute with the specified value.
@@ -212,8 +211,10 @@ export function processImage(src: any) {
 
 
 async function fetchContrastRatio (foregroundColor: string, backgroundColor: string) {
-  const response = await axios.get(`https://webaim.org/resources/contrastchecker/?fcolor=${foregroundColor}&bcolor=${backgroundColor}&api`);
-  let ratio = parseFloat(response.data.ratio);
+  const response = await fetch(`https://webaim.org/resources/contrastchecker/?fcolor=${foregroundColor}&bcolor=${backgroundColor}&api`, {
+    method: "GET"
+  });
+  let ratio = parseFloat((await response.json()).ratio);
   return ratio;
 }
 
