@@ -54,7 +54,7 @@ function GeneratedPlaylist(props:any) {
     setDance(Math.round(featuresJSON.danceability * 100));
 
     let songImg = song.imgUrl;
-    processImage(songImg, 90, 90);
+    processImage(songImg);
   }
 
   async function createSpotifyPlaylist(playlistName: string, songs: SearchResult[]) {
@@ -139,7 +139,7 @@ function GeneratedPlaylist(props:any) {
           </section>
         </section>
       </section>
-      
+
       <section id="playlist-wrapper-mobile">
         <button id="back-btn" className="icon-mobile">
           <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back-mobile"></img>

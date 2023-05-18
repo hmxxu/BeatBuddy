@@ -1,4 +1,5 @@
 // * Contains global methods accessible by all files
+import axios from 'axios';
 
 /**
  * Returns the element that has the ID attribute with the specified value.
@@ -56,6 +57,19 @@ function rgbToHex(r: any, g: any, b: any) {
   return componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
+// Converts rgb string to array of [r,b,b] (ex. 'rgb(0,0,0)' -> [0, 0, 0])
+function extractRGBValues(rgbString: any) {
+  var regex = /rgb\((\d+), (\d+), (\d+)\)/;
+  var matches = rgbString.match(regex);
+  if (matches) {
+    var red = parseInt(matches[1]);
+    var green = parseInt(matches[2]);
+    var blue = parseInt(matches[3]);
+    return [red, green, blue];
+  }
+  return null; // Return null if the string does not match the expected format
+}
+
 // inverts hex
 function invertHex(hex: number) {
   return (Number(`0x1${hex}`) ^ 0xFFFFFF).toString(16).substring(1).toUpperCase()
@@ -71,10 +85,10 @@ function cClass(className: any, color: any) {
   // style.type = 'text/css';
   style.setAttribute('type', 'text/css');
   style.innerHTML =
-  `.${className} {
-      background: ${color};
-      transition: ease-in-out 0.5s;
-  }`;
+    `.${className} {
+        background: ${color};
+        transition: ease-in-out 0.5s;
+    }`;
   document.getElementsByTagName('head')[0].appendChild(style);
 }
 
@@ -92,54 +106,57 @@ function cClass(className: any, color: any) {
   7. Assign each pixel in the image to its nearest representative color and display the quantized image.
  */
 
-export function processImage(src: any, imgWidth: number, imgHeight: number) {
+/**
+* Takes in the song cover photo and applies color quantization + text background contrast checker on the whole page
+* @param src The image source
+*/
+export function processImage(src: any) {
+  console.log('processImage called');
   const image = new Image();
   image.src = src;
-  image.onload= async () => {
+  image.crossOrigin = "Anonymous";
+  let count = 1;
+  image.onload = async () => {
+    console.log('onload called: ' + count);
     console.log(image.src);
     // ** Setting up the image and getting the image Data
     const canvas = document.createElement('canvas');
     canvas.width = image.width;
     canvas.height = image.height;
-    image.crossOrigin = "Anonymous";
     const ctx = canvas.getContext('2d');
     ctx?.drawImage(image, 0, 0);
     const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
-
     // ** Gets rgb values for every pixel of image and applies color quantization
     let rgbValues = buildRgb(imageData);
     let result = quantizeColor(rgbValues, 3);
-
     // ** Generating the rgba of primary and secondary colors.
     let opacity = 1.0;
     let primaryColor = getRgba(result[0], opacity);
     let secondaryColor = getRgba(result[1], opacity);
     let bodyLinearGradient = "linear-gradient(" + primaryColor + ", " + secondaryColor + ")";
     // document.body.style.background = bodyLinearGradient;
-
     //** Applying color change + transition to the body
     let bodyColorClass = "body-color-change";
     cClass(bodyColorClass, primaryColor);
     document.body.classList.add("class", bodyColorClass);
-
     // ** Generating the rgba of child primary and child secondary colors.
     opacity = 0.2;
     let childPrimaryColor = getRgba(result[0], opacity);
     let childSecondaryColor = getRgba(result[1], opacity);
     let childLinearGradient = "linear-gradient(" + childPrimaryColor + ", " + childSecondaryColor + ")";
-
     // ** Applying color changes + transition to playlist-wrapper
     let playlistWrapperColorClass = "playlist-wrapper-color-change";
     cClass(playlistWrapperColorClass, childPrimaryColor);
     id('playlist-wrapper').classList.add("class", playlistWrapperColorClass);
-
-
     //TODO: THIS PART (changing text color based on contrast) IS CURRENTLY BROKEN BECAUSE
     // TODO: SOMEHOW THE image onload IS FIRING TWICE WHEN IT SHOULD ONLY FIRE ONCE
     // ** Check for text color contrast
-    let foregroundColor = qs('.song-result').style.color;
+    // let foregroundRGBFormat = qs('.song-result').style.color.slice(0, -1);
+    // console.log(foregroundRGBFormat);
+    console.log(qs('.song-result').style.color);
+    let rgbArray = extractRGBValues(qs('.song-result').style.color)!;
+    let foregroundColor = rgbToHex(rgbArray[0], rgbArray[1], rgbArray[2]);
     console.log('foregrnd = ' + foregroundColor);
-
     let backgroundColor = rgbToHex(result[1].r, result[1].g, result[1].b);
     console.log('bckgrnd = ' + backgroundColor);
     // .song-result-mobile, .song-result
@@ -153,9 +170,6 @@ export function processImage(src: any, imgWidth: number, imgHeight: number) {
     console.log('contrast ratio = ' + contrastRatio);
     //TODO: ^THIS PART (changing text color based on contrast) IS CURRENTLY BROKEN BECAUSE
     // TODO: SOMEHOW THE image onload IS FIRING TWICE WHEN IT SHOULD ONLY FIRE ONCE
-
-
-
     // & Desktop version
     // ** Applying color changes + transition to song-result-container on desktop
     qsa('#playlist-wrapper > .song-results-container-parent > .song-result-container').forEach((element) => {
@@ -164,14 +178,15 @@ export function processImage(src: any, imgWidth: number, imgHeight: number) {
       cClass(containerColorClass, secondaryColor);
       element.firstChild.classList.add("class", containerColorClass);
       if (contrastRatio < 4.5) {
-        if (foregroundColor === "black") {
-          element.firstChild.style.color = "white";
+        if (foregroundColor === "000000") {
+          // to white
+          element.firstChild.style.color = "rgb(255,255,255)";
         } else {
-          element.firstChild.style.color = "black";
+          // to black
+          element.firstChild.style.color = "rgb(0,0,0)";
         }
       }
     });
-
     // & Mobile version
     // ** Applying color changes + transition to song-result-container on mobile
     qsa('#playlist-wrapper-mobile > .results-mobile > .song-result-container').forEach((element) => {
@@ -181,20 +196,20 @@ export function processImage(src: any, imgWidth: number, imgHeight: number) {
       element.childNodes[2].classList.add("class", mobileContainerColorClass);
       if (contrastRatio < 4.5) {
         if (foregroundColor === "black") {
-          element.firstChild.style.color = "white";
+          element.firstChild.style.color = "rgb(255,255,255)";
         } else {
-          element.firstChild.style.color = "black";
+          element.firstChild.style.color = "rgb(0,0,0)";
         }
       }
     });
-
     // ** Applying color changes + transition to the music player on desktop
     // qs('#song-player .play-btn-container').style.background = secondaryColor;
     let playerColorClass = "player-color-change";
     cClass(playerColorClass, secondaryColor);
     qs('#song-player .play-btn-container').classList.add("class", playerColorClass);
-
     image.onload = null;
+    console.log('end');
+    count++;
   }
 }
 
