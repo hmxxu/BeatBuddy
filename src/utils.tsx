@@ -52,9 +52,48 @@ function componentToHex(c: any) {
   return hex.length === 1 ? "0" + hex : hex;
 }
 
-// Converts takes in the (r, g, b) value and converts rgb to hex
+// Takes in the (r, g, b) value and converts rgb to hex, returning them in a 'rgb(r, g, b)' format
 function rgbToHex(r: any, g: any, b: any) {
   return componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+// Takes in the (r, g, b) value and converts rgb to hsl, returning them in an array --> '[h, s, l]' format
+function rgbToHsl(r: any, g: any, b: any) {
+  // Make r, g, and b fractions of 1
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  // Find greatest and smallest channel values
+  let cmin = Math.min(r, g, b),
+    cmax = Math.max(r, g, b),
+    delta = cmax - cmin,
+    h = 0,
+    s = 0,
+    l = 0;
+  // Calculate hue
+  // No difference
+  if (delta == 0)
+    h = 0;
+  // Red is max
+  else if (cmax == r)
+    h = ((g - b) / delta) % 6;
+  // Green is max
+  else if (cmax == g)
+    h = (b - r) / delta + 2;
+  // Blue is max
+  else
+    h = (r - g) / delta + 4;
+  h = Math.round(h * 60);
+  // Make negative hues positive behind 360°
+  if (h < 0)
+    h += 360;
+  l = (cmax + cmin) / 2;
+  // Calculate saturation
+  s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+  // Multiply l and s by 100
+  s = +(s * 100).toFixed(1);
+  l = +(l * 100).toFixed(1);
+  return [h, s, l];
 }
 
 // Converts rgb string to array of [r,b,b] (ex. 'rgb(0,0,0)' -> [0, 0, 0])
@@ -117,8 +156,6 @@ export function processImage(src: any) {
   image.crossOrigin = "Anonymous";
   let count = 1;
   image.onload = async () => {
-    console.log('onload called: ' + count);
-    console.log(image.src);
     // ** Setting up the image and getting the image Data
     const canvas = document.createElement('canvas');
     canvas.width = image.width;
@@ -130,32 +167,17 @@ export function processImage(src: any) {
     let rgbValues = buildRgb(imageData);
     let result = quantizeColor(rgbValues, 3);
     // ** Generating the rgba of primary and secondary colors.
-    let opacity = 1.0;
-    let primaryColor = getRgba(result[0], opacity);
-    let secondaryColor = getRgba(result[1], opacity);
+    let primaryColor = getRgba(result[0], 1.0);
+    let secondaryColor = getRgba(result[1], 1.0);
+
+    let hoverColor = generateHoverColorHSL(result[1], 10, 10);
     let bodyLinearGradient = "linear-gradient(" + primaryColor + ", " + secondaryColor + ")";
-    // document.body.style.background = bodyLinearGradient;
+
     //** Applying color change + transition to the body
-    let bodyColorClass = "body-color-change";
-    cClass(bodyColorClass, primaryColor);
-    document.body.classList.add("class", bodyColorClass);
-    // ** Generating the rgba of child primary and child secondary colors.
-    opacity = 0.2;
-    let childPrimaryColor = getRgba(result[0], opacity);
-    let childSecondaryColor = getRgba(result[1], opacity);
-    let childLinearGradient = "linear-gradient(" + childPrimaryColor + ", " + childSecondaryColor + ")";
-    // ** Applying color changes + transition to playlist-wrapper
-    let playlistWrapperColorClass = "playlist-wrapper-color-change";
-    cClass(playlistWrapperColorClass, childPrimaryColor);
-    id('playlist-wrapper').classList.add("class", playlistWrapperColorClass);
-    //TODO: THIS PART (changing text color based on contrast) IS CURRENTLY BROKEN BECAUSE
-    // TODO: SOMEHOW THE image onload IS FIRING TWICE WHEN IT SHOULD ONLY FIRE ONCE
-    // ** Check for text color contrast
-    // let foregroundRGBFormat = qs('.song-result').style.color.slice(0, -1);
-    // console.log(foregroundRGBFormat);
-    console.log(qs('.song-result').style.color);
-    let rgbArray = extractRGBValues(qs('.song-result').style.color)!;
-    let foregroundColor = rgbToHex(rgbArray[0], rgbArray[1], rgbArray[2]);
+    document.documentElement.style.setProperty("--body-color", primaryColor);
+
+    // ** Gets foreground (text color) and background color and Checks for text color contrast
+    let foregroundColor = window.getComputedStyle(document.documentElement).getPropertyValue('--song-result-text-color').substring(1);
     console.log('foregrnd = ' + foregroundColor);
     let backgroundColor = rgbToHex(result[1].r, result[1].g, result[1].b);
     console.log('bckgrnd = ' + backgroundColor);
@@ -168,48 +190,21 @@ export function processImage(src: any) {
       console.log(error);
     }
     console.log('contrast ratio = ' + contrastRatio);
-    //TODO: ^THIS PART (changing text color based on contrast) IS CURRENTLY BROKEN BECAUSE
-    // TODO: SOMEHOW THE image onload IS FIRING TWICE WHEN IT SHOULD ONLY FIRE ONCE
-    // & Desktop version
-    // ** Applying color changes + transition to song-result-container on desktop
-    qsa('#playlist-wrapper > .song-results-container-parent > .song-result-container').forEach((element) => {
-      // element.firstChild.style.background = secondaryColor;
-      let containerColorClass = "container-color-change";
-      cClass(containerColorClass, secondaryColor);
-      element.firstChild.classList.add("class", containerColorClass);
-      if (contrastRatio < 4.5) {
-        if (foregroundColor === "000000") {
-          // to white
-          element.firstChild.style.color = "rgb(255,255,255)";
-        } else {
-          // to black
-          element.firstChild.style.color = "rgb(0,0,0)";
-        }
+
+    // ** Applying color changes + transition to song-result-container and play button on desktop
+    document.documentElement.style.setProperty("--song-result-color", secondaryColor);
+    document.documentElement.style.setProperty("--play-btn-color", secondaryColor);
+    document.documentElement.style.setProperty("--hover-color", hoverColor);
+
+    if (contrastRatio < 4.5) {
+      if (foregroundColor === "000000") {
+        // to white
+        document.documentElement.style.setProperty("--song-result-text-color", "#ffffff");
+      } else {
+        // to black
+        document.documentElement.style.setProperty("--song-result-text-color", "#000000");
       }
-    });
-    // & Mobile version
-    // ** Applying color changes + transition to song-result-container on mobile
-    qsa('#playlist-wrapper-mobile > .results-mobile > .song-result-container').forEach((element) => {
-      // element.childNodes[2].style.background = secondaryColor;
-      let mobileContainerColorClass = "mobile-container-color-change";
-      cClass(mobileContainerColorClass, secondaryColor);
-      element.childNodes[2].classList.add("class", mobileContainerColorClass);
-      if (contrastRatio < 4.5) {
-        if (foregroundColor === "black") {
-          element.firstChild.style.color = "rgb(255,255,255)";
-        } else {
-          element.firstChild.style.color = "rgb(0,0,0)";
-        }
-      }
-    });
-    // ** Applying color changes + transition to the music player on desktop
-    // qs('#song-player .play-btn-container').style.background = secondaryColor;
-    let playerColorClass = "player-color-change";
-    cClass(playerColorClass, secondaryColor);
-    qs('#song-player .play-btn-container').classList.add("class", playerColorClass);
-    image.onload = null;
-    console.log('end');
-    count++;
+    }
   }
 }
 
@@ -226,12 +221,43 @@ export function getColorClass(result: any, opacity: any) {
 
 /**
  *
- * @param result An rgb class (looks like this: {r: 90, b: 12, b: 19})
+ * @param rgbClass An rgb class (looks like this: {r: 90, b: 12, b: 19})
  * @param opacity The opacity, or the "a" value in rgba
  * @returns A string in rgba format, for example -> "rgba(25, 15, 15, 0.7)"
  */
-export function getRgba(result: any, opacity: any) {
-  return "rgba(" + result.r + ", " + result.g + ", " + result.b + ", " + opacity + ")";
+export function getRgba(rgbClass: any, opacity: any) {
+  return "rgba(" + rgbClass.r + ", " + rgbClass.g + ", " + rgbClass.b + ", " + opacity + ")";
+}
+
+/**
+ *
+ * @param rgbClass An rgb class (looks like this: {r: 90, b: 12, b: 19})
+ * @param dSaturation Saturation value change (in %) (will either increase/decrease based on conditions) for hover cover
+ * @param dLightness Lightness value change (in %) (will either increase/decrease based on conditions) for hover cover
+ * @returns an hsl value for the hover color (for example, returns )
+ */
+export function generateHoverColorHSL(rgbClass: any, dSaturation: number, dLightness: number) {
+  let HSLColor =rgbToHsl(rgbClass.r, rgbClass.g, rgbClass.b);
+  console.log("old: hsl(" + HSLColor[0] + "," + HSLColor[1] + "%," + HSLColor[2] + "%)");
+
+  let max = 100;
+
+  // Change the saturation value
+  if (HSLColor[1] + dSaturation < max) {
+    HSLColor[1] = HSLColor[1] + dSaturation;
+  } else {
+    HSLColor[1] = HSLColor[1] - dSaturation;
+  }
+  // Change the lightness value
+  if (HSLColor[2] < 70 && HSLColor[2] + dLightness < max) {
+    HSLColor[2] = HSLColor[2] + dLightness;
+  } else {
+    HSLColor[2] = HSLColor[2] - dLightness;
+  }
+
+  console.log("new: hsl(" + HSLColor[0] + "," + HSLColor[1] + "%," + HSLColor[2] + "%)");
+  return "hsl(" + HSLColor[0] + "," + HSLColor[1] + "%," + HSLColor[2] + "%)";
+  // return "rgba(" + (result.r + 3) + ", " + (result.g + 3) + ", " + (result.b + 3) + ", " + opacity + ")";
 }
 
 /**
