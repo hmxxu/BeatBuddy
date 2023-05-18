@@ -47,7 +47,8 @@ Pahn
  * Wrote user testing script
 
 Jonathan
- * 
+ * Expand test coverage to about 2/3rds of backend functionality
+ * Added more details to developer documentation
 
 Adrian + HaoMing
  * Got stuck because existing function `returnAudioFeatures` only return audio feature for a singlar track
@@ -69,7 +70,7 @@ Pahn
  * Work on redesigning frontend to be more intuitive for users
 
 Jonathan
- * 
+ * Get test coverage over almost all of backend function
 
 Adrian + HaoMing
  * Do research for recommendation algorithm / improve mood-based algorithm by increase the pool of playlist for each mood
