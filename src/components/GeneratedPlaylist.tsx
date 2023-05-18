@@ -74,6 +74,10 @@ function GeneratedPlaylist(props:any) {
   return(
     <section className={ props.viewState }>
       <h2>Your Recommended Playlist</h2>
+      <button id="back-btn" className="mobile-hidden">
+        <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
+        <span className="bold">Try another song</span>
+      </button>
       <section id="desktop-wrapper">
         <section id="song-player" >
             <div>
@@ -110,15 +114,12 @@ function GeneratedPlaylist(props:any) {
           </section>
 
         <section id="playlist-wrapper">
-          <button id="back-btn">
-            <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
-            <span className="bold">Try another song</span>
-          </button>
           <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist', [])}>
             <span className="bold">Save to Spotify</span>
             <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
           </button>
           <section className="song-results-container-parent">
+            <h2>Your Recommended Playlist</h2>
             {
             // <div className="results-label h4 bold">
             //   <p></p>
@@ -143,7 +144,7 @@ function GeneratedPlaylist(props:any) {
       </section>
 
       <section id="playlist-wrapper-mobile">
-        <button id="back-btn" className="icon-mobile">
+        <button id="back-btn-mobile" className="icon-mobile">
           <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back-mobile"></img>
           <span className="bold"></span>
         </button>

@@ -86,12 +86,14 @@ function SearchBar(props:any) {
         </button>
       </section>
       <section id="search-results" className="visibility-hidden song-results-container">
-        <div className="results-label h4 bold">
-          <p className="mobile-hidden"></p>
-          <p>Artist</p>
-          <p>Title</p>
-          <p>Genre</p>
-        </div>
+        {
+        // <div className="results-label h4 bold">
+        //   <p className="mobile-hidden"></p>
+        //   <p>Artist</p>
+        //   <p>Title</p>
+        //   <p>Genre</p>
+        // </div>
+        }
         <hr></hr>
         {
           currSongsState.map((song : any) => (
