@@ -20,8 +20,8 @@ function SearchBar(props:any) {
 
   function init() {
     // search button
-    qs("input + button").addEventListener("click", searchSongs);
-    qs("input").addEventListener("keyup", (e : any) => {
+    id("search-song-btn").addEventListener("click", searchSongs);
+    id("song-search").addEventListener("keyup", (e : any) => {
       if (e.key === 'Enter' || e.keyCode === 13) {
         searchSongs();
       }
@@ -43,7 +43,6 @@ function SearchBar(props:any) {
    * When the user searches a song, this function will update the song results
    */
   async function searchSongs() {
-
     try {
       id("error-logging").textContent = "Loading... May take a few seconds!";
       id("search-results").classList.add("hidden");
@@ -86,7 +85,7 @@ function SearchBar(props:any) {
       <label htmlFor="song-search"><h2>Pick a Song!</h2></label>
       <section id="song-search-wrapper">
         <input type="text" id="song-search" placeholder='Search a song... ' ></input>
-        <button>
+        <button id="search-song-btn">
           <span className="material-symbols-rounded">
             search
           </span>
