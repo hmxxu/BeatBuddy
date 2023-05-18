@@ -46,6 +46,7 @@ export class SearchResult {
   }
 }
 
+
 // Helper function that helps rgbToHex convert values
 function componentToHex(c: any) {
   var hex = c.toString(16);
@@ -156,6 +157,7 @@ export function processImage(src: any) {
   image.crossOrigin = "Anonymous";
   let count = 1;
   image.onload = async () => {
+
     // ** Setting up the image and getting the image Data
     const canvas = document.createElement('canvas');
     canvas.width = image.width;
