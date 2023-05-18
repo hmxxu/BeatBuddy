@@ -20,8 +20,8 @@ function SearchBar(props:any) {
 
   function init() {
     // search button
-    qs("input + button").addEventListener("click", searchSongs);
-    qs("input").addEventListener("keyup", (e : any) => {
+    id("search-song-btn").addEventListener("click", searchSongs);
+    id("song-search").addEventListener("keyup", (e : any) => {
       if (e.key === 'Enter' || e.keyCode === 13) {
         searchSongs();
       }
@@ -43,17 +43,29 @@ function SearchBar(props:any) {
    * When the user searches a song, this function will update the song results
    */
   async function searchSongs() {
-    // get user input
-    let searchInput : HTMLInputElement = id('song-search') as HTMLInputElement;
-    let userInput : string = searchInput.value;
-    
-    // Get songs from backend
-    let songs : SearchResult[] = await searchSpotify(userInput);
+    try {
+      id("error-logging").textContent = "Loading... May take a few seconds!";
+      id("search-results").classList.add("hidden");
 
-    setSongsState(songs);
+      // get user input
+      let searchInput : HTMLInputElement = id('song-search') as HTMLInputElement;
+      let userInput : string = searchInput.value;
+      
+      // Get songs from backend
+      let songs : SearchResult[] = await searchSpotify(userInput);
+      console.log(songs);
+      // check if not results
+      if (songs.length === 0) {
+        id("error-logging").textContent = "No results. Try another search";
+      } else {
+        setSongsState(songs);
+        id("error-logging").textContent = "";
+        id("search-results").classList.remove("hidden");
+      }
 
-    // show container
-    id("search-results").classList.remove("visibility-hidden");
+    } catch (err : any) {
+      id("error-logging").textContent = "Something went wrong. Refresh and try again.";
+    }
   }
 
   /**
@@ -73,7 +85,7 @@ function SearchBar(props:any) {
       <label htmlFor="song-search"><h2>Pick a Song!</h2></label>
       <section id="song-search-wrapper">
         <input type="text" id="song-search" placeholder='Search a song... ' ></input>
-        <button>
+        <button id="search-song-btn">
           <span className="material-symbols-rounded">
             search
           </span>
@@ -85,13 +97,16 @@ function SearchBar(props:any) {
           </span>
         </button>
       </section>
-      <section id="search-results" className="visibility-hidden song-results-container">
-        <div className="results-label h4 bold">
-          <p className="mobile-hidden"></p>
-          <p>Artist</p>
-          <p>Title</p>
-          <p>Genre</p>
-        </div>
+      <h2 id="error-logging"></h2>
+      <section id="search-results" className="hidden song-results-container">
+        {
+        // <div className="results-label h4 bold">
+        //   <p className="mobile-hidden"></p>
+        //   <p>Artist</p>
+        //   <p>Title</p>
+        //   <p>Genre</p>
+        // </div>
+        }
         <hr></hr>
         {
           currSongsState.map((song : any) => (

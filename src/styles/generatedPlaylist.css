@@ -19,20 +19,28 @@ section {
   border-bottom-left-radius: 10px;
 }
 
-#back-btn {
+#back-btn-mobile {
   border-bottom-right-radius: 10px;
 }
 
-#back-btn img, #spotify-btn img {
+#back-btn {
+  border-radius: 20px;
+  margin-left: 20px;
+  padding: 20px;
+}
+
+#back-btn img, #back-btn-mobile img, #spotify-btn img {
   vertical-align: middle;
 }
 
-#back-btn {
+#back-btn, #back-btn-mobile {
   background-color: rgb(28, 35, 48, 0.6);
 }
 
 #song-player {
   background-color: rgb(28, 35, 48, 0.2);
+  /* background-color: var(--song-player-color); */
+  transition: 0.5s;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
 }
 
@@ -65,6 +73,7 @@ section {
 }
 
 #playlist-wrapper-mobile, #playlist-wrapper {
+  /* background-color: var(--playlist-wrapper-color); */
   background-color: rgb(28, 35, 48, 0.4);
 }
 
@@ -90,6 +99,7 @@ section {
 
 .song-img {
   border-radius: 10px;
+  max-width: 100%;
 }
 
 .song-img-mobile {
@@ -122,7 +132,9 @@ section {
 
 .song-stats {
   margin-top: 20px;
+  flex-wrap: wrap;
 }
+
 .song-stats-mobile {
   margin-top: 0px;
 }
@@ -132,7 +144,8 @@ section {
   cursor: pointer;
   padding: 15px;
   transition: transform 0.1s ease-in-out;
-  background-color: #6481E8;
+  background-color: var(--play-btn-color);
+  transition: 0.5s;
   border-radius: 50%;
   display: flex;
   width: min-content;

@@ -1,7 +1,5 @@
 import React from 'react';
 
-// temp -- testing purposes
-import minami from './../images/minami.jpg';
 import play_btn from './../images/play-btn.png';
 
 function SongResult(props: any) {
@@ -11,6 +9,9 @@ function SongResult(props: any) {
   let title = props.title;
   let genre = props.genre;
 
+  const style = {
+    color: "rgb(0,0,0)"
+  };
   // onClick will call the function in SearchBar
   return (
     <div className="song-result-container">
@@ -18,9 +19,11 @@ function SongResult(props: any) {
       {/* The code below is for desktop */}
       <div className="song-result h4" onClick={props.onClick} id={id}>
         <img src={src} alt="album cover" id="album-cover"></img>
-        <p id="artist">{artist}</p>
-        <p id="title">{title}</p>
-        <p id="genre">{genre}</p>
+        <div>
+          <h4 id="title">{title}</h4>
+          <p id="artist">{artist}</p>
+          <p id="genre">{genre}</p>
+        </div>
       </div>
 
       <div className={"song-result-mobile" + ((props.design === "searchbar") ? "" : " hidden")} onClick={props.onClick} id={id}>
