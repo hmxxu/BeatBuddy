@@ -22,13 +22,14 @@ class SongRec {
 export { getReccomendations, SongRec }
 
 export enum Mood {
-    WORKOUT,
-    SAD,
-    HAPPY,
-    CHILL
+    WORKOUT = "workout",
+    SAD = "sad",
+    HAPPY = "happy",
+    CHILL = "chill"
 }
 
-function moodRec(mood: Mood, songs: string[]) {
+function moodRec(mood: string, songs: string[]) {
+    mood = mood.toLowerCase();
     if (mood === Mood.WORKOUT) {
         // ACOUSTICNESS 0.09-0.12 DANCEABILITY 0.7 ENERGY 0.7 MODE 0.67 VALENCE 0.48
         const ACOUSTICNESS = 0.1;
@@ -61,6 +62,9 @@ function moodRec(mood: Mood, songs: string[]) {
         const MODE = 67;
         return returnSpotifyRec(10, [], [], songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, MODE,
             undefined, undefined, undefined, VALENCE);
+    } else {
+        return returnSpotifyRec(10, [], [], songs, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,
+            undefined, undefined, undefined, undefined);
     }
 }
 

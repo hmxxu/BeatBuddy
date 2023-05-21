@@ -1,8 +1,9 @@
 /* styles for the mood button */
 
-/* #mood-btns-container .selected-mood {
+#mood-btns-container .selected-mood {
   background: var(--body-color);
-} */
+  outline: 2px black solid;
+}
 
 #mood-btns-container {
   justify-content: flex-start;

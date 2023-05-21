@@ -4,24 +4,21 @@ import SearchBar from './SearchBar';
 import Filter from './Filter';
 import { id, qs } from '../utils';
 import accordion_icon from '../images/accordion-close.png';
-import { returnDummyRec, returnSpotifyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { useState } from 'react';
 import { SearchResult } from '../utils';
 import MoodButtons from './MoodButtons';
+import { moodRec } from '../beatbuddy/src/recommendation/RecommendSongs';
 
 function PlaylistReady() {
  
   // data gathered from SearchBar
   const [songId, setSongId] = useState("");
 
-    // data gathered from SearchBar
-    const [artistId, setArtistId] = useState("");
+  // data gathered from SearchBar
+  const [artistId, setArtistId] = useState("");
 
-  // Data gathered from genre filter
-  const [genreList, setGenreList] = useState([]);
-
-  // Data gathered from decades filter
-  const [decadeList, setDecadeList] = useState([]);
+  // Data gathered from mood buttons
+  const [mood, setMood] = useState("");
 
   // initial recommendations list to determine type
   const initialRecs : SearchResult[] = [];
@@ -41,80 +38,47 @@ function PlaylistReady() {
     setArtistId(artistData);
     
     // show filters div
-    document.querySelector('.accordion')!.classList.remove("hidden");
+    //document.querySelector('.accordion')!.classList.remove("hidden");
   }
 
   /**
-   * Called when the user enables/disables the genres filter or when user
-   * adds or removes a genre filter
-   * If no filter selected, defaults to full list
-   * @param selectedList - list of currently selected genres
-   * @param fullList - list of all genres
+   * Called when user clicks on mood button
+   * @param {HTMLElement} event - button's event when clicked
    */
-  const getGenreArray = (selectedList: any, fullList : any) => {
-    if (selectedList.length > 0) { 
-      setGenreList(selectedList);
-    } else {
-      setGenreList(fullList);
-    }
-    //console.log(selectedList);
+  const getMood = (event: any) => {
+    setMood(event.target.textContent);
+    qs(".selected-mood").classList.remove("selected-mood");
+    event.target.classList.add("selected-mood");
   }
 
-  /**
-   * Called when the user enables/disables the decades filter or when user
-   * adds or removes a decades filter
-   * If no filter selected, defaults to full list
-   * @param {Array<String>} selectedList - list of current selected decades
-   * @param fullList - list of all available decades
-   */
-  const getDecadeArray = (selectedList : any, fullList: any) => {
-    if (selectedList.length > 0) { 
-      setDecadeList(selectedList);
-    } else {
-      setDecadeList(fullList);
-    }
-    //console.log(selectedList);
-
-  }
-
-  function delayOverflow() {
-    let checkbox = id('customize-box') as HTMLInputElement;
-    if (checkbox.checked) {
-      //console.log('checkbox is checked');
-      setTimeout(() => {
-        // id('two-filter').classList.add('overflow-visible');
-        id('two-filter').style.overflow = "visible";
-      }, 400);
-    } else {
-      id('two-filter').style.overflow = "hidden";
-    }
-  }
 
   /**
    * generates Recommendates and displays it to the user by updating the state
    * The state is then passed down to the GeneratedPlaylist component
    */
   async function generateRec() {
-    let limit: number = 20;
     let artists_seed: string[] = [artistId];
-    let genres_seed: string[] = genreList;
+    let genres_seed: string[] = [];
     let tracks_seed: string[] = [songId];
 
-    console.log(genreList);
+    try {
+      // get recommendations based on selected song
+      let data = await moodRec(mood, tracks_seed);
 
-    // get recommendations based on selected song
-    let data = await returnSpotifyRec(limit, artists_seed, genres_seed, tracks_seed);
+      // convert recommended songs to searchResult[]
+      let recArray : SearchResult[] = [];
 
-    // convert recommended songs to searchResult[]
-    let recArray : SearchResult[] = [];
+      // genre array is empty for now
+      data.tracks.forEach((t) => {
+        recArray.push(new SearchResult(t.artists[0].name, t.artists[0].id,
+          t.name, t.id, [], t.album.images[1].url));
+      })
 
-    // genre array is empty for now
-    data.tracks.forEach((t) => {
-      recArray.push(new SearchResult(t.artists[0].name, t.artists[0].id,
-        t.name, t.id, [], t.album.images[1].url));
-    })
-    setRecData(recArray);
-    setPlaylistViewState("");
+      setRecData(recArray);
+      setPlaylistViewState("");
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   /**
@@ -143,7 +107,7 @@ function PlaylistReady() {
       // </div>
       }
 
-      <MoodButtons />
+      <MoodButtons setMood={ getMood } />
 
 
       <div id='generateReady' >
