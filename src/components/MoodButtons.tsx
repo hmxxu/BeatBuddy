@@ -1,7 +1,6 @@
 // Mood buttons 
 import React from 'react';
 import '../styles/moodButtons.css';
-import { qs } from '../utils';
 
 function MoodButtons(props: any) {
 
