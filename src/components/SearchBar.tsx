@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { id, qs, qsa, hideGenerateButton, hideMoodContainer, hideSearchDropdown, showMoodContainer } from '../utils';
+import { id, qs, qsa, hideGenerateButton, hideMoodContainer, hideSearchDropdown, showMoodContainer, clearMoodButtons } from '../utils';
 
 import { searchSpotify } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { SearchResult } from '../utils';
@@ -43,11 +43,7 @@ function SearchBar(props:any) {
       hideMoodContainer();
 
       // closes generate button and resets the mood button state when user removes a song from search bar
-      let container = id('mood-btns-container');
-      let childrenElement = container.querySelectorAll('*');
-      childrenElement.forEach((button) => {
-        button.classList.remove('selected-mood');
-      })
+      clearMoodButtons();
       hideGenerateButton();
 
       // reenable searchbar

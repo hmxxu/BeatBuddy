@@ -89,6 +89,14 @@ export function showPlaylistContainer() {
   id('playlist-container').classList.remove('close-container');
 }
 
+export function clearMoodButtons() {
+  let container = id('mood-btns-container');
+  let childrenElement = container.querySelectorAll('*');
+  childrenElement.forEach((button) => {
+    button.classList.remove('selected-mood');
+  })
+}
+
 
 export class SearchResult {
   artist: string;

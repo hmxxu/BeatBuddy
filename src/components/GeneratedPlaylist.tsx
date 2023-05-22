@@ -6,7 +6,7 @@ import spotify_icon from '../images/spotify-icon.png';
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { hidePlaylistContainer, id, processImage, qs, showMoodContainer, showSearchContainer } from '../utils';
+import { clearMoodButtons, hidePlaylistContainer, id, processImage, qs, showMoodContainer, showSearchContainer } from '../utils';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 import {getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import {savePlaylistToSpotify} from '../beatbuddy/src/APIFunctions/saveToSpotify';
@@ -73,11 +73,13 @@ function GeneratedPlaylist(props:any) {
   // Reverts back to the default state of the website (only having a search bar) after
   // user clicks "Try another song"
   function revertToDefault() {
+    clearMoodButtons();
     hidePlaylistContainer();
     showSearchContainer();
     document.documentElement.style.setProperty("--body-color", "linear-gradient(#6380E8, #A9A2FF)");
     document.documentElement.style.setProperty("--hover-color", "#B6B2FE");
     document.documentElement.style.setProperty("--play-btn-color", "#6481E8");
+    document.documentElement.style.setProperty("--song-result-color", "#D5D1FF");
     props.hideSongSelected();
   }
 
