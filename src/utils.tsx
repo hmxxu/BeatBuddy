@@ -28,6 +28,68 @@ export const qsa = (query: any) => {
   return document.querySelectorAll(query)!;
 }
 
+export function hideGenerateButton() {
+  id("generateReady").classList.add('close-mood-container');
+  id("generateReady").classList.remove('open-mood-container');
+  setTimeout(() => {
+    id("generateReady").classList.add('hidden');
+  }, 200);
+}
+export function showGenerateButton() {
+  id("generateReady").classList.remove('hidden');
+  id("generateReady").classList.remove('close-mood-container');
+  id("generateReady").classList.add('open-mood-container');
+}
+
+export function hideMoodContainer() {
+  qs('.mood-container').classList.add('close-mood-container');
+  qs('.mood-container').classList.remove('open-mood-container');
+  //! This should not be here. Saved as a last resort.
+  setTimeout(() => {
+    qs('.mood-container').classList.add('hidden');
+  }, 200);
+}
+export function showMoodContainer() {
+  setTimeout(() => {
+    qs('.mood-container').classList.remove('hidden');
+    qs('.mood-container').classList.remove('close-mood-container');
+    qs('.mood-container').classList.add('open-mood-container');
+  }, 500);
+}
+
+export function hideSearchDropdown() {
+  id("search-results").classList.add('close-container');
+  //! This should not be here. Saved as a last resort.
+  setTimeout(() => {
+    id("search-results").classList.add('hidden');
+  }, 100);
+}
+
+export function hideSearchContainer() {
+  qs(".search-container").classList.add('close-container');
+  setTimeout(() => {
+    qs(".search-container").classList.add('hidden');
+  }, 200);
+}
+export function showSearchContainer() {
+  setTimeout(() => {
+    qs(".search-container").classList.remove('hidden');
+    qs(".search-container").classList.remove('close-container');
+    qs(".search-container").classList.add('open-container');
+  }, 500);
+}
+
+export function hidePlaylistContainer() {
+  id('playlist-container').classList.add('close-container');
+  id('playlist-container').classList.remove('open-container');
+}
+
+export function showPlaylistContainer() {
+  id('playlist-container').classList.add('open-container');
+  id('playlist-container').classList.remove('close-container');
+}
+
+
 export class SearchResult {
   artist: string;
   artistId: string;

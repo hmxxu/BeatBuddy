@@ -84,7 +84,7 @@
     margin: 0;
   }
 
-  .song-result:active {
+  song-results-container > .song-result:active, .song-result:active {
     scale: 95%;
   }
 
@@ -114,6 +114,7 @@
     padding: 5px 20px 5px 20px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     color: var(--song-result-text-color);
+    transition: 0.5s;
   }
   .play-btn-small {
     width: 36px;
@@ -177,5 +178,13 @@
   #error-logging {
     text-align: center;
     margin-top: 40px;
+  }
+
+  .song-results-container {
+    animation: fade-in-bump 200ms forwards;
+  }
+  .close-container {
+    animation: fade-out 200ms forwards;
+    overflow: hidden;
   }
 

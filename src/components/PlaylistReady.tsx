@@ -2,7 +2,7 @@ import React from 'react';
 import GeneratedPlaylist from './GeneratedPlaylist';
 import SearchBar from './SearchBar';
 import Filter from './Filter';
-import { id, qs } from '../utils';
+import { hideGenerateButton, hideMoodContainer, hideSearchContainer, id, qs, showGenerateButton, showPlaylistContainer } from '../utils';
 import accordion_icon from '../images/accordion-close.png';
 import { useState } from 'react';
 import { SearchResult } from '../utils';
@@ -10,7 +10,7 @@ import MoodButtons from './MoodButtons';
 import { moodRec } from '../beatbuddy/src/recommendation/RecommendSongs';
 
 function PlaylistReady() {
- 
+
   // data gathered from SearchBar
   const [songId, setSongId] = useState("");
 
@@ -36,7 +36,7 @@ function PlaylistReady() {
   const getIds = (songData : any, artistData : any) => {
     setSongId(songData);
     setArtistId(artistData);
-    
+
     // show filters div
     //document.querySelector('.accordion')!.classList.remove("hidden");
   }
@@ -46,8 +46,14 @@ function PlaylistReady() {
    * @param {HTMLElement} event - button's event when clicked
    */
   const getMood = (event: any) => {
+
+    // Makes generate button appear when user clicks on a mood
+    showGenerateButton();
+
     setMood(event.target.textContent);
-    qs(".selected-mood").classList.remove("selected-mood");
+    if (qs(".selected-mood") != null) {
+      qs(".selected-mood").classList.remove("selected-mood");
+    }
     event.target.classList.add("selected-mood");
   }
 
@@ -61,8 +67,17 @@ function PlaylistReady() {
     let genres_seed: string[] = [];
     let tracks_seed: string[] = [songId];
 
+    // Hides everything else that's not the playlist
+    hideSearchContainer();
+    hideMoodContainer();
+    hideGenerateButton();
+
+    // Shows the playlist
+    showPlaylistContainer();
+
     try {
       // get recommendations based on selected song
+      console.log('mood in generateRec = ' + mood);
       let data = await moodRec(mood, tracks_seed);
 
       // convert recommended songs to searchResult[]
@@ -79,13 +94,6 @@ function PlaylistReady() {
     } catch (err) {
       console.error(err)
     }
-  }
-
-  /**
-   * Shows the "playlist is ready" div after user clicks on the dropdown to open the filters
-   */
-  function showGenerate() {
-    id('generateReady').classList.remove('hidden');
   }
 
   return(
@@ -109,8 +117,7 @@ function PlaylistReady() {
 
       <MoodButtons setMood={ getMood } />
 
-
-      <div id='generateReady' >
+      <div id='generateReady' className='hidden'>
           <h2>That's it! Your playlist is now ready.</h2>
           <button id="generate-playlist-btn" onClick={generateRec}>Generate my playlist</button>
       </div>
