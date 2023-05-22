@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { id, qs } from '../utils';
+import { id, qs, qsa, hideGenerateButton, hideMoodContainer, hideSearchDropdown, showMoodContainer } from '../utils';
 
 import { searchSpotify } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { SearchResult } from '../utils';
@@ -17,6 +17,11 @@ function SearchBar(props:any) {
   // Array of songs
   const initialSongs : Array<SearchResult> = [];
   const [currSongsState, setSongsState] = useState(initialSongs);
+
+  function resetSearchBar() {
+    setSelectedDisplay("");
+    setSelectedState("");
+  }
 
   function init() {
     // search button
@@ -34,6 +39,17 @@ function SearchBar(props:any) {
     selectedSongBtn.addEventListener("click", function() {
       setSelectedState("hidden");
 
+      // closes mood container when user removes a song from search bar
+      hideMoodContainer();
+
+      // closes generate button and resets the mood button state when user removes a song from search bar
+      let container = id('mood-btns-container');
+      let childrenElement = container.querySelectorAll('*');
+      childrenElement.forEach((button) => {
+        button.classList.remove('selected-mood');
+      })
+      hideGenerateButton();
+
       // reenable searchbar
       (id("song-search") as HTMLInputElement).disabled = false;
     })
@@ -43,6 +59,7 @@ function SearchBar(props:any) {
    * When the user searches a song, this function will update the song results
    */
   async function searchSongs() {
+    id("search-results").classList.remove('close-container');
     try {
       id("error-logging").textContent = "Loading... May take a few seconds!";
       id("search-results").classList.add("hidden");
@@ -50,7 +67,7 @@ function SearchBar(props:any) {
       // get user input
       let searchInput : HTMLInputElement = id('song-search') as HTMLInputElement;
       let userInput : string = searchInput.value;
-      
+
       // Get songs from backend
       let songs : SearchResult[] = await searchSpotify(userInput);
       console.log(songs);
@@ -77,11 +94,18 @@ function SearchBar(props:any) {
     setSelectedState("");
     // disable search bar
     (id("song-search") as HTMLInputElement).disabled = true;
+
+    // Hides the search dropdown
+    hideSearchDropdown();
+
+    // Shows the mood container
+    showMoodContainer();
+
     props.setIds(song.id, song.artistId);
   }
 
   return(
-    <div>
+    <div className="search-container">
       <label htmlFor="song-search"><h2>Pick a Song!</h2></label>
       <section id="song-search-wrapper">
         <input type="text" id="song-search" placeholder='Search a song... ' ></input>
@@ -107,7 +131,6 @@ function SearchBar(props:any) {
         //   <p>Genre</p>
         // </div>
         }
-        <hr></hr>
         {
           currSongsState.map((song : any) => (
             // * for searchbar design, show song-result-mobile, hide song-playlist-mobile

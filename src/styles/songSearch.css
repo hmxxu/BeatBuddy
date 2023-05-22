@@ -84,7 +84,7 @@
     margin: 0;
   }
 
-  .song-result:active {
+  song-results-container > .song-result:active, .song-result:active {
     scale: 95%;
   }
 
@@ -178,5 +178,13 @@
   #error-logging {
     text-align: center;
     margin-top: 40px;
+  }
+
+  .song-results-container {
+    animation: fade-in-bump 200ms forwards;
+  }
+  .close-container {
+    animation: fade-out 200ms forwards;
+    overflow: hidden;
   }
 

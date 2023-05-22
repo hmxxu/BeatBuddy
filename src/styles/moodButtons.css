@@ -1,0 +1,25 @@
+/* styles for the mood button */
+
+#mood-btns-container .selected-mood {
+  background: var(--body-color);
+  outline: 2px black solid;
+}
+
+#mood-btns-container {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+#mood-btns-container button {
+  padding: 1em 2em;
+  border-radius: 1em;
+  margin: 1em;
+}
+
+.open-mood-container {
+  animation: fade-in 1000ms forwards;
+}
+
+.close-mood-container {
+  animation: fade-out 200ms forwards;
+}
