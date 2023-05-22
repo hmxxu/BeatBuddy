@@ -22,14 +22,14 @@ class SongRec {
 export { getReccomendations, SongRec }
 
 export enum Mood {
-    WORKOUT = "workout",
-    SAD = "sad",
-    HAPPY = "happy",
-    CHILL = "chill"
+    WORKOUT = "Workout",
+    SAD = "Sad",
+    HAPPY = "Happy",
+    CHILL = "Chill",
+    ANY = "Any"
 }
 
-function moodRec(mood: string, songs: string[]) {
-    mood = mood.toLowerCase();
+function moodRec(mood: Mood, songs: string[]) {
     if (mood === Mood.WORKOUT) {
         // ACOUSTICNESS 0.09-0.12 DANCEABILITY 0.7 ENERGY 0.7 MODE 0.67 VALENCE 0.48
         const ACOUSTICNESS = 0.1;

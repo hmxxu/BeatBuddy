@@ -78,6 +78,7 @@ function GeneratedPlaylist(props:any) {
     document.documentElement.style.setProperty("--body-color", "linear-gradient(#6380E8, #A9A2FF)");
     document.documentElement.style.setProperty("--hover-color", "#B6B2FE");
     document.documentElement.style.setProperty("--play-btn-color", "#6481E8");
+    props.hideSongSelected();
   }
 
 

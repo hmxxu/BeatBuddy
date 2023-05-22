@@ -7,7 +7,7 @@ import accordion_icon from '../images/accordion-close.png';
 import { useState } from 'react';
 import { SearchResult } from '../utils';
 import MoodButtons from './MoodButtons';
-import { moodRec } from '../beatbuddy/src/recommendation/RecommendSongs';
+import { Mood, moodRec } from '../beatbuddy/src/recommendation/RecommendSongs';
 
 function PlaylistReady() {
 
@@ -18,7 +18,7 @@ function PlaylistReady() {
   const [artistId, setArtistId] = useState("");
 
   // Data gathered from mood buttons
-  const [mood, setMood] = useState("");
+  const [mood, setMood] = useState(Mood.ANY);
 
   // initial recommendations list to determine type
   const initialRecs : SearchResult[] = [];
@@ -57,6 +57,15 @@ function PlaylistReady() {
     event.target.classList.add("selected-mood");
   }
 
+  /**
+   * Upon retrying with new song btn clicked, hide song-selected of previous search
+   */
+  const resetSearchBar = () => {
+    id("selected-song").classList.add("hidden");
+    let songInput = id("song-search") as HTMLInputElement;
+    songInput.value = "";
+    songInput.disabled = false;
+  }
 
   /**
    * generates Recommendates and displays it to the user by updating the state
@@ -121,7 +130,7 @@ function PlaylistReady() {
           <h2>That's it! Your playlist is now ready.</h2>
           <button id="generate-playlist-btn" onClick={generateRec}>Generate my playlist</button>
       </div>
-      <GeneratedPlaylist viewState={ playlistViewState } recArray={ recData } />
+      <GeneratedPlaylist viewState={ playlistViewState } recArray={ recData } hideSongSelected={ resetSearchBar } />
     </div>
   )
 };
