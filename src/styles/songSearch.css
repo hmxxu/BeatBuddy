@@ -60,9 +60,8 @@
     border-radius: 20px;
   }
 
-  /* .song-results-container {
-    border-radius: 20px;
-    background-color: red;
+  /* .song-results-container-parent > .song-results-container * {
+    pointer-events: none;
   } */
 
   .song-playlist-mobile, .song-result > img {
@@ -77,8 +76,17 @@
     margin-bottom: 20px;
   }
 
-  .song-result {
+  .song-result-container {
     background-color: var(--song-result-color);
+    border-radius: 20px;
+  }
+
+  /* .song-result, .song-result-mobile, .song-playlist-mobile {
+    background-color: var(--song-result-color);
+  } */
+
+  .song-result {
+    /* background-color: var(--song-result-color); */
     transition: 0.5s;
     padding: 5px;
     align-items: center;
@@ -89,23 +97,32 @@
     margin: 0;
   }
 
-  song-results-container > .song-result:active, .song-result:active {
+  /* .song-results-container > .song-result:active, .song-result:active {
+    scale: 95%;
+  } */
+
+  .song-result-container:active {
     scale: 95%;
   }
 
-  .song-result-mobile, .song-result {
+
+  .song-result-mobile, .song-result, .song-playlist-mobile {
     color: var(--song-result-text-color);
     /* color: rgb(0, 0, 0); */
   }
 
   .song-result-mobile {
     /* background-color: rgba(255, 255, 255, 0.6); */
-    background-color: var(--song-result-color);
+    /* background-color: var(--song-result-color); */
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
     padding: 10px 20px 10px 20px;
   }
 
-  .song-result-mobile:hover, .song-result:hover {
+  /* .song-result-mobile:hover, .song-result:hover {
+    background: var(--hover-color);
+    transition: 0.2s;
+  } */
+  .song-result-container:hover {
     background: var(--hover-color);
     transition: 0.2s;
   }
@@ -114,7 +131,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--song-result-color);
+    /* background-color: var(--song-result-color); */
     /* top | right | bottom | left */
     padding: 5px 20px 5px 20px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -193,3 +210,6 @@
     overflow: hidden;
   }
 
+  .activeSongColor {
+    background-color: var(--hover-color) !important;
+  }

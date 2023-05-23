@@ -23,7 +23,11 @@ function GeneratedPlaylist(props:any) {
   const [currAcoustic, setAcoustic] = useState(0);
   const [currDance, setDance] = useState(0);
 
-  const [activeSongID, setActiveSongID] = useState(0);
+  const [aActiveSong, aSetActiveSong] = useState<HTMLElement | null>(null);
+
+  let activeSong: any;
+
+  let prevSong: any;
 
   /**
    * Upon the recArray change (when new playlist is generated),
@@ -42,6 +46,7 @@ function GeneratedPlaylist(props:any) {
   * @param song - Song array arranged like [artist, song, genre]
   */
   async function handleSongClick(song : any) {
+
     setCurrTitle(song.title);
     setCurrArtist(song.artist);
     setCurrImg(song.imgUrl);
@@ -52,7 +57,11 @@ function GeneratedPlaylist(props:any) {
     // ! this problematic. Is it possible to handle all of the color change/hover
     // ! in .song-results-container instead of its children because that would make
     // ! life much easier
-    // mSetActiveSong(song.id);
+
+    // ! another alternative is that we somehow need the onclick for SongResult only
+    // ! working for the .song-results-container when we click on any parts of the container
+    // ! including the children
+    // mSetActiveSong(container);
 
     // get features and display:
     const featuresJSON = await returnSongFeatures(song.id);
@@ -67,23 +76,41 @@ function GeneratedPlaylist(props:any) {
 
   }
 
-  function mSetActiveSong(sID: number) {
+  function mSetActiveSong(currentSong: any) {
 
-    let currentSongID = sID;
-    console.log('curr id = ' + currentSongID)
-    // if the activeSongID isn't empty
-    if (activeSongID !== 0) {
-      let oldSongID = activeSongID;
-      console.log('old song: ')
-      console.log(oldSongID);
-      qsa("." + oldSongID).forEach((song) => {
-        song.setAttribute("style", "background-color:var(--song-result-color);");
-      })
-    }
-    setActiveSongID(currentSongID);
-    qsa("." + currentSongID).forEach((song) => {
-      song.setAttribute("style", "background-color:var(--hover-color);");
+    let parent = qs(".song-results-container-parent");
+    parent.querySelectorAll(":scope > .song-result-container").forEach((container: any) => {
+      container.firstChild.classList.remove('activeSongColor');
     })
+
+    currentSong.classList.add('activeSongColor');
+
+    // console.log('active song BEFORE')
+    // console.log(aActiveSong)
+    // // if activeSong contains the previous song
+    // if (aActiveSong) {
+    //   aActiveSong.setAttribute("style", "background-color:var(--song-result-color);");
+    // }
+    // console.log('setting active song to: ')
+    // console.log(currentSong);
+    // aSetActiveSong(currentSong);
+    // console.log('active song AFTER')
+    // console.log(aActiveSong)
+
+    // aActiveSong!.setAttribute("style", "background-color:var(--hover-color);");
+
+    // console.log('active song BEFORE')
+    // console.log(activeSong)
+    // // if activeSong contains the previous song
+    // if (activeSong) {
+    //   activeSong.setAttribute("style", "background-color:var(--song-result-color);");
+    // }
+    // activeSong = currentSong;
+    // currentSong.setAttribute("style", "background-color:var(--hover-color);");
+
+    // console.log('active song AFTER')
+    // console.log(activeSong)
+
   }
 
   async function createSpotifyPlaylist(playlistName: string, songs: SearchResult[]) {
@@ -109,6 +136,7 @@ function GeneratedPlaylist(props:any) {
     document.documentElement.style.setProperty("--hover-color", "#B6B2FE");
     document.documentElement.style.setProperty("--play-btn-color", "#6481E8");
     document.documentElement.style.setProperty("--song-result-color", "#D5D1FF");
+    document.documentElement.style.setProperty("--song-result-text-color", "#000000");
     props.hideSongSelected();
   }
 
@@ -171,8 +199,11 @@ function GeneratedPlaylist(props:any) {
             }
             {
               props.recArray.map((song : any) => (
-                <SongResult onClick={(e: any) => {
-                  handleSongClick(song)
+                <SongResult onClick={function (e: any) {
+                  console.log(e.currentTarget);
+                  let container = e.currentTarget;
+                  mSetActiveSong(container);
+                  handleSongClick(song);
                 }}
                 id={song.id}
                 key={song.artist + song.title}
