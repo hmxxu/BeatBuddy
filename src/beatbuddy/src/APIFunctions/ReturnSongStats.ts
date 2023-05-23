@@ -1,5 +1,4 @@
 import { getAccessToken } from "../recommendation/APIWrapper";
-//import { getSpotifyClient } from '../spotify/spotifyAuth';
 import { SearchResult } from "../../../utils";
 
 /**

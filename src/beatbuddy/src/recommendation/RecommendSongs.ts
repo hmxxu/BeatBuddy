@@ -1,7 +1,5 @@
 import { returnMultipleSongFeatures, returnSpotifyRec } from "../APIFunctions/ReturnSongStats";
 import { getAccessToken } from "./APIWrapper";
-import SpotifyWebApi from 'spotify-web-api-node';
-import { getSpotifyClient } from '../spotify/spotifyAuth';
 
 function getReccomendations(): SongRec[] {
     // TODO: actually get song recommendations
