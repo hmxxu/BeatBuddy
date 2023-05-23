@@ -18,11 +18,6 @@ function SearchBar(props:any) {
   const initialSongs : Array<SearchResult> = [];
   const [currSongsState, setSongsState] = useState(initialSongs);
 
-  function resetSearchBar() {
-    setSelectedDisplay("");
-    setSelectedState("");
-  }
-
   function init() {
     // search button
     id("search-song-btn").addEventListener("click", searchSongs);
@@ -88,6 +83,7 @@ function SearchBar(props:any) {
   const handleSongClick = (song : any) => {
     setSelectedDisplay(song.artist + " - " + song.title)
     setSelectedState("");
+    id("selected-song").classList.remove("hidden");
     // disable search bar
     (id("song-search") as HTMLInputElement).disabled = true;
 
