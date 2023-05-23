@@ -6,7 +6,7 @@ import spotify_icon from '../images/spotify-icon.png';
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { clearMoodButtons, hidePlaylistContainer, id, processImage, qs, showMoodContainer, showSearchContainer } from '../utils';
+import { clearMoodButtons, hidePlaylistContainer, id, processImage, qs, qsa, showMoodContainer, showSearchContainer } from '../utils';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 import {getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import {savePlaylistToSpotify} from '../beatbuddy/src/APIFunctions/saveToSpotify';
@@ -23,6 +23,7 @@ function GeneratedPlaylist(props:any) {
   const [currAcoustic, setAcoustic] = useState(0);
   const [currDance, setDance] = useState(0);
 
+  const [activeSongID, setActiveSongID] = useState(0);
 
   /**
    * Upon the recArray change (when new playlist is generated),
@@ -40,10 +41,18 @@ function GeneratedPlaylist(props:any) {
   * (in song player)
   * @param song - Song array arranged like [artist, song, genre]
   */
-  const handleSongClick = async (song : any) => {
+  async function handleSongClick(song : any) {
     setCurrTitle(song.title);
     setCurrArtist(song.artist);
     setCurrImg(song.imgUrl);
+
+    console.log('song id = ' + song.id)
+    // !mSetActiveSong is not working right now. Currently the way we set the
+    // ! background color and the hover color in each individual container makes
+    // ! this problematic. Is it possible to handle all of the color change/hover
+    // ! in .song-results-container instead of its children because that would make
+    // ! life much easier
+    // mSetActiveSong(song.id);
 
     // get features and display:
     const featuresJSON = await returnSongFeatures(song.id);
@@ -55,6 +64,26 @@ function GeneratedPlaylist(props:any) {
 
     let songImg = song.imgUrl;
     processImage(songImg);
+
+  }
+
+  function mSetActiveSong(sID: number) {
+
+    let currentSongID = sID;
+    console.log('curr id = ' + currentSongID)
+    // if the activeSongID isn't empty
+    if (activeSongID !== 0) {
+      let oldSongID = activeSongID;
+      console.log('old song: ')
+      console.log(oldSongID);
+      qsa("." + oldSongID).forEach((song) => {
+        song.setAttribute("style", "background-color:var(--song-result-color);");
+      })
+    }
+    setActiveSongID(currentSongID);
+    qsa("." + currentSongID).forEach((song) => {
+      song.setAttribute("style", "background-color:var(--hover-color);");
+    })
   }
 
   async function createSpotifyPlaylist(playlistName: string, songs: SearchResult[]) {
@@ -70,8 +99,8 @@ function GeneratedPlaylist(props:any) {
     }
   }
 
-  // Reverts back to the default state of the website (only having a search bar) after
-  // user clicks "Try another song"
+  // Reverts back to the default state of the website (i.e. only having a search bar) after
+  // user clicks "Try another song" button
   function revertToDefault() {
     clearMoodButtons();
     hidePlaylistContainer();
@@ -86,7 +115,6 @@ function GeneratedPlaylist(props:any) {
 
   return(
     <section className={props.viewState} id='playlist-container'>
-      <h2>Your Recommended Playlist</h2>
       <button id="back-btn" className="mobile-hidden" onClick={revertToDefault}>
         <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
         <span className="bold">Try another song</span>
@@ -141,12 +169,12 @@ function GeneratedPlaylist(props:any) {
             //   <p>Genre</p>
             // </div>
             }
-            <hr></hr>
             {
               props.recArray.map((song : any) => (
                 <SongResult onClick={(e: any) => {
                   handleSongClick(song)
                 }}
+                id={song.id}
                 key={song.artist + song.title}
                 src={song.imgUrl}
                 artist={song.artist} title={song.title} genre={song.genre}/>

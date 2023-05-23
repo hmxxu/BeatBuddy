@@ -89,6 +89,9 @@ export function showPlaylistContainer() {
   id('playlist-container').classList.remove('close-container');
 }
 
+/**
+ * Reset the mood button states (i.e. no buttons are selected)
+ */
 export function clearMoodButtons() {
   let container = id('mood-btns-container');
   let childrenElement = container.querySelectorAll('*');
