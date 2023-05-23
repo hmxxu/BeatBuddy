@@ -1,7 +1,5 @@
 import { returnMultipleSongFeatures, returnSpotifyRec } from "../APIFunctions/ReturnSongStats";
 import { getAccessToken } from "./APIWrapper";
-import SpotifyWebApi from 'spotify-web-api-node';
-import { getSpotifyClient } from '../spotify/spotifyAuth';
 
 function getReccomendations(): SongRec[] {
     // TODO: actually get song recommendations
@@ -25,25 +23,34 @@ export enum Mood {
     WORKOUT,
     SAD,
     HAPPY,
-    CHILL
+    CHILL,
+    HOLIDAY
 }
 
-function moodRec(mood: Mood, songs: string[]) {
+/**
+ * Returns 10 recommended songs given a mood and a list of songs
+ * @param mood The mood of the recommended songs (Mood must be in enum Mood)
+ * @param songs Similar songs to reccommend base off of (can be empty)
+ * @param genres Genres to rec based off of (can be empty)
+ * @returns A array of recommended songs
+ */
+function moodRec(mood: Mood, songs: string[], genres: string[]) : Promise<SpotifyApi.RecommendationsFromSeedsResponse> {
     if (mood === Mood.WORKOUT) {
-        // ACOUSTICNESS 0.09-0.12 DANCEABILITY 0.7 ENERGY 0.7 MODE 0.67 VALENCE 0.48
+        // ACOUSTICNESS 0.09-0.12 DANCEABILITY 0.7 ENERGY 0.7 VALENCE 0.47
         const ACOUSTICNESS = 0.1;
         const DANCEABILITY = 0.7;
         const ENERGY = 0.7;
-        const VALENCE = 0.48;
-        const MODE = 67;
-        return returnSpotifyRec(10, [], [], songs, ACOUSTICNESS, DANCEABILITY, ENERGY, undefined, undefined, undefined, undefined, MODE,
+        const VALENCE = 0.47;
+        genres.push("work-out");
+        return returnSpotifyRec(10, [], genres, songs, ACOUSTICNESS, DANCEABILITY, ENERGY, undefined, undefined, undefined, undefined, undefined,
             undefined, undefined, undefined, VALENCE);
     } else if (mood === Mood.SAD){
         // ACOUSTICNESS high, ENERGY low, VALENCE low
         const ACOUSTICNESS = 0.55;
         const ENERGY = 0.43;
         const VALENCE = 0.33;
-        return returnSpotifyRec(10, [], [], songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, undefined,
+        genres.push("sad");
+        return returnSpotifyRec(10, [], genres, songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, undefined,
             undefined, undefined, undefined, VALENCE);
      
     } else if (mood === Mood.HAPPY) {
@@ -51,7 +58,8 @@ function moodRec(mood: Mood, songs: string[]) {
         const ACOUSTICNESS = 0.15;
         const ENERGY = 0.7;
         const VALENCE = 0.6;
-        return returnSpotifyRec(10, [], [], songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, undefined,
+        genres.push("happy");
+        return returnSpotifyRec(10, [], genres, songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, undefined,
             undefined, undefined, undefined, VALENCE);
     } else if (mood === Mood.CHILL) {
         // ACOUSTICNESS 0.3-0.35 ENERGY 0.58-0.67 MODE 0.67 VALENCE 0.48
@@ -59,14 +67,32 @@ function moodRec(mood: Mood, songs: string[]) {
         const ENERGY = 0.62;
         const VALENCE = 0.48;
         const MODE = 67;
-        return returnSpotifyRec(10, [], [], songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, MODE,
+        genres.push("chill");
+        return returnSpotifyRec(10, [], genres, songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, MODE,
+            undefined, undefined, undefined, VALENCE);
+    } else if (mood === Mood.HOLIDAY) {
+        // ACOUSTICNESS 0.5-0.63 ENERGY 0.41-0.59 MODE 0.82-0.89 VALENCE 0.51-0.65
+        const ACOUSTICNESS = 0.55;
+        const ENERGY = 0.5;
+        const VALENCE = 0.56;
+        const MODE = 85;
+        genres.push("holidays");
+        return returnSpotifyRec(10, [], genres, songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, MODE,
             undefined, undefined, undefined, VALENCE);
     }
+
+    throw new Error('Incorrect mood. Mood must be Mood.CHILL, Mood.HAPPY, Mood.SAD, Mood.WORKOUT, Mood.HOLIDAY');
 }
 
 export { moodRec }
 
-async function getAverageStats(playlist_id: string) : Promise<any> {
+/**
+ * Gets a playlist and returns the average of each song features from each song in that playlist.
+ * Used for obtaining data about song features for our moodRec function.
+ * @param playlist_id playlist uri
+ * @returns a Record<string, number> object which contains the song features averages from a playlist
+ */
+async function getAverageStats(playlist_id: string) : Promise<Record<string, number>> {
     const { access_token } = await getAccessToken();
     const response = await fetch('https://api.spotify.com/v1/playlists/' + playlist_id, {
         method: 'GET',
@@ -120,4 +146,4 @@ async function getAverageStats(playlist_id: string) : Promise<any> {
     return averages;
 }
 
-export { getAverageStats } // comment out after testing
+export { getAverageStats }
