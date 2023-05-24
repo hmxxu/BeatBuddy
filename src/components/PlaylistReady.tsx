@@ -1,26 +1,22 @@
 import React from 'react';
 import GeneratedPlaylist from './GeneratedPlaylist';
 import SearchBar from './SearchBar';
-import Filter from './Filter';
-import { id, qs } from '../utils';
-import accordion_icon from '../images/accordion-close.png';
-import { returnDummyRec, returnSpotifyRec } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
+import { hideGenerateButton, hideMoodContainer, hideSearchContainer, id, qs, showGenerateButton, showPlaylistContainer } from '../utils';
 import { useState } from 'react';
 import { SearchResult } from '../utils';
+import MoodButtons from './MoodButtons';
+import { Mood, moodRec } from '../beatbuddy/src/recommendation/RecommendSongs';
 
 function PlaylistReady() {
- 
+
   // data gathered from SearchBar
   const [songId, setSongId] = useState("");
 
-    // data gathered from SearchBar
-    const [artistId, setArtistId] = useState("");
+  // data gathered from SearchBar
+  const [artistId, setArtistId] = useState("");
 
-  // Data gathered from genre filter
-  const [genreList, setGenreList] = useState([]);
-
-  // Data gathered from decades filter
-  const [decadeList, setDecadeList] = useState([]);
+  // Data gathered from mood buttons
+  const [mood, setMood] = useState(Mood.ANY);
 
   // initial recommendations list to determine type
   const initialRecs : SearchResult[] = [];
@@ -38,55 +34,33 @@ function PlaylistReady() {
   const getIds = (songData : any, artistData : any) => {
     setSongId(songData);
     setArtistId(artistData);
-    
-    // show filters div
-    document.querySelector('.accordion')!.classList.remove("hidden");
+
   }
 
   /**
-   * Called when the user enables/disables the genres filter or when user
-   * adds or removes a genre filter
-   * If no filter selected, defaults to full list
-   * @param selectedList - list of currently selected genres
-   * @param fullList - list of all genres
+   * Called when user clicks on mood button
+   * @param {HTMLElement} event - button's event when clicked
    */
-  const getGenreArray = (selectedList: any, fullList : any) => {
-    if (selectedList.length > 0) { 
-      setGenreList(selectedList);
-    } else {
-      setGenreList(fullList);
+  const getMood = (event: any) => {
+
+    // Makes generate button appear when user clicks on a mood
+    showGenerateButton();
+
+    setMood(event.target.textContent);
+    if (qs(".selected-mood") != null) {
+      qs(".selected-mood").classList.remove("selected-mood");
     }
-    //console.log(selectedList);
+    event.target.classList.add("selected-mood");
   }
 
   /**
-   * Called when the user enables/disables the decades filter or when user
-   * adds or removes a decades filter
-   * If no filter selected, defaults to full list
-   * @param {Array<String>} selectedList - list of current selected decades
-   * @param fullList - list of all available decades
+   * Upon retrying with new song btn clicked, hide song-selected of previous search
    */
-  const getDecadeArray = (selectedList : any, fullList: any) => {
-    if (selectedList.length > 0) { 
-      setDecadeList(selectedList);
-    } else {
-      setDecadeList(fullList);
-    }
-    //console.log(selectedList);
-
-  }
-
-  function delayOverflow() {
-    let checkbox = id('customize-box') as HTMLInputElement;
-    if (checkbox.checked) {
-      //console.log('checkbox is checked');
-      setTimeout(() => {
-        // id('two-filter').classList.add('overflow-visible');
-        id('two-filter').style.overflow = "visible";
-      }, 400);
-    } else {
-      id('two-filter').style.overflow = "hidden";
-    }
+  const resetSearchBar = () => {
+    id("selected-song").classList.add("hidden");
+    let songInput = id("song-search") as HTMLInputElement;
+    songInput.value = "";
+    songInput.disabled = false;
   }
 
   /**
@@ -94,58 +68,49 @@ function PlaylistReady() {
    * The state is then passed down to the GeneratedPlaylist component
    */
   async function generateRec() {
-    let limit: number = 20;
     let artists_seed: string[] = [artistId];
-    let genres_seed: string[] = genreList;
+    let genres_seed: string[] = [];
     let tracks_seed: string[] = [songId];
 
-    console.log(genreList);
+    // Hides everything else that's not the playlist
+    hideSearchContainer();
+    hideMoodContainer();
+    hideGenerateButton();
 
-    // get recommendations based on selected song
-    let data = await returnSpotifyRec(limit, artists_seed, genres_seed, tracks_seed);
+    // Shows the playlist
+    showPlaylistContainer();
 
-    // convert recommended songs to searchResult[]
-    let recArray : SearchResult[] = [];
+    try {
+      // get recommendations based on selected song
+      console.log('mood in generateRec = ' + mood);
+      let data = await moodRec(mood, tracks_seed);
 
-    // genre array is empty for now
-    data.tracks.forEach((t) => {
-      recArray.push(new SearchResult(t.artists[0].name, t.artists[0].id,
-        t.name, t.id, [], t.album.images[1].url));
-    })
-    setRecData(recArray);
-    setPlaylistViewState("");
-  }
+      // convert recommended songs to searchResult[]
+      let recArray : SearchResult[] = [];
 
-  /**
-   * Shows the "playlist is ready" div after user clicks on the dropdown to open the filters
-   */
-  function showGenerate() {
-    id('generateReady').classList.remove('hidden');
+      // genre array is empty for now
+      data.tracks.forEach((t) => {
+        recArray.push(new SearchResult(t.artists[0].name, t.artists[0].id,
+          t.name, t.id, [], t.album.images[1].url));
+      })
+
+      setRecData(recArray);
+      setPlaylistViewState("");
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return(
     <div>
       <SearchBar setIds={ getIds } />
-      <div className="accordion">
-        {/* <span className="customize-text h2 bold">Customize your playlist</span> */}
-        <input type="checkbox" name="accordion" id="customize-box" onClick={delayOverflow}/>
-        <label htmlFor="customize-box" className="customize-label h2 bold">
-          <span className="customize-text h2 bold">Customize your playlist</span>
-          <img src={accordion_icon} alt="accordion-close" className="accordion-icon" onClick={showGenerate}></img>
-        </label>
-        <h4>Use our filters to customize your recommended playlist.</h4>
-        <div id="two-filter">
-          <Filter content="Time Period" key="language-filter" type="language-filter" childToParent={getDecadeArray}/>
-          <Filter content="Genre" key="genre-filter" type="genre-filter" childToParent={getGenreArray}/>
-        </div>
-      </div>
+      <MoodButtons setMood={ getMood } />
 
-
-      <div id='generateReady' >
+      <div id='generateReady' className='hidden'>
           <h2>That's it! Your playlist is now ready.</h2>
           <button id="generate-playlist-btn" onClick={generateRec}>Generate my playlist</button>
       </div>
-      <GeneratedPlaylist viewState={ playlistViewState } recArray={ recData } />
+      <GeneratedPlaylist viewState={ playlistViewState } recArray={ recData } hideSongSelected={ resetSearchBar } />
     </div>
   )
 };
