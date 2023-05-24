@@ -10,6 +10,9 @@ function SongResult(props: any) {
   let title = props.title;
   let genre = props.genre;
 
+  const style = {
+    color: "rgb(0,0,0)"
+  };
   // onClick will call the function in SearchBar
   return (
     <div className="song-result-container">

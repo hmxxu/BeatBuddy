@@ -270,7 +270,6 @@ export function processImage(src: any) {
     document.documentElement.style.setProperty("--song-result-color", secondaryColor);
     document.documentElement.style.setProperty("--play-btn-color", secondaryColor);
     document.documentElement.style.setProperty("--hover-color", hoverColor);
-
     if (contrastRatio < 4.5) {
       if (foregroundColor === "000000") {
         // to white

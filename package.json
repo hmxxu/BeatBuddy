@@ -96,7 +96,6 @@
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@types/spotify-web-api-node": "^5.0.7",
-    "axios": "^1.4.0",
     "gh-pages": "^5.0.0",
     "react-router-dom": "^6.11.1",
     "react-scripts": "^5.0.1",

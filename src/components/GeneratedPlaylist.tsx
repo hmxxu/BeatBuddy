@@ -73,7 +73,6 @@ function GeneratedPlaylist(props:any) {
 
     let songImg = song.imgUrl;
     processImage(songImg);
-
   }
 
   function mSetActiveSong(currentSong: any) {
@@ -110,7 +109,6 @@ function GeneratedPlaylist(props:any) {
 
     // console.log('active song AFTER')
     // console.log(activeSong)
-
   }
 
   async function createSpotifyPlaylist(playlistName: string, songs: SearchResult[]) {
@@ -189,14 +187,6 @@ function GeneratedPlaylist(props:any) {
           </button>
           <section className="song-results-container-parent">
             <h2>Your Recommended Playlist</h2>
-            {
-            // <div className="results-label h4 bold">
-            //   <p></p>
-            //   <p>Artist</p>
-            //   <p>Song</p>
-            //   <p>Genre</p>
-            // </div>
-            }
             {
               props.recArray.map((song : any) => (
                 <SongResult onClick={function (e: any) {
