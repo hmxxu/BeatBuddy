@@ -61,7 +61,7 @@ Please follow this [guide](https://docs.npmjs.com/downloading-and-installing-nod
   ```.env
   REACT_APP_SPOTIFY_CLIENT_ID=<client id>
   REACT_APP_SPOTIFY_CLIENT_SECRET=<client secret>
-  REACT_APP_REDIRECT_URI=http://localhost:3000/BeatBuddy/
+  REACT_APP_SPOTIFY_REDIRECT_URI=http://localhost:3000/BeatBuddy/
   REACT_APP_STAGE=production
   ```
 You can use your own `id` and `secret` if you would like[^2].

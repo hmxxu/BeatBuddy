@@ -51,18 +51,6 @@ function GeneratedPlaylist(props:any) {
     setCurrArtist(song.artist);
     setCurrImg(song.imgUrl);
 
-    console.log('song id = ' + song.id)
-    // !mSetActiveSong is not working right now. Currently the way we set the
-    // ! background color and the hover color in each individual container makes
-    // ! this problematic. Is it possible to handle all of the color change/hover
-    // ! in .song-results-container instead of its children because that would make
-    // ! life much easier
-
-    // ! another alternative is that we somehow need the onclick for SongResult only
-    // ! working for the .song-results-container when we click on any parts of the container
-    // ! including the children
-    // mSetActiveSong(container);
-
     // get features and display:
     const featuresJSON = await returnSongFeatures(song.id);
     //console.log(featuresJSON);
@@ -73,7 +61,6 @@ function GeneratedPlaylist(props:any) {
 
     let songImg = song.imgUrl;
     processImage(songImg);
-
   }
 
   /**
@@ -166,14 +153,6 @@ function GeneratedPlaylist(props:any) {
           </button>
           <section className="song-results-container-parent">
             <h2>Your Recommended Playlist</h2>
-            {
-            // <div className="results-label h4 bold">
-            //   <p></p>
-            //   <p>Artist</p>
-            //   <p>Song</p>
-            //   <p>Genre</p>
-            // </div>
-            }
             {
               props.recArray.map((song : any) => (
                 <SongResult onClick={function (e: any) {

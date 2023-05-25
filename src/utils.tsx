@@ -1,5 +1,4 @@
 // * Contains global methods accessible by all files
-import axios from 'axios';
 
 /**
  * Returns the element that has the ID attribute with the specified value.
@@ -270,7 +269,6 @@ export function processImage(src: any) {
     document.documentElement.style.setProperty("--song-result-color", secondaryColor);
     document.documentElement.style.setProperty("--play-btn-color", secondaryColor);
     document.documentElement.style.setProperty("--hover-color", hoverColor);
-
     if (contrastRatio < 4.5) {
       if (foregroundColor === "000000") {
         // to white
@@ -285,9 +283,10 @@ export function processImage(src: any) {
 
 
 async function fetchContrastRatio (foregroundColor: string, backgroundColor: string) {
-  const response = await axios.get(`https://webaim.org/resources/contrastchecker/?fcolor=${foregroundColor}&bcolor=${backgroundColor}&api`);
-  let ratio = parseFloat(response.data.ratio);
-  return ratio;
+  const response = await fetch(`https://webaim.org/resources/contrastchecker/?fcolor=${foregroundColor}&bcolor=${backgroundColor}&api`, {
+    method: "GET"
+  });
+  let ratio = parseFloat((await response.json()).ratio);  return ratio;
 }
 
 export function getColorClass(result: any, opacity: any) {
