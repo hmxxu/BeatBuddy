@@ -76,41 +76,18 @@ function GeneratedPlaylist(props:any) {
 
   }
 
+  /**
+   * Changes the color of the current song container to be distinct from the
+   * rest of the songs on the list
+   * @param currentSong the current song container that is being clicked on
+   */
   function mSetActiveSong(currentSong: any) {
 
     let parent = qs(".song-results-container-parent");
     parent.querySelectorAll(":scope > .song-result-container").forEach((container: any) => {
       container.firstChild.classList.remove('activeSongColor');
     })
-
     currentSong.classList.add('activeSongColor');
-
-    // console.log('active song BEFORE')
-    // console.log(aActiveSong)
-    // // if activeSong contains the previous song
-    // if (aActiveSong) {
-    //   aActiveSong.setAttribute("style", "background-color:var(--song-result-color);");
-    // }
-    // console.log('setting active song to: ')
-    // console.log(currentSong);
-    // aSetActiveSong(currentSong);
-    // console.log('active song AFTER')
-    // console.log(aActiveSong)
-
-    // aActiveSong!.setAttribute("style", "background-color:var(--hover-color);");
-
-    // console.log('active song BEFORE')
-    // console.log(activeSong)
-    // // if activeSong contains the previous song
-    // if (activeSong) {
-    //   activeSong.setAttribute("style", "background-color:var(--song-result-color);");
-    // }
-    // activeSong = currentSong;
-    // currentSong.setAttribute("style", "background-color:var(--hover-color);");
-
-    // console.log('active song AFTER')
-    // console.log(activeSong)
-
   }
 
   async function createSpotifyPlaylist(playlistName: string, songs: SearchResult[]) {
