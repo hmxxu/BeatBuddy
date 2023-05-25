@@ -43,9 +43,9 @@ Jonathan
  *
 
 Adrian + HaoMing
- *
- *
- *
+ * Upgraded the `moodRec` function to also take in genres
+ * Added a Chrismas mood to `moodRec`
+ * Test Github page and look for/found bugs
 
 
 Tapan
@@ -66,7 +66,9 @@ Jonathan
  *
 
 Adrian + HaoMing
- *
+ * Help clear all bugs before final release
+ * Get saving a playlist to work
+ * Help frontend as needed
 
 Tapan
  *
