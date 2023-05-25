@@ -3,7 +3,9 @@ import { SearchResult } from '../../../utils';
 import SpotifyWebApi from 'spotify-web-api-node';
 
 export async function savePlaylistToSpotify(playlistName: string, searchResults: SearchResult[]): Promise<void> {
-  const spotifyClient: SpotifyWebApi = getSpotifyClient();
+  console.log("saving to spotify..");
+
+  const spotifyClient: SpotifyWebApi = await getSpotifyClient();
 
   // Creates a new playlist
   const newPlaylist = await spotifyClient.createPlaylist(playlistName);
