@@ -252,6 +252,8 @@ export function processImage(src: any) {
 
     // ** Gets foreground (text color) and background color and Checks for text color contrast
     let foregroundColor = window.getComputedStyle(document.documentElement).getPropertyValue('--song-result-text-color').substring(1);
+    console.log('foregrnd before filter: ')
+    console.log(window.getComputedStyle(document.documentElement).getPropertyValue('--song-result-text-color'))
     console.log('foregrnd = ' + foregroundColor);
     let backgroundColor = rgbToHex(result[1].r, result[1].g, result[1].b);
     console.log('bckgrnd = ' + backgroundColor);
