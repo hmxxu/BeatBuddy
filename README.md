@@ -15,6 +15,22 @@ After generating a playlist, you can listen to it on BeatBuddy and view stats ab
 
 Come try find new music in a new way today!
 
+### Mini user steps guide
+When you enter the website, you will see the search bar:
+![image](https://github.com/hmxxu/BeatBuddy/assets/95561288/f68b6ce3-bb18-4000-a17a-b295343d584f)
+
+Simply begin by entering a song, and clicking search. Once you've selected a song by clicking on it, it will be indicated in the search bar. Then select any mood:
+![image](https://github.com/hmxxu/BeatBuddy/assets/95561288/e81b67cb-f82d-4ad0-b625-7ffe69b47b81)
+
+And click "Generate my playlist":
+![image](https://github.com/hmxxu/BeatBuddy/assets/95561288/5b5746f7-6cec-4d45-8ddd-e7a5ffb86468)
+
+And you will now see a set of recommendations based on the song you chose:
+![image](https://github.com/hmxxu/BeatBuddy/assets/95561288/bc8725e8-5bcd-40fc-9f0c-b646fd349969)
+
+Simply click through them to see their properties and listen to previews, and click the "Save to Spotify" button to save the playlist to your account!
+
+
 ### Features in Progress
 
 Currently, we are working on: 
