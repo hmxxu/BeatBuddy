@@ -1,6 +1,6 @@
 // Read .env manually if not in web build
 if (process.env.REACT_APP_STAGE !== 'production') {
-    // require('dotenv').config();
+    require('dotenv').config();
 }
 
 /**
