@@ -113,7 +113,7 @@ Simply make sure your `.env` file is set, and use `npm run jest` to run all unit
 
 
 ### Adding tests
-When adding more tests, simply create a file ending in `.test.ts`. BeatBuddy is tested using the `Jest` testing framework, and the preference for file structure is that tests are placed directly next to the unit they are testing. For example, suppose you have the following directory structure:
+When adding more tests, simply create a file ending in `.test.ts`. BeatBuddy is tested using the Jest[^4] testing framework, and the preference for file structure is that tests are placed directly next to the unit they are testing. For example, suppose you have the following directory structure:
 ```
 dir1/
 ├─ MyFunctions.ts
@@ -145,7 +145,7 @@ A GitHub Actions workflow is set to run `npm install --force`, and then `npm run
       - main
       - <branch name>
   ```
-Similarly, you can specify the workflow to run more or different commands by editing the `run` section of `main.yml`[^4].
+Similarly, you can specify the workflow to run more or different commands by editing the `run` section of `main.yml`[^5].
 
 ### Features available (detailed for developers)
 * Search bar: you are able to input a song and query the public Spotify API for certain songs (bugged due to token issue)
@@ -157,5 +157,6 @@ Similarly, you can specify the workflow to run more or different commands by edi
 [^1]: This is a dependency issue involving `ts-jest` and `babel-jest`. We are in the process of fixing dependencies. Other installs may not work as well, so use `--force` in any instance this occurs.
 [^2]: Refer to the Spotify API [getting started](https://developer.spotify.com/documentation/web-api/tutorials/getting-started) page.
 [^3]: In some situations, if you're encountering issues, restarting the server entirely may fix your issues. One common occurrence of this is setting your `.env` file while the server is active.
-[^4]: You can find the documentation for Workflow syntax [here](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+[^4]: Refer to the [Jest documentation](https://jestjs.io/docs/getting-started) for information on how to write tests for TypeScript in Jest.
+[^5]: You can find the documentation for Workflow syntax [here](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions).
 
