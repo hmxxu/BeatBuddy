@@ -35,7 +35,8 @@ Pu
 
 
 Pahn
- *
+ * Integrated frontend and backend mood algorithm. Added buttons to pick mood
+ * Fixed some bugs in the frontend
 
 Jonathan
  *
@@ -58,7 +59,8 @@ Pu
  * Update css styling to accomodate for Safari browser
 
 Pahn
- *
+ * Further refine and fix bugs
+ * Add some more moods/picking recommendations by genre
 
 Jonathan
  *
