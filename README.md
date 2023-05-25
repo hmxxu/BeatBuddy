@@ -8,8 +8,19 @@ BeatBuddy is an app that tailors recommendations much more closely to your prefe
 # Table of Contents
 1. [User Manual](#user-manual)
     1. [Mini guide](#mini-user-steps-guide)
+    2. [Features in progress](#features-in-progress)
+    3. [Known bugs](#known-bugs)
+    4. [Reporting new bugs](#how-to-report-bugs)
 2. [For Developers](#for-developers)
-    1. [Sub paragraph](#subparagraph1)
+    1. [Repository structure](#in-this-repository)
+    2. [Steps to build](#steps-to-build)
+        1. [Dependencies](#dependencies)
+        2. [Steps](#steps)
+    3. [Testing](#testing)
+        1. [Running tests locally](#running-tests-on-your-local-machine)
+        2. [Adding tests](#adding-tests)
+        3. [Workflows](#workflows)
+    4. [Detailed features for developers](#features-available-detailed-for-developers)
 
 
 ## User Manual 
@@ -64,7 +75,7 @@ To submit an unlisted bug, post a GitHub issue with the following information:
 
 `/src/beatbuddy` is where all back-end code for Spotify auth and recommendations are stored. The three components currently are `/spotify` for authentication, `/APIFunctions` for interfacing with the Spotify API, and `/recommendation` for algorithm-related functions.
 
-# Steps to build
+## Steps to build
 ### Dependencies: 
 - NodeJS v16+
 - `npm` v9+
@@ -96,7 +107,7 @@ Current primary interfacing functions:
 * `returnDummyRec` Uses Spotify-assigned `id` of an artist to return a set of 10 recommendations from the artist. For testing purposes only.
 * `getRecommendations` Cleans up song data and returns recommendations after combing through Spotify's recommendations (not yet working).
 
-# Testing
+## Testing
 ### Running tests on your local machine
 Simply make sure your `.env` file is set, and use `npm run jest` to run all unit tests. Note that these can take a while, as they often will make calls to the Spotify API.
 
