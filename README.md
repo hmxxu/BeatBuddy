@@ -1,8 +1,9 @@
 # BeatBuddy
 BeatBuddy is an app that tailors recommendations much more closely to your preferences, by analyzing specific attributes of a song *you choose*, and giving results as similar as possible. Here's some key features:
+* Search spotify for a song
 * Generate playlists based on a given song
-	* Automatically generated based on a given song
 * Choose a specific mood for the generated playlist
+* View songs' audio features in the generated playlist
 
 ## User Manual
 
@@ -22,8 +23,7 @@ Currently, we are working on:
  * On-site player for Spotify music 
 
 ### Known bugs
- * Clicking on a song in the generated playlist produces an "operation is insecure" error in Firefox
- * The search bar does not work in Safari
+ * The search bar does not work in Safari (or other mobile environments)
  * If the user is already logged into Spotify, the add playlist to spotify option does not work
 
 ### How to report bugs
