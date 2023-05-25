@@ -39,8 +39,8 @@ Pahn
  * Fixed some bugs in the frontend
 
 Jonathan
- *
- *
+ * Begin partial testing of front-end utility functions
+ * Handled specific issues that were raised in the peer review process
 
 Adrian + HaoMing
  * Upgraded the `moodRec` function to also take in genres
@@ -63,7 +63,8 @@ Pahn
  * Add some more moods/picking recommendations by genre
 
 Jonathan
- *
+ * Continue to expand test suite to cover mathematical functions used in frontend
+ * Potential minor naming refactor to be consistent with guidelines
 
 Adrian + HaoMing
  * Help clear all bugs before final release
