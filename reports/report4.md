@@ -1,4 +1,4 @@
-# Report 3
+# Report 4
 
 ## Team report (status update for your TA, including an agenda for the project meeting)
 
@@ -12,7 +12,7 @@ Last week's goals:
 Progress:
  * Frontend now recommends songs based on selected song that was searched
  * Frontend's generated playlist has color responsive feature
- * More backend function created --> mood algorithms 
+ * More backend function created --> mood algorithms
  * MVP finished
  * User testing carried out and feedback is being acted on
 
