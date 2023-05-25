@@ -82,12 +82,12 @@ Please follow this [guide](https://docs.npmjs.com/downloading-and-installing-nod
 3. Put a `.env` file in the root directory of this project. If you have freshly cloned the project, this would be your top-level `BeatBuddy/` folder.
 4. In that `.env` file, add the following four environment variables, like so:
   ```.env
-  REACT_APP_SPOTIFY_CLIENT_ID=<client id>
-  REACT_APP_SPOTIFY_CLIENT_SECRET=<client secret>
+  REACT_APP_SPOTIFY_CLIENT_ID=de37dcdd9bfa44258d5a86f4808e0567
+  REACT_APP_SPOTIFY_CLIENT_SECRET=fa92f7b77ffa4c2dacc157ac9cf606df
   REACT_APP_SPOTIFY_REDIRECT_URI=http://localhost:3000/BeatBuddy/
   REACT_APP_STAGE=production
   ```
-You can use your own `id` and `secret` if you would like[^2].
+Provided is a set of dummy credentials for a Spotify web app, but you can use your own `id` and `secret` if you would like[^2].
 
 5. Run `npm start`. This implicitly calls `react-scripts start`, which generates the necessary files to start a React app in development mode. It will also start an internal server hosting the webpage, which by default is located at `https://localhost:3000/`. While in development mode, any changes you make to a file (triggered by `Ctrl + S` or `^S`) will hot-reload the live page, so there is (usually[^3]) no need to restart the server while editing code.
 
