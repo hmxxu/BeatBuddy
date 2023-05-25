@@ -5,7 +5,14 @@ BeatBuddy is an app that tailors recommendations much more closely to your prefe
 * Choose a specific mood for the generated playlist
 * View songs' audio features in the generated playlist
 
-## User Manual
+# Table of Contents
+1. [User Manual](#user-manual)
+    1. [Mini guide](#mini-user-steps-guide)
+2. [For Developers](#for-developers)
+    1. [Sub paragraph](#subparagraph1)
+
+
+## User Manual 
 
 Try out BeatBuddy at https://hmxxu.github.io/BeatBuddy/! No installation or set up needed.
 
