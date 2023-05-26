@@ -167,7 +167,7 @@ function GeneratedPlaylist(props: any) {
               <span className="h2">By {currArtist}</span>
             </div>
           </div>
-          <div id="progress-bar-container">
+          <div className="progress-bar-container">
           <div id="no-preview-msg"></div>
             <div id="song-time">00:00</div>
             <div id="progress-bar" style={{ width: '0%' }}></div>

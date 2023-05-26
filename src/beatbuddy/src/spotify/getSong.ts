@@ -1,6 +1,5 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import { getSpotifyClient } from './spotifyAuth';
-import axios from 'axios';
 import { noSongPreviewMsg, updateProgressBar } from '../../../components/GeneratedPlaylist';
 
 let audio: HTMLAudioElement | undefined;
@@ -10,7 +9,6 @@ const tracksWithoutPreview: Set<string> = new Set();
 
 export async function playSong(trackId: string) {
   try {
-
     if (tracksWithoutPreview.has(trackId)) {
       noSongPreviewMsg();
       return Promise.resolve();
@@ -19,17 +17,23 @@ export async function playSong(trackId: string) {
     const spotifyClient: SpotifyWebApi = await getSpotifyClient();
 
     // Retrieve the preview URL for the track
-    const { data: track } = await axios.get(`https://api.spotify.com/v1/tracks/${trackId}`, {
+    const response = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
       headers: {
         Authorization: `Bearer ${spotifyClient.getAccessToken()}`,
       },
     });
+
+    if (!response.ok) {
+      throw new Error(`Failed to retrieve track data: ${response.status} ${response.statusText}`);
+    }
+
+    const track = await response.json();
     const previewUrl = track.preview_url;
 
     if (!previewUrl) {
       tracksWithoutPreview.add(trackId);
       noSongPreviewMsg();
-      console.log('Sorry, there is not preview available for this track.');
+      console.log('Sorry, there is no preview available for this track.');
       return Promise.resolve();
     }
 
@@ -57,6 +61,7 @@ export async function playSong(trackId: string) {
     return Promise.reject(error);
   }
 }
+
 
 export function pauseSong() {
   if (audio && !audio.paused) {

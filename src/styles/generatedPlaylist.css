@@ -144,6 +144,10 @@ section {
   margin-top: 0px;
 }
 
+.progress-bar-container {
+  margin-top: 30px;
+}
+
 #progress-bar {
   margin-top: 20px;
   height: 5px;
