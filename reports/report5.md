@@ -49,8 +49,10 @@ Adrian + HaoMing
 
 
 Tapan
- *
- *
+ * Completed the backend for fetching song previews
+ * completed the frontend for listening to song previews
+ * Fix a bug with authroization where access code was undefined
+ * changed usage of Axios to Fetch
 
 ### outline your plans and goals for the following week (per person)
 
@@ -72,4 +74,6 @@ Adrian + HaoMing
  * Help frontend as needed
 
 Tapan
- *
+ * Finish up with saving the playlist
+ * Work changing with the flow / navigation of our app (when a user will login)
+ * Add finishing touches
