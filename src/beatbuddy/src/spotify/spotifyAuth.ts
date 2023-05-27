@@ -3,7 +3,7 @@ import { saveAccessTokenToCookie, getAccessTokenFromCookie } from './tokenCookie
 
 // Read .env manually if not in web build
 if (process.env.REACT_APP_STAGE !== 'production') {
-  require('dotenv');
+  // require('dotenv');
 }
 
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;

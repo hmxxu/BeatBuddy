@@ -7,13 +7,14 @@ import spotify_icon from '../images/spotify-icon.png';
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { id, processImage, qs } from '../utils';
+import { clearMoodButtons, hidePlaylistContainer, id, processImage, qs, qsa, showMoodContainer, showSearchContainer } from '../utils';
 import { savePlaylistToSpotify } from '../beatbuddy/src/APIFunctions/saveToSpotify';
 import { returnSongFeatures } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { SearchResult } from '../utils';
 import { playSong, pauseSong, stopSong } from '../beatbuddy/src/spotify/getSong';
 import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
+import Filter from './Filter';
 
 
 export function updateProgressBar(audio: any){
@@ -58,6 +59,7 @@ export function removePreviewMsg() {
 
 function GeneratedPlaylist(props: any) {
 
+  const [currPlaylist, setCurrPlaylist] = useState<SearchResult[]>([]);
   const [currTitle, setCurrTitle] = useState("");
   const [currArtist, setCurrArtist] = useState("");
   const [currImg, setCurrImg] = useState("");
@@ -69,6 +71,11 @@ function GeneratedPlaylist(props: any) {
   const [currAcoustic, setAcoustic] = useState(0);
   const [currDance, setDance] = useState(0);
 
+  const [aActiveSong, aSetActiveSong] = useState<HTMLElement | null>(null);
+
+  let activeSong: any;
+
+  let prevSong: any;
 
   /**
    * Upon the recArray change (when new playlist is generated),
@@ -77,6 +84,7 @@ function GeneratedPlaylist(props: any) {
   useEffect(() => {
     if (props.recArray.length > 0) {
       handleSongClick(props.recArray[0]);
+      setCurrPlaylist(props.recArray);
     }
   }, [props.recArray])
 
@@ -86,7 +94,8 @@ function GeneratedPlaylist(props: any) {
   * (in song player)
   * @param song - Song array arranged like [artist, song, genre]
   */
-  const handleSongClick = async (song: any) => {
+  async function handleSongClick(song: any) {
+
 
     stopSong(); // Stop the currently playing song
 
@@ -95,6 +104,18 @@ function GeneratedPlaylist(props: any) {
     setCurrTitle(song.title);
     setCurrArtist(song.artist);
     setCurrImg(song.imgUrl);
+
+    console.log('song id = ' + song.id)
+    // !mSetActiveSong is not working right now. Currently the way we set the
+    // ! background color and the hover color in each individual container makes
+    // ! this problematic. Is it possible to handle all of the color change/hover
+    // ! in .song-results-container instead of its children because that would make
+    // ! life much easier
+
+    // ! another alternative is that we somehow need the onclick for SongResult only
+    // ! working for the .song-results-container when we click on any parts of the container
+    // ! including the children
+    // mSetActiveSong(container);
     setCurrTrackId(song.id);
 
     // get features and display
@@ -106,10 +127,10 @@ function GeneratedPlaylist(props: any) {
     let songImg = song.imgUrl;
     processImage(songImg);
 
-    // playing preview of songs
+        // playing preview of songs
     handleSongProgressBar();
     removePreviewMsg();
-  };
+  }
 
   function handleSongProgressBar() {
     // Reset the song progress bar and display the play button
@@ -122,7 +143,53 @@ function GeneratedPlaylist(props: any) {
     }
   }
 
-  async function createSpotifyPlaylist(playlistName: string, songs: SearchResult[]) {
+  function mSetActiveSong(currentSong: any) {
+
+    let parent = qs(".song-results-container-parent");
+    parent.querySelectorAll(":scope > .song-result-container").forEach((container: any) => {
+      container.firstChild.classList.remove('activeSongColor');
+    })
+
+    currentSong.classList.add('activeSongColor');
+
+    // console.log('active song BEFORE')
+    // console.log(aActiveSong)
+    // // if activeSong contains the previous song
+    // if (aActiveSong) {
+    //   aActiveSong.setAttribute("style", "background-color:var(--song-result-color);");
+    // }
+    // console.log('setting active song to: ')
+    // console.log(currentSong);
+    // aSetActiveSong(currentSong);
+    // console.log('active song AFTER')
+    // console.log(aActiveSong)
+
+    // aActiveSong!.setAttribute("style", "background-color:var(--hover-color);");
+
+    // console.log('active song BEFORE')
+    // console.log(activeSong)
+    // // if activeSong contains the previous song
+    // if (activeSong) {
+    //   activeSong.setAttribute("style", "background-color:var(--song-result-color);");
+    // }
+    // activeSong = currentSong;
+    // currentSong.setAttribute("style", "background-color:var(--hover-color);");
+
+    // console.log('active song AFTER')
+    // console.log(activeSong)
+  }
+
+
+  function generatePlaylistName(){
+
+    let searchedSong = props.songId;
+    let art = props.artistId;
+
+    console.log(searchedSong + " : " + art);
+
+  }
+
+  async function createSpotifyPlaylist(playlistName: string) {
     console.log("creating playlist.. " );
 
     const accessToken = getAccessTokenFromCookie();
@@ -135,7 +202,8 @@ function GeneratedPlaylist(props: any) {
     }
 
     console.log("access token is valid -> creating playlist...");
-    await savePlaylistToSpotify(playlistName, songs);
+    generatePlaylistName();
+    // await savePlaylistToSpotify(playlistName, currPlaylist);
   }
 
   const handlePlayPauseButtonClick = () => {
@@ -150,11 +218,23 @@ function GeneratedPlaylist(props: any) {
     }
   };
 
+  // Reverts back to the default state of the website (i.e. only having a search bar) after
+  // user clicks "Try another song" button
+  function revertToDefault() {
+    clearMoodButtons();
+    hidePlaylistContainer();
+    showSearchContainer();
+    document.documentElement.style.setProperty("--body-color", "linear-gradient(#6380E8, #A9A2FF)");
+    document.documentElement.style.setProperty("--hover-color", "#B6B2FE");
+    document.documentElement.style.setProperty("--play-btn-color", "#6481E8");
+    document.documentElement.style.setProperty("--song-result-color", "#D5D1FF");
+    document.documentElement.style.setProperty("--song-result-text-color", "#000000");
+    props.hideSongSelected();
+  }
 
-  return (
-    <section className={props.viewState}>
-      <h2>Your Recommended Playlist</h2>
-      <button id="back-btn" className="mobile-hidden">
+  return(
+    <section className={props.viewState} id='playlist-container'>
+      <button id="back-btn" className="mobile-hidden" onClick={revertToDefault}>
         <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
         <span className="bold">Try another song</span>
       </button>
@@ -203,29 +283,32 @@ function GeneratedPlaylist(props: any) {
         </section>
 
         <section id="playlist-wrapper">
-          <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist', [])}>
+          <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist')}>
             <span className="bold">Save to Spotify</span>
             <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
           </button>
           <section className="song-results-container-parent">
             <h2>Your Recommended Playlist</h2>
             {
-              // <div className="results-label h4 bold">
-              //   <p></p>
-              //   <p>Artist</p>
-              //   <p>Song</p>
-              //   <p>Genre</p>
-              // </div>
+            // <div className="results-label h4 bold">
+            //   <p></p>
+            //   <p>Artist</p>
+            //   <p>Song</p>
+            //   <p>Genre</p>
+            // </div>
             }
             <hr></hr>
             {
               props.recArray.map((song: any) => (
-                <SongResult onClick={(e: any) => {
-                  handleSongClick(song);
+                <SongResult onClick={function (e: any) {
+                  console.log(e.currentTarget);
+                  let container = e.currentTarget;
+                  mSetActiveSong(container);
+                  handleSongClick(song);;
                 }}
-                  key={song.artist + song.title}
-                  src={song.imgUrl}
-                  artist={song.artist} title={song.title} genre={song.genre} />
+                key={song.artist + song.title}
+                src={song.imgUrl}
+                artist={song.artist} title={song.title} genre={song.genre}/>
               ))
             }
           </section>
@@ -233,7 +316,7 @@ function GeneratedPlaylist(props: any) {
       </section>
 
       <section id="playlist-wrapper-mobile">
-        <button id="back-btn-mobile" className="icon-mobile">
+        <button id="back-btn-mobile" className="icon-mobile" onClick={revertToDefault}>
           <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back-mobile"></img>
           <span className="bold"></span>
         </button>

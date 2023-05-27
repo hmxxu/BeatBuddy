@@ -10,8 +10,10 @@ export async function savePlaylistToSpotify(playlistName: string, searchResults:
   // Creates a new playlist
   const newPlaylist = await spotifyClient.createPlaylist(playlistName);
 
+  // console.log(searchResults);
+
   // Adds tracks to the playlist
-  const trackIds = searchResults.map((result) => result.id);
+  const trackIds = searchResults.map((result) => "spotify:track:" + result.id);
   await spotifyClient.addTracksToPlaylist(  newPlaylist.body.id, trackIds);
 
   console.log(`Playlist "${playlistName}" created and saved to Spotify`);

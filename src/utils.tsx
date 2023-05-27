@@ -27,6 +27,79 @@ export const qsa = (query: any) => {
   return document.querySelectorAll(query)!;
 }
 
+export function hideGenerateButton() {
+  id("generateReady").classList.add('close-mood-container');
+  id("generateReady").classList.remove('open-mood-container');
+  setTimeout(() => {
+    id("generateReady").classList.add('hidden');
+  }, 200);
+}
+export function showGenerateButton() {
+  id("generateReady").classList.remove('hidden');
+  id("generateReady").classList.remove('close-mood-container');
+  id("generateReady").classList.add('open-mood-container');
+}
+
+export function hideMoodContainer() {
+  qs('.mood-container').classList.add('close-mood-container');
+  qs('.mood-container').classList.remove('open-mood-container');
+  //! This should not be here. Saved as a last resort.
+  setTimeout(() => {
+    qs('.mood-container').classList.add('hidden');
+  }, 200);
+}
+export function showMoodContainer() {
+  setTimeout(() => {
+    qs('.mood-container').classList.remove('hidden');
+    qs('.mood-container').classList.remove('close-mood-container');
+    qs('.mood-container').classList.add('open-mood-container');
+  }, 500);
+}
+
+export function hideSearchDropdown() {
+  id("search-results").classList.add('close-container');
+  //! This should not be here. Saved as a last resort.
+  setTimeout(() => {
+    id("search-results").classList.add('hidden');
+  }, 100);
+}
+
+export function hideSearchContainer() {
+  qs(".search-container").classList.add('close-container');
+  setTimeout(() => {
+    qs(".search-container").classList.add('hidden');
+  }, 200);
+}
+export function showSearchContainer() {
+  setTimeout(() => {
+    qs(".search-container").classList.remove('hidden');
+    qs(".search-container").classList.remove('close-container');
+    qs(".search-container").classList.add('open-container');
+  }, 500);
+}
+
+export function hidePlaylistContainer() {
+  id('playlist-container').classList.add('close-container');
+  id('playlist-container').classList.remove('open-container');
+}
+
+export function showPlaylistContainer() {
+  id('playlist-container').classList.add('open-container');
+  id('playlist-container').classList.remove('close-container');
+}
+
+/**
+ * Reset the mood button states (i.e. no buttons are selected)
+ */
+export function clearMoodButtons() {
+  let container = id('mood-btns-container');
+  let childrenElement = container.querySelectorAll('*');
+  childrenElement.forEach((button) => {
+    button.classList.remove('selected-mood');
+  })
+}
+
+
 export class SearchResult {
   artist: string;
   artistId: string;
@@ -196,7 +269,6 @@ export function processImage(src: any) {
     document.documentElement.style.setProperty("--song-result-color", secondaryColor);
     document.documentElement.style.setProperty("--play-btn-color", secondaryColor);
     document.documentElement.style.setProperty("--hover-color", hoverColor);
-
     if (contrastRatio < 4.5) {
       if (foregroundColor === "000000") {
         // to white
@@ -214,8 +286,7 @@ async function fetchContrastRatio (foregroundColor: string, backgroundColor: str
   const response = await fetch(`https://webaim.org/resources/contrastchecker/?fcolor=${foregroundColor}&bcolor=${backgroundColor}&api`, {
     method: "GET"
   });
-  let ratio = parseFloat((await response.json()).ratio);
-  return ratio;
+  let ratio = parseFloat((await response.json()).ratio);  return ratio;
 }
 
 export function getColorClass(result: any, opacity: any) {

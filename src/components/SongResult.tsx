@@ -17,7 +17,7 @@ function SongResult(props: any) {
     <div className="song-result-container">
 
       {/* The code below is for desktop */}
-      <div className="song-result h4" onClick={props.onClick} id={id}>
+      <div className={"song-result h4"} onClick={props.onClick}>
         <img src={src} alt="album cover" id="album-cover"></img>
         <div>
           <h4 id="title">{title}</h4>
@@ -26,14 +26,14 @@ function SongResult(props: any) {
         </div>
       </div>
 
-      <div className={"song-result-mobile" + ((props.design === "searchbar") ? "" : " hidden")} onClick={props.onClick} id={id}>
+      <div className={"song-result-mobile" + ((props.design === "searchbar") ? "" : " hidden")} onClick={props.onClick}>
         <p id="artist-title" className="semi-bold">{artist} - {title}</p>
         {/* <p id="title">{title}</p> */}
         <p id="genre">{genre}</p>
       </div>
 
       {/* The code below is for mobile */}
-      <div className={"song-playlist-mobile" + ((props.design === "generated_playlist") ? "" : " hidden")} onClick={props.onClick} id={id}>
+      <div className={"song-playlist-mobile" + ((props.design === "generated_playlist") ? "" : " hidden")} onClick={props.onClick}>
         <div className="song-container-mobile">
           <p className="bold">{title}</p>
           <p>{artist}</p>

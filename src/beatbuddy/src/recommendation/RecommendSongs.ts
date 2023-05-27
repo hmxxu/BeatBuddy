@@ -1,7 +1,5 @@
 import { returnMultipleSongFeatures, returnSpotifyRec } from "../APIFunctions/ReturnSongStats";
 import { getAccessToken } from "./APIWrapper";
-import SpotifyWebApi from 'spotify-web-api-node';
-import { getSpotifyClient } from '../spotify/spotifyAuth';
 
 function getReccomendations(): SongRec[] {
     // TODO: actually get song recommendations
@@ -22,10 +20,11 @@ class SongRec {
 export { getReccomendations, SongRec }
 
 export enum Mood {
-    WORKOUT,
-    SAD,
-    HAPPY,
-    CHILL
+    WORKOUT = "Workout",
+    SAD = "Sad",
+    HAPPY = "Happy",
+    CHILL = "Chill",
+    ANY = "Any"
 }
 
 function moodRec(mood: Mood, songs: string[]) {
@@ -61,6 +60,9 @@ function moodRec(mood: Mood, songs: string[]) {
         const MODE = 67;
         return returnSpotifyRec(10, [], [], songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, MODE,
             undefined, undefined, undefined, VALENCE);
+    } else {
+        return returnSpotifyRec(10, [], [], songs, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,
+            undefined, undefined, undefined, undefined);
     }
 }
 

@@ -40,8 +40,7 @@ body {
 }
 
 /* ? Breakpoint for smaller desktop */
-@media screen and (max-width: 900px) {
-
+@media screen and (max-width: 1400px) {
   .h-title {
     font-size: 36px !important;
   }
@@ -62,8 +61,29 @@ body {
   }
 }
 
+/* ? Breakpoint for smaller desktop */
+@media screen and (max-width: 1100px) {
+
+  .h-title {
+    font-size: 22px !important;
+  }
+
+  h3, .h3 {
+    font-size: 16px !important;
+  }
+
+  .vl {
+    height: 100px !important;
+  }
+
+  #song-player {
+    /* top | right | bottom | left */
+    padding: 20px 15px 20px 15px !important;
+  }
+}
+
 /* ? Breakpoint for mobile */
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 900px) {
 
   #playlist-wrapper, #song-player, .song-result-container .song-result,
   #search-results .results-label, #search-results hr {
@@ -168,6 +188,10 @@ button {
 button:hover {
   background-color: #2a3447;
   cursor: pointer;
+}
+
+button:active {
+  scale: 0.9;
 }
 
 .text-body {
@@ -276,4 +300,44 @@ code {
 
 .soft-hidden {
   display: none;
+}
+
+.invis {
+  visibility: hidden;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-bump {
+  0% {
+    opacity: 0;
+  }
+
+  33% {
+    scale: 95%;
+  }
+
+  100% {
+    opacity: 1;
+    scale: 100%;
+  }
+}
+
+@keyframes fade-out {
+  100% {
+    /* max-height: 0; */
+    opacity: 0;
+  }
+
+  0% {
+    /* max-height: 2000px; */
+    opacity: 1;
+  }
 }
