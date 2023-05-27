@@ -3,12 +3,18 @@ import { saveAccessTokenToCookie, getAccessTokenFromCookie } from './tokenCookie
 
 // Read .env manually if not in web build
 if (process.env.REACT_APP_STAGE !== 'production') {
-  require('dotenv');
+  // require('dotenv');
 }
 
-const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
-const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
+//! temporary, remove these static assignment out when dotenv has been fixed
+const CLIENT_ID = 'fa2af6975fc04d99a7a14a08545e88e9';
+const CLIENT_SECRET = 'aa5f52a28f014357b6e0b2e39687170c';
+const REDIRECT_URI = 'http://localhost:3000/BeatBuddy/';
+
+// TODO: uncomment this when dotenv has been fixed
+// const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+// const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
+// const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
 
 const AUTHORIZATION_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';

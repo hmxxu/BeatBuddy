@@ -1,21 +1,19 @@
 import React from 'react';
 
 import play_btn from './../images/play-btn.png';
+import { qs } from '../utils';
 
 function SongResult(props: any) {
-  let id = props.id;
-  // console.log('song id in SongResult = ' + id)
   let src = props.src;
   let artist = props.artist;
   let title = props.title;
   let genre = props.genre;
 
-  const style = {
-    color: "rgb(0,0,0)"
-  };
+  // console.log(qs("#playlist-wrapper .song-results-container-parent").firstElementChild.nextElementSibling);
+
   // onClick will call the function in SearchBar
   return (
-    <div className="song-result-container">
+    <div className={"song-result-container" + ((props.isFirstChild) ? "activeSongColor" : "")}>
 
       {/* The code below is for desktop */}
       <div className={"song-result h4"} onClick={props.onClick}>

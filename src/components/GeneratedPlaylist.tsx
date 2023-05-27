@@ -23,12 +23,6 @@ function GeneratedPlaylist(props:any) {
   const [currAcoustic, setAcoustic] = useState(0);
   const [currDance, setDance] = useState(0);
 
-  const [aActiveSong, aSetActiveSong] = useState<HTMLElement | null>(null);
-
-  let activeSong: any;
-
-  let prevSong: any;
-
   /**
    * Upon the recArray change (when new playlist is generated),
    * update the player to display the first song.
@@ -68,7 +62,7 @@ function GeneratedPlaylist(props:any) {
    * rest of the songs on the list
    * @param currentSong the current song container that is being clicked on
    */
-  function mSetActiveSong(currentSong: any) {
+  function setActiveSong(currentSong: any) {
 
     let parent = qs(".song-results-container-parent");
     parent.querySelectorAll(":scope > .song-result-container").forEach((container: any) => {
@@ -102,6 +96,41 @@ function GeneratedPlaylist(props:any) {
     document.documentElement.style.setProperty("--song-result-color", "#D5D1FF");
     document.documentElement.style.setProperty("--song-result-text-color", "#000000");
     props.hideSongSelected();
+  }
+
+  function populatePlaylist() {
+    for (let i = 0; i < props.recArray.length; i++) {
+      let song = props.recArray[i];
+      if (i === 0) {
+        <SongResult onClick={
+          function (e: any) {
+            console.log(e.currentTarget);
+            let container = e.currentTarget;
+            setActiveSong(container);
+            handleSongClick(song);
+          }
+        }
+          id={song.id}
+          key={song.artist + song.title}
+          src={song.imgUrl}
+          artist={song.artist} title={song.title} genre={song.genre} isFirstChild={true}
+        />
+      } else {
+        <SongResult onClick={
+          function (e: any) {
+            console.log(e.currentTarget);
+            let container = e.currentTarget;
+            setActiveSong(container);
+            handleSongClick(song);
+          }
+        }
+          id={song.id}
+          key={song.artist + song.title}
+          src={song.imgUrl}
+          artist={song.artist} title={song.title} genre={song.genre} isFirstChild={false}
+        />
+      }
+    }
   }
 
 
@@ -154,17 +183,20 @@ function GeneratedPlaylist(props:any) {
           <section className="song-results-container-parent">
             <h2>Your Recommended Playlist</h2>
             {
-              props.recArray.map((song : any) => (
-                <SongResult onClick={function (e: any) {
-                  console.log(e.currentTarget);
-                  let container = e.currentTarget;
-                  mSetActiveSong(container);
-                  handleSongClick(song);
-                }}
-                id={song.id}
-                key={song.artist + song.title}
-                src={song.imgUrl}
-                artist={song.artist} title={song.title} genre={song.genre}/>
+              props.recArray.map((song : any, index: number) => (
+                <SongResult onClick={
+                  function (e: any) {
+                    console.log(e.currentTarget);
+                    let container = e.currentTarget;
+                    setActiveSong(container);
+                    handleSongClick(song);
+                  }
+                }
+                  id={song.id}
+                  key={song.artist + song.title}
+                  src={song.imgUrl}
+                  artist={song.artist} title={song.title} genre={song.genre}
+                />
               ))
             }
           </section>

@@ -81,11 +81,17 @@ export function showSearchContainer() {
 export function hidePlaylistContainer() {
   id('playlist-container').classList.add('close-container');
   id('playlist-container').classList.remove('open-container');
+  setTimeout(() => {
+    id('playlist-container').classList.add('hidden');
+  }, 200);
 }
 
 export function showPlaylistContainer() {
   id('playlist-container').classList.add('open-container');
   id('playlist-container').classList.remove('close-container');
+  setTimeout(() => {
+    id('playlist-container').classList.remove('hidden');
+  }, 500);
 }
 
 /**
@@ -145,13 +151,13 @@ function rgbToHsl(r: any, g: any, b: any) {
     l = 0;
   // Calculate hue
   // No difference
-  if (delta == 0)
+  if (delta === 0)
     h = 0;
   // Red is max
-  else if (cmax == r)
+  else if (cmax === r)
     h = ((g - b) / delta) % 6;
   // Green is max
-  else if (cmax == g)
+  else if (cmax === g)
     h = (b - r) / delta + 2;
   // Blue is max
   else
@@ -162,7 +168,7 @@ function rgbToHsl(r: any, g: any, b: any) {
     h += 360;
   l = (cmax + cmin) / 2;
   // Calculate saturation
-  s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+  s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
   // Multiply l and s by 100
   s = +(s * 100).toFixed(1);
   l = +(l * 100).toFixed(1);
@@ -227,7 +233,6 @@ export function processImage(src: any) {
   const image = new Image();
   image.src = src;
   image.crossOrigin = "Anonymous";
-  let count = 1;
   image.onload = async () => {
 
     // ** Setting up the image and getting the image Data
@@ -245,7 +250,7 @@ export function processImage(src: any) {
     let secondaryColor = getRgba(result[1], 1.0);
 
     let hoverColor = generateHoverColorHSL(result[1], 10, 10);
-    let bodyLinearGradient = "linear-gradient(" + primaryColor + ", " + secondaryColor + ")";
+    // let bodyLinearGradient = "linear-gradient(" + primaryColor + ", " + secondaryColor + ")";
 
     //** Applying color change + transition to the body
     document.documentElement.style.setProperty("--body-color", primaryColor);
