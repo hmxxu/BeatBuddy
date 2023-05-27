@@ -3,7 +3,7 @@ import { saveAccessTokenToCookie, getAccessTokenFromCookie } from './tokenCookie
 
 // Read .env manually if not in web build
 if (process.env.REACT_APP_STAGE !== 'production') {
-  require('dotenv');
+  // require('dotenv');
 }
 
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
@@ -21,7 +21,7 @@ export async function authorizeWithSpotify(): Promise<void> {
 
   const accessToken = getAccessTokenFromCookie();
   if (accessToken) {
-    console.log("user already authorized");
+    console.log("user already authorized, token: ");
     return;
   }
 
@@ -32,7 +32,6 @@ export async function authorizeWithSpotify(): Promise<void> {
     try {
       const token = await exchangeCodeForAccessToken(code);
       saveAccessTokenToCookie(token);
-      console.log("Token saved: ");
       return;
     } catch (error) {
       console.error(error);
@@ -59,6 +58,8 @@ export async function authorizeWithSpotify(): Promise<void> {
  */
 export async function exchangeCodeForAccessToken(code: string): Promise<string> {
 
+  console.log("exchanging code for acess token...");
+
   const data = new URLSearchParams({
     grant_type: 'authorization_code',
     code: code,
@@ -66,6 +67,7 @@ export async function exchangeCodeForAccessToken(code: string): Promise<string> 
     client_id: CLIENT_ID || "",
     client_secret: CLIENT_SECRET || ""
   });
+
   const response = await fetch(TOKEN_ENDPOINT, {
     method: "POST",
     headers: {
@@ -75,7 +77,6 @@ export async function exchangeCodeForAccessToken(code: string): Promise<string> 
   });
 
   const token = (await response.json()).access_token;
-  saveAccessTokenToCookie(token);
   return token;
 }
 
@@ -93,20 +94,32 @@ export function createSpotifyClient(accessToken: string): any {
   return spotifyClient;
 }
 
+
 /**
  * Returns a SpotifyWebApi instance authenticated with the access token stored in a cookie.
- * Throws an error if no access token is found in the cookie.
+ * Authorizes the user if the access token doesn't exist or has expired.
  *
  * @returns SpotifyWebApi an instance authenticated with the access token.
  *
- * @throws Error if no access token is found in the cookie.
+ * @throws Error if there is an error authorizing the user or no access token is found in the cookie.
  */
-export function getSpotifyClient(): SpotifyWebApi {
+export async function getSpotifyClient(): Promise<SpotifyWebApi> {
   const token = getAccessTokenFromCookie();
-  if (token !== null) {
-    const spotifyClient = createSpotifyClient(token);
-    return spotifyClient;
+
+  if (token !== null || token != undefined) {
+    // Create the Spotify client using the existing access token
+    return createSpotifyClient(token);
   } else {
-    throw new Error('No Spotify access token found');
+    // Access token doesn't exist, authorize the user and obtain a new access token
+    await authorizeWithSpotify();
+    const newToken = getAccessTokenFromCookie();
+
+    if (newToken !== null) {
+      // Create the Spotify client using the new access token
+      return createSpotifyClient(newToken);
+    } else {
+      throw new Error('No Spotify access token found');
+    }
   }
 }
+

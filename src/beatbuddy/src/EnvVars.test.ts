@@ -5,7 +5,7 @@
  * check this first.
  */
 
-require('dotenv').config();
+// require('dotenv').config();
 
 describe('Test environment variables are set', () => {
     test('environment: CLIENT_ID is not set', () => {

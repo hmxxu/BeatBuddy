@@ -1,22 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { exchangeCodeForAccessToken } from './spotifyAuth';
+import { authorizeWithSpotify, exchangeCodeForAccessToken } from './spotifyAuth';
 import { getAccessTokenFromCookie, saveAccessTokenToCookie } from './tokenCookies';
 
 /**
  * Callback component that handles the Spotify authentication callback.
  * Retrieves the authorization code from the URL query parameters,
- * exchanges it for an access tokn, and saved the token in a cookie.
+ * exchanges it for an access token, and saves the token in a cookie.
  * @returns null
-*/
+ */
 export function Callback(): any {
-
   const location = useLocation();
   const navigate = useNavigate();
+  const [reauthorizeRequested, setReauthorizeRequested] = useState(false);
 
   useEffect(() => {
+    console.log("in callback");
+    const token = getAccessTokenFromCookie();
 
-    if (getAccessTokenFromCookie()){
+    if (token) {
       console.log("auth code already exchanged");
       return;
     }
@@ -27,6 +29,7 @@ export function Callback(): any {
 
       if (code) {
         try {
+          console.log("in try of callback");
           const token = await exchangeCodeForAccessToken(code);
           saveAccessTokenToCookie(token);
           navigate('/BeatBuddy/');
@@ -34,12 +37,19 @@ export function Callback(): any {
           console.error(error);
         }
       } else {
-
+        // If the code is not available and reauthorization is requested, authorize the user
+        if (reauthorizeRequested) {
+          authorizeWithSpotify();
+        }
       }
     }
 
     handleCallback();
-  }, [location.search]);
+  }, [location.search, reauthorizeRequested]);
 
-  return null;
+  // Function to handle reauthorization request
+  const handleReauthorize = () => {
+    setReauthorizeRequested(true);
+  };
+
 }

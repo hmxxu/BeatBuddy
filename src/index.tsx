@@ -7,7 +7,7 @@ import './styles/index.css';
 import Navbar from './components/Navbar';
 import PlaylistReady from './components/PlaylistReady';
 // import PlaylistButton from './components/PlaylistButton';
-import { Callback } from './Callback';
+import { Callback } from '../src/beatbuddy/src/spotify/Callback';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);

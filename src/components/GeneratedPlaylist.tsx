@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import play_btn from '../images/play-btn.png';
+import pause_btn from '../images/pause-btn.png';
 import arrow_back from '../images/arrow-back.png';
 import spotify_icon from '../images/spotify-icon.png';
 
@@ -8,16 +9,62 @@ import '../styles/songSearch.css';
 import SongResult from './SongResult';
 import { clearMoodButtons, hidePlaylistContainer, id, processImage, qs, qsa, showMoodContainer, showSearchContainer } from '../utils';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
-import {getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
-import {savePlaylistToSpotify} from '../beatbuddy/src/APIFunctions/saveToSpotify';
+import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
+import { savePlaylistToSpotify } from '../beatbuddy/src/APIFunctions/saveToSpotify';
 import { returnSongFeatures } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { SearchResult } from '../utils';
+import { playSong, pauseSong, stopSong } from '../beatbuddy/src/spotify/getSong';
+import Filter from './Filter';
 
-function GeneratedPlaylist(props:any) {
 
+export function updateProgressBar(audio: any) {
+  const progressBar = document.getElementById('progress-bar');
+  const timeElement = document.getElementById('song-time');
+
+  if (progressBar && timeElement && audio) {
+    const progress = (audio.currentTime / audio.duration) * 100;
+    progressBar.style.width = `${progress}%`;
+
+    const remainingTime = audio.duration - audio.currentTime;
+    timeElement.innerText = formatTime(remainingTime);
+  }
+}
+
+function formatTime(time: number) {
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60);
+  return `${padZero(minutes)}:${padZero(seconds)}`;
+}
+
+function padZero(number: number) {
+  return number.toString().padStart(2, '0');
+}
+
+export function noSongPreviewMsg() {
+  const msg = document.getElementById("no-preview-msg");
+  if (msg) {
+    msg.innerText = "No preview of the song available.";
+    msg.style.display = "block";
+  }
+}
+
+export function removePreviewMsg() {
+  const msg = document.getElementById("no-preview-msg");
+  if (msg) {
+    msg.style.display = "none";
+  }
+}
+
+
+function GeneratedPlaylist(props: any) {
+
+  const [currPlaylist, setCurrPlaylist] = useState<SearchResult[]>([]);
   const [currTitle, setCurrTitle] = useState("");
   const [currArtist, setCurrArtist] = useState("");
   const [currImg, setCurrImg] = useState("");
+  const [currTrackId, setCurrTrackId] = useState("");
+  const [isPlaying, setIsPlaying] = useState(false);
+
 
   const [currEnergy, setEnergy] = useState(0);
   const [currAcoustic, setAcoustic] = useState(0);
@@ -29,15 +76,17 @@ function GeneratedPlaylist(props:any) {
 
   let prevSong: any;
 
+
   /**
    * Upon the recArray change (when new playlist is generated),
    * update the player to display the first song.
    */
-  useEffect(()=>{
+  useEffect(() => {
     if (props.recArray.length > 0) {
       handleSongClick(props.recArray[0]);
+      setCurrPlaylist(props.recArray);
     }
-  },[props.recArray])
+  }, [props.recArray])
 
 
   /*
@@ -45,7 +94,12 @@ function GeneratedPlaylist(props:any) {
   * (in song player)
   * @param song - Song array arranged like [artist, song, genre]
   */
-  async function handleSongClick(song : any) {
+  async function handleSongClick(song: any) {
+
+
+    stopSong(); // Stop the currently playing song
+
+    setIsPlaying(false); // Reset the isPlaying state to false
 
     setCurrTitle(song.title);
     setCurrArtist(song.artist);
@@ -63,16 +117,54 @@ function GeneratedPlaylist(props:any) {
     // ! including the children
     // mSetActiveSong(container);
 
-    // get features and display:
-    const featuresJSON = await returnSongFeatures(song.id);
-    //console.log(featuresJSON);
+    console.log('song id = ' + song.id)
+    // !mSetActiveSong is not working right now. Currently the way we set the
+    // ! background color and the hover color in each individual container makes
+    // ! this problematic. Is it possible to handle all of the color change/hover
+    // ! in .song-results-container instead of its children because that would make
+    // ! life much easier
 
+    // ! another alternative is that we somehow need the onclick for SongResult only
+    // ! working for the .song-results-container when we click on any parts of the container
+    // ! including the children
+    // mSetActiveSong(container);
+
+    console.log('song id = ' + song.id)
+    // !mSetActiveSong is not working right now. Currently the way we set the
+    // ! background color and the hover color in each individual container makes
+    // ! this problematic. Is it possible to handle all of the color change/hover
+    // ! in .song-results-container instead of its children because that would make
+    // ! life much easier
+
+    // ! another alternative is that we somehow need the onclick for SongResult only
+    // ! working for the .song-results-container when we click on any parts of the container
+    // ! including the children
+    // mSetActiveSong(container);
+    setCurrTrackId(song.id);
+
+    // get features and display
+    const featuresJSON = await returnSongFeatures(song.id);
     setEnergy(Math.round(featuresJSON.energy * 100));
     setAcoustic(Math.round(featuresJSON.acousticness * 100));
     setDance(Math.round(featuresJSON.danceability * 100));
 
     let songImg = song.imgUrl;
     processImage(songImg);
+
+    // playing preview of songs
+    handleSongProgressBar();
+    removePreviewMsg();
+  }
+
+  function handleSongProgressBar() {
+    // Reset the song progress bar and display the play button
+    const progressBar = document.getElementById('progress-bar');
+    const songTimeElement = document.getElementById('song-time');
+    if (progressBar && songTimeElement) {
+      progressBar.style.width = '0%';
+      progressBar.innerText = '';
+      songTimeElement.innerText = "";
+    }
   }
 
   function mSetActiveSong(currentSong: any) {
@@ -111,18 +203,43 @@ function GeneratedPlaylist(props:any) {
     // console.log(activeSong)
   }
 
-  async function createSpotifyPlaylist(playlistName: string, songs: SearchResult[]) {
-    const token = getAccessTokenFromCookie();
+  function generatePlaylistName() {
 
-    if (token !== null) {
-      // Access token is saved, call createPlaylist()
-      await savePlaylistToSpotify(playlistName, songs);
-    } else {
-      // Access token is not saved, call authorizeWithSpotify()
-      await authorizeWithSpotify();
-      await savePlaylistToSpotify(playlistName, songs);
-    }
+    let searchedSong = props.songId;
+    let art = props.artistId;
+
+    console.log(searchedSong + " : " + art);
+
   }
+
+  async function createSpotifyPlaylist(playlistName: string) {
+    console.log("creating playlist.. ");
+
+    const accessToken = getAccessTokenFromCookie();
+
+    if (!accessToken) {
+      // User is not authorized, redirect to authorize
+      console.log("invalid token -> redirect to authorize..");
+      authorizeWithSpotify();
+      return;
+    }
+
+    console.log("access token is valid -> creating playlist...");
+    // generatePlaylistName();
+    await savePlaylistToSpotify(playlistName, currPlaylist);
+  }
+
+  const handlePlayPauseButtonClick = () => {
+    if (isPlaying) {
+      // Pause the song
+      setIsPlaying(false);
+      pauseSong();
+    } else {
+      // Play the song
+      setIsPlaying(true);
+      playSong(currTrackId);
+    }
+  };
 
   // Reverts back to the default state of the website (i.e. only having a search bar) after
   // user clicks "Try another song" button
@@ -139,7 +256,7 @@ function GeneratedPlaylist(props:any) {
   }
 
 
-  return(
+  return (
     <section className={props.viewState} id='playlist-container'>
       <button id="back-btn" className="mobile-hidden" onClick={revertToDefault}>
         <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
@@ -147,48 +264,57 @@ function GeneratedPlaylist(props:any) {
       </button>
       <section id="desktop-wrapper">
         <section id="song-player" >
-            <div>
-              <img src={ currImg } alt="The song cover" className="song-img"></img>
-              <div className="current-song">
-                <span className="h-title bold">{currTitle}</span>
-                <span className="h2">By {currArtist}</span>
-              </div>
+          <div>
+            <img src={currImg} alt="The song cover" className="song-img"></img>
+            <div className="current-song">
+              <span className="h-title bold">{currTitle}</span>
+              <span className="h2">By {currArtist}</span>
             </div>
-            <div id="player-controls-wrapper" className='flex'>
-              <div className="play-btn-container">
-                  <img src={play_btn} className="play-btn" alt="an icon of a play button"></img>
-              </div>
+          </div>
+          <div className="progress-bar-container">
+            <div id="no-preview-msg"></div>
+            <div id="song-time">00:00</div>
+            <div id="progress-bar" style={{ width: '0%' }}></div>
+          </div>
+          <div id="player-controls-wrapper" className='flex'>
+            <div className="play-btn-container" onClick={handlePlayPauseButtonClick}>
+              {isPlaying ? (
+                <img src={pause_btn} className="pause-btn" alt="an icon of a pause button"></img>
+              ) : (
+                <img src={play_btn} className="play-btn" alt="an icon of a play button"></img>
+              )}
             </div>
-            <div className="song-stats flex">
-              <div id="energy" className="attrs">
-                <h3>Energy</h3>
-                {/* <h1>90%</h1> */}
-                <p className="h-title bold">{currEnergy + "%"}</p>
-              </div>
-              <div className="vl"></div>
-              <div id="accoustic" className="attrs">
-                <h3>Accousticness</h3>
-                {/* <h1>10%</h1> */}
-                <p className="h-title bold">{currAcoustic + "%"}</p>
-              </div>
-              <div className="vl"></div>
-              <div id="danceable" className="attrs">
-                <h3>Danceability</h3>
-                {/* <h1>13%</h1> */}
-                <p className="h-title bold">{currDance + "%"}</p>
-              </div>
+          </div>
+          <div className="song-stats flex">
+            <div id="energy" className="attrs">
+              <h3>Energy</h3>
+              {/* <h1>90%</h1> */}
+              <p className="h-title bold">{currEnergy + "%"}</p>
             </div>
-          </section>
+            <div className="vl"></div>
+            <div id="accoustic" className="attrs">
+              <h3>Accousticness</h3>
+              {/* <h1>10%</h1> */}
+              <p className="h-title bold">{currAcoustic + "%"}</p>
+            </div>
+            <div className="vl"></div>
+            <div id="danceable" className="attrs">
+              <h3>Danceability</h3>
+              {/* <h1>13%</h1> */}
+              <p className="h-title bold">{currDance + "%"}</p>
+            </div>
+          </div>
+        </section>
 
         <section id="playlist-wrapper">
-          <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist', [])}>
+          <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist')}>
             <span className="bold">Save to Spotify</span>
             <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
           </button>
           <section className="song-results-container-parent">
             <h2>Your Recommended Playlist</h2>
             {
-              props.recArray.map((song : any) => (
+              props.recArray.map((song: any) => (
                 <SongResult onClick={function (e: any) {
                   console.log(e.currentTarget);
                   let container = e.currentTarget;
@@ -222,7 +348,7 @@ function GeneratedPlaylist(props:any) {
               <span className="h2 bold">{currTitle}</span>
               <span className="h4 bold">{currArtist}</span>
             </div>
-            <img src={ currImg } alt="The song cover" className="song-img-mobile"></img>
+            <img src={currImg} alt="The song cover" className="song-img-mobile"></img>
           </div>
           <div className="song-stats-mobile flex-song">
             <div id="liveliness" className="attrs">
@@ -245,9 +371,9 @@ function GeneratedPlaylist(props:any) {
           {
             props.recArray.map((song: any) => (
               // * for generated_playlist design, show song-playlist-mobile, hide song-result-mobile
-              <SongResult design= "generated_playlist" onClick={() => { handleSongClick(song) }}
-              key={song.artist + song.title}
-              artist={song.artist} title={song.title} genre={song.genre}/>
+              <SongResult design="generated_playlist" onClick={() => { handleSongClick(song) }}
+                key={song.artist + song.title}
+                artist={song.artist} title={song.title} genre={song.genre} />
             ))
           }
         </section>

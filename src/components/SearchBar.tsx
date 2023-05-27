@@ -63,7 +63,6 @@ function SearchBar(props:any) {
 
       // Get songs from backend
       let songs : SearchResult[] = await searchSpotify(userInput);
-      
       // check if not results
       if (songs.length === 0) {
         id("error-logging").textContent = "No results. Try another search";
