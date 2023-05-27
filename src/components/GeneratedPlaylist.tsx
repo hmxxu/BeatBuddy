@@ -202,8 +202,8 @@ function GeneratedPlaylist(props: any) {
     }
 
     console.log("access token is valid -> creating playlist...");
-    generatePlaylistName();
-    // await savePlaylistToSpotify(playlistName, currPlaylist);
+    // generatePlaylistName();
+    await savePlaylistToSpotify(playlistName, currPlaylist);
   }
 
   const handlePlayPauseButtonClick = () => {
