@@ -172,8 +172,13 @@ input {
   box-shadow: rgb(28, 35, 48, 0.5) 1px 2px 2px;
 }
 
-#song-search:focus {
-  outline: 2px solid #D5D1FF;
+input:focus {
+  /* * Outline doesn't work with Safari so I replaced them with box-shadow instead */
+  /* outline: 2px solid #D5D1FF;
+    -webkit-outline: 2px solid #D5D1FF; */
+  outline: none;
+  box-shadow: 0 0 0 2px #D5D1FF;
+  outline-offset: -2px;
 }
 
 button {
@@ -183,6 +188,7 @@ button {
   box-shadow: rgb(28, 35, 48, 0.5) 1px 2px 2px;
   color: white;
   font-size: 18px;
+  margin: 0;
 }
 
 button:hover {

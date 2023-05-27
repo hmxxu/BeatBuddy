@@ -5,10 +5,12 @@
   #song-search {
     width: calc(100% - 65px);
     font-size: 20px;
+    position: relative;
   }
 
   #song-search-wrapper {
     position: relative;
+    border-radius: 20px;
   }
 
   #song-search + button {
@@ -212,4 +214,6 @@
 
   .activeSongColor {
     background-color: var(--hover-color) !important;
+    /* box-shadow: 0 0 0 3px var(--song-result-color);
+    outline-offset: -3px; */
   }

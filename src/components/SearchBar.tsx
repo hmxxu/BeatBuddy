@@ -63,7 +63,7 @@ function SearchBar(props:any) {
 
       // Get songs from backend
       let songs : SearchResult[] = await searchSpotify(userInput);
-      
+
       // check if not results
       if (songs.length === 0) {
         id("error-logging").textContent = "No results. Try another search";
@@ -101,7 +101,7 @@ function SearchBar(props:any) {
   return(
     <div className="search-container">
       <label htmlFor="song-search"><h2>Pick a Song!</h2></label>
-      <div id="song-search-wrapper">
+      <div id="song-search-wrapper" tabIndex={0}>
         <input type="text" id="song-search" placeholder='Search a song... ' ></input>
         <button id="search-song-btn">
           <span className="material-symbols-rounded" >
