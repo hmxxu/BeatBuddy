@@ -4,6 +4,7 @@ import play_btn from './../images/play-btn.png';
 
 function SongResult(props: any) {
   let id = props.id;
+  // console.log('song id in SongResult = ' + id)
   let src = props.src;
   let artist = props.artist;
   let title = props.title;

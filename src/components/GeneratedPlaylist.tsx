@@ -8,16 +8,16 @@ import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
 import { clearMoodButtons, hidePlaylistContainer, id, processImage, qs, qsa, showMoodContainer, showSearchContainer } from '../utils';
+import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
+import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import { savePlaylistToSpotify } from '../beatbuddy/src/APIFunctions/saveToSpotify';
 import { returnSongFeatures } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { SearchResult } from '../utils';
 import { playSong, pauseSong, stopSong } from '../beatbuddy/src/spotify/getSong';
-import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
-import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 import Filter from './Filter';
 
 
-export function updateProgressBar(audio: any){
+export function updateProgressBar(audio: any) {
   const progressBar = document.getElementById('progress-bar');
   const timeElement = document.getElementById('song-time');
 
@@ -56,7 +56,6 @@ export function removePreviewMsg() {
 }
 
 
-
 function GeneratedPlaylist(props: any) {
 
   const [currPlaylist, setCurrPlaylist] = useState<SearchResult[]>([]);
@@ -76,6 +75,7 @@ function GeneratedPlaylist(props: any) {
   let activeSong: any;
 
   let prevSong: any;
+
 
   /**
    * Upon the recArray change (when new playlist is generated),
@@ -116,6 +116,30 @@ function GeneratedPlaylist(props: any) {
     // ! working for the .song-results-container when we click on any parts of the container
     // ! including the children
     // mSetActiveSong(container);
+
+    console.log('song id = ' + song.id)
+    // !mSetActiveSong is not working right now. Currently the way we set the
+    // ! background color and the hover color in each individual container makes
+    // ! this problematic. Is it possible to handle all of the color change/hover
+    // ! in .song-results-container instead of its children because that would make
+    // ! life much easier
+
+    // ! another alternative is that we somehow need the onclick for SongResult only
+    // ! working for the .song-results-container when we click on any parts of the container
+    // ! including the children
+    // mSetActiveSong(container);
+
+    console.log('song id = ' + song.id)
+    // !mSetActiveSong is not working right now. Currently the way we set the
+    // ! background color and the hover color in each individual container makes
+    // ! this problematic. Is it possible to handle all of the color change/hover
+    // ! in .song-results-container instead of its children because that would make
+    // ! life much easier
+
+    // ! another alternative is that we somehow need the onclick for SongResult only
+    // ! working for the .song-results-container when we click on any parts of the container
+    // ! including the children
+    // mSetActiveSong(container);
     setCurrTrackId(song.id);
 
     // get features and display
@@ -127,7 +151,7 @@ function GeneratedPlaylist(props: any) {
     let songImg = song.imgUrl;
     processImage(songImg);
 
-        // playing preview of songs
+    // playing preview of songs
     handleSongProgressBar();
     removePreviewMsg();
   }
@@ -179,8 +203,7 @@ function GeneratedPlaylist(props: any) {
     // console.log(activeSong)
   }
 
-
-  function generatePlaylistName(){
+  function generatePlaylistName() {
 
     let searchedSong = props.songId;
     let art = props.artistId;
@@ -190,13 +213,13 @@ function GeneratedPlaylist(props: any) {
   }
 
   async function createSpotifyPlaylist(playlistName: string) {
-    console.log("creating playlist.. " );
+    console.log("creating playlist.. ");
 
     const accessToken = getAccessTokenFromCookie();
 
     if (!accessToken) {
       // User is not authorized, redirect to authorize
-      console.log("invalid token -> redirect to authorize.." );
+      console.log("invalid token -> redirect to authorize..");
       authorizeWithSpotify();
       return;
     }
@@ -232,7 +255,8 @@ function GeneratedPlaylist(props: any) {
     props.hideSongSelected();
   }
 
-  return(
+
+  return (
     <section className={props.viewState} id='playlist-container'>
       <button id="back-btn" className="mobile-hidden" onClick={revertToDefault}>
         <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back"></img>
@@ -248,7 +272,7 @@ function GeneratedPlaylist(props: any) {
             </div>
           </div>
           <div className="progress-bar-container">
-          <div id="no-preview-msg"></div>
+            <div id="no-preview-msg"></div>
             <div id="song-time">00:00</div>
             <div id="progress-bar" style={{ width: '0%' }}></div>
           </div>
@@ -290,25 +314,17 @@ function GeneratedPlaylist(props: any) {
           <section className="song-results-container-parent">
             <h2>Your Recommended Playlist</h2>
             {
-            // <div className="results-label h4 bold">
-            //   <p></p>
-            //   <p>Artist</p>
-            //   <p>Song</p>
-            //   <p>Genre</p>
-            // </div>
-            }
-            <hr></hr>
-            {
               props.recArray.map((song: any) => (
                 <SongResult onClick={function (e: any) {
                   console.log(e.currentTarget);
                   let container = e.currentTarget;
                   mSetActiveSong(container);
-                  handleSongClick(song);;
+                  handleSongClick(song);
                 }}
-                key={song.artist + song.title}
-                src={song.imgUrl}
-                artist={song.artist} title={song.title} genre={song.genre}/>
+                  id={song.id}
+                  key={song.artist + song.title}
+                  src={song.imgUrl}
+                  artist={song.artist} title={song.title} genre={song.genre} />
               ))
             }
           </section>
