@@ -321,10 +321,10 @@ function GeneratedPlaylist(props: any) {
                   mSetActiveSong(container);
                   handleSongClick(song);
                 }}
-                  id={song.id}
-                  key={song.artist + song.title}
-                  src={song.imgUrl}
-                  artist={song.artist} title={song.title} genre={song.genre} />
+                id={song.id}
+                key={song.artist + song.title}
+                src={song.imgUrl}
+                artist={song.artist} title={song.title} genre={song.genre}/>
               ))
             }
           </section>
