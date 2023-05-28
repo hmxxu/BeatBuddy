@@ -129,8 +129,17 @@ function GeneratedPlaylist(props: any) {
    * @param currentSong The currently selected song
    */
   function setActiveSong(currentSong: any) {
+
+    // for desktop
     let parent = qs(".song-results-container-parent");
     parent.querySelectorAll(":scope > .song-result-container").forEach((container: any) => {
+      container.firstChild.classList.remove('activeSongColor');
+    })
+    currentSong.classList.add('activeSongColor');
+
+    // for mobile
+    let parentMobile = qs(".results-mobile");
+    parentMobile.querySelectorAll(":scope > .song-result-container").forEach((container: any) => {
       container.firstChild.classList.remove('activeSongColor');
     })
     currentSong.classList.add('activeSongColor');
