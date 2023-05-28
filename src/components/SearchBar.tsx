@@ -19,19 +19,26 @@ function SearchBar(props:any) {
 
   function init() {
     // search button
-    if ('ontouchstart' in window) {
-      console.log('add touchend listener');
-      id("search-song-btn").addEventListener("touchend", searchSongs);
-    } else {
-      console.log('add click listener');
-      id("search-song-btn").addEventListener("click", searchSongs);
-    }
-    id("song-search").addEventListener("keydown", (e : any) => {
-      if (e.key === 'Enter' || e.keyCode === 13) {
+    // if ('ontouchstart' in window) {
+    //   console.log('add touchend listener');
+    //   id("search-song-btn").addEventListener("touchend", searchSongs);
+    // } else {
+    //   console.log('add click listener');
+    //   id("search-song-btn").addEventListener("click", searchSongs);
+    // }
+    // id("song-search").addEventListener("keydown", (e : any) => {
+    //   if (e.key === 'Enter' || e.keyCode === 13) {
+    //     console.log('got into keydown');
+    //     searchSongs();
+    //   }
+    // })
+  }
+
+  function handleKeyDown(e: any) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
         console.log('got into keydown');
         searchSongs();
-      }
-    })
+    }
   }
 
   /**
@@ -59,6 +66,7 @@ function SearchBar(props:any) {
    * When the user searches a song, this function will update the song results
    */
   async function searchSongs() {
+    console.log('search song called');
     id("search-results").classList.remove('close-container');
     try {
       id("error-logging").textContent = "Loading... May take a few seconds!";
@@ -109,8 +117,8 @@ function SearchBar(props:any) {
     <div className="search-container">
       <label htmlFor="song-search"><h2>Pick a Song!</h2></label>
       <div id="song-search-wrapper">
-        <input type="text" id="song-search" placeholder='Search a song... ' ></input>
-        <button id="search-song-btn">
+        <input type="text" id="song-search" placeholder='Search a song... ' onKeyDown={handleKeyDown}></input>
+        <button id="search-song-btn" onClick={searchSongs}>
           <span className="material-symbols-rounded" >
             search
           </span>
