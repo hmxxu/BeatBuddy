@@ -84,21 +84,22 @@ function PlaylistReady() {
       // get recommendations based on selected song
       console.log('mood in generateRec = ' + mood);
       let data = await moodRec(mood, tracks_seed);
-
       // convert recommended songs to searchResult[]
       let recArray : SearchResult[] = [];
-
       // genre array is empty for now
       data.tracks.forEach((t) => {
         recArray.push(new SearchResult(t.artists[0].name, t.artists[0].id,
           t.name, t.id, [], t.album.images[1].url));
       })
-
       setRecData(recArray);
       setPlaylistViewState("");
     } catch (err) {
       console.error(err)
     }
+
+    // console.log(qs("#playlist-wrapper > section > .song-result-container"));
+
+    // qs("#playlist-wrapper > section > .song-result-container").classList.add('activeSongColor');
   }
 
   return(

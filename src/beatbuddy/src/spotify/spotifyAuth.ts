@@ -6,6 +6,9 @@ if (process.env.REACT_APP_STAGE !== 'production') {
   // require('dotenv');
 }
 
+//! temporary, remove these static assignment out when dotenv has been fixed
+
+// TODO: uncomment this when dotenv has been fixed
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;

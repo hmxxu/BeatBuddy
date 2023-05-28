@@ -2,7 +2,8 @@
 
 #mood-btns-container .selected-mood {
   background: var(--body-color);
-  outline: 2px black solid;
+  box-shadow: 0 0 0 2px black;
+  outline-offset: -2px;
 }
 
 #mood-btns-container {

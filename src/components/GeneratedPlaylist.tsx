@@ -70,13 +70,6 @@ function GeneratedPlaylist(props: any) {
   const [currAcoustic, setAcoustic] = useState(0);
   const [currDance, setDance] = useState(0);
 
-  const [aActiveSong, aSetActiveSong] = useState<HTMLElement | null>(null);
-
-  let activeSong: any;
-
-  let prevSong: any;
-
-
   /**
    * Upon the recArray change (when new playlist is generated),
    * update the player to display the first song.
@@ -96,50 +89,12 @@ function GeneratedPlaylist(props: any) {
   */
   async function handleSongClick(song: any) {
 
-
     stopSong(); // Stop the currently playing song
-
     setIsPlaying(false); // Reset the isPlaying state to false
 
     setCurrTitle(song.title);
     setCurrArtist(song.artist);
     setCurrImg(song.imgUrl);
-
-    console.log('song id = ' + song.id)
-    // !mSetActiveSong is not working right now. Currently the way we set the
-    // ! background color and the hover color in each individual container makes
-    // ! this problematic. Is it possible to handle all of the color change/hover
-    // ! in .song-results-container instead of its children because that would make
-    // ! life much easier
-
-    // ! another alternative is that we somehow need the onclick for SongResult only
-    // ! working for the .song-results-container when we click on any parts of the container
-    // ! including the children
-    // mSetActiveSong(container);
-
-    console.log('song id = ' + song.id)
-    // !mSetActiveSong is not working right now. Currently the way we set the
-    // ! background color and the hover color in each individual container makes
-    // ! this problematic. Is it possible to handle all of the color change/hover
-    // ! in .song-results-container instead of its children because that would make
-    // ! life much easier
-
-    // ! another alternative is that we somehow need the onclick for SongResult only
-    // ! working for the .song-results-container when we click on any parts of the container
-    // ! including the children
-    // mSetActiveSong(container);
-
-    console.log('song id = ' + song.id)
-    // !mSetActiveSong is not working right now. Currently the way we set the
-    // ! background color and the hover color in each individual container makes
-    // ! this problematic. Is it possible to handle all of the color change/hover
-    // ! in .song-results-container instead of its children because that would make
-    // ! life much easier
-
-    // ! another alternative is that we somehow need the onclick for SongResult only
-    // ! working for the .song-results-container when we click on any parts of the container
-    // ! including the children
-    // mSetActiveSong(container);
     setCurrTrackId(song.id);
 
     // get features and display
@@ -167,40 +122,13 @@ function GeneratedPlaylist(props: any) {
     }
   }
 
-  function mSetActiveSong(currentSong: any) {
+  function setActiveSong(currentSong: any) {
 
     let parent = qs(".song-results-container-parent");
     parent.querySelectorAll(":scope > .song-result-container").forEach((container: any) => {
       container.firstChild.classList.remove('activeSongColor');
     })
-
     currentSong.classList.add('activeSongColor');
-
-    // console.log('active song BEFORE')
-    // console.log(aActiveSong)
-    // // if activeSong contains the previous song
-    // if (aActiveSong) {
-    //   aActiveSong.setAttribute("style", "background-color:var(--song-result-color);");
-    // }
-    // console.log('setting active song to: ')
-    // console.log(currentSong);
-    // aSetActiveSong(currentSong);
-    // console.log('active song AFTER')
-    // console.log(aActiveSong)
-
-    // aActiveSong!.setAttribute("style", "background-color:var(--hover-color);");
-
-    // console.log('active song BEFORE')
-    // console.log(activeSong)
-    // // if activeSong contains the previous song
-    // if (activeSong) {
-    //   activeSong.setAttribute("style", "background-color:var(--song-result-color);");
-    // }
-    // activeSong = currentSong;
-    // currentSong.setAttribute("style", "background-color:var(--hover-color);");
-
-    // console.log('active song AFTER')
-    // console.log(activeSong)
   }
 
   function generatePlaylistName() {
@@ -248,13 +176,12 @@ function GeneratedPlaylist(props: any) {
     hidePlaylistContainer();
     showSearchContainer();
     document.documentElement.style.setProperty("--body-color", "linear-gradient(#6380E8, #A9A2FF)");
-    document.documentElement.style.setProperty("--hover-color", "#B6B2FE");
+    document.documentElement.style.setProperty("--hover-color", "#9E98FE");
     document.documentElement.style.setProperty("--play-btn-color", "#6481E8");
     document.documentElement.style.setProperty("--song-result-color", "#D5D1FF");
     document.documentElement.style.setProperty("--song-result-text-color", "#000000");
     props.hideSongSelected();
   }
-
 
   return (
     <section className={props.viewState} id='playlist-container'>
@@ -318,7 +245,7 @@ function GeneratedPlaylist(props: any) {
                 <SongResult onClick={function (e: any) {
                   console.log(e.currentTarget);
                   let container = e.currentTarget;
-                  mSetActiveSong(container);
+                  setActiveSong(container);
                   handleSongClick(song);
                 }}
                 id={song.id}

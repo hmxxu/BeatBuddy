@@ -5,10 +5,12 @@
   #song-search {
     width: calc(100% - 65px);
     font-size: 20px;
+    position: relative;
   }
 
   #song-search-wrapper {
     position: relative;
+    border-radius: 20px;
   }
 
   #song-search + button {
@@ -64,6 +66,10 @@
     pointer-events: none;
   } */
 
+  /* .song-results-container-parent > .song-results-container * {
+    pointer-events: none;
+  } */
+
   .song-playlist-mobile, .song-result > img {
     border-radius: 10px;
   }
@@ -82,6 +88,12 @@
   }
 
   /* .song-result, .song-result-mobile, .song-playlist-mobile {
+  .song-result-container {
+    background-color: var(--song-result-color);
+    border-radius: 20px;
+  }
+
+  /* .song-result, .song-result-mobile, .song-playlist-mobile {
     background-color: var(--song-result-color);
   } */
 
@@ -91,6 +103,7 @@
     padding: 5px;
     align-items: center;
     overflow: hidden;
+    column-gap: 10px;
   }
 
   .song-result h4, .song-result p {
@@ -138,6 +151,7 @@
     color: var(--song-result-text-color);
     transition: 0.5s;
   }
+
   .play-btn-small {
     width: 36px;
     height: 36px;
@@ -212,4 +226,6 @@
 
   .activeSongColor {
     background-color: var(--hover-color) !important;
+    /* box-shadow: 0 0 0 3px var(--song-result-color);
+    outline-offset: -3px; */
   }
