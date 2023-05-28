@@ -17,12 +17,23 @@ body {
 
 #beatbuddy-logo-small {
   padding: 20px;
-  margin-left: 30px;
   /* scale: 0.5; */
 }
 
 body, input, button {
   font-family: 'Readex Pro', sans-serif;
+}
+
+header {
+  background-color: rgb(28, 35, 48, 0.6);
+  /* position: fixed;*/
+  top: 0px;
+  position: absolute;
+  left: 0px;
+  /* width: 100%; */
+  margin: auto;
+  width: calc(100% - 50px);
+  padding-left: 50px;
 }
 
 :root {
@@ -124,18 +135,11 @@ body, input, button {
     display: none;
   }
 
-}
+  header {
+    width: calc(100% - 20px);
+    padding-left: 20px;
+  }
 
-header {
-  background-color: rgb(28, 35, 48, 0.6);
-  /* position: fixed;*/
-  top: 0px;
-  position: absolute;
-  left: 0px;
-  /* width: 100%; */
-  margin: auto;
-  width: calc(100% - 50px);
-  padding-left: 50px;
 }
 
 hr {
