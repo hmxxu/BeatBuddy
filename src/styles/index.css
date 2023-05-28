@@ -15,8 +15,10 @@ body {
   margin-bottom: 150px;
 }
 
-#beatbuddy-logo-small {
+#beatbuddy-logo {
   padding: 20px;
+  width: 210px;
+  height: 42px;
   /* scale: 0.5; */
 }
 
