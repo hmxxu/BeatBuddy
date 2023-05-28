@@ -103,6 +103,7 @@ function GeneratedPlaylist(props: any) {
     setAcoustic(Math.round(featuresJSON.acousticness * 100));
     setDance(Math.round(featuresJSON.danceability * 100));
 
+    // changes background color of the website depending on the song cover image
     let songImg = song.imgUrl;
     processImage(songImg);
 
@@ -122,8 +123,12 @@ function GeneratedPlaylist(props: any) {
     }
   }
 
+  /**
+   * Gets the currently selected song and changes the color of the container to make
+   * it look distinctive.
+   * @param currentSong The currently selected song
+   */
   function setActiveSong(currentSong: any) {
-
     let parent = qs(".song-results-container-parent");
     parent.querySelectorAll(":scope > .song-result-container").forEach((container: any) => {
       container.firstChild.classList.remove('activeSongColor');
