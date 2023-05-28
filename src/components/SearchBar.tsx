@@ -19,9 +19,16 @@ function SearchBar(props:any) {
 
   function init() {
     // search button
-    id("search-song-btn").addEventListener("click", searchSongs);
-    id("song-search").addEventListener("keyup", (e : any) => {
+    if ('ontouchstart' in window) {
+      console.log('add touchend listener');
+      id("search-song-btn").addEventListener("touchend", searchSongs);
+    } else {
+      console.log('add click listener');
+      id("search-song-btn").addEventListener("click", searchSongs);
+    }
+    id("song-search").addEventListener("keydown", (e : any) => {
       if (e.key === 'Enter' || e.keyCode === 13) {
+        console.log('got into keydown');
         searchSongs();
       }
     })
