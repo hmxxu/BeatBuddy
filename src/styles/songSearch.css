@@ -200,8 +200,12 @@
 
   #selected-song p {
     margin: 0px;
-    display: inline;
+    display: inline-block;
     vertical-align: sub;
+    max-width: calc(100% - 30px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   #search-results {
