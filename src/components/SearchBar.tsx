@@ -17,23 +17,6 @@ function SearchBar(props:any) {
   const initialSongs : Array<SearchResult> = [];
   const [currSongsState, setSongsState] = useState(initialSongs);
 
-  function init() {
-    // search button
-    // if ('ontouchstart' in window) {
-    //   console.log('add touchend listener');
-    //   id("search-song-btn").addEventListener("touchend", searchSongs);
-    // } else {
-    //   console.log('add click listener');
-    //   id("search-song-btn").addEventListener("click", searchSongs);
-    // }
-    // id("song-search").addEventListener("keydown", (e : any) => {
-    //   if (e.key === 'Enter' || e.keyCode === 13) {
-    //     console.log('got into keydown');
-    //     searchSongs();
-    //   }
-    // })
-  }
-
   function handleKeyDown(e: any) {
     if (e.key === 'Enter' || e.keyCode === 13) {
         console.log('got into keydown');
@@ -66,7 +49,6 @@ function SearchBar(props:any) {
    * When the user searches a song, this function will update the song results
    */
   async function searchSongs() {
-    console.log('search song called');
     id("search-results").classList.remove('close-container');
     try {
       id("error-logging").textContent = "Loading... May take a few seconds!";
