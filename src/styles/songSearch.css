@@ -93,6 +93,7 @@
     padding: 5px;
     align-items: center;
     overflow: hidden;
+    column-gap: 10px;
   }
 
   .song-result h4, .song-result p {

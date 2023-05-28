@@ -91,7 +91,7 @@ function GeneratedPlaylist(props:any) {
     hidePlaylistContainer();
     showSearchContainer();
     document.documentElement.style.setProperty("--body-color", "linear-gradient(#6380E8, #A9A2FF)");
-    document.documentElement.style.setProperty("--hover-color", "#B6B2FE");
+    document.documentElement.style.setProperty("--hover-color", "#9E98FE");
     document.documentElement.style.setProperty("--play-btn-color", "#6481E8");
     document.documentElement.style.setProperty("--song-result-color", "#D5D1FF");
     document.documentElement.style.setProperty("--song-result-text-color", "#000000");

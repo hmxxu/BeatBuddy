@@ -2,7 +2,6 @@
 
 body {
   margin: auto;
-  font-family: 'Inter', sans-serif;
   /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
@@ -16,11 +15,21 @@ body {
   margin-bottom: 150px;
 }
 
+#beatbuddy-logo-small {
+  padding: 20px;
+  margin-left: 30px;
+  /* scale: 0.5; */
+}
+
+body, input, button {
+  font-family: 'Readex Pro', sans-serif;
+}
+
 :root {
   --song-result-color: #D5D1FF;
   --play-btn-color: #6481E8;
   --body-color: linear-gradient(#6380E8, #A9A2FF);
-  --hover-color: #B6B2FE;
+  --hover-color: #9E98FE;
 
   --song-result-text-color: #000000;
   /* --song-player-color: rgb(28, 35, 48, 0.2);
@@ -123,6 +132,8 @@ header {
   top: 0px;
   position: absolute;
   left: 0px;
+  /* width: 100%; */
+  margin: auto;
   width: calc(100% - 50px);
   padding-left: 50px;
 }
@@ -225,7 +236,7 @@ code {
 #generate-playlist-btn {
   padding: 20px 40px 20px 40px;
   border-radius: 20px;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 #two-filter {
