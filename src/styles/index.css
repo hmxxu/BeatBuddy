@@ -185,7 +185,7 @@ input {
   border: none;
   border-radius: 20px;
   box-shadow: rgba(28, 35, 48, 0.5) 1px 2px 2px;
-  -webkit-appearance: none;
+  /* -webkit-appearance: none; */
   -webkit-box-shadow: rgba(28, 35, 48, 0.5) 1px 2px 2px;
 }
 
