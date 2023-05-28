@@ -107,6 +107,10 @@ header {
 /* ? Breakpoint for mobile */
 @media screen and (max-width: 900px) {
 
+  body {
+    width: 90%;
+  }
+
   #playlist-wrapper, #song-player, .song-result-container .song-result,
   #search-results .results-label, #search-results hr {
     display: none;
