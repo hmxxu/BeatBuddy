@@ -60,6 +60,7 @@ function SearchBar(props:any) {
       // get user input
       let searchInput : HTMLInputElement = id('song-search') as HTMLInputElement;
       let userInput : string = searchInput.value;
+      console.log('userInput = ' + userInput);
 
       // Get songs from backend
       let songs : SearchResult[] = await searchSpotify(userInput);
