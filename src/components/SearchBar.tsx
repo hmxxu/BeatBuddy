@@ -9,8 +9,6 @@ import { SearchResult } from '../utils';
 
 function SearchBar(props:any) {
 
-  window.addEventListener("load", init);
-
   const [selectedDisplay, setSelectedDisplay] = useState("Miku - Miku");
 
   // Array of songs
