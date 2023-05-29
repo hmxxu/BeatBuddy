@@ -16,10 +16,11 @@ body {
 }
 
 #beatbuddy-logo {
-  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   width: 210px;
   height: 42px;
-  /* scale: 0.5; */
+  margin-left: 5%;
 }
 
 body, input, button {
@@ -32,10 +33,10 @@ header {
   top: 0px;
   position: absolute;
   left: 0px;
-  /* width: 100%; */
-  margin: auto;
-  width: calc(100% - 50px);
-  padding-left: 50px;
+  width: 100%;
+  /* margin: auto; */
+  /* width: calc(100% - 50px);
+  padding-left: 50px; */
 }
 
 :root {
@@ -140,12 +141,18 @@ header {
   .mobile-hidden {
     display: none;
   }
+}
+
+/* ? Breakpoint for navbar */
+@media screen and (max-width: 435px) {
+  #beatbuddy-logo {
+    margin-left: 0%;
+  }
 
   header {
     width: calc(100% - 20px);
     padding-left: 20px;
   }
-
 }
 
 hr {

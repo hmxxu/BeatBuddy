@@ -1,22 +1,27 @@
 import React from 'react';
-
 import play_btn from './../images/play-btn.png';
-import { qs } from '../utils';
 
 function SongResult(props: any) {
+
   let src = props.src;
   let artist = props.artist;
   let title = props.title;
   let genre = props.genre;
 
+  let isFirstChild = false;
+  if (props.index === 0 && props.index !== undefined) {
+    isFirstChild = true;
+    console.log('isFirstChild is true: ' + isFirstChild);
+  }
+
   // console.log(qs("#playlist-wrapper .song-results-container-parent").firstElementChild.nextElementSibling);
 
   // onClick will call the function in SearchBar
   return (
-    <div className={"song-result-container" + ((props.isFirstChild) ? "activeSongColor" : "")}>
+    <div className={"song-result-container"}>
 
       {/* The code below is for desktop */}
-      <div className={"song-result h4"} onClick={props.onClick}>
+      <div className={"song-result h4" + ((isFirstChild) ? " activeSongColor" : "")} onClick={props.onClick}>
         <img src={src} alt="album cover" id="album-cover"></img>
         <div>
           <h4 id="title">{title}</h4>
@@ -25,6 +30,7 @@ function SongResult(props: any) {
         </div>
       </div>
 
+      {/* This is for search bar */}
       <div className={"song-result-mobile" + ((props.design === "searchbar") ? "" : " hidden")} onClick={props.onClick}>
         <p id="artist-title" className="semi-bold">{artist} - {title}</p>
         {/* <p id="title">{title}</p> */}
@@ -32,7 +38,7 @@ function SongResult(props: any) {
       </div>
 
       {/* The code below is for mobile */}
-      <div className={"song-playlist-mobile" + ((props.design === "generated_playlist") ? "" : " hidden")} onClick={props.onClick}>
+      <div className={"song-playlist-mobile" + ((isFirstChild) ? " activeSongColor" : "") + ((props.design === "generated_playlist") ? "" : " hidden")} onClick={props.onClick}>
         <div className="song-container-mobile">
           <p className="bold">{title}</p>
           <p>{artist}</p>

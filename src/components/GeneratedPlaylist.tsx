@@ -131,20 +131,24 @@ function GeneratedPlaylist(props: any) {
   function setActiveSong(currentSong: any) {
     console.log('SET ACTIVE SONG');
 
+    clearActiveSongColor();
+
+    currentSong.classList.add('activeSongColor');
+  }
+
+  function clearActiveSongColor() {
     // for desktop
     let parent = qs(".song-results-container-parent");
     parent.querySelectorAll(":scope > .song-result-container").forEach((container: any) => {
       container.firstChild.classList.remove('activeSongColor');
     })
-    currentSong.classList.add('activeSongColor');
 
-    // for mobile
+    // !NOT WORKING - for mobile
     let parentMobile = qs(".results-mobile");
     parentMobile.querySelectorAll(":scope > .song-result-container").forEach((container: any) => {
       console.log('got in mobile');
-      container.firstChild.classList.remove('activeSongColor');
+      container.childNodes[2].classList.remove('activeSongColor');
     })
-    currentSong.classList.add('activeSongColor');
   }
 
   function generatePlaylistName() {
@@ -250,20 +254,21 @@ function GeneratedPlaylist(props: any) {
         </section>
 
         <section id="playlist-wrapper">
-          <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist')}>
+          <button id="spotify-btn" rel="noopener noreferrer" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist')}>
             <span className="bold">Save to Spotify</span>
             <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
           </button>
           <section className="song-results-container-parent">
             <h2>Your Recommended Playlist</h2>
             {
-              props.recArray.map((song: any) => (
+              props.recArray.map((song: any, index: number) => (
                 <SongResult onClick={function (e: any) {
                   console.log(e.currentTarget);
                   let container = e.currentTarget;
                   setActiveSong(container);
                   handleSongClick(song);
                 }}
+                index={index}
                 id={song.id}
                 key={song.artist + song.title}
                 src={song.imgUrl}
@@ -312,9 +317,16 @@ function GeneratedPlaylist(props: any) {
         </section>
         <section className="results-mobile">
           {
-            props.recArray.map((song: any) => (
+            props.recArray.map((song: any, index: number) => (
               // * for generated_playlist design, show song-playlist-mobile, hide song-result-mobile
-              <SongResult design="generated_playlist" onClick={() => { handleSongClick(song) }}
+              <SongResult design="generated_playlist"
+                onClick={ function (e: any) {
+                    console.log(e.currentTarget);
+                    let container = e.currentTarget;
+                    setActiveSong(container);
+                    handleSongClick(song);
+                }}
+                index={index}
                 key={song.artist + song.title}
                 artist={song.artist} title={song.title} genre={song.genre} />
             ))

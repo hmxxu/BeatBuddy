@@ -113,7 +113,7 @@ function SearchBar(props:any) {
       <p id="error-logging" className='bold h2'></p>
       <section id="search-results" className="hidden song-results-container">
         {
-          currSongsState.map((song : any) => (
+          currSongsState.map((song : any, index: number) => (
             // * for searchbar design, show song-result-mobile, hide song-playlist-mobile
             <SongResult design="searchbar" onClick={() => {handleSongClick(song)}}
             key={song.id}

@@ -96,10 +96,6 @@ function PlaylistReady() {
     } catch (err) {
       console.error(err)
     }
-
-    // console.log(qs("#playlist-wrapper > section > .song-result-container"));
-
-    // qs("#playlist-wrapper > section > .song-result-container").classList.add('activeSongColor');
   }
 
   return(
