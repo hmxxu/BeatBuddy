@@ -262,7 +262,7 @@ function GeneratedPlaylist(props: any) {
         </section>
 
         <section id="playlist-wrapper">
-          <button id="spotify-btn" onClick={() => saveCurrentPlaylist("MyTestSavedPLaylist", currPlaylist)}>
+          <button id="spotify-btn" onClick={() => saveCurrentPlaylist(generatePlaylistName(), currPlaylist)}>
             <span className="bold">Save to Spotify</span>
             <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
           </button>
