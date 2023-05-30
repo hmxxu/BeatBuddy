@@ -28,6 +28,8 @@ export enum Mood {
 }
 
 function moodRec(mood: Mood, songs: string[]) {
+    // num of recommendations
+    const AMOUNT = 20;
     if (mood === Mood.WORKOUT) {
         // ACOUSTICNESS 0.09-0.12 DANCEABILITY 0.7 ENERGY 0.7 MODE 0.67 VALENCE 0.48
         const ACOUSTICNESS = 0.1;
@@ -35,14 +37,14 @@ function moodRec(mood: Mood, songs: string[]) {
         const ENERGY = 0.7;
         const VALENCE = 0.48;
         const MODE = 67;
-        return returnSpotifyRec(10, [], [], songs, ACOUSTICNESS, DANCEABILITY, ENERGY, undefined, undefined, undefined, undefined, MODE,
+        return returnSpotifyRec(AMOUNT, [], [], songs, ACOUSTICNESS, DANCEABILITY, ENERGY, undefined, undefined, undefined, undefined, MODE,
             undefined, undefined, undefined, VALENCE);
     } else if (mood === Mood.SAD){
         // ACOUSTICNESS high, ENERGY low, VALENCE low
         const ACOUSTICNESS = 0.55;
         const ENERGY = 0.43;
         const VALENCE = 0.33;
-        return returnSpotifyRec(10, [], [], songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, undefined,
+        return returnSpotifyRec(AMOUNT, [], [], songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, undefined,
             undefined, undefined, undefined, VALENCE);
      
     } else if (mood === Mood.HAPPY) {
@@ -50,7 +52,7 @@ function moodRec(mood: Mood, songs: string[]) {
         const ACOUSTICNESS = 0.15;
         const ENERGY = 0.7;
         const VALENCE = 0.6;
-        return returnSpotifyRec(10, [], [], songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, undefined,
+        return returnSpotifyRec(AMOUNT, [], [], songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, undefined,
             undefined, undefined, undefined, VALENCE);
     } else if (mood === Mood.CHILL) {
         // ACOUSTICNESS 0.3-0.35 ENERGY 0.58-0.67 MODE 0.67 VALENCE 0.48
@@ -58,10 +60,10 @@ function moodRec(mood: Mood, songs: string[]) {
         const ENERGY = 0.62;
         const VALENCE = 0.48;
         const MODE = 67;
-        return returnSpotifyRec(10, [], [], songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, MODE,
+        return returnSpotifyRec(AMOUNT, [], [], songs, ACOUSTICNESS, undefined, ENERGY, undefined, undefined, undefined, undefined, MODE,
             undefined, undefined, undefined, VALENCE);
     } else {
-        return returnSpotifyRec(10, [], [], songs, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,
+        return returnSpotifyRec(AMOUNT, [], [], songs, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,
             undefined, undefined, undefined, undefined);
     }
 }
