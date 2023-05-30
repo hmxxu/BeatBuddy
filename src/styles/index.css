@@ -15,7 +15,36 @@ body {
   margin-bottom: 150px;
 }
 
-#beatbuddy-logo {
+.h-title {
+  font-size: 40px;
+}
+
+h1,
+.h1 {
+  font-size: 28px;
+}
+
+h2,
+.h2 {
+  font-size: 26px;
+}
+
+h3,
+.h3 {
+  font-size: 24px;
+}
+
+h4,
+.h4 {
+  font-size: 20px;
+}
+
+h5,
+.h5 {
+  font-size: 16px;
+}
+
+#navbar-logo {
   padding-top: 20px;
   padding-bottom: 20px;
   width: 210px;
@@ -58,12 +87,9 @@ header {
 .modal {
   padding: 5rem 5rem 2rem 5rem;
   /* padding: 7rem; */
-  text-align: center;
   background: white;
   border: none;
   z-index: 10;
-
-  text-shadow: none;
   background: linear-gradient(180deg, #F1FFF6 0%, #BFFFD6 100%);
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
@@ -85,11 +111,11 @@ dialog::backdrop {
   white-space: pre-line;
 }
 
-.modal > button, .modal > button:hover {
+.spotify-theme, .spotify-theme:hover {
   background: #20CC5D;
 }
 
-.modal > button:active {
+.spotify-theme:active {
   background: #19a048;
 }
 
@@ -114,6 +140,9 @@ dialog::backdrop {
   body {
     width: 70%;
   }
+  h1,.h1 {
+    font-size: 24px !important;
+  }
 }
 
 /* ? Breakpoint for smaller desktop */
@@ -122,10 +151,10 @@ dialog::backdrop {
     font-size: 36px !important;
   }
   h1, .h1 {
-    font-size: 28px !important;
+    font-size: 24px !important;
   }
   h2, .h2 {
-    font-size: 24px !important;
+    font-size: 22px !important;
   }
   h3, .h3 {
     font-size: 20px !important;
@@ -203,7 +232,7 @@ dialog::backdrop {
 
 /* ? Breakpoint for navbar */
 @media screen and (max-width: 435px) {
-  #beatbuddy-logo {
+  #navbar-logo {
     margin-left: 0%;
   }
 
@@ -222,32 +251,8 @@ body {
   min-height: 80vh;
 }
 
-.myDropdown, .song-results-container > .results-label, .song-result, .song-result-mobile {
+.myDropdown, .song-results-container > .results-label, .song-result, .song-result-mobile, .modal, #try-text {
   text-shadow: none;
-}
-
-.h-title {
-  font-size: 40px;
-}
-
-h1, .h1 {
-  font-size: 36px;
-}
-
-h2, .h2 {
-  font-size: 28px;
-}
-
-h3, .h3 {
-font-size: 24px;
-}
-
-h4, .h4 {
-  font-size: 20px;
-}
-
-h5, .h5 {
-  font-size: 16px;
 }
 
 input {
@@ -271,16 +276,17 @@ input:focus {
 
 button {
   background-color: #1C2330;
-  text-align: center;
   border: none;
   box-shadow: rgb(28, 35, 48, 0.5) 1px 2px 2px;
   color: white;
-  font-size: 18px;
   margin: 0;
 }
 
 button:hover {
   background-color: #2a3447;
+}
+
+.pointer, button:hover, .accordion-icon {
   cursor: pointer;
 }
 
@@ -299,6 +305,10 @@ button:active {
 
 .semi-bold {
   font-weight: 500;
+}
+
+.regular {
+  font-weight: 400;
 }
 
 .visibility-hidden {
@@ -353,7 +363,6 @@ button:active {
 }
 
 .accordion-icon {
-  cursor: pointer;
   width: 36px;
   height: 36px;
   vertical-align: middle;
@@ -429,4 +438,42 @@ button:active {
     /* max-height: 2000px; */
     opacity: 1;
   }
+}
+
+#beatbuddy-home {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+#beatbuddy-desc {
+  text-shadow: none;
+}
+
+#login-to-spotify {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+  padding: 10px 20px 10px 20px;
+  border-radius: 20px;
+}
+
+#try-text, #login-to-spotify {
+  margin-top: 3rem;
+  color: black;
+}
+
+#login-to-spotify-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.modal, button, #beatbuddy-desc, #try-text {
+  text-align: center;
+}
+
+button, #try-text {
+  font-size: 18px;
 }

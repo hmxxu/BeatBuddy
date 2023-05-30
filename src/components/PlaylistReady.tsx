@@ -1,11 +1,13 @@
 import React from 'react';
 import GeneratedPlaylist from './GeneratedPlaylist';
 import SearchBar from './SearchBar';
-import { hideGenerateButton, hideMoodContainer, hideSearchContainer, closeModal, id, qs, showGenerateButton, showPlaylistContainer } from '../utils';
+import { hideGenerateButton, hideMoodContainer, hideSearchContainer, closeModal, id, qs, showGenerateButton, showPlaylistContainer, hideWebsiteIntro, showWebsiteIntro } from '../utils';
 import { useState } from 'react';
 import { SearchResult } from '../utils';
 import MoodButtons from './MoodButtons';
 import { Mood, moodRec } from '../beatbuddy/src/recommendation/RecommendSongs';
+import logo_large from '../images/beatbuddy-logo-large.svg';
+import spotify_icon from '../images/spotify-icon.png';
 
 function PlaylistReady() {
 
@@ -100,12 +102,24 @@ function PlaylistReady() {
 
   return(
     <div>
+
+      {/* Website Intro */}
+      <div id="website-intro">
+        <object data={logo_large} type="image/svg+xml" aria-labelledby="BeatBuddy logo" id="beatbuddy-home"></object>
+        <h1 id="beatbuddy-desc" className="regular">BeatBuddy crafts personalized playlists that perfectly match your unique music taste!</h1>
+        <button id="login-to-spotify" className="spotify-theme">
+          Login for full access
+          <img src={spotify_icon} alt="Spotify icon" id="login-to-spotify-icon"></img>
+        </button>
+        <p id="try-text">Don’t have Spotify? <u className="pointer" onClick={hideWebsiteIntro}>Try without full access</u></p>
+      </div>
+
       <dialog data-modal className="modal">
         <p className="h-modal" id="success-text">Your playlist has been<br/>
           saved to Spotify 🎉</p>
         <p className="h-modal hidden" id="error-text">An error occurred.<br/>
           Your playlist could not be saved.</p>
-        <button data-close-modal className="h-modal" onClick={closeModal}>Okay</button>
+        <button data-close-modal className="h-modal spotify-theme" onClick={closeModal}>Okay</button>
       </dialog>
       <SearchBar setIds={ getIds } />
       <MoodButtons setMood={ getMood } />
