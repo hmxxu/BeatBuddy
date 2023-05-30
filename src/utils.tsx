@@ -137,11 +137,10 @@ export function clearMoodButtons() {
 /**
  * Shows the modal after a playlist has been saved to Spotify successfully or unsuccessfully
  */
-export function openModal() {
+export function openModal(open:Boolean) {
   // ! for Tapan, set saveToSpotifySuccess to true if user is able to save playlist to Spotiy,
   // ! otherwise set it to false
-  let saveToSpotifySuccess = true;
-  if (!saveToSpotifySuccess) {
+  if (!open) {
     id('error-text').classList.remove('hidden');
     id('success-text').classList.add('hidden');
   }

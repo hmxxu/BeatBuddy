@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { authorizeWithSpotify, exchangeCodeForAccessToken } from './spotifyAuth';
 import { getAccessTokenFromCookie, saveAccessTokenToCookie } from './tokenCookies';
+import { hideLoginContainer, showSearchContainer } from '../../../utils';
 
 /**
  * Callback component that handles the Spotify authentication callback.
@@ -20,6 +21,8 @@ export function Callback(): any {
 
     if (token) {
       console.log("auth code already exchanged");
+      hideLoginContainer();
+      showSearchContainer();
       return;
     }
 

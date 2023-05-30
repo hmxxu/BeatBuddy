@@ -14,6 +14,7 @@ import { savePlaylistToSpotify } from '../beatbuddy/src/APIFunctions/saveToSpoti
 import { returnSongFeatures } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { SearchResult } from '../utils';
 import { playSong, pauseSong, stopSong } from '../beatbuddy/src/spotify/getSong';
+import { createSpotifyPlaylist } from './CreatePlaylist';
 
 export function updateProgressBar(audio: any) {
   const progressBar = document.getElementById('progress-bar');
@@ -149,6 +150,30 @@ function GeneratedPlaylist(props: any) {
     })
   }
 
+
+  function hasUserLoggedIn() {
+    let accesstoken = getAccessTokenFromCookie();
+    console.log("at in generatedplaylist: " + accesstoken);
+    if (accesstoken === null || accesstoken === "undefined") {
+      return false;
+    }
+    return true;
+  }
+  function saveCurrentPlaylist(playlistName: string, currPlaylist:SearchResult[]){
+
+    console.log("playlist name to be saved: " + playlistName);
+    console.log("playlist to be saved: " + currPlaylist.toString());
+
+    if (hasUserLoggedIn()) {
+      // TODO: Replace MyTestSavedPLaylist with value from generatePlaylistName()
+      createSpotifyPlaylist(playlistName, currPlaylist);
+      openModal(true);
+    } else {
+      openModal(false);
+    }
+
+  }
+
   function generatePlaylistName() {
 
     let searchedSong = props.songId;
@@ -156,23 +181,7 @@ function GeneratedPlaylist(props: any) {
 
     console.log(searchedSong + " : " + art);
 
-  }
-
-  async function createSpotifyPlaylist(playlistName: string) {
-    console.log("creating playlist.. ");
-
-    const accessToken = getAccessTokenFromCookie();
-
-    if (!accessToken) {
-      // User is not authorized, redirect to authorize
-      console.log("invalid token -> redirect to authorize..");
-      authorizeWithSpotify();
-      return;
-    }
-
-    console.log("access token is valid -> creating playlist...");
-    // generatePlaylistName();
-    await savePlaylistToSpotify(playlistName, currPlaylist);
+    return searchedSong + art;
   }
 
   const handlePlayPauseButtonClick = () => {
@@ -253,7 +262,7 @@ function GeneratedPlaylist(props: any) {
         </section>
 
         <section id="playlist-wrapper">
-          <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist')}>
+          <button id="spotify-btn" onClick={() => saveCurrentPlaylist("MyTestSavedPLaylist", currPlaylist)}>
             <span className="bold">Save to Spotify</span>
             <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
           </button>

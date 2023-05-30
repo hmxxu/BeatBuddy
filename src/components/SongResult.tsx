@@ -10,7 +10,6 @@ function SongResult(props: any) {
   let isFirstChild = false;
   if (props.index === 0 && props.index !== undefined) {
     isFirstChild = true;
-    console.log('isFirstChild is true: ' + isFirstChild);
   }
 
   // console.log(qs("#playlist-wrapper .song-results-container-parent").firstElementChild.nextElementSibling);

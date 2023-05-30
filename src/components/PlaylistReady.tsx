@@ -8,6 +8,9 @@ import MoodButtons from './MoodButtons';
 import { Mood, moodRec } from '../beatbuddy/src/recommendation/RecommendSongs';
 import logo_large from '../images/beatbuddy-logo-large.svg';
 import spotify_icon from '../images/spotify-icon.png';
+import { createSpotifyPlaylist } from './CreatePlaylist';
+import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
+
 
 function PlaylistReady() {
 
@@ -101,6 +104,13 @@ function PlaylistReady() {
     }
   }
 
+  /**
+   * WHEN a user logins from the landing page, redirect them to search page.
+   */
+  async function loginInFromFrontPage() {
+    authorizeWithSpotify();
+  }
+
   return(
     <div>
       {/* Website Intro */}
@@ -108,7 +118,7 @@ function PlaylistReady() {
         <object data={logo_large} type="image/svg+xml" aria-labelledby="BeatBuddy logo" id="beatbuddy-home"></object>
         <h1 id="beatbuddy-desc" className="regular">BeatBuddy crafts personalized playlists that perfectly match your unique music taste!</h1>
         <div id="login-container">
-          <button id="login-to-spotify" className="spotify-theme">
+          <button id="login-to-spotify" className="spotify-theme" onClick={() => loginInFromFrontPage()}>
             Login for full access
             <img src={spotify_icon} alt="Spotify icon" id="login-to-spotify-icon"></img>
           </button>
