@@ -10,6 +10,7 @@ import logo_large from '../images/beatbuddy-logo-large.svg';
 import spotify_icon from '../images/spotify-icon.png';
 import { createSpotifyPlaylist } from './CreatePlaylist';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
+import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 
 
 function PlaylistReady() {
@@ -108,7 +109,14 @@ function PlaylistReady() {
    * WHEN a user logins from the landing page, redirect them to search page.
    */
   async function loginInFromFrontPage() {
-    authorizeWithSpotify();
+    let accessCode = getAccessTokenFromCookie();
+    if (accessCode !== null && accessCode != "undefined"){
+      hideLoginContainer();
+      showSearchContainer();
+    } else {
+      authorizeWithSpotify();
+    }
+
   }
 
   return(
