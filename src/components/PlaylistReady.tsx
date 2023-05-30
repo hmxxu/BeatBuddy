@@ -105,7 +105,7 @@ function PlaylistReady() {
           saved to Spotify 🎉</p>
         <p className="h-modal hidden" id="error-text">An error occurred.<br/>
           Your playlist could not be saved.</p>
-        <button data-close-modal className="h-modal" onClick={closeModal}>Ok</button>
+        <button data-close-modal className="h-modal" onClick={closeModal}>Okay</button>
       </dialog>
       <SearchBar setIds={ getIds } />
       <MoodButtons setMood={ getMood } />
