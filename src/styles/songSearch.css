@@ -22,6 +22,10 @@
     padding: 0;
   }
 
+  .search-container {
+    margin-top: 5rem;
+  }
+
   .song-results-container, .song-results-container-parent {
     background-color: rgb(255, 255, 255, 0.2);
     padding: 10px;

@@ -94,17 +94,17 @@ export function showPlaylistContainer() {
   }, 500);
 }
 
-export function hideWebsiteIntro() {
-  id("website-intro").classList.add('close-container');
+export function hideLoginContainer() {
+  id("login-container").classList.add('close-container');
   setTimeout(() => {
-    id("website-intro").classList.add('hidden');
+    id("login-container").classList.add('hidden');
   }, 200);
 }
-export function showWebsiteIntro() {
+export function showLoginContainer() {
   setTimeout(() => {
-    id("website-intro").classList.remove('hidden');
-    id("website-intro").classList.remove('close-container');
-    id("website-intro").classList.add('open-container');
+    id("login-container").classList.remove('hidden');
+    id("login-container").classList.remove('close-container');
+    id("login-container").classList.add('open-container');
   }, 500);
 }
 
