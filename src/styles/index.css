@@ -79,7 +79,8 @@ header {
   --body-color: linear-gradient(#6380E8, #A9A2FF);
   --hover-color: #9E98FE;
 
-  --song-result-text-color: #000000;
+  /* --song-result-text-color: #000000; */
+  --song-result-text-color: #000000 !important;
   /* --song-player-color: rgb(28, 35, 48, 0.2);
   --playlist-wrapper-color: rgb(28, 35, 48, 0.4); */
 }

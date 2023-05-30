@@ -31,28 +31,8 @@
   accent-color: #1C2330;
   height: 20px;
   width: 20px;
+}
 
-  /* border-radius: 50px;
-  appearance: none;
-  clip-path: circle(80% at 50% 50%);
-  -webkit-appearance: button;
-  border: none;
-  background-color: #0b0095;
-  color: #FFF;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 20px;
-  height: 20px;
-  accent-color: #1C2330; */
-}
-/* .checkbox:checked {
-  background-color: #000;
-  border-left-color: #06F;
-  border-right-color: #06F;
-}
-.checkbox:hover {
-  box-shadow: 0px 0px 10px #1C2330;
-} */
 
 .clear-all-text {
   text-align: end;
