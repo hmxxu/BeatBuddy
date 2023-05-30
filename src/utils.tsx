@@ -326,6 +326,9 @@ export function processImage(src: any) {
     document.documentElement.style.setProperty("--play-btn-color", secondaryColor);
     document.documentElement.style.setProperty("--hover-color", hoverColor);
     if (contrastRatio < 4.5) {
+      // Somehow the css file being passed in the network request
+      // go to (Inspect Element -> Networks -> main.3bdb0287.css) truncates
+      // #000000 -> #000 for some reason. Thats why we need to check foregroundColor === "000" too
       if (foregroundColor === "000000" || foregroundColor === "000") {
         // to white
         document.documentElement.style.setProperty("--song-result-text-color", "#ffffff");
