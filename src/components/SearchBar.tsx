@@ -93,7 +93,7 @@ function SearchBar(props:any) {
     // Shows the mood container
     showMoodContainer();
 
-    props.setIds(song.id, song.artistId);
+    props.setIds(song.id, song.artistId, song.title);
   }
 
   return(

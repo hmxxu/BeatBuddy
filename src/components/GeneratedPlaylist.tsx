@@ -175,13 +175,13 @@ function GeneratedPlaylist(props: any) {
   }
 
   function generatePlaylistName() {
+    return props.playlistName;
+    // let searchedSong = props.songId;
+    // let art = props.artistId;
 
-    let searchedSong = props.songId;
-    let art = props.artistId;
+    // console.log(searchedSong + " : " + art);
 
-    console.log(searchedSong + " : " + art);
-
-    return searchedSong + art;
+    // return searchedSong + art;
   }
 
   const handlePlayPauseButtonClick = () => {
@@ -247,8 +247,8 @@ function GeneratedPlaylist(props: any) {
               <p className="h-title bold">{currEnergy + "%"}</p>
             </div>
             <div className="vl"></div>
-            <div id="accoustic" className="attrs">
-              <h3>Accousticness</h3>
+            <div id="acoustic" className="attrs">
+              <h3>Acousticness</h3>
               {/* <h1>10%</h1> */}
               <p className="h-title bold">{currAcoustic + "%"}</p>
             </div>
@@ -312,8 +312,8 @@ function GeneratedPlaylist(props: any) {
               <h2>{currEnergy + "%"}</h2>
             </div>
             <div className="vl-mobile"></div>
-            <div id="accoustic" className="attrs">
-              <h5>Accousticness</h5>
+            <div id="acoustic" className="attrs">
+              <h5>Acousticness</h5>
               <h2>{currAcoustic + "%"}</h2>
             </div>
             <div className="vl-mobile"></div>

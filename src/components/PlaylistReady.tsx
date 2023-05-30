@@ -18,6 +18,9 @@ function PlaylistReady() {
   // data gathered from SearchBar
   const [songId, setSongId] = useState("");
 
+  // data from searchBar for title of generated playlist
+  const [playlistName, setPlaylistName] = useState("");
+
   // data gathered from SearchBar
   const [artistId, setArtistId] = useState("");
 
@@ -35,12 +38,15 @@ function PlaylistReady() {
 
   /**
    * Called when user selects a song from the searchbar
-   * @param childData - the song ID that the user selected
+   * Gets the metadata from searchbar for the components downstream
+   * @param {string} songData - id of song selected
+   * @param {string} artistData - id of artist of song selected
+   * @param {string} songTitle - title of song
    */
-  const getIds = (songData : any, artistData : any) => {
+  const getIds = (songData : any, artistData : any, songTitle : string) => {
     setSongId(songData);
     setArtistId(artistData);
-
+    setPlaylistName(songTitle + " Recommended Playlist - BeatBuddy");
   }
 
   /**
@@ -101,7 +107,7 @@ function PlaylistReady() {
       setRecData(recArray);
       setPlaylistViewState("");
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   }
 
@@ -153,7 +159,7 @@ function PlaylistReady() {
           <h2>That's it! Your playlist is now ready.</h2>
           <button id="generate-playlist-btn" onClick={generateRec}>Generate my playlist</button>
       </div>
-      <GeneratedPlaylist viewState={ playlistViewState } recArray={ recData } hideSongSelected={ resetSearchBar } />
+      <GeneratedPlaylist viewState={ playlistViewState } recArray={ recData } hideSongSelected={ resetSearchBar } playlistName={ playlistName }/>
     </div>
   )
 };
