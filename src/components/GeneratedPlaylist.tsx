@@ -7,7 +7,7 @@ import spotify_icon from '../images/spotify-icon.png';
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { clearMoodButtons, hidePlaylistContainer, id, processImage, qs, qsa, showMoodContainer, openModal, showSearchContainer } from '../utils';
+import { clearMoodButtons, hidePlaylistContainer, id, processImage, qs, qsa, showMoodContainer, openModal, showSearchContainer, showWebsiteIntro } from '../utils';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import { savePlaylistToSpotify } from '../beatbuddy/src/APIFunctions/saveToSpotify';
@@ -193,6 +193,7 @@ function GeneratedPlaylist(props: any) {
     clearMoodButtons();
     hidePlaylistContainer();
     showSearchContainer();
+    showWebsiteIntro();
     document.documentElement.style.setProperty("--body-color", "linear-gradient(#6380E8, #A9A2FF)");
     document.documentElement.style.setProperty("--hover-color", "#9E98FE");
     document.documentElement.style.setProperty("--play-btn-color", "#6481E8");

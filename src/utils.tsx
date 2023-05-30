@@ -94,6 +94,7 @@ export function showPlaylistContainer() {
   }, 500);
 }
 
+//TODO: [Optimize] Make the open/close container into a method that takes in an html element instead
 export function hideLoginContainer() {
   id("login-container").classList.add('close-container');
   setTimeout(() => {
@@ -107,6 +108,20 @@ export function showLoginContainer() {
     id("login-container").classList.add('open-container');
   }, 500);
 }
+export function hideWebsiteIntro() {
+  id("website-intro").classList.add('close-container');
+  setTimeout(() => {
+    id("website-intro").classList.add('hidden');
+  }, 200);
+}
+export function showWebsiteIntro() {
+  setTimeout(() => {
+    id("website-intro").classList.remove('hidden');
+    id("website-intro").classList.remove('close-container');
+    id("website-intro").classList.add('open-container');
+  }, 500);
+}
+//TODO: [Optimize] Make the open/close container into a method that takes in an html element instead
 
 /**
  * Reset the mood button states (i.e. no buttons are selected)

@@ -5,6 +5,7 @@
   #song-search {
     width: calc(100% - 65px);
     font-size: 20px;
+    /* font-size: 1.25em; */
     position: relative;
   }
 
@@ -48,6 +49,7 @@
     width: calc(100% - 70px);
     border-radius: 10px;
     font-size: 14px;
+    /* font-size: 0.875em; */
     height: calc(100% - 20px);
     text-align: left;
     padding-left: 20px;

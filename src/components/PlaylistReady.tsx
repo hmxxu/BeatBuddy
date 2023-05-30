@@ -1,7 +1,7 @@
 import React from 'react';
 import GeneratedPlaylist from './GeneratedPlaylist';
 import SearchBar from './SearchBar';
-import { hideGenerateButton, hideMoodContainer, hideSearchContainer, closeModal, id, qs, showGenerateButton, showPlaylistContainer, hideLoginContainer, showLoginContainer } from '../utils';
+import { hideGenerateButton, hideMoodContainer, hideSearchContainer, closeModal, id, qs, showGenerateButton, showPlaylistContainer, hideLoginContainer, showLoginContainer, hideWebsiteIntro, showSearchContainer } from '../utils';
 import { useState } from 'react';
 import { SearchResult } from '../utils';
 import MoodButtons from './MoodButtons';
@@ -78,6 +78,7 @@ function PlaylistReady() {
     hideSearchContainer();
     hideMoodContainer();
     hideGenerateButton();
+    hideWebsiteIntro()
 
     // Shows the playlist
     showPlaylistContainer();
@@ -102,7 +103,6 @@ function PlaylistReady() {
 
   return(
     <div>
-
       {/* Website Intro */}
       <div id="website-intro">
         <object data={logo_large} type="image/svg+xml" aria-labelledby="BeatBuddy logo" id="beatbuddy-home"></object>
@@ -112,7 +112,12 @@ function PlaylistReady() {
             Login for full access
             <img src={spotify_icon} alt="Spotify icon" id="login-to-spotify-icon"></img>
           </button>
-          <p id="try-text">Don’t have Spotify? <u className="pointer" onClick={hideLoginContainer}>Try without full access</u></p>
+          <p id="try-text">Don’t have Spotify?&nbsp;
+            <u className="pointer" onClick={() => {
+              hideLoginContainer();
+              showSearchContainer();
+            }}>Try without full access</u>
+          </p>
         </div>
       </div>
 

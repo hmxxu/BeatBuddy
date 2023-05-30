@@ -97,7 +97,7 @@ function SearchBar(props:any) {
   }
 
   return(
-    <div className="search-container">
+    <div className="search-container hidden">
       <label htmlFor="song-search"><h2>Pick a Song!</h2></label>
       <div id="song-search-wrapper">
         <input type="text" id="song-search" placeholder='Search a song... ' onKeyDown={handleKeyDown}></input>
