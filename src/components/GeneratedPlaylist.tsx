@@ -14,8 +14,6 @@ import { savePlaylistToSpotify } from '../beatbuddy/src/APIFunctions/saveToSpoti
 import { returnSongFeatures } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { SearchResult } from '../utils';
 import { playSong, pauseSong, stopSong } from '../beatbuddy/src/spotify/getSong';
-import Filter from './Filter';
-
 
 export function updateProgressBar(audio: any) {
   const progressBar = document.getElementById('progress-bar');
