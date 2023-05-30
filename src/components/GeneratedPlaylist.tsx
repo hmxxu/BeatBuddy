@@ -7,15 +7,13 @@ import spotify_icon from '../images/spotify-icon.png';
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { clearMoodButtons, hidePlaylistContainer, id, processImage, qs, qsa, showMoodContainer, showSearchContainer } from '../utils';
+import { clearMoodButtons, hidePlaylistContainer, processImage, qs, showSearchContainer } from '../utils';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import { savePlaylistToSpotify } from '../beatbuddy/src/APIFunctions/saveToSpotify';
 import { returnSongFeatures } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { SearchResult } from '../utils';
 import { playSong, pauseSong, stopSong } from '../beatbuddy/src/spotify/getSong';
-import Filter from './Filter';
-
 
 export function updateProgressBar(audio: any) {
   const progressBar = document.getElementById('progress-bar');

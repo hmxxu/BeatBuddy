@@ -6,7 +6,6 @@ function SongResult(props: any) {
   let src = props.src;
   let artist = props.artist;
   let title = props.title;
-  let genre = props.genre;
 
   let isFirstChild = false;
   if (props.index === 0 && props.index !== undefined) {
@@ -26,15 +25,12 @@ function SongResult(props: any) {
         <div>
           <h4 id="title">{title}</h4>
           <p id="artist">{artist}</p>
-          <p id="genre">{genre}</p>
         </div>
       </div>
 
       {/* This is for search bar */}
       <div className={"song-result-mobile" + ((props.design === "searchbar") ? "" : " hidden")} onClick={props.onClick}>
         <p id="artist-title" className="semi-bold">{artist} - {title}</p>
-        {/* <p id="title">{title}</p> */}
-        <p id="genre">{genre}</p>
       </div>
 
       {/* The code below is for mobile */}

@@ -39,6 +39,9 @@ function SearchBar(props:any) {
     clearMoodButtons();
     hideGenerateButton();
 
+    // clear searchbar
+    (id("song-search") as HTMLInputElement).value = "";
+
     // reenable searchbar
     (id("song-search") as HTMLInputElement).disabled = false;
   }
@@ -118,7 +121,7 @@ function SearchBar(props:any) {
             <SongResult design="searchbar" onClick={() => {handleSongClick(song)}}
             key={song.id}
             id = {song.id} src={song.imgUrl}
-            artist={song.artist} title={song.title} genre={song.genres}/>
+            artist={song.artist} title={song.title} />
           ))
         }
       </section>
