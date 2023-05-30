@@ -55,6 +55,60 @@ header {
   display: none;
 }
 
+.modal {
+  padding: 5rem 5rem 2rem 5rem;
+  /* padding: 7rem; */
+  text-align: center;
+  background: white;
+  border: none;
+  z-index: 10;
+
+  text-shadow: none;
+  background: linear-gradient(180deg, #F1FFF6 0%, #BFFFD6 100%);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+}
+
+dialog::backdrop {
+  position: fixed;
+  inset: 0px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal > button {
+  padding: 10px 50px 10px 50px;
+  border-radius: 20px;
+  margin-top: 5rem;
+}
+
+.modal > h2 {
+  white-space: pre-line;
+}
+
+.modal > button, .modal > button:hover {
+  background: #20CC5D;
+}
+
+.modal > button:active {
+  background: #19a048;
+}
+
+.h-modal {
+  font-size: 24px
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+}
+
+.modal-overlay.open {
+  display: block;
+}
+
 /* ? Breakpoint for large screen */
 @media screen and (min-width: 1920px) {
   body {
@@ -89,6 +143,10 @@ header {
 
   .h-title {
     font-size: 22px !important;
+  }
+
+  .h-modal {
+    font-size: 18px !important;
   }
 
   h3, .h3 {
@@ -241,11 +299,6 @@ button:active {
 
 .semi-bold {
   font-weight: 500;
-}
-
-code {
-  /* font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace; */
 }
 
 .visibility-hidden {

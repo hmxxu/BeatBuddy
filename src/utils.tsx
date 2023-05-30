@@ -105,6 +105,27 @@ export function clearMoodButtons() {
   })
 }
 
+/**
+ * Shows the modal after a playlist has been saved to Spotify successfully or unsuccessfully
+ */
+export function openModal() {
+  // ! for Tapan, set saveToSpotifySuccess to true if user is able to save playlist to Spotiy,
+  // ! otherwise set it to false
+  let saveToSpotifySuccess = true;
+  if (!saveToSpotifySuccess) {
+    id('error-text').classList.remove('hidden');
+    id('success-text').classList.add('hidden');
+  }
+  qs('.modal').showModal();
+}
+
+/**
+ * Shows the modal after a playlist has been saved to Spotify successfully or unsuccessfully
+ */
+export function closeModal() {
+  qs('.modal').close();
+}
+
 
 export class SearchResult {
   artist: string;

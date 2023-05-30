@@ -1,7 +1,7 @@
 import React from 'react';
 import GeneratedPlaylist from './GeneratedPlaylist';
 import SearchBar from './SearchBar';
-import { hideGenerateButton, hideMoodContainer, hideSearchContainer, id, qs, showGenerateButton, showPlaylistContainer } from '../utils';
+import { hideGenerateButton, hideMoodContainer, hideSearchContainer, closeModal, id, qs, showGenerateButton, showPlaylistContainer } from '../utils';
 import { useState } from 'react';
 import { SearchResult } from '../utils';
 import MoodButtons from './MoodButtons';
@@ -100,6 +100,13 @@ function PlaylistReady() {
 
   return(
     <div>
+      <dialog data-modal className="modal">
+        <p className="h-modal" id="success-text">Your playlist has been<br/>
+          saved to Spotify 🎉</p>
+        <p className="h-modal hidden" id="error-text">An error occurred.<br/>
+          Your playlist could not be saved.</p>
+        <button data-close-modal className="h-modal" onClick={closeModal}>Ok</button>
+      </dialog>
       <SearchBar setIds={ getIds } />
       <MoodButtons setMood={ getMood } />
 

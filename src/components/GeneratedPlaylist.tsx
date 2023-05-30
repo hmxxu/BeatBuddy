@@ -7,7 +7,7 @@ import spotify_icon from '../images/spotify-icon.png';
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { clearMoodButtons, hidePlaylistContainer, id, processImage, qs, qsa, showMoodContainer, showSearchContainer } from '../utils';
+import { clearMoodButtons, hidePlaylistContainer, id, processImage, qs, qsa, showMoodContainer, openModal, showSearchContainer } from '../utils';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import { savePlaylistToSpotify } from '../beatbuddy/src/APIFunctions/saveToSpotify';
@@ -254,7 +254,7 @@ function GeneratedPlaylist(props: any) {
         </section>
 
         <section id="playlist-wrapper">
-          <button id="spotify-btn" rel="noopener noreferrer" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist')}>
+          <button id="spotify-btn" onClick={() => createSpotifyPlaylist('MyTestSavedPLaylist')}>
             <span className="bold">Save to Spotify</span>
             <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
           </button>
