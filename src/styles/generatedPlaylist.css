@@ -108,14 +108,12 @@ section {
 }
 
 .song-img {
-  border-radius: 10px;
   max-width: 100%;
 }
 
 .song-img-mobile {
   width: auto;
   height: auto;
-  border-radius: 15px;
 }
 
 .flex {

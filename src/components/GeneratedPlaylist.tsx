@@ -240,6 +240,7 @@ function GeneratedPlaylist(props: any) {
               )}
             </div>
           </div>
+          <a href={"https://open.spotify.com/track/" + currTrackId} target="_blank" rel="noopener noreferrer"><p>Play on Spotify</p></a>
           <div className="song-stats flex">
             <div id="energy" className="attrs">
               <h3>Energy</h3>
