@@ -307,6 +307,7 @@ function GeneratedPlaylist(props: any) {
             </div>
             <img src={currImg} alt="The song cover" className="song-img-mobile"></img>
           </div>
+          <a href={"https://open.spotify.com/track/" + currTrackId} target="_blank" rel="noopener noreferrer"><p>Play on Spotify</p></a>
           <div className="song-stats-mobile flex-song">
             <div id="liveliness" className="attrs">
               <h5>Energy</h5>
