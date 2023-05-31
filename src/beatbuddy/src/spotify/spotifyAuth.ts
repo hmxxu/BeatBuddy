@@ -15,7 +15,15 @@ const REDIRECT_URI = process.env.REACT_APP_STAGE === 'production' ? process.env.
 
 const AUTHORIZATION_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
-const SCOPE = "user-read-private user-read-email user-read-playback-state user-modify-playback-state user-read-currently-playing user-library-read user-library-modify playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private user-read-recently-played user-top-read app-remote-control streaming";
+const SCOPE = 'user-read-private \
+               user-read-email \
+               playlist-modify-public \
+               playlist-modify-private \
+               user-library-read \
+               app-remote-control \
+               user-library-modify \
+               user-read-playback-state \
+               streaming';
 
 /**
  * Redirects the user to the Spotify Accounts service to authorize access
