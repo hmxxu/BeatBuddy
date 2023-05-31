@@ -51,6 +51,11 @@ h5,
   /* font-size: 1em; */
 }
 
+a {
+  color: aliceblue;
+  text-align: center;
+}
+
 #navbar-logo {
   padding-top: 20px;
   padding-bottom: 20px;

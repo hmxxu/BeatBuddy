@@ -57,8 +57,7 @@ Currently, we are working on:
  * On-site player for Spotify music 
 
 ### Known bugs
- * The search bar does not work in Safari (or other mobile environments)
- * If the user is already logged into Spotify, the add playlist to spotify option does not work
+ * Spotify login, "Add to Spotify" button, and playback button do not work as we don't have an extended usage quota from Spotify. Contact a team member to be added manually to the Spotify Developer Dashboard to try out these features.
 
 ### How to report bugs
 Before reporting a bug, confirm the bug appears on a new browser profile (ex. incognito browser). If it does not, it may be due to extension or personal setting interferences. You can still report this bug but please note this in the steps to reproduce. 

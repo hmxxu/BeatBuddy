@@ -69,7 +69,7 @@
     border-radius: 20px;
   }
 
-  .song-playlist-mobile, .song-result > img {
+  .song-playlist-mobile {
     border-radius: 20px;
   }
 
@@ -175,7 +175,6 @@
   .song-result > img {
     height: 90px;
     margin: 10px;
-    border-radius: 10px;
   }
 
   .song-result:hover {
