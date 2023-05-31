@@ -66,7 +66,7 @@ function GeneratedPlaylist(props: any) {
 
 
   const [currEnergy, setEnergy] = useState(0);
-  const [currValence, setValence] = useState(0);
+  const [currAcoustic, setAcoustic] = useState(0);
   const [currDance, setDance] = useState(0);
 
   /**
@@ -99,7 +99,7 @@ function GeneratedPlaylist(props: any) {
     // get features and display
     const featuresJSON = await returnSongFeatures(song.id);
     setEnergy(Math.round(featuresJSON.energy * 100));
-    setValence(Math.round(featuresJSON.valence * 100));
+    setAcoustic(Math.round(featuresJSON.acousticness * 100));
     setDance(Math.round(featuresJSON.danceability * 100));
 
     // changes background color of the website depending on the song cover image
@@ -247,10 +247,10 @@ function GeneratedPlaylist(props: any) {
               <p className="h-title bold">{currEnergy + "%"}</p>
             </div>
             <div className="vl"></div>
-            <div className="attrs">
-              <h3>Positivity</h3>
+            <div id="acoustic" className="attrs">
+              <h3>Acousticness</h3>
               {/* <h1>10%</h1> */}
-              <p className="h-title bold">{currValence + "%"}</p>
+              <p className="h-title bold">{currAcoustic + "%"}</p>
             </div>
             <div className="vl"></div>
             <div id="danceable" className="attrs">
@@ -312,9 +312,9 @@ function GeneratedPlaylist(props: any) {
               <h2>{currEnergy + "%"}</h2>
             </div>
             <div className="vl-mobile"></div>
-            <div className="attrs">
-              <h5>Positivity</h5>
-              <h2>{currValence + "%"}</h2>
+            <div id="acoustic" className="attrs">
+              <h5>Acousticness</h5>
+              <h2>{currAcoustic + "%"}</h2>
             </div>
             <div className="vl-mobile"></div>
             <div id="danceable" className="attrs">
