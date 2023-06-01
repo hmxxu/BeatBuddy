@@ -176,23 +176,19 @@ function GeneratedPlaylist(props: any) {
 
   function generatePlaylistName() {
     return props.playlistName;
-    // let searchedSong = props.songId;
-    // let art = props.artistId;
-
-    // console.log(searchedSong + " : " + art);
-
-    // return searchedSong + art;
   }
 
   const handlePlayPauseButtonClick = () => {
-    if (isPlaying) {
-      // Pause the song
-      setIsPlaying(false);
-      pauseSong();
+    if (hasUserLoggedIn()) {
+      if (isPlaying) {
+        setIsPlaying(false);
+        pauseSong();
+      } else {
+        setIsPlaying(true);
+        playSong(currTrackId);
+      }
     } else {
-      // Play the song
-      setIsPlaying(true);
-      playSong(currTrackId);
+      openModal(false);
     }
   };
 

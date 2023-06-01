@@ -11,7 +11,7 @@ if (process.env.REACT_APP_STAGE !== 'production') {
 // TODO: uncomment this when dotenv has been fixed
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
-const REDIRECT_URI = process.env.REACT_APP_STAGE === 'production' ? process.env.REACT_APP_SPOTIFY_REDIRECT_URI_PROD : process.env.REACT_APP_SPOTIFY_REDIRECT_URI_LOCAL;
+const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI_LOCAL;
 
 const AUTHORIZATION_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
