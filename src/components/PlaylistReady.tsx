@@ -36,6 +36,8 @@ function PlaylistReady() {
   // controls if user sees GeneratedPlaylist or not
   const [playlistViewState, setPlaylistViewState] = useState("hidden");
 
+  const [modalMessage, setModalMessage] = useState("Default Modal Message");
+
   /**
    * Called when user selects a song from the searchbar
    * Gets the metadata from searchbar for the components downstream
@@ -146,10 +148,11 @@ function PlaylistReady() {
       </div>
 
       <dialog data-modal className="modal">
-        <p className="h-modal" id="success-text">Your playlist has been<br/>
+        <p className="h-modal" id="modal-txt">{modalMessage}</p>
+        {/* <p className="h-modal" id="success-text">Your playlist has been<br/>
           saved to Spotify 🎉</p>
         <p className="h-modal hidden" id="error-text">An error occurred.<br/>
-          Your playlist could not be saved.</p>
+          Your playlist could not be saved.</p> */}
         <button data-close-modal className="h-modal spotify-theme" onClick={closeModal}>Okay</button>
       </dialog>
       <SearchBar setIds={ getIds } />
@@ -159,7 +162,7 @@ function PlaylistReady() {
           <h2>That's it! Your playlist is now ready.</h2>
           <button id="generate-playlist-btn" onClick={generateRec}>Generate my playlist</button>
       </div>
-      <GeneratedPlaylist viewState={ playlistViewState } recArray={ recData } hideSongSelected={ resetSearchBar } playlistName={ playlistName }/>
+      <GeneratedPlaylist modalMessage={modalMessage} setModalMessage={setModalMessage} viewState={ playlistViewState } recArray={ recData } hideSongSelected={ resetSearchBar } playlistName={ playlistName }/>
     </div>
   )
 };

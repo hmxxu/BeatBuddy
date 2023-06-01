@@ -138,10 +138,6 @@ export function clearMoodButtons() {
  * Shows the modal after a playlist has been saved to Spotify successfully or unsuccessfully
  */
 export function openModal(open:Boolean) {
-  if (!open) {
-    id('error-text').classList.remove('hidden');
-    id('success-text').classList.add('hidden');
-  }
   qs('.modal').showModal();
 }
 
