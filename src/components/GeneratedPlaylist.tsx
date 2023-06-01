@@ -159,7 +159,7 @@ function GeneratedPlaylist(props: any) {
     }
     return true;
   }
-  function saveCurrentPlaylist(playlistName: string, currPlaylist:SearchResult[]){
+  function saveCurrentPlaylist(playlistName: string, currPlaylist: SearchResult[]) {
 
     console.log("playlist name to be saved: " + playlistName);
     console.log("playlist to be saved: " + currPlaylist.toString());
@@ -176,24 +176,22 @@ function GeneratedPlaylist(props: any) {
 
   function generatePlaylistName() {
     return props.playlistName;
-    // let searchedSong = props.songId;
-    // let art = props.artistId;
-
-    // console.log(searchedSong + " : " + art);
-
-    // return searchedSong + art;
   }
 
   const handlePlayPauseButtonClick = () => {
-    if (isPlaying) {
-      // Pause the song
-      setIsPlaying(false);
-      pauseSong();
+
+    if (hasUserLoggedIn()) {
+      if (isPlaying) {
+        setIsPlaying(false);
+        pauseSong();
+      } else {
+        setIsPlaying(true);
+        playSong(currTrackId);
+      }
     } else {
-      // Play the song
-      setIsPlaying(true);
-      playSong(currTrackId);
+      openModal(false);
     }
+
   };
 
   // Reverts back to the default state of the website (i.e. only having a search bar) after
@@ -276,11 +274,11 @@ function GeneratedPlaylist(props: any) {
                   setActiveSong(container);
                   handleSongClick(song);
                 }}
-                index={index}
-                id={song.id}
-                key={song.artist + song.title}
-                src={song.imgUrl}
-                artist={song.artist} title={song.title} genre={song.genre}/>
+                  index={index}
+                  id={song.id}
+                  key={song.artist + song.title}
+                  src={song.imgUrl}
+                  artist={song.artist} title={song.title} genre={song.genre} />
               ))
             }
           </section>
@@ -316,24 +314,24 @@ function GeneratedPlaylist(props: any) {
             <div className="attrs">
               <h5>Positivity</h5>
               <h2>{currValence + "%"}</h2>
-            <div className="vl-mobile"></div>
-            <div id="danceable" className="attrs">
-              <h5>Danceability</h5>
-              <h2>{currDance + "%"}</h2>
+              <div className="vl-mobile"></div>
+              <div id="danceable" className="attrs">
+                <h5>Danceability</h5>
+                <h2>{currDance + "%"}</h2>
+              </div>
             </div>
           </div>
-        </div>
         </section>
         <section className="results-mobile">
           {
             props.recArray.map((song: any, index: number) => (
               // * for generated_playlist design, show song-playlist-mobile, hide song-result-mobile
               <SongResult design="generated_playlist"
-                onClick={ function (e: any) {
-                    console.log(e.currentTarget);
-                    let container = e.currentTarget;
-                    setActiveSong(container);
-                    handleSongClick(song);
+                onClick={function (e: any) {
+                  console.log(e.currentTarget);
+                  let container = e.currentTarget;
+                  setActiveSong(container);
+                  handleSongClick(song);
                 }}
                 index={index}
                 key={song.artist + song.title}
