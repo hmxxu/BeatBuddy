@@ -128,6 +128,10 @@ dialog::backdrop {
   background: #20CC5D;
 }
 
+.spotify-theme {
+  color: black;
+}
+
 .spotify-theme:active {
   background: #19a048;
 }
@@ -467,6 +471,7 @@ button:active {
 
 #beatbuddy-desc {
   text-shadow: none;
+  color: white;
 }
 
 #login-to-spotify {

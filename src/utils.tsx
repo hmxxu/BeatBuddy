@@ -272,7 +272,6 @@ function cClass(className: any, color: any) {
 * @param src The image source
 */
 export function processImage(src: any) {
-  console.log('processImage called');
   const image = new Image();
   image.src = src;
   image.crossOrigin = "Anonymous";
@@ -300,20 +299,14 @@ export function processImage(src: any) {
 
     // ** Gets foreground (text color) and background color and Checks for text color contrast
     let foregroundColor = window.getComputedStyle(document.documentElement).getPropertyValue('--song-result-text-color').substring(1);
-    console.log('foregrnd before filter: ')
-    console.log(window.getComputedStyle(document.documentElement).getPropertyValue('--song-result-text-color'))
-    console.log('foregrnd = ' + foregroundColor);
     let backgroundColor = rgbToHex(result[1].r, result[1].g, result[1].b);
-    console.log('bckgrnd = ' + backgroundColor);
     // .song-result-mobile, .song-result
     let contrastRatio: number = 4.5;
     try {
       const response = await fetchContrastRatio(foregroundColor, backgroundColor);
       contrastRatio = response;
     } catch (error) {
-      console.log(error);
     }
-    console.log('contrast ratio = ' + contrastRatio);
 
     // ** Applying color changes + transition to song-result-container and play button on desktop
     document.documentElement.style.setProperty("--song-result-color", secondaryColor);
@@ -365,7 +358,6 @@ export function getRgba(rgbClass: any, opacity: any) {
  */
 export function generateHoverColorHSL(rgbClass: any, dSaturation: number, dLightness: number) {
   let HSLColor =rgbToHsl(rgbClass.r, rgbClass.g, rgbClass.b);
-  console.log("old: hsl(" + HSLColor[0] + "," + HSLColor[1] + "%," + HSLColor[2] + "%)");
 
   let max = 100;
 
@@ -382,9 +374,7 @@ export function generateHoverColorHSL(rgbClass: any, dSaturation: number, dLight
     HSLColor[2] = HSLColor[2] - dLightness;
   }
 
-  console.log("new: hsl(" + HSLColor[0] + "," + HSLColor[1] + "%," + HSLColor[2] + "%)");
   return "hsl(" + HSLColor[0] + "," + HSLColor[1] + "%," + HSLColor[2] + "%)";
-  // return "rgba(" + (result.r + 3) + ", " + (result.g + 3) + ", " + (result.b + 3) + ", " + opacity + ")";
 }
 
 /**

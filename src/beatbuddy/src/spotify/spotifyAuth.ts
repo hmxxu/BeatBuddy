@@ -1,14 +1,6 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import { saveAccessTokenToCookie, getAccessTokenFromCookie } from './tokenCookies';
 
-// Read .env manually if not in web build
-if (process.env.REACT_APP_STAGE !== 'production') {
-  // require('dotenv');
-}
-
-//! temporary, remove these static assignment out when dotenv has been fixed
-
-// TODO: uncomment this when dotenv has been fixed
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI_PROD;
@@ -32,7 +24,6 @@ export async function authorizeWithSpotify(): Promise<void> {
 
   const accessToken = getAccessTokenFromCookie();
   if (accessToken) {
-    console.log("user already authorized, token: ");
     return;
   }
 
@@ -58,7 +49,6 @@ export async function authorizeWithSpotify(): Promise<void> {
   });
 
   const authorizationUrl = `${AUTHORIZATION_ENDPOINT}?${queryParams}`;
-  console.log("Redirecting to authorization URL:", authorizationUrl);
   window.location.replace(authorizationUrl);
 }
 
@@ -68,9 +58,6 @@ export async function authorizeWithSpotify(): Promise<void> {
  * @returns The access token that can be used to make requests to the Spotify Web API on behalf of the user
  */
 export async function exchangeCodeForAccessToken(code: string): Promise<string> {
-
-  console.log("exchanging code for acess token...");
-
   const data = new URLSearchParams({
     grant_type: 'authorization_code',
     code: code,

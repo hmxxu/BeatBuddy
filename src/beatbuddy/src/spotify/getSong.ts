@@ -33,7 +33,6 @@ export async function playSong(trackId: string) {
     if (!previewUrl) {
       tracksWithoutPreview.add(trackId);
       noSongPreviewMsg();
-      console.log('Sorry, there is no preview available for this track.');
       return Promise.resolve();
     }
 

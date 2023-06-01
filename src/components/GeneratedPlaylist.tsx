@@ -7,10 +7,8 @@ import spotify_icon from '../images/spotify-icon.png';
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { clearMoodButtons, hidePlaylistContainer, id, processImage, qs, qsa, showMoodContainer, openModal, showSearchContainer, showWebsiteIntro } from '../utils';
-import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
+import { clearMoodButtons, hidePlaylistContainer, processImage, qs, openModal, showSearchContainer, showWebsiteIntro } from '../utils';
 import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
-import { savePlaylistToSpotify } from '../beatbuddy/src/APIFunctions/saveToSpotify';
 import { returnSongFeatures } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { SearchResult } from '../utils';
 import { playSong, pauseSong, stopSong } from '../beatbuddy/src/spotify/getSong';
@@ -54,6 +52,13 @@ export function removePreviewMsg() {
   }
 }
 
+export function hasUserLoggedIn() {
+  let accesstoken = getAccessTokenFromCookie();
+  if (accesstoken === null || accesstoken === "undefined") {
+    return false;
+  }
+  return true;
+}
 
 function GeneratedPlaylist(props: any) {
 
@@ -83,7 +88,7 @@ function GeneratedPlaylist(props: any) {
 
   //! for tapan
   // just do something like this when you want to update a text and open the modal:
-  // changeModalMessage("Your playlist has been \n saved to Spotifyddddd 🎉");
+  // changeModalMessage("Your playlist has been \n saved to Spotify! 🎉");
   // openModal(true);
   //
   function changeModalMessage(message: string) {
@@ -137,10 +142,7 @@ function GeneratedPlaylist(props: any) {
    * @param currentSong The currently selected song
    */
   function setActiveSong(currentSong: any) {
-    console.log('SET ACTIVE SONG');
-
     clearActiveSongColor();
-
     currentSong.classList.add('activeSongColor');
   }
 
@@ -154,30 +156,20 @@ function GeneratedPlaylist(props: any) {
     // !NOT WORKING - for mobile
     let parentMobile = qs(".results-mobile");
     parentMobile.querySelectorAll(":scope > .song-result-container").forEach((container: any) => {
-      console.log('got in mobile');
       container.childNodes[2].classList.remove('activeSongColor');
     })
   }
 
 
-  function hasUserLoggedIn() {
-    let accesstoken = getAccessTokenFromCookie();
-    console.log("at in generatedplaylist: " + accesstoken);
-    if (accesstoken === null || accesstoken === "undefined") {
-      return false;
-    }
-    return true;
-  }
   function saveCurrentPlaylist(playlistName: string, currPlaylist: SearchResult[]) {
-
-    console.log("playlist name to be saved: " + playlistName);
-    console.log("playlist to be saved: " + currPlaylist.toString());
 
     if (hasUserLoggedIn()) {
       // TODO: Replace MyTestSavedPLaylist with value from generatePlaylistName()
       createSpotifyPlaylist(playlistName, currPlaylist);
+      changeModalMessage("Your playlist has been \n saved to Spotify! 🎉");
       openModal(true);
     } else {
+      changeModalMessage("Error saving playlist. \n Please login or retry.");
       openModal(false);
     }
 
@@ -198,6 +190,8 @@ function GeneratedPlaylist(props: any) {
         playSong(currTrackId);
       }
     } else {
+      changeModalMessage("Authorization Needed: To listen to song previews, please \n\
+      login with your Spotify account.");
       openModal(false);
     }
 
@@ -254,6 +248,7 @@ function GeneratedPlaylist(props: any) {
               {/* <h1>90%</h1> */}
               <p className="h-title bold">{currEnergy + "%"}</p>
             </div>
+            <div className="vl"></div>
             <div className="attrs">
               <h3>Positivity</h3>
               {/* <h1>10%</h1> */}
@@ -278,7 +273,6 @@ function GeneratedPlaylist(props: any) {
             {
               props.recArray.map((song: any, index: number) => (
                 <SongResult onClick={function (e: any) {
-                  console.log(e.currentTarget);
                   let container = e.currentTarget;
                   setActiveSong(container);
                   handleSongClick(song);
@@ -315,7 +309,7 @@ function GeneratedPlaylist(props: any) {
           </div>
           <a href={"https://open.spotify.com/track/" + currTrackId} target="_blank" rel="noopener noreferrer"><p>Play on Spotify</p></a>
           <div className="song-stats-mobile flex-song">
-            <div id="liveliness" className="attrs">
+            <div className="attrs">
               <h5>Energy</h5>
               <h2>{currEnergy + "%"}</h2>
             </div>
@@ -323,11 +317,11 @@ function GeneratedPlaylist(props: any) {
             <div className="attrs">
               <h5>Positivity</h5>
               <h2>{currValence + "%"}</h2>
-              <div className="vl-mobile"></div>
-              <div id="danceable" className="attrs">
-                <h5>Danceability</h5>
-                <h2>{currDance + "%"}</h2>
-              </div>
+            </div>
+            <div className="vl-mobile"></div>
+            <div id="danceable" className="attrs">
+              <h5>Danceability</h5>
+              <h2>{currDance + "%"}</h2>
             </div>
           </div>
         </section>
@@ -337,7 +331,6 @@ function GeneratedPlaylist(props: any) {
               // * for generated_playlist design, show song-playlist-mobile, hide song-result-mobile
               <SongResult design="generated_playlist"
                 onClick={function (e: any) {
-                  console.log(e.currentTarget);
                   let container = e.currentTarget;
                   setActiveSong(container);
                   handleSongClick(song);
