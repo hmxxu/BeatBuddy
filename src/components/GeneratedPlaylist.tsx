@@ -245,6 +245,7 @@ function GeneratedPlaylist(props: any) {
               {/* <h1>90%</h1> */}
               <p className="h-title bold">{currEnergy + "%"}</p>
             </div>
+            <div className="vl"></div>
             <div className="attrs">
               <h3>Positivity</h3>
               {/* <h1>10%</h1> */}
@@ -306,7 +307,7 @@ function GeneratedPlaylist(props: any) {
           </div>
           <a href={"https://open.spotify.com/track/" + currTrackId} target="_blank" rel="noopener noreferrer"><p>Play on Spotify</p></a>
           <div className="song-stats-mobile flex-song">
-            <div id="liveliness" className="attrs">
+            <div className="attrs">
               <h5>Energy</h5>
               <h2>{currEnergy + "%"}</h2>
             </div>
@@ -314,11 +315,11 @@ function GeneratedPlaylist(props: any) {
             <div className="attrs">
               <h5>Positivity</h5>
               <h2>{currValence + "%"}</h2>
-              <div className="vl-mobile"></div>
-              <div id="danceable" className="attrs">
-                <h5>Danceability</h5>
-                <h2>{currDance + "%"}</h2>
-              </div>
+            </div>
+            <div className="vl-mobile"></div>
+            <div id="danceable" className="attrs">
+              <h5>Danceability</h5>
+              <h2>{currDance + "%"}</h2>
             </div>
           </div>
         </section>
