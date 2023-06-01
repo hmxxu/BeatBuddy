@@ -83,8 +83,8 @@ function GeneratedPlaylist(props: any) {
 
   //! for tapan
   // just do something like this when you want to update a text and open the modal:
-  changeModalMessage("Your playlist has been \n saved to Spotifyddddd 🎉");
-  openModal(true);
+  // changeModalMessage("Your playlist has been \n saved to Spotify! 🎉");
+  // openModal(true);
   //
   function changeModalMessage(message: string) {
     props.setModalMessage(message);
