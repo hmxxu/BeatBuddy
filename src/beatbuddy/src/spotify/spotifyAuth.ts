@@ -11,11 +11,19 @@ if (process.env.REACT_APP_STAGE !== 'production') {
 // TODO: uncomment this when dotenv has been fixed
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
-const REDIRECT_URI = process.env.REACT_APP_STAGE === 'production' ? process.env.REACT_APP_SPOTIFY_REDIRECT_URI_PROD : process.env.REACT_APP_SPOTIFY_REDIRECT_URI_LOCAL;
+const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI_PROD;
 
 const AUTHORIZATION_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
-const SCOPE = "user-read-private user-read-email user-read-playback-state user-modify-playback-state user-read-currently-playing user-library-read user-library-modify playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private user-read-recently-played user-top-read app-remote-control streaming";
+const SCOPE = 'user-read-private \
+               user-read-email \
+               playlist-modify-public \
+               playlist-modify-private \
+               user-library-read \
+               app-remote-control \
+               user-library-modify \
+               user-read-playback-state \
+               streaming';
 
 /**
  * Redirects the user to the Spotify Accounts service to authorize access
