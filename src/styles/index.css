@@ -497,3 +497,7 @@ button, #try-text {
   font-size: 18px;
   /* font-size: 1.125em; */
 }
+
+#modal-txt {
+  white-space: pre-line;
+}

@@ -81,6 +81,15 @@ function GeneratedPlaylist(props: any) {
   }, [props.recArray])
 
 
+  //! for tapan
+  // just do something like this when you want to update a text and open the modal:
+  changeModalMessage("Your playlist has been \n saved to Spotifyddddd 🎉");
+  openModal(true);
+  //
+  function changeModalMessage(message: string) {
+    props.setModalMessage(message);
+  }
+
   /*
   * Updates the selected song when song result is clicked
   * (in song player)
