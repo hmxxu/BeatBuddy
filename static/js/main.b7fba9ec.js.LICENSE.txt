@@ -64,4 +64,4 @@
 
 //! This should not be here. Saved as a last resort.
 
-//! temporary, remove these static assignment out when dotenv has been fixed
+//! for tapan
