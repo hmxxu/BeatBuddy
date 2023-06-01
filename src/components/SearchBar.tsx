@@ -17,7 +17,6 @@ function SearchBar(props:any) {
 
   function handleKeyDown(e: any) {
     if (e.key === 'Enter' || e.keyCode === 13) {
-        console.log('got into keydown');
         searchSongs();
     }
   }
@@ -28,8 +27,6 @@ function SearchBar(props:any) {
   function hideSelectedSong(e : any) {
     //selected-song button inside input
     let selectedSongBtn = e.currentTarget;
-
-    console.log("Selected song btn clicked")
     selectedSongBtn.classList.add("hidden");
 
     // closes mood container when user removes a song from search bar
@@ -58,7 +55,6 @@ function SearchBar(props:any) {
       // get user input
       let searchInput : HTMLInputElement = id('song-search') as HTMLInputElement;
       let userInput : string = searchInput.value;
-      console.log('userInput = ' + userInput);
 
       // Get songs from backend
       let songs : SearchResult[] = await searchSpotify(userInput);

@@ -34,10 +34,8 @@ function Filter(props : any) {
     // testTags();
     if (props.content.toLowerCase() === 'genre') {
       fetchGenre();
-      console.log(data);
     } else if (props.content.toLowerCase() === 'time period') {
       fetchTimePeriod();
-      console.log(data);
     }
   }
 
@@ -49,9 +47,6 @@ function Filter(props : any) {
         id: genre,
         name: kebabToTitleCase(genre)
       });
-      // console.log(genreDropdown);
-      // console.log("0 = " + genreDropdown[0].id);
-      // console.log("0 = " + genreDropdown[0].genre);
     });
     setData(genreDropdown);
   }
@@ -133,20 +128,14 @@ function Filter(props : any) {
   function addTags (e: any) {
     // on adding a tag, hide the dropdown
     e.target.parentElement.classList.remove("showOnHover");
-    // console.log('got in addTags');
     //& spread operator (...) allows us to quickly copy all or part of an existing array or object
     //& into another array or object.
     const mData = e.target;
     const mID = e.target.id.toLowerCase();
 
-    console.log('mData = ' + mData.innerHTML);
-    console.log('mID = ' + mID);
-
     let isTagDuplicate: boolean = false;
 
-    console.log("mTags len = " + mTags.length);
     if (mTags.length < 1) {
-      console.log('case less than equal 1');
       setMTags([...mTags,
         {
           name: mData.innerHTML,
@@ -155,11 +144,9 @@ function Filter(props : any) {
       ]);
 
     } else {
-      console.log('case > 1');
       mTags.forEach((data) => {
         if (data.id.toLowerCase() === mID) {
           isTagDuplicate = true;
-          console.log('M: attempting to add duplicate tags!')
         }
       })
 
@@ -173,7 +160,6 @@ function Filter(props : any) {
       }
     }
     setInputValue("");
-    console.log(myTags);
 
     // send updated list of selected tags to parent
     props.childToParent(mTags, data);
@@ -181,10 +167,7 @@ function Filter(props : any) {
 
   //* Remove tags working now, need to work on preventing dupes
   function removeTags(tagToRemove: any) {
-    // console.log('got in removeTags');
     const updatedMTags = mTags.filter((data) => data.id !== tagToRemove.id);
-    console.log('updatedMTags = ');
-    console.log(updatedMTags);
     setMTags(updatedMTags);
 
     // send updated mTags to parent
@@ -195,7 +178,6 @@ function Filter(props : any) {
    * Gives a curved border radius to the first and last item on search dropdown
    */
   function borderForFirstLast() {
-    console.log('render');
     let myDropDown = id('myDropdown-' + props.type);
     let a = myDropDown.getElementsByTagName('a');
     a[0].classList.add('firstItem');
@@ -265,7 +247,6 @@ function Filter(props : any) {
     // ! otherwise nothing will have curved borders except for 1st and last
     // ! element of the search result.
     if (amountFound > 1) {
-      console.log('amount found > 1');
       for (let i = 0; i < a.length; i++) {
         a[i].classList.remove('add-border');
         a[i].classList.remove('firstItem');

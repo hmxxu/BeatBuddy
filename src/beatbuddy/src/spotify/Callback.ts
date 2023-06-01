@@ -16,11 +16,9 @@ export function Callback(): any {
   const [reauthorizeRequested, setReauthorizeRequested] = useState(false);
 
   useEffect(() => {
-    console.log("in callback");
     const token = getAccessTokenFromCookie();
 
     if (token) {
-      console.log("auth code already exchanged");
       hideLoginContainer();
       showSearchContainer();
       return;
@@ -32,7 +30,6 @@ export function Callback(): any {
 
       if (code) {
         try {
-          console.log("in try of callback");
           const token = await exchangeCodeForAccessToken(code);
           saveAccessTokenToCookie(token);
           navigate('/BeatBuddy/');

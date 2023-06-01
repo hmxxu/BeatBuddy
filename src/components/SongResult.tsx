@@ -12,8 +12,6 @@ function SongResult(props: any) {
     isFirstChild = true;
   }
 
-  // console.log(qs("#playlist-wrapper .song-results-container-parent").firstElementChild.nextElementSibling);
-
   // onClick will call the function in SearchBar
   return (
     <div className={"song-result-container"}>

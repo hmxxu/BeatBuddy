@@ -1,16 +1,16 @@
 import React from 'react';
 import GeneratedPlaylist from './GeneratedPlaylist';
 import SearchBar from './SearchBar';
-import { hideGenerateButton, hideMoodContainer, hideSearchContainer, closeModal, id, qs, showGenerateButton, showPlaylistContainer, hideLoginContainer, showLoginContainer, hideWebsiteIntro, showSearchContainer } from '../utils';
+import { hideGenerateButton, hideMoodContainer, hideSearchContainer, closeModal, id, qs, showGenerateButton, showPlaylistContainer, hideLoginContainer, hideWebsiteIntro, showSearchContainer } from '../utils';
 import { useState } from 'react';
 import { SearchResult } from '../utils';
 import MoodButtons from './MoodButtons';
 import { Mood, moodRec } from '../beatbuddy/src/recommendation/RecommendSongs';
 import logo_large from '../images/beatbuddy-logo-large.svg';
 import spotify_icon from '../images/spotify-icon.png';
-import { createSpotifyPlaylist } from './CreatePlaylist';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
+import { hasUserLoggedIn } from './GeneratedPlaylist';
 
 
 function PlaylistReady() {
@@ -28,7 +28,7 @@ function PlaylistReady() {
   const [mood, setMood] = useState(Mood.ANY);
 
   // initial recommendations list to determine type
-  const initialRecs : SearchResult[] = [];
+  const initialRecs: SearchResult[] = [];
 
   // reccomendation data, passed to GeneratedPlaylist. Output of recommendation algorithm
   const [recData, setRecData] = useState(initialRecs);
@@ -36,7 +36,7 @@ function PlaylistReady() {
   // controls if user sees GeneratedPlaylist or not
   const [playlistViewState, setPlaylistViewState] = useState("hidden");
 
-  const [modalMessage, setModalMessage] = useState("Default Modal Message");
+  const [modalMessage, setModalMessage] = useState("Error please try again");
 
   /**
    * Called when user selects a song from the searchbar
@@ -45,7 +45,7 @@ function PlaylistReady() {
    * @param {string} artistData - id of artist of song selected
    * @param {string} songTitle - title of song
    */
-  const getIds = (songData : any, artistData : any, songTitle : string) => {
+  const getIds = (songData: any, artistData: any, songTitle: string) => {
     setSongId(songData);
     setArtistId(artistData);
     setPlaylistName(songTitle + " Recommended Playlist - BeatBuddy");
@@ -97,10 +97,9 @@ function PlaylistReady() {
 
     try {
       // get recommendations based on selected song
-      console.log('mood in generateRec = ' + mood);
       let data = await moodRec(mood, tracks_seed);
       // convert recommended songs to searchResult[]
-      let recArray : SearchResult[] = [];
+      let recArray: SearchResult[] = [];
       // genre array is empty for now
       data.tracks.forEach((t) => {
         recArray.push(new SearchResult(t.artists[0].name, t.artists[0].id,
@@ -118,7 +117,7 @@ function PlaylistReady() {
    */
   async function loginInFromFrontPage() {
     let accessCode = getAccessTokenFromCookie();
-    if (accessCode !== null && accessCode != "undefined"){
+    if (accessCode !== null && accessCode != "undefined") {
       hideLoginContainer();
       showSearchContainer();
     } else {
@@ -127,7 +126,7 @@ function PlaylistReady() {
 
   }
 
-  return(
+  return (
     <div>
       {/* Website Intro */}
       <div id="website-intro">
@@ -149,20 +148,22 @@ function PlaylistReady() {
 
       <dialog data-modal className="modal">
         <p className="h-modal" id="modal-txt">{modalMessage}</p>
-        {/* <p className="h-modal" id="success-text">Your playlist has been<br/>
-          saved to Spotify 🎉</p>
-        <p className="h-modal hidden" id="error-text">An error occurred.<br/>
-          Your playlist could not be saved.</p> */}
+        {!hasUserLoggedIn() && (
+          <button id="login-to-spotify" className="spotify-theme" onClick={() => loginInFromFrontPage()}>
+            Login for full access
+            <img src={spotify_icon} alt="Spotify icon" id="login-to-spotify-icon"></img>
+          </button>
+        )}
         <button data-close-modal className="h-modal spotify-theme" onClick={closeModal}>Okay</button>
       </dialog>
-      <SearchBar setIds={ getIds } />
-      <MoodButtons setMood={ getMood } />
+      <SearchBar setIds={getIds} />
+      <MoodButtons setMood={getMood} />
 
       <div id='generateReady' className='hidden'>
-          <h2>That's it! Your playlist is now ready.</h2>
-          <button id="generate-playlist-btn" onClick={generateRec}>Generate my playlist</button>
+        <h2>That's it! Your playlist is now ready.</h2>
+        <button id="generate-playlist-btn" onClick={generateRec}>Generate my playlist</button>
       </div>
-      <GeneratedPlaylist modalMessage={modalMessage} setModalMessage={setModalMessage} viewState={ playlistViewState } recArray={ recData } hideSongSelected={ resetSearchBar } playlistName={ playlistName }/>
+      <GeneratedPlaylist modalMessage={modalMessage} setModalMessage={setModalMessage} viewState={playlistViewState} recArray={recData} hideSongSelected={resetSearchBar} playlistName={playlistName} />
     </div>
   )
 };

@@ -1,8 +1,5 @@
 export function saveAccessTokenToCookie(token: string): void {
-
-  console.log("Saving token...");
   if (!token || token == "undefined"){
-    console.log("attempted to save null or undef. token: " + token);
     return;
   }
 
@@ -11,8 +8,6 @@ export function saveAccessTokenToCookie(token: string): void {
 }
 
 export function getAccessTokenFromCookie(): string | null {
-  console.log("retrieving token...");
-
   const cookies = document.cookie.split('; ');
   for (const cookie of cookies) {
     const [name, value] = cookie.split('=');
@@ -21,7 +16,6 @@ export function getAccessTokenFromCookie(): string | null {
     }
   }
 
-  console.log("retrived token is null");
   return null;
 }
 
