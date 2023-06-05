@@ -27,7 +27,7 @@ BeatBuddy is an app that tailors recommendations much more closely to your prefe
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-**Important:** We are still waiting for Spotify to approve our API quota extension request. As a result, only whitelisted users are able to use the full functionality of the app. To try out the app with full access, please use our demo account when clicking on the "login for full access" button:
+**Update 6/5/23:** We are still waiting for Spotify to approve our API quota extension request. As a result, only whitelisted users are able to use the full functionality of the app. To try out the app with full access, please use our demo account when clicking on the "login for full access" button:
 
 Email: clamshell991@gmail.com
 
