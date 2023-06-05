@@ -3,6 +3,7 @@ import play_btn from '../images/play-btn.png';
 import pause_btn from '../images/pause-btn.png';
 import arrow_back from '../images/arrow-back.png';
 import spotify_icon from '../images/spotify-icon.png';
+import spotify_icon_official from '../images/spotify-icon-official.png';
 
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
@@ -241,7 +242,7 @@ function GeneratedPlaylist(props: any) {
               )}
             </div>
           </div>
-          <a href={"https://open.spotify.com/track/" + currTrackId} target="_blank" rel="noopener noreferrer"><p>Play on Spotify</p></a>
+          {/* <a href={"https://open.spotify.com/track/" + currTrackId} target="_blank" rel="noopener noreferrer"><p>Listen on Spotify</p></a> */}
           <div className="song-stats flex">
             <div id="energy" className="attrs">
               <h3>Energy</h3>
@@ -265,7 +266,7 @@ function GeneratedPlaylist(props: any) {
 
         <section id="playlist-wrapper">
           <button id="spotify-btn" onClick={() => saveCurrentPlaylist(generatePlaylistName(), currPlaylist)}>
-            <span className="bold">Save to Spotify</span>
+            <span className="bold">Save playlist</span>
             <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
           </button>
           <section className="song-results-container-parent">
@@ -278,6 +279,7 @@ function GeneratedPlaylist(props: any) {
                   handleSongClick(song);
                 }}
                   index={index}
+                  currTrackId={currTrackId}
                   id={song.id}
                   key={song.artist + song.title}
                   src={song.imgUrl}
@@ -294,7 +296,7 @@ function GeneratedPlaylist(props: any) {
           <span className="bold"></span>
         </button>
         <button id="spotify-btn" className="icon-mobile">
-          <span className="h5 bold icon-mobile">Save to Spotify</span>
+          <span className="h5 bold icon-mobile">Save playlist</span>
           <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
         </button>
         <section id="song-player-mobile">
@@ -307,7 +309,7 @@ function GeneratedPlaylist(props: any) {
             </div>
             <img src={currImg} alt="The song cover" className="song-img-mobile"></img>
           </div>
-          <a href={"https://open.spotify.com/track/" + currTrackId} target="_blank" rel="noopener noreferrer"><p>Play on Spotify</p></a>
+          <a href={"https://open.spotify.com/track/" + currTrackId} target="_blank" rel="noopener noreferrer"><p>Listen on Spotify</p></a>
           <div className="song-stats-mobile flex-song">
             <div className="attrs">
               <h5>Energy</h5>

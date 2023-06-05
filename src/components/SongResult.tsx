@@ -1,5 +1,6 @@
 import React from 'react';
 import play_btn from './../images/play-btn.png';
+import spotify_icon from '../images/spotify-icon.png';
 
 function SongResult(props: any) {
 
@@ -16,16 +17,22 @@ function SongResult(props: any) {
   return (
     <div className={"song-result-container"}>
 
-      {/* The code below is for desktop */}
+      {/* The code below is for desktop (both used in playlist and search bar) */}
       <div className={"song-result h4" + ((isFirstChild) ? " activeSongColor" : "")} onClick={props.onClick}>
         <img src={src} alt="album cover" id="album-cover"></img>
-        <div>
-          <h4 id="title">{title}</h4>
-          <p id="artist">{artist}</p>
+        <div className="song-result-flex">
+          <div>
+            <h4 id="title">{title}</h4>
+            <p id="artist">{artist}</p>
+          </div>
+          <a href={"https://open.spotify.com/track/" + props.currTrackId}
+          className={((props.design === "searchbar") ? "hidden" : "")} target="_blank" rel="noopener noreferrer">
+            <img src={spotify_icon} title="Play on Spotify" className="spotify-icon-small" alt="Spotify icon"></img>
+          </a>
         </div>
       </div>
 
-      {/* This is for search bar */}
+      {/* This is for search bar mobile */}
       <div className={"song-result-mobile" + ((props.design === "searchbar") ? "" : " hidden")} onClick={props.onClick}>
         <p id="artist-title" className="semi-bold">{artist} - {title}</p>
       </div>

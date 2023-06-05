@@ -8,6 +8,7 @@ import MoodButtons from './MoodButtons';
 import { Mood, moodRec } from '../beatbuddy/src/recommendation/RecommendSongs';
 import logo_large from '../images/beatbuddy-logo-large.svg';
 import spotify_icon from '../images/spotify-icon.png';
+import spotify_icon_official from '../images/spotify-icon-official.png';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import { hasUserLoggedIn } from './GeneratedPlaylist';

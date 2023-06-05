@@ -56,28 +56,8 @@ a {
   text-align: center;
 }
 
-#navbar-logo {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 210px;
-  height: 42px;
-  margin-left: 5%;
-}
-
 body, input, button {
   font-family: 'Readex Pro', sans-serif;
-}
-
-header {
-  background-color: rgb(28, 35, 48, 0.6);
-  /* position: fixed;*/
-  top: 0px;
-  position: absolute;
-  left: 0px;
-  width: 100%;
-  /* margin: auto; */
-  /* width: calc(100% - 50px);
-  padding-left: 50px; */
 }
 
 :root {
@@ -256,12 +236,18 @@ dialog::backdrop {
 /* ? Breakpoint for navbar */
 @media screen and (max-width: 435px) {
   #navbar-logo {
-    margin-left: 0%;
+    margin-left: 1vw !important;
+  }
+  .logout-container {
+    margin-right: 1vw !important;
+  }
+  #logout-icon {
+    display: none !important;
   }
 
   header {
-    width: calc(100% - 20px);
-    padding-left: 20px;
+    /* width: calc(100% - 20px); */
+    /* padding-left: 20px; */
   }
 }
 

@@ -19,5 +19,16 @@ export function getAccessTokenFromCookie(): string | null {
   return null;
 }
 
+export function clearAccessToken() {
+  let cookieName = 'spotify_access_token';
+  try {
+    document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.reload();
+  } catch (error) {
+    console.log('An Error has occurred. Access Token Cookie cannot be removed.')
+    console.log(error);
+  }
+}
+
 
 

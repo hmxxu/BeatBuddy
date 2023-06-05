@@ -1,0 +1,37 @@
+#navbar-logo {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 210px;
+  height: 42px;
+  /* ! Note: It's good to use vw unit for navbar margins */
+  margin-left: 5vw;
+}
+
+.logout-container {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  padding: 10px 20px 10px 20px;
+  column-gap: 10px;
+  /* ! Note: It's good to use vw unit for navbar margins */
+  margin-right: 5vw;
+}
+
+header, .logout-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header {
+  background-color: rgb(28, 35, 48, 0.6);
+  /* position: fixed;*/
+  top: 0px;
+  position: absolute;
+  left: 0px;
+  width: 100%;
+}
+
+#logout-icon {
+  width: 24px;
+  height: 24px;
+}

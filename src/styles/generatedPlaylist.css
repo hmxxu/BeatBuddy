@@ -229,10 +229,15 @@ section {
 }
 
 .arrow-back,
-.arrow-back-mobile,
-.spotify-icon {
+.arrow-back-mobile, .spotify-icon {
   width: 36px;
   height: 36px;
+}
+
+.spotify-icon-small {
+  width: 24px;
+  height: 24px;
+  margin-right: 1em;
 }
 
 .arrow-back {
