@@ -6,8 +6,9 @@ import logo_large from '../images/beatbuddy-logo-large.png';
 import logo_small from '../images/beatbuddy-logo-small.svg';
 import logout_btn from '../images/logout-btn.png';
 import login_btn from '../images/login-btn.png';
-import { loginInFromFrontPage } from '../utils';
+import { loginInFromFrontPage, hideLoginContainer, showSearchContainer } from '../utils';
 import { getAccessTokenFromCookie, clearAccessToken } from '../beatbuddy/src/spotify/tokenCookies';
+import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 
 function Navbar() {
   const [cookieCleared, setCookieCleared] = useState(false);
@@ -15,7 +16,11 @@ function Navbar() {
   useEffect(() => {
     const checkCookieCleared = () => {
       if (!document.cookie.includes('spotify_access_token')) {
+        console.log('cookie is cleared')
         setCookieCleared(true);
+      } else {
+        console.log('cookie is not cleared')
+        setCookieCleared(false);
       }
     };
     checkCookieCleared();
