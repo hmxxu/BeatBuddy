@@ -166,5 +166,6 @@ function PlaylistReady() {
     </div>
   )
 };
+}
 
 export default PlaylistReady;
