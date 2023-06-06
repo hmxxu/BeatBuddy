@@ -1,7 +1,7 @@
 import React from 'react';
 import GeneratedPlaylist from './GeneratedPlaylist';
 import SearchBar from './SearchBar';
-import { hideGenerateButton, hideMoodContainer, hideSearchContainer, closeModal, id, qs, showGenerateButton, showPlaylistContainer, hideLoginContainer, hideWebsiteIntro, showSearchContainer, loginInFromFrontPage } from '../utils';
+import { hideGenerateButton, hideMoodContainer, hideSearchContainer, closeModal, id, qs, showGenerateButton, showPlaylistContainer, hideLoginContainer, hideWebsiteIntro, showSearchContainer} from '../utils';
 import { useState } from 'react';
 import { SearchResult } from '../utils';
 import MoodButtons from './MoodButtons';
@@ -116,14 +116,14 @@ function PlaylistReady() {
   /**
    * WHEN a user logins from the landing page, redirect them to search page.
    */
-  // async function loginInFromFrontPage() {
-  //   let accessCode = getAccessTokenFromCookie();
-  //   if (accessCode !== null && accessCode != "undefined") {
-  //     hideLoginContainer();
-  //     showSearchContainer();
-  //   } else {
-  //     authorizeWithSpotify();
-  //   }
+  async function loginInFromFrontPage() {
+    let accessCode = getAccessTokenFromCookie();
+    if (accessCode !== null && accessCode != "undefined") {
+      hideLoginContainer();
+      showSearchContainer();
+    } else {
+      authorizeWithSpotify();
+  }
 
   return (
     <div>

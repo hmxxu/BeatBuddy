@@ -6,7 +6,7 @@ import logo_large from '../images/beatbuddy-logo-large.png';
 import logo_small from '../images/beatbuddy-logo-small.svg';
 import logout_btn from '../images/logout-btn.png';
 import login_btn from '../images/login-btn.png';
-import { isLoggedIn, loginInFromFrontPage } from '../utils';
+import { loginInFromFrontPage } from '../utils';
 import { getAccessTokenFromCookie, clearAccessToken } from '../beatbuddy/src/spotify/tokenCookies';
 
 function Navbar() {

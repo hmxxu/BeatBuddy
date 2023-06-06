@@ -136,7 +136,6 @@ export function clearMoodButtons() {
   })
 }
 
-export let isLoggedIn: boolean = false;
 /**
  * Checks if user is logged into Spotify. If so, hides the login container and shows the search container
  */
@@ -148,14 +147,6 @@ export async function loginInFromFrontPage() {
     showSearchContainer();
   } else {
     authorizeWithSpotify();
-  }
-}
-
-export async function logoutFromSpotify() {
-  await clearAccessToken();
-  let accessCode = getAccessTokenFromCookie();
-  if (accessCode !== null && accessCode != "undefined") {
-
   }
 }
 
