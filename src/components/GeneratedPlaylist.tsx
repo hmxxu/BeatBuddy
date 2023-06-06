@@ -8,7 +8,7 @@ import spotify_icon_official from '../images/spotify-icon-official.png';
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { clearMoodButtons, hidePlaylistContainer, processImage, qs, openModal, showSearchContainer, showWebsiteIntro } from '../utils';
+import { clearMoodButtons, hidePlaylistContainer, processImage, qs, openModal, closeModal, showSearchContainer, showWebsiteIntro } from '../utils';
 import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import { returnSongFeatures } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { SearchResult } from '../utils';
@@ -154,7 +154,6 @@ function GeneratedPlaylist(props: any) {
       container.firstChild.classList.remove('activeSongColor');
     })
 
-    // !NOT WORKING - for mobile
     let parentMobile = qs(".results-mobile");
     parentMobile.querySelectorAll(":scope > .song-result-container").forEach((container: any) => {
       container.childNodes[2].classList.remove('activeSongColor');
@@ -168,10 +167,10 @@ function GeneratedPlaylist(props: any) {
       // TODO: Replace MyTestSavedPLaylist with value from generatePlaylistName()
       createSpotifyPlaylist(playlistName, currPlaylist);
       changeModalMessage("Your playlist has been \n saved to Spotify! 🎉");
-      openModal(true);
+      openModal();
     } else {
       changeModalMessage("Error saving playlist. \n Please login or retry.");
-      openModal(false);
+      openModal();
     }
 
   }
@@ -193,7 +192,7 @@ function GeneratedPlaylist(props: any) {
     } else {
       changeModalMessage("Authorization Needed: To listen to song previews, please \n\
       login with your Spotify account.");
-      openModal(false);
+      openModal();
     }
 
   };

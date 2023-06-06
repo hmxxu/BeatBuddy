@@ -4,6 +4,7 @@ import { authorizeWithSpotify, exchangeCodeForAccessToken } from './spotifyAuth'
 import { getAccessTokenFromCookie, saveAccessTokenToCookie } from './tokenCookies';
 import { hideLoginContainer, showSearchContainer } from '../../../utils';
 
+export let isLoggedIn: boolean = false;
 /**
  * Callback component that handles the Spotify authentication callback.
  * Retrieves the authorization code from the URL query parameters,
@@ -18,10 +19,15 @@ export function Callback(): any {
   useEffect(() => {
     const token = getAccessTokenFromCookie();
 
+    // If the user is logged into Spotify
     if (token) {
       hideLoginContainer();
       showSearchContainer();
+      console.log('setting')
+      isLoggedIn = true;
       return;
+    } else {
+      isLoggedIn = false;
     }
 
     async function handleCallback() {

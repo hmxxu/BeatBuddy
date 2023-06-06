@@ -22,6 +22,7 @@ export function getAccessTokenFromCookie(): string | null {
 export function clearAccessToken() {
   let cookieName = 'spotify_access_token';
   try {
+    // Makes the cookie expire, clearing it
     document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     window.location.reload();
   } catch (error) {

@@ -236,10 +236,10 @@ dialog::backdrop {
 /* ? Breakpoint for navbar */
 @media screen and (max-width: 435px) {
   #navbar-logo {
-    margin-left: 1vw !important;
+    margin-left: 2vw !important;
   }
   .logout-container {
-    margin-right: 1vw !important;
+    margin-right: 2vw !important;
   }
   #logout-icon {
     display: none !important;

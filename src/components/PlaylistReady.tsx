@@ -1,7 +1,7 @@
 import React from 'react';
 import GeneratedPlaylist from './GeneratedPlaylist';
 import SearchBar from './SearchBar';
-import { hideGenerateButton, hideMoodContainer, hideSearchContainer, closeModal, id, qs, showGenerateButton, showPlaylistContainer, hideLoginContainer, hideWebsiteIntro, showSearchContainer } from '../utils';
+import { hideGenerateButton, hideMoodContainer, hideSearchContainer, closeModal, id, qs, showGenerateButton, showPlaylistContainer, hideLoginContainer, hideWebsiteIntro, showSearchContainer, loginInFromFrontPage } from '../utils';
 import { useState } from 'react';
 import { SearchResult } from '../utils';
 import MoodButtons from './MoodButtons';
@@ -116,16 +116,14 @@ function PlaylistReady() {
   /**
    * WHEN a user logins from the landing page, redirect them to search page.
    */
-  async function loginInFromFrontPage() {
-    let accessCode = getAccessTokenFromCookie();
-    if (accessCode !== null && accessCode != "undefined") {
-      hideLoginContainer();
-      showSearchContainer();
-    } else {
-      authorizeWithSpotify();
-    }
-
-  }
+  // async function loginInFromFrontPage() {
+  //   let accessCode = getAccessTokenFromCookie();
+  //   if (accessCode !== null && accessCode != "undefined") {
+  //     hideLoginContainer();
+  //     showSearchContainer();
+  //   } else {
+  //     authorizeWithSpotify();
+  //   }
 
   return (
     <div>
@@ -134,7 +132,7 @@ function PlaylistReady() {
         <object data={logo_large} type="image/svg+xml" aria-labelledby="BeatBuddy logo" id="beatbuddy-home"></object>
         <h1 id="beatbuddy-desc" className="regular">BeatBuddy crafts personalized playlists that perfectly match your unique music taste!</h1>
         <div id="login-container">
-          <button id="login-to-spotify" className="spotify-theme" onClick={() => loginInFromFrontPage()}>
+          <button id="login-to-spotify" className="spotify-theme" onClick={loginInFromFrontPage}>
             Login for full access
             <img src={spotify_icon} alt="Spotify icon" id="login-to-spotify-icon"></img>
           </button>

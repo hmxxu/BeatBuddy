@@ -1,4 +1,6 @@
 // * Contains global methods accessible by all files
+import { getAccessTokenFromCookie } from './beatbuddy/src/spotify/tokenCookies';
+import { authorizeWithSpotify } from './beatbuddy/src/spotify/spotifyAuth';
 
 /**
  * Returns the element that has the ID attribute with the specified value.
@@ -135,9 +137,22 @@ export function clearMoodButtons() {
 }
 
 /**
+ * Checks if user is logged into Spotify. If so, hides the login container and shows the search container
+ */
+export async function loginInFromFrontPage() {
+  let accessCode = getAccessTokenFromCookie();
+  if (accessCode !== null && accessCode != "undefined") {
+    hideLoginContainer();
+    showSearchContainer();
+  } else {
+    authorizeWithSpotify();
+  }
+}
+
+/**
  * Shows the modal after a playlist has been saved to Spotify successfully or unsuccessfully
  */
-export function openModal(open:Boolean) {
+export function openModal() {
   qs('.modal').showModal();
 }
 
