@@ -3,8 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { authorizeWithSpotify, exchangeCodeForAccessToken } from './spotifyAuth';
 import { getAccessTokenFromCookie, saveAccessTokenToCookie } from './tokenCookies';
 import { hideLoginContainer, showSearchContainer } from '../../../utils';
-
-export let isLoggedIn: boolean = false;
 /**
  * Callback component that handles the Spotify authentication callback.
  * Retrieves the authorization code from the URL query parameters,
@@ -24,11 +22,9 @@ export function Callback(): any {
       hideLoginContainer();
       showSearchContainer();
       console.log('setting')
-      isLoggedIn = true;
       return;
     }
     if (!token) {
-      isLoggedIn = false;
       return;
     }
 

@@ -19,7 +19,7 @@ export function getAccessTokenFromCookie(): string | null {
   return null;
 }
 
-export function clearAccessToken() {
+export async function clearAccessToken() {
   let cookieName = 'spotify_access_token';
   try {
     // Makes the cookie expire, clearing it

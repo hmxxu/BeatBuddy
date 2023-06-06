@@ -1,5 +1,5 @@
 // * Contains global methods accessible by all files
-import { getAccessTokenFromCookie } from './beatbuddy/src/spotify/tokenCookies';
+import { clearAccessToken, getAccessTokenFromCookie } from './beatbuddy/src/spotify/tokenCookies';
 import { authorizeWithSpotify } from './beatbuddy/src/spotify/spotifyAuth';
 
 /**
@@ -136,16 +136,26 @@ export function clearMoodButtons() {
   })
 }
 
+export let isLoggedIn: boolean = false;
 /**
  * Checks if user is logged into Spotify. If so, hides the login container and shows the search container
  */
 export async function loginInFromFrontPage() {
   let accessCode = getAccessTokenFromCookie();
+  // if user is logged into Spotify
   if (accessCode !== null && accessCode != "undefined") {
     hideLoginContainer();
     showSearchContainer();
   } else {
     authorizeWithSpotify();
+  }
+}
+
+export async function logoutFromSpotify() {
+  await clearAccessToken();
+  let accessCode = getAccessTokenFromCookie();
+  if (accessCode !== null && accessCode != "undefined") {
+
   }
 }
 
