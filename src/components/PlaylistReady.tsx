@@ -123,6 +123,7 @@ function PlaylistReady() {
       showSearchContainer();
     } else {
       authorizeWithSpotify();
+    }
   }
 
   return (
@@ -166,6 +167,5 @@ function PlaylistReady() {
     </div>
   )
 };
-}
 
 export default PlaylistReady;
