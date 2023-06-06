@@ -24,9 +24,6 @@ export function Callback(): any {
       console.log('setting')
       return;
     }
-    if (!token) {
-      return;
-    }
 
     async function handleCallback() {
       const searchParams = new URLSearchParams(location.search);
