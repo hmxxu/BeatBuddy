@@ -26,8 +26,10 @@ export function Callback(): any {
       console.log('setting')
       isLoggedIn = true;
       return;
-    } else {
+    }
+    if (!token) {
       isLoggedIn = false;
+      return;
     }
 
     async function handleCallback() {
