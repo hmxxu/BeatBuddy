@@ -284,10 +284,10 @@ function GeneratedPlaylist(props: any) {
             <h2>Your Recommended Playlist</h2>
             {
               props.recArray.map((song: any, index: number) => (
-                <SongResult onClick={function (e: any) {
+                <SongResult onClick={async function (e: any) {
                   let container = e.currentTarget;
                   setActiveSong(container);
-                  handleSongClick(song);
+                  await handleSongClick(song);
                   // handlePlayPauseButtonClick();
                   handleSongChange();
                 }}
@@ -350,10 +350,10 @@ function GeneratedPlaylist(props: any) {
             props.recArray.map((song: any, index: number) => (
               // * for generated_playlist design, show song-playlist-mobile, hide song-result-mobile
               <SongResult design="generated_playlist"
-                onClick={function (e: any) {
+                onClick={async function (e: any) {
                   let container = e.currentTarget;
                   setActiveSong(container);
-                  handleSongClick(song);
+                  await handleSongClick(song);
                   // handlePlayPauseButtonClick();
                   handleSongChange();
                 }}
