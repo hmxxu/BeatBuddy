@@ -8,7 +8,7 @@ import spotify_icon_official from '../images/spotify-icon-official.png';
 import '../styles/generatedPlaylist.css';
 import '../styles/songSearch.css';
 import SongResult from './SongResult';
-import { clearMoodButtons, hidePlaylistContainer, processImage, qs, openModal, closeModal, showSearchContainer, showWebsiteIntro } from '../utils';
+import { clearMoodButtons, hidePlaylistContainer, processImage, qs, openModal, showSearchContainer, showWebsiteIntro } from '../utils';
 import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import { returnSongFeatures } from '../beatbuddy/src/APIFunctions/ReturnSongStats';
 import { SearchResult } from '../utils';
@@ -86,12 +86,6 @@ function GeneratedPlaylist(props: any) {
     }
   }, [props.recArray])
 
-
-  //! for tapan
-  // just do something like this when you want to update a text and open the modal:
-  // changeModalMessage("Your playlist has been \n saved to Spotify! 🎉");
-  // openModal(true);
-  //
   function changeModalMessage(message: string) {
     props.setModalMessage(message);
   }
@@ -180,7 +174,6 @@ function GeneratedPlaylist(props: any) {
   }
 
   const handlePlayPauseButtonClick = () => {
-
     if (hasUserLoggedIn()) {
       if (isPlaying) {
         setIsPlaying(false);
@@ -194,7 +187,6 @@ function GeneratedPlaylist(props: any) {
       login with your Spotify account.");
       openModal();
     }
-
   };
 
   // Reverts back to the default state of the website (i.e. only having a search bar) after
@@ -282,7 +274,7 @@ function GeneratedPlaylist(props: any) {
                   id={song.id}
                   key={song.artist + song.title}
                   src={song.imgUrl}
-                  artist={song.artist} title={song.title} genre={song.genre} />
+                  artist={song.artist} title={song.title} genre={song.genre}/>
               ))
             }
           </section>
@@ -294,15 +286,13 @@ function GeneratedPlaylist(props: any) {
           <img src={arrow_back} alt="A back icon shaped like a bent arrow" className="arrow-back-mobile"></img>
           <span className="bold"></span>
         </button>
-        <button id="spotify-btn" className="icon-mobile">
+        <button id="spotify-btn" className="icon-mobile" onClick={() => saveCurrentPlaylist(generatePlaylistName(), currPlaylist)}>
           <span className="h5 bold icon-mobile">Save playlist</span>
           <img src={spotify_icon} className="spotify-icon" alt="Spotify icon"></img>
         </button>
         <section id="song-player-mobile">
           <div className="flex-mobile">
             <div className="current-song-mobile">
-              {/* <h1>{ currTitle }</h1>
-              <h2>{ currArtist }</h2> */}
               <span className="h2 bold">{currTitle}</span>
               <span className="h4 bold">{currArtist}</span>
             </div>
@@ -338,7 +328,10 @@ function GeneratedPlaylist(props: any) {
                 }}
                 index={index}
                 key={song.artist + song.title}
-                artist={song.artist} title={song.title} genre={song.genre} />
+                artist={song.artist} title={song.title} genre={song.genre}
+                setModalMessage={props.setModalMessage}
+                isPlaying={isPlaying} setIsPlaying={setIsPlaying}
+                currTrackId={currTrackId} />
             ))
           }
         </section>

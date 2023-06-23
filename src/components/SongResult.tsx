@@ -1,5 +1,10 @@
 import React from 'react';
 import play_btn from './../images/play-btn.png';
+import pause_btn from '../images/pause-btn.png';
+import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
+import { hasUserLoggedIn } from './GeneratedPlaylist';
+import {openModal} from '../utils';
+import { playSong, pauseSong, stopSong } from '../beatbuddy/src/spotify/getSong';
 import spotify_icon from '../images/spotify-icon.png';
 
 function SongResult(props: any) {
@@ -12,6 +17,26 @@ function SongResult(props: any) {
   if (props.index === 0 && props.index !== undefined) {
     isFirstChild = true;
   }
+
+  function changeModalMessage(message: string) {
+    props.setModalMessage(message);
+  }
+
+  const handlePlayPauseButtonClick = () => {
+    if (hasUserLoggedIn()) {
+      if (props.isPlaying) {
+        props.setIsPlaying(false);
+        pauseSong();
+      } else {
+        props.setIsPlaying(true);
+        playSong(props.currTrackId);
+      }
+    } else {
+      changeModalMessage("Authorization Needed: To listen to song previews, please \n\
+      login with your Spotify account.");
+      openModal();
+    }
+  };
 
   // onClick will call the function in SearchBar
   return (
@@ -43,8 +68,13 @@ function SongResult(props: any) {
           <p className="bold">{title}</p>
           <p>{artist}</p>
         </div>
-        <div className="play-btn-container-small">
-          <img src={play_btn} className="play-btn-small" alt="an icon of a play button"></img>
+        <div className="play-btn-container-small" onClick={handlePlayPauseButtonClick} >
+          {/* <img src={play_btn} className="play-btn-small" alt="an icon of a play button"></img> */}
+          {props.isPlaying ? (
+            <img src={pause_btn} className="pause-btn" alt="an icon of a pause button"></img>
+          ) : (
+            <img src={play_btn} className="play-btn" alt="an icon of a play button"></img>
+          )}
         </div>
       </div>
     </div>
