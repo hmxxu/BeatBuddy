@@ -19,12 +19,25 @@ export function updateProgressBar(audio: any) {
   const progressBar = document.getElementById('progress-bar');
   const timeElement = document.getElementById('song-time');
 
+  const progressBarMobile = document.getElementById('progress-bar-mobile');
+  const timeElementMobile = document.getElementById('song-time-mobile');
+
+  // For desktop
   if (progressBar && timeElement && audio) {
     const progress = (audio.currentTime / audio.duration) * 100;
     progressBar.style.width = `${progress}%`;
 
     const remainingTime = audio.duration - audio.currentTime;
     timeElement.innerText = formatTime(remainingTime);
+  }
+
+  // For mobile
+  if (progressBarMobile && timeElementMobile && audio) {
+    const progress = (audio.currentTime / audio.duration) * 100;
+    progressBarMobile.style.width = `${progress}%`;
+
+    const remainingTime = audio.duration - audio.currentTime;
+    timeElementMobile.innerText = formatTime(remainingTime);
   }
 }
 
@@ -302,8 +315,8 @@ function GeneratedPlaylist(props: any) {
 
           <div className="progress-bar-container">
             <div id="no-preview-msg"></div>
-            <div id="song-time">00:00</div>
-            <div id="progress-bar" style={{ width: '0%' }}></div>
+            <div id="song-time-mobile">00:00</div>
+            <div id="progress-bar-mobile" style={{ width: '0%' }}></div>
           </div>
 
           <a href={"https://open.spotify.com/track/" + currTrackId} target="_blank" rel="noopener noreferrer"><p>Listen on Spotify</p></a>
