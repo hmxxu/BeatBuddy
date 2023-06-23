@@ -225,7 +225,7 @@ function GeneratedPlaylist(props: any) {
             <div id="progress-bar" style={{ width: '0%' }}></div>
           </div>
           <div id="player-controls-wrapper" className='flex'>
-            <div className="play-btn-container" onClick={handlePlayPauseButtonClick}>
+            <div className="play-btn-container">
               {isPlaying ? (
                 <img src={pause_btn} className="pause-btn" alt="an icon of a pause button"></img>
               ) : (
@@ -268,6 +268,7 @@ function GeneratedPlaylist(props: any) {
                   let container = e.currentTarget;
                   setActiveSong(container);
                   handleSongClick(song);
+                  handlePlayPauseButtonClick();
                 }}
                   index={index}
                   currTrackId={currTrackId}
