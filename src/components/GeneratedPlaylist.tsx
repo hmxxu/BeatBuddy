@@ -200,7 +200,11 @@ function GeneratedPlaylist(props: any) {
       login with your Spotify account.");
       openModal();
     }
-  };
+
+    const handleSongChange = () => {
+      setIsPlaying(true);
+      playSong(currTrackId);
+    }
 
   // Reverts back to the default state of the website (i.e. only having a search bar) after
   // user clicks "Try another song" button
@@ -281,7 +285,8 @@ function GeneratedPlaylist(props: any) {
                   let container = e.currentTarget;
                   setActiveSong(container);
                   handleSongClick(song);
-                  handlePlayPauseButtonClick();
+                  // handlePlayPauseButtonClick();
+                  handleSongChange();
                 }}
                   index={index}
                   currTrackId={currTrackId}
@@ -346,7 +351,8 @@ function GeneratedPlaylist(props: any) {
                   let container = e.currentTarget;
                   setActiveSong(container);
                   handleSongClick(song);
-                  handlePlayPauseButtonClick()
+                  // handlePlayPauseButtonClick();
+                  handleSongChange();
                 }}
                 index={index}
                 key={song.artist + song.title}

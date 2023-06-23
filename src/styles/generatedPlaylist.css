@@ -148,6 +148,7 @@ section {
 
 .progress-bar-container {
   margin-top: 30px;
+  text-align: center;
 }
 
 #progress-bar, #progress-bar-mobile {
