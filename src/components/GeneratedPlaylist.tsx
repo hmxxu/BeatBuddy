@@ -31,13 +31,13 @@ export function updateProgressBar(audio: any) {
     timeElement.innerText = formatTime(remainingTime);
   }
 
-  // For mobile
-  if (progressBarMobile && timeElementMobile && audio) {
+  // For Mobile
+  if (progressBar && timeElement && audio) {
     const progress = (audio.currentTime / audio.duration) * 100;
-    progressBarMobile.style.width = `${progress}%`;
+    progressBar.style.width = `${progress}%`;
 
     const remainingTime = audio.duration - audio.currentTime;
-    timeElementMobile.innerText = formatTime(remainingTime);
+    timeElement.innerText = formatTime(remainingTime);
   }
 }
 
@@ -186,7 +186,7 @@ function GeneratedPlaylist(props: any) {
     return props.playlistName;
   }
 
-  const handlePlayPauseButtonClick = () => {
+  function handlePlayPauseButtonClick() {
     if (hasUserLoggedIn()) {
       if (isPlaying) {
         setIsPlaying(false);
@@ -200,11 +200,14 @@ function GeneratedPlaylist(props: any) {
       login with your Spotify account.");
       openModal();
     }
+  };
 
-    const handleSongChange = () => {
+  function handleSongChange() {
+    if (hasUserLoggedIn()) {
       setIsPlaying(true);
       playSong(currTrackId);
     }
+  }
 
   // Reverts back to the default state of the website (i.e. only having a search bar) after
   // user clicks "Try another song" button
