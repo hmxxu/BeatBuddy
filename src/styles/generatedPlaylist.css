@@ -150,7 +150,7 @@ section {
   margin-top: 30px;
 }
 
-#progress-bar {
+#progress-bar, #progress-bar-mobile {
   margin-top: 20px;
   height: 5px;
   width: 0;
