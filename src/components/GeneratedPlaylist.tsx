@@ -32,12 +32,12 @@ export function updateProgressBar(audio: any) {
   }
 
   // For Mobile
-  if (progressBar && timeElement && audio) {
+  if (progressBarMobile && timeElementMobile && audio) {
     const progress = (audio.currentTime / audio.duration) * 100;
-    progressBar.style.width = `${progress}%`;
+    progressBarMobile.style.width = `${progress}%`;
 
     const remainingTime = audio.duration - audio.currentTime;
-    timeElement.innerText = formatTime(remainingTime);
+    timeElementMobile.innerText = formatTime(remainingTime);
   }
 }
 
@@ -109,6 +109,7 @@ function GeneratedPlaylist(props: any) {
   * @param song - Song array arranged like [artist, song, genre]
   */
   async function handleSongClick(song: any) {
+    console.log('handleSongClick called');
 
     stopSong(); // Stop the currently playing song
     setIsPlaying(false); // Reset the isPlaying state to false
@@ -206,6 +207,11 @@ function GeneratedPlaylist(props: any) {
     if (hasUserLoggedIn()) {
       setIsPlaying(true);
       playSong(currTrackId);
+      console.log('current artist = ' + currArtist);
+    } else {
+      changeModalMessage("Authorization Needed: To listen to song previews, please \n\
+      login with your Spotify account.");
+      openModal();
     }
   }
 
