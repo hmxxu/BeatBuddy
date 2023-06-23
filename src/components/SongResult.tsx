@@ -18,25 +18,25 @@ function SongResult(props: any) {
     isFirstChild = true;
   }
 
-  function changeModalMessage(message: string) {
-    props.setModalMessage(message);
-  }
+  // function changeModalMessage(message: string) {
+  //   props.setModalMessage(message);
+  // }
 
-  const handlePlayPauseButtonClick = () => {
-    if (hasUserLoggedIn()) {
-      if (props.isPlaying) {
-        props.setIsPlaying(false);
-        pauseSong();
-      } else {
-        props.setIsPlaying(true);
-        playSong(props.currTrackId);
-      }
-    } else {
-      changeModalMessage("Authorization Needed: To listen to song previews, please \n\
-      login with your Spotify account.");
-      openModal();
-    }
-  };
+  // const handlePlayPauseButtonClick = () => {
+  //   if (hasUserLoggedIn()) {
+  //     if (props.isPlaying) {
+  //       props.setIsPlaying(false);
+  //       pauseSong();
+  //     } else {
+  //       props.setIsPlaying(true);
+  //       playSong(props.currTrackId);
+  //     }
+  //   } else {
+  //     changeModalMessage("Authorization Needed: To listen to song previews, please \n\
+  //     login with your Spotify account.");
+  //     openModal();
+  //   }
+  // };
 
   // onClick will call the function in SearchBar
   return (
@@ -68,12 +68,12 @@ function SongResult(props: any) {
           <p className="bold">{title}</p>
           <p>{artist}</p>
         </div>
-        <div className="play-btn-container-small" onClick={handlePlayPauseButtonClick} >
+        <div className="play-btn-container-small">
           {/* <img src={play_btn} className="play-btn-small" alt="an icon of a play button"></img> */}
           {props.isPlaying ? (
-            <img src={pause_btn} className="pause-btn" alt="an icon of a pause button"></img>
+            <img src={pause_btn} className="pause-btn-small" alt="an icon of a pause button"></img>
           ) : (
-            <img src={play_btn} className="play-btn" alt="an icon of a play button"></img>
+            <img src={play_btn} className="play-btn-small" alt="an icon of a play button"></img>
           )}
         </div>
       </div>

@@ -325,6 +325,7 @@ function GeneratedPlaylist(props: any) {
                   let container = e.currentTarget;
                   setActiveSong(container);
                   handleSongClick(song);
+                  handlePlayPauseButtonClick();
                 }}
                 index={index}
                 key={song.artist + song.title}
