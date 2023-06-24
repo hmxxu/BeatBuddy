@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/BeatBuddy/static/css/main.8a8ab8c6.css",
-    "main.js": "/BeatBuddy/static/js/main.7d04d08b.js",
+    "main.js": "/BeatBuddy/static/js/main.33cad3ae.js",
     "static/media/beatbuddy-logo-large.png": "/BeatBuddy/static/media/beatbuddy-logo-large.9307d5dd058a207bcbea.png",
     "static/media/beatbuddy-logo-large.svg": "/BeatBuddy/static/media/beatbuddy-logo-large.bc0577e92914f76e906732a7a73d7c21.svg",
     "index.html": "/BeatBuddy/index.html",
     "main.8a8ab8c6.css.map": "/BeatBuddy/static/css/main.8a8ab8c6.css.map",
-    "main.7d04d08b.js.map": "/BeatBuddy/static/js/main.7d04d08b.js.map"
+    "main.33cad3ae.js.map": "/BeatBuddy/static/js/main.33cad3ae.js.map"
   },
   "entrypoints": [
     "static/css/main.8a8ab8c6.css",
-    "static/js/main.7d04d08b.js"
+    "static/js/main.33cad3ae.js"
   ]
 }
