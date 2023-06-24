@@ -204,7 +204,7 @@ function GeneratedPlaylist(props: any) {
     }
   };
 
-  function handleSongChange() {
+  async function handleSongChange() {
     if (hasUserLoggedIn()) {
       setIsPlaying(true);
       playSong(currTrackId);
@@ -296,7 +296,7 @@ function GeneratedPlaylist(props: any) {
                   setActiveSong(container);
                   await handleSongClick(song);
                   // handlePlayPauseButtonClick();
-                  handleSongChange();
+                  await handleSongChange();
                 }}
                   index={index}
                   currTrackId={currTrackId}
@@ -362,7 +362,7 @@ function GeneratedPlaylist(props: any) {
                   setActiveSong(container);
                   await handleSongClick(song);
                   // handlePlayPauseButtonClick();
-                  handleSongChange();
+                  await handleSongChange();
                 }}
                 index={index}
                 key={song.artist + song.title}
