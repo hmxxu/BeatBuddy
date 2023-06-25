@@ -28,31 +28,6 @@ export async function playSong(trackId: string) {
       throw new Error(`Failed to retrieve track data: ${response.status} ${response.statusText}`);
     }
 
-
-    //!!! Volume
-    const volume: number = 10;
-    await fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${spotifyClient.getAccessToken()}`,
-      },
-    })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('PUT request failed');
-      }
-    })
-    .then(volume => {
-      console.log('PUT request successful:', volume);
-    })
-    .catch(error => {
-      console.error('Error making PUT request:', error);
-    });
-    //!!!
-
-
     const track = await response.json();
     const previewUrl = track.preview_url;
 
@@ -78,6 +53,7 @@ export async function playSong(trackId: string) {
         updateProgressBar(audio);
       });
 
+      audio.volume = 0.2;
       audio.play();
     }
 
