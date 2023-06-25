@@ -369,7 +369,7 @@ function GeneratedPlaylist(props: any) {
                 setModalMessage={props.setModalMessage}
                 isPlaying={isPlaying} setIsPlaying={setIsPlaying}
                 currTrackId={currTrackId}
-                playPauseBtn={playPauseBtn} setPlayPauseBtn={setPlayPauseBtn} />
+                playPauseBtn={playPauseBtn} />
             ))
           }
         </section>
