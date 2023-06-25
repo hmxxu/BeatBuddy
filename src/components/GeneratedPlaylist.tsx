@@ -119,6 +119,7 @@ function GeneratedPlaylist(props: any) {
     setCurrImg(song.imgUrl);
     setCurrTrackId(song.id);
     console.log('artist from handleSongClick = ' + song.artist);
+    console.log('currTrackId from handleSongClick = ' + song.id);
 
     // get features and display
     const featuresJSON = await returnSongFeatures(song.id);
@@ -209,6 +210,7 @@ function GeneratedPlaylist(props: any) {
       setIsPlaying(true);
       playSong(currTrackId);
       console.log('artist from handleSongChange = ' + currArtist);
+      console.log('currTrackId from handleSongChange = ' + currTrackId);
     } else {
       changeModalMessage("Authorization Needed: To listen to song previews, please \n\
       login with your Spotify account.");
