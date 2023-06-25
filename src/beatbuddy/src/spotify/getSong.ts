@@ -1,6 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import { getSpotifyClient } from './spotifyAuth';
 import { noSongPreviewMsg, updateProgressBar } from '../../../components/GeneratedPlaylist';
+import { useEffect } from 'react';
 
 let audio: HTMLAudioElement | undefined;
 let playbackPosition: number | undefined;
@@ -26,6 +27,32 @@ export async function playSong(trackId: string) {
     if (!response.ok) {
       throw new Error(`Failed to retrieve track data: ${response.status} ${response.statusText}`);
     }
+
+
+    //!!! Volume
+    const volume: number = 10;
+    fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(volume)
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('PUT request failed');
+      }
+    })
+    .then(volume => {
+      console.log('PUT request successful:', volume);
+    })
+    .catch(error => {
+      console.error('Error making PUT request:', error);
+    });
+    //!!!
+
 
     const track = await response.json();
     const previewUrl = track.preview_url;
