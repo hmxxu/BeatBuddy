@@ -69,7 +69,10 @@ function SongResult(props: any) {
           <p className="bold">{title}</p>
           <p>{artist}</p>
         </div>
-        <div className="play-btn-container-small" onClick={handlePlayPauseButtonClick}>
+        <div className="play-btn-container-small" onClick={function (e: any) {
+            e.stopPropagation();
+            handlePlayPauseButtonClick();
+          }}>
           {/* <img src={play_btn} className="play-btn-small" alt="an icon of a play button"></img> */}
           {props.isPlaying ? (
             <img src={pause_btn} className="pause-btn-small" alt="an icon of a pause button"></img>
