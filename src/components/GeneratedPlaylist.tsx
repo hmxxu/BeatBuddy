@@ -134,6 +134,21 @@ function GeneratedPlaylist(props: any) {
     // playing preview of songs
     handleSongProgressBar();
     removePreviewMsg();
+
+    handleSongChange();
+  }
+
+  function handleSongChange() {
+    if (hasUserLoggedIn()) {
+      setIsPlaying(true);
+      playSong(currTrackId);
+      console.log('artist from handleSongChange = ' + currArtist);
+      console.log('currTrackId from handleSongChange = ' + currTrackId);
+    } else {
+      changeModalMessage("Authorization Needed: To listen to song previews, please \n\
+      login with your Spotify account.");
+      openModal();
+    }
   }
 
   function handleSongProgressBar() {
@@ -204,19 +219,6 @@ function GeneratedPlaylist(props: any) {
       openModal();
     }
   };
-
-  async function handleSongChange() {
-    if (hasUserLoggedIn()) {
-      setIsPlaying(true);
-      playSong(currTrackId);
-      console.log('artist from handleSongChange = ' + currArtist);
-      console.log('currTrackId from handleSongChange = ' + currTrackId);
-    } else {
-      changeModalMessage("Authorization Needed: To listen to song previews, please \n\
-      login with your Spotify account.");
-      openModal();
-    }
-  }
 
   // Reverts back to the default state of the website (i.e. only having a search bar) after
   // user clicks "Try another song" button
@@ -298,7 +300,6 @@ function GeneratedPlaylist(props: any) {
                   setActiveSong(container);
                   await handleSongClick(song);
                   // handlePlayPauseButtonClick();
-                  await handleSongChange();
                 }}
                   index={index}
                   currTrackId={currTrackId}
@@ -364,7 +365,6 @@ function GeneratedPlaylist(props: any) {
                   setActiveSong(container);
                   await handleSongClick(song);
                   // handlePlayPauseButtonClick();
-                  await handleSongChange();
                 }}
                 index={index}
                 key={song.artist + song.title}
