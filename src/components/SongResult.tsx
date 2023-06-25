@@ -23,6 +23,7 @@ function SongResult(props: any) {
   }
 
   const handlePlayPauseButtonClick = () => {
+    console.log('handlePlayPauseButton called')
     if (hasUserLoggedIn()) {
       if (props.isPlaying) {
         props.setIsPlaying(false);
