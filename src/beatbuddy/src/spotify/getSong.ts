@@ -53,7 +53,7 @@ export async function playSong(trackId: string) {
         updateProgressBar(audio);
       });
 
-      audio.volume = 0.1;
+      audio.volume = 0.15;
       audio.play();
     }
 

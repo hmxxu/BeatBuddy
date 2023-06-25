@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import play_btn from './../images/play-btn.png';
 import pause_btn from '../images/pause-btn.png';
 import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
@@ -8,6 +8,8 @@ import { playSong, pauseSong, stopSong } from '../beatbuddy/src/spotify/getSong'
 import spotify_icon from '../images/spotify-icon.png';
 
 function SongResult(props: any) {
+
+  let [playPauseBtn, setPlayPauseBtn] = useState(play_btn);
 
   let src = props.src;
   let artist = props.artist;
@@ -23,13 +25,15 @@ function SongResult(props: any) {
   }
 
   const handlePlayPauseButtonClick = () => {
-    console.log('handlePlayPauseButton called')
+    console.log('handlePlayPauseButton called new')
     if (hasUserLoggedIn()) {
       if (props.isPlaying) {
         props.setIsPlaying(false);
+        setPlayPauseBtn(pause_btn);
         pauseSong();
       } else {
         props.setIsPlaying(true);
+        setPlayPauseBtn(play_btn);
         playSong(props.currTrackId);
       }
     } else {
@@ -74,11 +78,7 @@ function SongResult(props: any) {
             handlePlayPauseButtonClick();
           }}>
           {/* <img src={play_btn} className="play-btn-small" alt="an icon of a play button"></img> */}
-          {props.isPlaying ? (
-            <img src={pause_btn} className="pause-btn-small" alt="an icon of a pause button"></img>
-          ) : (
-            <img src={play_btn} className="play-btn-small" alt="an icon of a play button"></img>
-          )}
+            <img src={playPauseBtn} className="play-pause-btn-small" alt="an icon of a pause button"></img>
         </div>
       </div>
     </div>
