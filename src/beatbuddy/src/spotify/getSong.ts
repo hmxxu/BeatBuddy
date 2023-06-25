@@ -34,9 +34,8 @@ export async function playSong(trackId: string) {
     fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Authorization': `Bearer ${spotifyClient.getAccessToken() }`
       },
-      body: JSON.stringify(volume)
     })
     .then(response => {
       if (response.ok) {
