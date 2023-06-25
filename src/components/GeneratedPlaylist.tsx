@@ -22,7 +22,7 @@ export function updateProgressBar(audio: any) {
   const progressBarMobile = document.getElementById('progress-bar-mobile');
   const timeElementMobile = document.getElementById('song-time-mobile');
 
-  // For desktop
+  // ************* For desktop *******************
   if (progressBar && timeElement && audio) {
     const progress = (audio.currentTime / audio.duration) * 100;
     progressBar.style.width = `${progress}%`;
@@ -31,7 +31,7 @@ export function updateProgressBar(audio: any) {
     timeElement.innerText = formatTime(remainingTime);
   }
 
-  // For Mobile
+  // ************** For Mobile *******************
   if (progressBarMobile && timeElementMobile && audio) {
     const progress = (audio.currentTime / audio.duration) * 100;
     progressBarMobile.style.width = `${progress}%`;
