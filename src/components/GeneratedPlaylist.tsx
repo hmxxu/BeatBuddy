@@ -135,15 +135,14 @@ function GeneratedPlaylist(props: any) {
     handleSongProgressBar();
     removePreviewMsg();
 
-    handleSongChange();
+    handleSongChange(song.id);
   }
 
-  function handleSongChange() {
+  function handleSongChange(currentTrackId: any) {
     if (hasUserLoggedIn()) {
       setIsPlaying(true);
-      playSong(currTrackId);
-      console.log('artist from handleSongChange = ' + currArtist);
-      console.log('currTrackId from handleSongChange = ' + currTrackId);
+      playSong(currentTrackId);
+      console.log('currTrackId from handleSongChange = ' + currentTrackId);
     } else {
       changeModalMessage("Authorization Needed: To listen to song previews, please \n\
       login with your Spotify account.");
