@@ -83,6 +83,7 @@ function GeneratedPlaylist(props: any) {
   const [currTrackId, setCurrTrackId] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const [playPauseBtn, setPlayPauseBtn] = useState(play_btn);
 
   const [currEnergy, setEnergy] = useState(0);
   const [currValence, setValence] = useState(0);
@@ -113,6 +114,7 @@ function GeneratedPlaylist(props: any) {
 
     stopSong(); // Stop the currently playing song
     setIsPlaying(false); // Reset the isPlaying state to false
+    setPlayPauseBtn(pause_btn);
 
     setCurrTitle(song.title);
     setCurrArtist(song.artist);
@@ -360,14 +362,14 @@ function GeneratedPlaylist(props: any) {
                   let container = e.currentTarget;
                   setActiveSong(container);
                   await handleSongClick(song);
-                  // handlePlayPauseButtonClick();
                 }}
                 index={index}
                 key={song.artist + song.title}
                 artist={song.artist} title={song.title} genre={song.genre}
                 setModalMessage={props.setModalMessage}
                 isPlaying={isPlaying} setIsPlaying={setIsPlaying}
-                currTrackId={currTrackId} />
+                currTrackId={currTrackId}
+                playPauseBtn={playPauseBtn} setPlayPauseBtn={setPlayPauseBtn} />
             ))
           }
         </section>

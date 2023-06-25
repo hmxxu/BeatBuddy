@@ -9,8 +9,6 @@ import spotify_icon from '../images/spotify-icon.png';
 
 function SongResult(props: any) {
 
-  let [playPauseBtn, setPlayPauseBtn] = useState(play_btn);
-
   let src = props.src;
   let artist = props.artist;
   let title = props.title;
@@ -29,11 +27,11 @@ function SongResult(props: any) {
     if (hasUserLoggedIn()) {
       if (props.isPlaying) {
         props.setIsPlaying(false);
-        setPlayPauseBtn(pause_btn);
+        props.setPlayPauseBtn(play_btn);
         pauseSong();
       } else {
         props.setIsPlaying(true);
-        setPlayPauseBtn(play_btn);
+        props.setPlayPauseBtn(pause_btn);
         playSong(props.currTrackId);
       }
     } else {
@@ -78,7 +76,7 @@ function SongResult(props: any) {
             handlePlayPauseButtonClick();
           }}>
           {/* <img src={play_btn} className="play-btn-small" alt="an icon of a play button"></img> */}
-            <img src={playPauseBtn} className="play-pause-btn-small" alt="an icon of a pause button"></img>
+            <img src={props.playPauseBtn} className="play-pause-btn-small" alt="an icon of a pause button"></img>
         </div>
       </div>
     </div>
