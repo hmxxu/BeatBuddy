@@ -31,10 +31,10 @@ export async function playSong(trackId: string) {
 
     //!!! Volume
     const volume: number = 10;
-    fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
+    await fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${spotifyClient.getAccessToken() }`
+        'Authorization': `Bearer ${spotifyClient.getAccessToken()}`,
       },
     })
     .then(response => {
