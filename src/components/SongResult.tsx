@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import play_btn from './../images/play-btn.png';
 import pause_btn from '../images/pause-btn.png';
 import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
@@ -9,7 +9,11 @@ import spotify_icon from '../images/spotify-icon.png';
 
 function SongResult(props: any) {
 
-  const [playPauseBtn, setPlayPauseBtn] = useState(props.playPauseBtn);
+  const [playPauseBtn, setPlayPauseBtn] = useState(play_btn);
+
+  useEffect(() => {
+    setPlayPauseBtn(props.playPauseBtn);
+  }, [props.playPauseBtn])
 
   let src = props.src;
   let artist = props.artist;
