@@ -9,12 +9,6 @@ import spotify_icon from '../images/spotify-icon.png';
 
 function SongResult(props: any) {
 
-  const [playPauseBtn, setPlayPauseBtn] = useState(play_btn);
-
-  useEffect(() => {
-    setPlayPauseBtn(props.playPauseBtn);
-  }, [props.playPauseBtn])
-
   let src = props.src;
   let artist = props.artist;
   let title = props.title;
@@ -23,6 +17,17 @@ function SongResult(props: any) {
   if (props.index === 0 && props.index !== undefined) {
     isFirstChild = true;
   }
+
+  const [playPauseBtn, setPlayPauseBtn] = useState(play_btn);
+
+  useEffect(() => {
+    console.log('currTrackId changes: ' + props.currTrackId);
+    if (props.currTrackId === props.id) {
+      setPlayPauseBtn(pause_btn);
+    } else {
+      setPlayPauseBtn(play_btn);
+    }
+  }, [props.currTrackId, props.id])
 
   function changeModalMessage(message: string) {
     props.setModalMessage(message);

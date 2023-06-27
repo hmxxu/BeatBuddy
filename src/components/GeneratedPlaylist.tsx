@@ -364,7 +364,7 @@ function GeneratedPlaylist(props: any) {
                   await handleSongClick(song);
                 }}
                 index={index}
-                key={song.artist + song.title}
+                key={song.artist + song.title} id={song.id}
                 artist={song.artist} title={song.title} genre={song.genre}
                 setModalMessage={props.setModalMessage}
                 isPlaying={isPlaying} setIsPlaying={setIsPlaying}
