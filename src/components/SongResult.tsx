@@ -19,13 +19,6 @@ function SongResult(props: any) {
   }
 
   const [playPauseBtn, setPlayPauseBtn] = useState(play_btn);
-  const [isInputDisabled, setIsInputDisabled] = useState(false);
-
-  if (props.currTrackId === props.id) {
-    setIsInputDisabled(false);
-  } else {
-    setIsInputDisabled(true);
-  }
 
   // This useEffect handles the play/pause btn when users changes song
   useEffect(() => {
@@ -96,8 +89,7 @@ function SongResult(props: any) {
             e.stopPropagation();
             handlePlayPauseButtonClick();
           }}>
-            <input type="image" src={playPauseBtn} disabled={isInputDisabled} className="play-pause-btn-small" alt="an icon of a pause button"></input>
-            {/* <img src={playPauseBtn} className="play-pause-btn-small" alt="an icon of a pause button"></img> */}
+            <img src={playPauseBtn} className="play-pause-btn-small" alt="an icon of a pause button"></img>
         </div>
       </div>
     </div>
