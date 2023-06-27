@@ -130,13 +130,12 @@
     padding: 10px 20px 10px 20px;
   }
 
-  /* .song-result-mobile:hover, .song-result:hover {
-    background: var(--hover-color);
-    transition: 0.2s;
-  } */
   .song-result-container:hover {
     background: var(--hover-color);
     transition: 0.2s;
+  }
+  .song-result-container:focus {
+    background: inherit;
   }
 
   .song-playlist-mobile {
