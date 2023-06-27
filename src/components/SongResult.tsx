@@ -19,7 +19,15 @@ function SongResult(props: any) {
   }
 
   const [playPauseBtn, setPlayPauseBtn] = useState(play_btn);
+  const [isInputDisabled, setIsInputDisabled] = useState(false);
 
+  if (props.currTrackId === props.id) {
+    setIsInputDisabled(false);
+  } else {
+    setIsInputDisabled(true);
+  }
+
+  // This useEffect handles the play/pause btn when users changes song
   useEffect(() => {
     console.log('currTrackId changes: ' + props.currTrackId);
     if (props.currTrackId === props.id) {
@@ -27,12 +35,14 @@ function SongResult(props: any) {
     } else {
       setPlayPauseBtn(play_btn);
     }
+    // actually dont need props.id below but if I don't include it the eslint will complain
   }, [props.currTrackId, props.id])
 
   function changeModalMessage(message: string) {
     props.setModalMessage(message);
   }
 
+  // This method handles the play/pause btn when user tries to pause the song
   const handlePlayPauseButtonClick = () => {
     console.log('handlePlayPauseButton called new')
     if (hasUserLoggedIn()) {
@@ -86,8 +96,8 @@ function SongResult(props: any) {
             e.stopPropagation();
             handlePlayPauseButtonClick();
           }}>
-          {/* <img src={play_btn} className="play-btn-small" alt="an icon of a play button"></img> */}
-            <img src={playPauseBtn} className="play-pause-btn-small" alt="an icon of a pause button"></img>
+            <input type="image" src={playPauseBtn} disabled={isInputDisabled} className="play-pause-btn-small" alt="an icon of a pause button"></input>
+            {/* <img src={playPauseBtn} className="play-pause-btn-small" alt="an icon of a pause button"></img> */}
         </div>
       </div>
     </div>
