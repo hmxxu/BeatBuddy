@@ -134,9 +134,6 @@
     background: var(--hover-color);
     transition: 0.2s;
   }
-  .song-result-container:focus {
-    background: inherit;
-  }
 
   .song-playlist-mobile {
     display: flex;

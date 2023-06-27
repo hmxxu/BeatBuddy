@@ -3,7 +3,7 @@ export function saveAccessTokenToCookie(token: string): void {
     return;
   }
 
-  const expirationDate = new Date(Date.now() + 60 * 60 * 1000); // 1 hour from now
+  const expirationDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 1 week from now
   document.cookie = `spotify_access_token=${token}; expires=${expirationDate.toUTCString()}; path=/`;
 }
 
