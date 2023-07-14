@@ -67,8 +67,7 @@ function SongResult(props: any) {
             <h4 id="title">{title}</h4>
             <p id="artist">{artist}</p>
           </div>
-          <a href={"https://open.spotify.com/track/" + props.currTrackId}
-          className={((props.design === "searchbar") ? "hidden" : "")} target="_blank" rel="noopener noreferrer">
+          <a href={"https://open.spotify.com/track/" + props.currTrackId} target="_blank" rel="noopener noreferrer">
             <img src={spotify_icon} title="Play on Spotify" className="spotify-icon-small" alt="Spotify icon"></img>
           </a>
         </div>
