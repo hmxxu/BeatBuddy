@@ -116,7 +116,7 @@ function SearchBar(props:any) {
             // * for searchbar design, show song-result-mobile, hide song-playlist-mobile
             <SongResult design="searchbar" onClick={() => {handleSongClick(song)}}
             key={song.id}
-            id = {song.id} src={song.imgUrl}
+            currTrackId = {song.id} src={song.imgUrl}
             artist={song.artist} title={song.title} />
           ))
         }
