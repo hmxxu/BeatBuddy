@@ -221,11 +221,12 @@ dialog::backdrop {
     justify-items: center;
   }
 
-  .song-result-container >.song-result-mobile {
+  .song-result-container > .song-result-mobile {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-left: 30px;
-    padding-right: 30px;
+    /* padding-right: 30px; */
   }
 
   .mobile-hidden {

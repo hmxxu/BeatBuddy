@@ -76,6 +76,9 @@ function SongResult(props: any) {
       {/* This is for search bar mobile */}
       <div className={"song-result-mobile" + ((props.design === "searchbar") ? "" : " hidden")} onClick={props.onClick}>
         <p id="artist-title" className="semi-bold">{artist} - {title}</p>
+        <a href={"https://open.spotify.com/track/" + props.currTrackId} target="_blank" rel="noopener noreferrer">
+            <img src={spotify_icon} title="Play on Spotify" className="spotify-icon-small" alt="Spotify icon"></img>
+        </a>
       </div>
 
       {/* The code below is for mobile */}
