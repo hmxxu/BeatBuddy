@@ -87,7 +87,7 @@ function SongResult(props: any) {
           <p className="bold">{title}</p>
           <p>{artist}</p>
         </div>
-        <div className="play-btn-container-small" onClickCapture={function (e: any) {
+        <div className="play-btn-container-small" onClick={function (e: any) {
             e.stopPropagation();
             handlePlayPauseButtonClick();
           }}>
