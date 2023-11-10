@@ -8,7 +8,6 @@ const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI_PROD;
 const AUTHORIZATION_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const SCOPE = 'user-read-private \
-               user-read-email \
                playlist-modify-public \
                playlist-modify-private \
                user-library-read \
