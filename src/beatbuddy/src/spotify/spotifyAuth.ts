@@ -10,8 +10,6 @@ const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const SCOPE = 'user-read-private \
                playlist-modify-public \
                playlist-modify-private \
-               user-library-modify \
-               user-read-playback-state \
                streaming';
 
 /**
