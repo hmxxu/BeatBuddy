@@ -8,6 +8,25 @@ let playbackPosition: number | undefined;
 
 const tracksWithoutPreview: Set<string> = new Set();
 
+
+async function refreshSpotifyAccessToken() {
+  const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+  const clientSecret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
+  const encodedCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+
+  const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': `Basic ${encodedCredentials}`
+    },
+    body: 'grant_type=client_credentials'
+  });
+
+  const tokenData = await tokenResponse.json();
+  return tokenData.access_token;
+}
+
 export async function playSong(trackId: string) {
   try {
     if (tracksWithoutPreview.has(trackId)) {
@@ -25,6 +44,8 @@ export async function playSong(trackId: string) {
     });
 
     if (!response.ok) {
+      const errorDetail = await response.json();
+      console.error('Error fetching track:', errorDetail);
       throw new Error(`Failed to retrieve track data: ${response.status} ${response.statusText}`);
     }
 

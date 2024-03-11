@@ -16,10 +16,10 @@ function Navbar() {
   useEffect(() => {
     const checkCookieCleared = () => {
       if (!document.cookie.includes('spotify_access_token')) {
-        console.log('cookie is cleared')
+        // console.log('cookie is cleared')
         setCookieCleared(true);
       } else {
-        console.log('cookie is not cleared')
+        // console.log('cookie is not cleared')
         setCookieCleared(false);
       }
     };

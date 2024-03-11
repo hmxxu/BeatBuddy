@@ -22,7 +22,6 @@ function SongResult(props: any) {
 
   // This useEffect handles the play/pause btn when users changes song
   useEffect(() => {
-    console.log('currTrackId changes: ' + props.currTrackId);
     if (props.currTrackId === props.id) {
       setPlayPauseBtn(pause_btn);
     } else {
