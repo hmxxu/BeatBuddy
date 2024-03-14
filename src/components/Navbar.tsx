@@ -7,7 +7,7 @@ import logo_small from '../images/beatbuddy-logo-small.svg';
 import logout_btn from '../images/logout-btn.png';
 import login_btn from '../images/login-btn.png';
 import { loginInFromFrontPage, hideLoginContainer, showSearchContainer } from '../utils';
-import { getAccessTokenFromCookie, clearAccessToken } from '../beatbuddy/src/spotify/tokenCookies';
+import { getAccessTokenFromCookie, clearToken } from '../beatbuddy/src/spotify/tokenCookies';
 import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
 
 function Navbar() {
@@ -34,7 +34,7 @@ function Navbar() {
         <img src={logo_large} alt='BeatBuddy logo' id='navbar-logo'></img>
       </a>
       {!cookieCleared ?
-        <button className="logout-container" onClick={clearAccessToken}>
+        <button className="logout-container" onClick={clearToken}>
           <img src={logout_btn} alt='Logout' id='logout-icon'></img>
           <span id='logout-txt'>Logout</span>
         </button>

@@ -1,5 +1,5 @@
 // * Contains global methods accessible by all files
-import { clearAccessToken, getAccessTokenFromCookie } from './beatbuddy/src/spotify/tokenCookies';
+import { clearToken, getAccessTokenFromCookie } from './beatbuddy/src/spotify/tokenCookies';
 import { authorizeWithSpotify } from './beatbuddy/src/spotify/spotifyAuth';
 
 /**

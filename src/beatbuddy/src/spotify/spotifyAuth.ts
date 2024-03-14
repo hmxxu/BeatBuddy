@@ -28,7 +28,7 @@ export async function authorizeWithSpotify(): Promise<void> {
   if (code) {
     try {
       const token = await exchangeCodeForAccessToken(code);
-      saveAccessTokenToCookie(token);
+      saveAccessTokenToCookie(token.access_token, token.refresh_token);
       return;
     } catch (error) {
       console.error(error);
@@ -52,7 +52,7 @@ export async function authorizeWithSpotify(): Promise<void> {
  * @param code The authorization code returned by the Spotify Accounts service
  * @returns The access token that can be used to make requests to the Spotify Web API on behalf of the user
  */
-export async function exchangeCodeForAccessToken(code: string): Promise<string> {
+export async function exchangeCodeForAccessToken(code: string): Promise<any> {
   const data = new URLSearchParams({
     grant_type: 'authorization_code',
     code: code,
@@ -69,7 +69,8 @@ export async function exchangeCodeForAccessToken(code: string): Promise<string> 
     body: data
   });
 
-  const token = (await response.json()).access_token;
+  // const token = (await response.json()).access_token;
+  const token = (await response.json());
   return token;
 }
 

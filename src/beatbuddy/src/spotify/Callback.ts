@@ -32,7 +32,7 @@ export function Callback(): any {
       if (code) {
         try {
           const token = await exchangeCodeForAccessToken(code);
-          saveAccessTokenToCookie(token);
+          saveAccessTokenToCookie(token.access_token, token.refresh_token);
           navigate('/BeatBuddy/');
         } catch (error) {
           console.error(error);
