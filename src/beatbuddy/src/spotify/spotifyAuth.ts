@@ -4,7 +4,7 @@ import { saveAccessTokenToCookie, getAccessTokenFromCookie } from './tokenCookie
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI_PROD;
-console.log(REDIRECT_URI);
+console.log("Redirect URI: " + REDIRECT_URI);
 
 const AUTHORIZATION_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
