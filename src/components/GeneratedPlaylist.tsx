@@ -52,17 +52,32 @@ function padZero(number: number) {
 }
 
 export function noSongPreviewMsg() {
-  const msg = document.getElementById("no-preview-msg");
-  if (msg) {
-    msg.innerText = "No preview of the song available.";
-    msg.style.display = "block";
+  // const msg = document.getElementById("no-preview-msg");
+  const msgList = document.querySelectorAll("#no-preview-msg");
+  if (msgList) {
+    msgList.forEach((item) => {
+      const htmlItem = item as HTMLElement;
+      htmlItem.innerText = "No preview of the song available";
+      htmlItem.style.display = "block";
+    })
   }
+  // if (msg) {
+  //   msg.innerText = "No preview of the song available.";
+  //   msg.style.display = "block";
+  // }
 }
 
 export function removePreviewMsg() {
-  const msg = document.getElementById("no-preview-msg");
-  if (msg) {
-    msg.style.display = "none";
+  // const msg = document.getElementById("no-preview-msg");
+  // if (msg) {
+  //   msg.style.display = "none";
+  // }
+  const msgList = document.querySelectorAll("#no-preview-msg");
+  if (msgList) {
+    msgList.forEach((item) => {
+      const htmlItem = item as HTMLElement;
+      htmlItem.style.display = "none";
+    })
   }
 }
 
@@ -88,6 +103,20 @@ function GeneratedPlaylist(props: any) {
   const [currEnergy, setEnergy] = useState(0);
   const [currValence, setValence] = useState(0);
   const [currDance, setDance] = useState(0);
+
+  // * Custom event listener from getSong.ts to visually change the button when audio has ended
+  useEffect(() => {
+    const handleAudioEnded = (e: any) => {
+      if (e.detail.action) {
+        setIsPlaying(false);
+      }
+    };
+    window.addEventListener('audioEnded', handleAudioEnded);
+
+    return () => {
+      window.removeEventListener('audioEnded', handleAudioEnded);
+    };
+  }, []);
 
   /**
    * Upon the recArray change (when new playlist is generated),
@@ -132,6 +161,7 @@ function GeneratedPlaylist(props: any) {
     processImage(songImg);
 
     // playing preview of songs
+    console.log('handeSongClick')
     handleSongProgressBar();
     removePreviewMsg();
 
@@ -140,6 +170,7 @@ function GeneratedPlaylist(props: any) {
 
   function handleSongChange(currentTrackId: any) {
     if (hasUserLoggedIn()) {
+      console.log('hande song change...');
       setIsPlaying(true);
       playSong(currentTrackId);
     } else {
@@ -150,13 +181,21 @@ function GeneratedPlaylist(props: any) {
   }
 
   function handleSongProgressBar() {
+    console.log('handleSongProgressBar');
     // Reset the song progress bar and display the play button
     const progressBar = document.getElementById('progress-bar');
+    const progressBarMobile = document.getElementById('progress-bar-mobile');
     const songTimeElement = document.getElementById('song-time');
+    const songTimeElementMobile = document.getElementById('song-time-mobile');
     if (progressBar && songTimeElement) {
       progressBar.style.width = '0%';
       progressBar.innerText = '';
       songTimeElement.innerText = "";
+      if (progressBarMobile && songTimeElementMobile) {
+        progressBarMobile.style.width = '0%';
+        progressBarMobile.innerText = '';
+        songTimeElementMobile.innerText = "";
+      }
     }
   }
 
@@ -187,7 +226,6 @@ function GeneratedPlaylist(props: any) {
   function saveCurrentPlaylist(playlistName: string, currPlaylist: SearchResult[]) {
 
     if (hasUserLoggedIn()) {
-      // TODO: Replace MyTestSavedPLaylist with value from generatePlaylistName()
       createSpotifyPlaylist(playlistName, currPlaylist);
       changeModalMessage("Your playlist has been \n saved to Spotify! 🎉");
       openModal();
@@ -225,6 +263,7 @@ function GeneratedPlaylist(props: any) {
     hidePlaylistContainer();
     showSearchContainer();
     showWebsiteIntro();
+    stopSong();
     document.documentElement.style.setProperty("--body-color", "linear-gradient(#6380E8, #A9A2FF)");
     document.documentElement.style.setProperty("--hover-color", "#9E98FE");
     document.documentElement.style.setProperty("--play-btn-color", "#6481E8");
