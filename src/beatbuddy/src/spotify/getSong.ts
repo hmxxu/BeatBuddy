@@ -1,7 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import { getSpotifyClient } from './spotifyAuth';
 import { noSongPreviewMsg, updateProgressBar } from '../../../components/GeneratedPlaylist';
-import { useEffect } from 'react';
+
 
 let audio: HTMLAudioElement | undefined;
 let playbackPosition: number | undefined;
@@ -54,6 +54,13 @@ export async function playSong(trackId: string) {
       audio.addEventListener('timeupdate', () => {
         updateProgressBar(audio);
       });
+
+      audio.addEventListener('ended', () => {
+        // * Custom event listener for when audio has ended
+        // * --> to be used with the react components
+        const event = new CustomEvent('audioEnded', {detail: { action: true }});
+        window.dispatchEvent(event);
+      })
 
       audio.volume = 0.15;
       audio.play();

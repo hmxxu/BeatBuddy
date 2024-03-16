@@ -3,9 +3,10 @@ import play_btn from './../images/play-btn.png';
 import pause_btn from '../images/pause-btn.png';
 import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import { hasUserLoggedIn } from './GeneratedPlaylist';
-import {openModal} from '../utils';
+import { openModal } from '../utils';
 import { playSong, pauseSong, stopSong } from '../beatbuddy/src/spotify/getSong';
 import spotify_icon from '../images/spotify-icon.png';
+
 
 function SongResult(props: any) {
 
@@ -34,9 +35,23 @@ function SongResult(props: any) {
     props.setModalMessage(message);
   }
 
+  // * Custom event listener from getSong.ts to visually change the button when audio has ended
+  useEffect(() => {
+    const handleAudioEnded = (e: any) => {
+      if (e.detail.action) {
+        console.log('PLAY BTN HAS BEEN SET');
+        setPlayPauseBtn(play_btn);
+      }
+    };
+    window.addEventListener('audioEnded', handleAudioEnded);
+
+    return () => {
+      window.removeEventListener('audioEnded', handleAudioEnded);
+    };
+  }, []);
+
   // This method handles the play/pause btn when user tries to pause the song
   const handlePlayPauseButtonClick = () => {
-    console.log('handlePlayPauseButton called new')
     if (hasUserLoggedIn()) {
       if (props.isPlaying) {
         props.setIsPlaying(false);

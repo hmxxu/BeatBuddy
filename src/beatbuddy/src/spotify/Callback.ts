@@ -16,6 +16,8 @@ export function Callback(): any {
 
   useEffect(() => {
     const token = getAccessTokenFromCookie();
+    console.log("token");
+    console.log(token);
 
     // If the user is logged into Spotify
     if (token) {
