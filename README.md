@@ -25,16 +25,6 @@ BeatBuddy is an app that tailors recommendations much more closely to your prefe
 
 ## User Manual 
 
----------------------------------------------------------------------------------------------------------------------------------------------------
-
-**Update 6/5/23:** We are still waiting for Spotify to approve our API quota extension request. As a result, only whitelisted users are able to use the full functionality of the app. To try out the app with full access, please use our demo account when clicking on the "login for full access" button:
-
-Email: clamshell991@gmail.com
-
-Password: 3AM6ztH+wn429m
-
----------------------------------------------------------------------------------------------------------------------------------------------------
-
 Try out BeatBuddy at https://hmxxu.github.io/BeatBuddy/! No installation or set up needed.
 
 BeatBuddy offers a new way to discover songs on Spotify. Our unique recommendation algorithm utilizes the song's audio features (ex. energy, danceability, acousticness, etc.) to build a playlist of aurally similar songs! Furthermore, users can customize the playlist by filtering based on the decade (ex. 90's songs only) and genre (ex. Bossanova only) and add the generated playlist to their Spotify account. 
