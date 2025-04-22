@@ -239,10 +239,10 @@ dialog::backdrop {
   #navbar-logo {
     margin-left: 2vw !important;
   }
-  .logout-container {
+  .logout-in-container {
     margin-right: 2vw !important;
   }
-  #logout-icon {
+  #logout-icon, #login-icon {
     display: none !important;
   }
 

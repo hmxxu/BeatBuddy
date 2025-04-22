@@ -2,18 +2,17 @@ import '../styles/navbar.css';
 
 import React from 'react';
 import { useState, useEffect } from 'react';
-import logo_large from '../images/beatbuddy-logo-large.png';
-import logo_small from '../images/beatbuddy-logo-small.svg';
+import logo_large from '../images/beatbuddy-logo-large.svg';
 import logout_btn from '../images/logout-btn.png';
 import login_btn from '../images/login-btn.png';
 import { loginInFromFrontPage, hideLoginContainer, showSearchContainer } from '../utils';
-import { getAccessTokenFromCookie, clearToken } from '../beatbuddy/src/spotify/tokenCookies';
-import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
+import { clearToken, refreshTokenIfNeeded } from '../beatbuddy/src/spotify/tokenCookies';
 
 function Navbar() {
   const [cookieCleared, setCookieCleared] = useState(false);
 
   useEffect(() => {
+    refreshTokenIfNeeded();
     const checkCookieCleared = () => {
       if (!document.cookie.includes('spotify_access_token')) {
         // console.log('cookie is cleared')
@@ -24,8 +23,8 @@ function Navbar() {
       }
     };
     checkCookieCleared();
-    // check if cookie is cleared every 1 second
-    setTimeout(checkCookieCleared, 1000);
+    // check if cookie is cleared every 0.5 second
+    setTimeout(checkCookieCleared, 500);
   }, [])
 
   return(
@@ -34,14 +33,14 @@ function Navbar() {
         <img src={logo_large} alt='BeatBuddy logo' id='navbar-logo'></img>
       </a>
       {!cookieCleared ?
-        <button className="logout-container" onClick={clearToken}>
-          <img src={logout_btn} alt='Logout' id='logout-icon'></img>
+        <button className="logout-in-container" onClick={clearToken}>
+          <img src={logout_btn} alt="" aria-hidden="true" id='logout-icon'></img>
           <span id='logout-txt'>Logout</span>
         </button>
       :
-        <button className="logout-container" onClick={loginInFromFrontPage}>
-          <img src={login_btn} alt='Logout' id='logout-icon'></img>
-          <span id='logout-txt'>Login</span>
+        <button className="logout-in-container" onClick={loginInFromFrontPage}>
+          <img src={login_btn} alt="" aria-hidden="true" id='login-icon'></img>
+          <span id='login-txt'>Login</span>
         </button>
       }
 

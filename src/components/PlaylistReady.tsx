@@ -8,9 +8,6 @@ import MoodButtons from './MoodButtons';
 import { Mood, moodRec } from '../beatbuddy/src/recommendation/RecommendSongs';
 import logo_large from '../images/beatbuddy-logo-large.svg';
 import spotify_icon from '../images/spotify-icon.png';
-import spotify_icon_official from '../images/spotify-icon-official.png';
-import { authorizeWithSpotify } from '../beatbuddy/src/spotify/spotifyAuth';
-import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import { hasUserLoggedIn } from './GeneratedPlaylist';
 
 
@@ -117,7 +114,7 @@ function PlaylistReady() {
     <div>
       {/* Website Intro */}
       <div id="website-intro">
-        <object data={logo_large} type="image/svg+xml" aria-labelledby="BeatBuddy logo" id="beatbuddy-home"></object>
+        <object data={logo_large} type="image/svg+xml" aria-label="BeatBuddy logo" id="beatbuddy-home"></object>
         <h1 id="beatbuddy-desc" className="regular">BeatBuddy crafts personalized playlists that perfectly match your unique music taste!</h1>
         <div id="login-container">
           <button id="login-to-spotify" className="spotify-theme" onClick={loginInFromFrontPage}>

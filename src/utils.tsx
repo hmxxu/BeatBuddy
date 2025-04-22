@@ -142,8 +142,6 @@ export function clearMoodButtons() {
 export async function loginInFromFrontPage() {
   let accessCode = getAccessTokenFromCookie();
   // if user is logged into Spotify
-  console.log('accessCode');
-  console.log(accessCode);
   if (accessCode !== null && accessCode != "undefined") {
     hideLoginContainer();
     showSearchContainer();

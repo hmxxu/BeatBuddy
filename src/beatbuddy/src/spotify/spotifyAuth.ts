@@ -1,10 +1,9 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import { saveAccessTokenToCookie, getAccessTokenFromCookie } from './tokenCookies';
+import { saveTokenToCookie, getAccessTokenFromCookie } from './tokenCookies';
 
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI_PROD;
-console.log("Redirect URI: " + REDIRECT_URI);
 
 const AUTHORIZATION_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
@@ -29,7 +28,7 @@ export async function authorizeWithSpotify(): Promise<void> {
   if (code) {
     try {
       const token = await exchangeCodeForAccessToken(code);
-      saveAccessTokenToCookie(token.access_token, token.refresh_token);
+      saveTokenToCookie(token.access_token, token.refresh_token);
       return;
     } catch (error) {
       console.error(error);
@@ -46,6 +45,9 @@ export async function authorizeWithSpotify(): Promise<void> {
 
   const authorizationUrl = `${AUTHORIZATION_ENDPOINT}?${queryParams}`;
   window.location.replace(authorizationUrl);
+
+  const event = new CustomEvent('loginlogout', {detail: { action: true }});
+  window.dispatchEvent(event);
 }
 
 /**

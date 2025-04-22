@@ -7,7 +7,6 @@ import './styles/App.css';
 
 function App(props: any) {
   // props is an Object
-  console.log(props);
   let subject = props.subject;
   return (
     <div className="App">

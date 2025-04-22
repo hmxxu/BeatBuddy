@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { authorizeWithSpotify, exchangeCodeForAccessToken } from './spotifyAuth';
-import { getAccessTokenFromCookie, saveAccessTokenToCookie } from './tokenCookies';
+import { getAccessTokenFromCookie, saveTokenToCookie } from './tokenCookies';
 import { hideLoginContainer, showSearchContainer } from '../../../utils';
 /**
  * Callback component that handles the Spotify authentication callback.
@@ -16,14 +16,12 @@ export function Callback(): any {
 
   useEffect(() => {
     const token = getAccessTokenFromCookie();
-    console.log("token");
-    console.log(token);
+    console.log("token: " + token);
 
     // If the user is logged into Spotify
     if (token) {
       hideLoginContainer();
       showSearchContainer();
-      console.log('setting')
       return;
     }
 
@@ -34,7 +32,7 @@ export function Callback(): any {
       if (code) {
         try {
           const token = await exchangeCodeForAccessToken(code);
-          saveAccessTokenToCookie(token.access_token, token.refresh_token);
+          saveTokenToCookie(token.access_token, token.refresh_token);
           navigate('/BeatBuddy/');
         } catch (error) {
           console.error(error);

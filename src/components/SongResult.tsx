@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import play_btn from './../images/play-btn.png';
 import pause_btn from '../images/pause-btn.png';
-import { getAccessTokenFromCookie } from '../beatbuddy/src/spotify/tokenCookies';
 import { hasUserLoggedIn } from './GeneratedPlaylist';
 import { openModal } from '../utils';
 import { playSong, pauseSong, stopSong } from '../beatbuddy/src/spotify/getSong';
@@ -39,7 +38,6 @@ function SongResult(props: any) {
   useEffect(() => {
     const handleAudioEnded = (e: any) => {
       if (e.detail.action) {
-        console.log('PLAY BTN HAS BEEN SET');
         setPlayPauseBtn(play_btn);
       }
     };

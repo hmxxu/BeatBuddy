@@ -139,7 +139,6 @@ function GeneratedPlaylist(props: any) {
   * @param song - Song array arranged like [artist, song, genre]
   */
   async function handleSongClick(song: any) {
-    console.log('handleSongClick called');
 
     stopSong(); // Stop the currently playing song
     setIsPlaying(false); // Reset the isPlaying state to false
@@ -161,7 +160,6 @@ function GeneratedPlaylist(props: any) {
     processImage(songImg);
 
     // playing preview of songs
-    console.log('handeSongClick')
     handleSongProgressBar();
     removePreviewMsg();
 
@@ -170,7 +168,6 @@ function GeneratedPlaylist(props: any) {
 
   function handleSongChange(currentTrackId: any) {
     if (hasUserLoggedIn()) {
-      console.log('hande song change...');
       setIsPlaying(true);
       playSong(currentTrackId);
     } else {
@@ -181,7 +178,6 @@ function GeneratedPlaylist(props: any) {
   }
 
   function handleSongProgressBar() {
-    console.log('handleSongProgressBar');
     // Reset the song progress bar and display the play button
     const progressBar = document.getElementById('progress-bar');
     const progressBarMobile = document.getElementById('progress-bar-mobile');
